@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Yves Claudio Blischke – Betriebswirt IHK. Kaufmännische Unterstützung und betriebswirtschaftliche Beratung für Selbstständige und kleine Unternehmen in Rheinfelden.">
+  <title>Yves Claudio Blischke – Betriebswirt IHK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1B2F5E;
+      --navy2:  #243d78;
+      --gold:   #C8963C;
+      --gold2:  #e0aa4a;
+      --bg:     #F7F8FC;
+      --bg2:    #ffffff;
+      --text:   #2D3748;
+      --muted:  #718096;
+      --border: #E2E8F0;
+      --radius: 10px;
+      --shadow: 0 4px 24px rgba(27,47,94,.10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg2); line-height: 1.65; }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav { position: fixed; top: 0; left: 0; right: 0; background: #ffffff; box-shadow: 0 2px 12px rgba(27,47,94,.10); z-index: 1000; padding: 0 2rem; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo img { height: 33px; }
+    .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-links a { color: var(--navy); text-decoration: none; font-size: .875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { background: var(--navy); color: #fff !important; padding: .4rem 1.1rem; border-radius: 6px; }
+    .nav-cta:hover { background: var(--navy2) !important; color: #fff !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; }
+
+    /* ── HERO ────────────────────────────────────────── */
+    #start {
+      background: #ffffff;
+      color: var(--text);
+      padding: 110px 2rem 80px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .hero-photo {
+      display: flex;
+      justify-content: center;
+    }
+    .hero-photo img {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      object-fit: cover;
+    }
+    .hero-badge { display: inline-block; background: rgba(200,150,60,.12); border: 1px solid rgba(200,150,60,.4); color: var(--gold); font-size: .78rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: .35rem 1rem; border-radius: 20px; margin-bottom: 1.4rem; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.9rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; color: var(--navy); }
+    .hero-title span { color: var(--gold); }
+    .hero-sub { font-size: 1rem; color: var(--muted); max-width: 480px; margin-bottom: 1.4rem; }
+    .hero-signature { margin-bottom: 2rem; max-width: 280px; }
+    .hero-signature img { width: 100%; }
+    .btn { display: inline-block; padding: .85rem 2.2rem; border-radius: 8px; font-weight: 600; font-size: .95rem; text-decoration: none; transition: all .2s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--gold); color: #fff; }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--border); margin-left: .8rem; }
+    .btn-outline:hover { border-color: var(--navy); }
+
+    /* ── SECTIONS ────────────────────────────────────── */
+    section { padding: 90px 2rem; }
+    section:nth-of-type(even) { background: var(--bg); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-tag { display: inline-block; color: var(--gold); font-size: .78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: .6rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
+    .section-sub { color: var(--muted); font-size: 1rem; max-width: 580px; margin-bottom: 3rem; }
+
+    /* ── ÜBER MICH ───────────────────────────────────── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 4rem; align-items: start; }
+    .about-certs { display: flex; gap: 1rem; }
+    .about-certs img { flex: 1; max-width: 48%; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+    .about-text strong { color: var(--text); }
+    .cred-chips { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.4rem; }
+    .cred-chip { background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: .3rem .9rem; font-size: .82rem; font-weight: 600; color: var(--navy); }
+
+    /* ── LEISTUNGEN ──────────────────────────────────── */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+    .service-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.6rem 1.4rem; text-align: center; transition: all .25s; }
+    .service-card:hover { border-color: var(--gold); box-shadow: 0 8px 30px rgba(27,47,94,.12); transform: translateY(-3px); }
+    .service-card img { width: 80px; height: 80px; object-fit: contain; margin-bottom: .8rem; }
+    .service-card h3 { font-size: .95rem; font-weight: 600; color: var(--navy); }
+    .service-card p { font-size: .82rem; color: var(--muted); margin-top: .4rem; }
+
+    /* ── VORTEILE ────────────────────────────────────── */
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.6rem; }
+    .benefit-card { background: var(--bg2); border-radius: var(--radius); padding: 1.8rem; border-left: 4px solid var(--gold); box-shadow: var(--shadow); }
+    .benefit-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: .5rem; }
+    .benefit-card p { font-size: .9rem; color: var(--muted); }
+
+    /* ── PREISE ──────────────────────────────────────── */
+    .pricing-wrapper { display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; }
+    .pricing-card { flex: 1; min-width: 280px; background: var(--navy); color: #fff; border-radius: var(--radius); padding: 2.5rem; box-shadow: var(--shadow); }
+    .pricing-amount { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 700; color: var(--gold); line-height: 1; }
+    .pricing-amount sup { font-size: 1.5rem; vertical-align: top; margin-top: .6rem; display: inline-block; }
+    .pricing-amount sub { font-size: 1rem; color: rgba(255,255,255,.6); }
+    .pricing-note { font-size: .82rem; color: rgba(255,255,255,.55); margin-top: .3rem; }
+    .pricing-list { list-style: none; margin: 1.8rem 0; display: flex; flex-direction: column; gap: .7rem; }
+    .pricing-list li { font-size: .9rem; color: rgba(255,255,255,.82); display: flex; align-items: flex-start; gap: .6rem; }
+    .pricing-list li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .pricing-info { flex: 1.2; min-width: 280px; }
+    .pricing-info h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
+    .info-row { display: flex; gap: .8rem; margin-bottom: .8rem; align-items: flex-start; font-size: .9rem; }
+    .info-row .icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+    .info-row strong { color: var(--navy); display: block; }
+    .info-row span { color: var(--muted); }
+
+    /* ── PROZESS ─────────────────────────────────────── */
+    .process-steps { display: flex; flex-direction: column; gap: 0; max-width: 680px; margin: 0 auto; }
+    .process-step { display: flex; gap: 1.6rem; align-items: flex-start; }
+    .step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .step-dot { width: 44px; height: 44px; border-radius: 50%; background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .95rem; flex-shrink: 0; }
+    .step-connector { width: 2px; flex: 1; min-height: 40px; background: var(--border); }
+    .process-step:last-child .step-connector { display: none; }
+    .step-content { padding-bottom: 2.5rem; text-align: left; }
+    .step-content h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: .3rem; }
+    .step-content p { font-size: .9rem; color: var(--muted); }
+
+    /* ── REFERENZEN ──────────────────────────────────── */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.6rem; }
+    .testimonial-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.8rem; box-shadow: var(--shadow); position: relative; }
+    .testimonial-card::before { content: '"'; font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--gold); opacity: .25; position: absolute; top: .5rem; left: 1.2rem; line-height: 1; }
+    .testimonial-text { font-size: .92rem; color: var(--text); font-style: italic; margin-bottom: 1.2rem; position: relative; z-index: 1; }
+    .testimonial-footer { display: flex; align-items: center; gap: .9rem; }
+    .testimonial-photo { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
+    .testimonial-author { font-size: .82rem; font-weight: 700; color: var(--navy); }
+    .testimonial-role { font-size: .78rem; color: var(--muted); }
+    .referenzen-note { text-align: center; margin-top: 2rem; color: var(--muted); font-size: .88rem; }
+
+    /* ── KONTAKT ─────────────────────────────────────── */
+    #kontakt { background: var(--navy); color: #fff; }
+    #kontakt .section-title { color: #fff; }
+    #kontakt .section-sub { color: rgba(255,255,255,.65); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
+    .contact-info h3 { font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 1.4rem; }
+    .contact-detail { display: flex; align-items: flex-start; gap: .9rem; margin-bottom: 1.1rem; }
+    .contact-detail .icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+    .contact-detail strong { display: block; font-size: .82rem; color: rgba(255,255,255,.5); margin-bottom: .1rem; }
+    .contact-detail a, .contact-detail span { color: rgba(255,255,255,.88); text-decoration: none; font-size: .92rem; }
+    .contact-detail a:hover { color: var(--gold); }
+
+    /* ── FORMULAR ────────────────────────────────────── */
+    .contact-form { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); padding: 2.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label { display: block; font-size: .82rem; font-weight: 600; color: rgba(255,255,255,.7); margin-bottom: .4rem; }
+    .form-group label .req { color: var(--gold); margin-left: 2px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 7px; color: #fff; font-family: 'Inter', sans-serif; font-size: .9rem; padding: .7rem 1rem; transition: border-color .2s; outline: none; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,.3); }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-group select option { background: var(--navy); }
+    .form-check { display: flex; align-items: flex-start; gap: .7rem; margin-bottom: 1.4rem; }
+    .form-check input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: var(--gold); cursor: pointer; }
+    .form-check label { font-size: .82rem; color: rgba(255,255,255,.65); line-height: 1.5; cursor: pointer; }
+    .form-check label a { color: var(--gold); }
+    .form-msg { display: none; padding: .8rem 1rem; border-radius: 7px; font-size: .88rem; margin-bottom: 1rem; }
+    .form-msg.success { background: rgba(72,187,120,.2); border: 1px solid rgba(72,187,120,.4); color: #9ae6b4; display: block; }
+    .form-msg.error   { background: rgba(245,101,101,.2); border: 1px solid rgba(245,101,101,.4); color: #fc8181; display: block; }
+    .btn-submit { width: 100%; padding: .9rem; background: var(--gold); color: #fff; border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 700; cursor: pointer; transition: all .2s; }
+    .btn-submit:hover { background: var(--gold2); }
+    .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer { background: #111827; color: rgba(255,255,255,.5); padding: 2rem; text-align: center; font-size: .83rem; }
+    .footer-links { display: flex; justify-content: center; gap: 1.4rem; margin-bottom: .8rem; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255,255,255,.5); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── MODAL ───────────────────────────────────────── */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 2000; padding: 2rem; overflow-y: auto; }
+    .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+    .modal-box { background: #fff; border-radius: var(--radius); max-width: 720px; width: 100%; padding: 2.5rem; position: relative; margin: auto; }
+    .modal-close { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--muted); line-height: 1; }
+    .modal-box h2 { font-family: 'Playfair Display', serif; color: var(--navy); margin-bottom: 1.4rem; font-size: 1.5rem; }
+    .modal-box h3 { color: var(--navy); font-size: 1rem; margin: 1.4rem 0 .5rem; }
+    .modal-box p, .modal-box li { font-size: .9rem; color: var(--muted); line-height: 1.7; }
+    .modal-box ul { padding-left: 1.2rem; margin-bottom: .6rem; }
+    .modal-box strong { color: var(--text); }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: #fff; box-shadow: 0 8px 16px rgba(27,47,94,.10); padding: 1rem 2rem 1.5rem; gap: 1rem; }
+      .hamburger { display: flex; }
+      .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-photo { order: -1; }
+      .hero-photo img { max-width: 280px; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .pricing-wrapper { flex-direction: column; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      section { padding: 60px 1.2rem; }
+      #start { padding: 90px 1.2rem 60px; }
+    }
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#start"><img src="img/Logo-pictogram-YCB-1-89x33.png" alt="YCB Logo" class="nav-logo" style="height:33px;"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#ueber-mich">Über mich</a></li>
+      <li><a href="#leistungen">Leistungen</a></li>
+      <li><a href="#vorteile">Vorteile</a></li>
+      <li><a href="#preise">Preise</a></li>
+      <li><a href="#referenzen">Referenzen</a></li>
+      <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="start">
+  <div class="hero-grid">
+    <div class="hero-photo">
+      <img src="img/LinkedINReferenz-Foto-e1747710126642-1024x1024.jpg" alt="Yves Claudio Blischke">
+    </div>
+    <div class="hero-text">
+      <div class="hero-badge">Betriebswirt IHK · Kaufmännische Beratung</div>
+      <h1 class="hero-title">Gemeinsam zum<br><span>unternehmerischen Erfolg</span></h1>
+      <p class="hero-sub">Willkommen – schön, dass Sie da sind! Hier finden Sie Unterstützung, Ideen und Lösungen rund um Betriebswirtschaft und kaufmännische Aufgaben.</p>
+      <div class="hero-signature">
+        <img src="img/handschrift-1-e1747663286594-1024x77.png" alt="Unterschrift Yves Claudio Blischke">
+      </div>
+      <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+      <a href="#leistungen" class="btn btn-outline">Leistungen ansehen</a>
+    </div>
+  </div>
+</section>
+
+<!-- ÜBER MICH -->
+<section id="ueber-mich">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <p class="section-tag">Qualifikationen</p>
+        <div class="about-certs">
+          <img src="img/png-Handelsfachwirt-746x1024.png" alt="Zeugnis Handelsfachwirt">
+          <img src="img/png-mpbm-741x1024.png" alt="Zeugnis Betriebswirt IHK">
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-tag">Über mich</div>
+        <h2 class="section-title">Yves Claudio Blischke</h2>
+        <p>Als <strong>geprüfter Handelsfachwirt und Betriebswirt (IHK)</strong> bringe ich solides Wissen, eine strukturierte Arbeitsweise und ein echtes Interesse an wirtschaftlichen Zusammenhängen mit.</p>
+        <p>Mir sind klare Abläufe, saubere Zahlen und unkomplizierte Kommunikation wichtig. Meine Motivation ist Ihr unternehmerischer Erfolg.</p>
+        <p>Ich unterstütze Selbstständige und kleine Unternehmen zuverlässig bei kaufmännischen Aufgaben – flexibel, transparent und ohne langfristige Vertragsbindung.</p>
+        <div class="cred-chips">
+          <span class="cred-chip">Betriebswirt IHK</span>
+          <span class="cred-chip">Handelsfachwirt</span>
+          <span class="cred-chip">Controlling</span>
+          <span class="cred-chip">Businessplanung</span>
+          <span class="cred-chip">Vorbereitende Buchhaltung</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEISTUNGEN -->
+<section id="leistungen">
+  <div class="container">
+    <div class="section-tag">Leistungen</div>
+    <h2 class="section-title">Mehr als Standard</h2>
+    <p class="section-sub">Individuelle kaufmännische Lösungen für Ihre Bedürfnisse – von der Rechnungsstellung bis zum Businessplan.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <img src="img/Datenpflege-1.png" alt="Datenpflege">
+        <h3>Datenpflege</h3>
+        <p>Strukturierte Erfassung und Pflege Ihrer Geschäftsdaten</p>
+      </div>
+      <div class="service-card">
+        <img src="img/Angebotskalkulation-6.png" alt="Angebotskalkulation">
+        <h3>Angebotskalkulation</h3>
+        <p>Präzise Kalkulation Ihrer Angebote und Leistungen</p>
+      </div>
+      <div class="service-card">
+        <img src="img/Buchhaltung-vorbereiten-1.png" alt="Buchhaltung vorbereiten">
+        <h3>Vorbereitende Buchhaltung</h3>
+        <p>Belege sortieren, erfassen und für den Steuerberater aufbereiten</p>
+      </div>
+      <div class="service-card">
+        <img src="img/Terminmanagement-1.png" alt="Terminmanagement">
+        <h3>Terminmanagement</h3>
+        <p>Professionelle Planung und Koordination Ihrer Termine</p>
+      </div>
+      <div class="service-card">
+        <img src="img/Controlling-1.png" alt="Controlling">
+        <h3>Controlling</h3>
+        <p>Auswertungen, Kennzahlen und betriebliche Steuerung</p>
+      </div>
+      <div class="service-card">
+        <img src="img/Businesplan-quadratisch.png" alt="Businessplan">
+        <h3>Businessplan</h3>
+        <p>Erstellung und Strukturierung Ihres Businessplans</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VORTEILE -->
+<section id="vorteile">
+  <div class="container">
+    <div class="section-tag">Vorteile</div>
+    <h2 class="section-title">Warum mit mir arbeiten?</h2>
+    <p class="section-sub">Sie buchen meine Dienstleistung nur dann, wenn Sie sie wirklich brauchen – flexibel, punktuell und ganz ohne langfristige Bindung.</p>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <h3>🔄 Maximale Flexibilität</h3>
+        <p>Keine Mindestlaufzeiten, keine Kündigungsfristen. Sie beauftragen mich genau dann, wenn Sie Unterstützung brauchen.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>💡 Individuelle Lösungen</h3>
+        <p>Kein Schema F – ich passe meine Leistungen genau an Ihre Situation und Ihre Bedürfnisse an.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>📋 Transparente Abrechnung</h3>
+        <p>Klare Stundensätze, verständliche Rechnungen. Sie wissen jederzeit, was Sie erwartet – keine versteckten Kosten.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>🤝 Persönlicher Kontakt</h3>
+        <p>Direkte Kommunikation ohne Umwege. Ihr Anliegen wird schnell und unkompliziert bearbeitet.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>🎓 Fundiertes Fachwissen</h3>
+        <p>Als geprüfter Betriebswirt IHK bringe ich solides kaufmännisches Wissen und eine strukturierte Arbeitsweise mit.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>🔒 Vertraulichkeit</h3>
+        <p>Alle Informationen und Unterlagen werden streng vertraulich behandelt und ausschließlich zur Auftragserfüllung verwendet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREISE -->
+<section id="preise">
+  <div class="container">
+    <div class="section-tag">Abrechnung &amp; Preise</div>
+    <h2 class="section-title">Faire und transparente Preise</h2>
+    <p class="section-sub">Flexibel nach Stunden oder als individuelles Paket – ganz nach Ihrem Bedarf.</p>
+    <div class="pricing-wrapper">
+      <div class="pricing-card">
+        <div>Stundensatz ab</div>
+        <div class="pricing-amount"><sup>€</sup>25<sub>/Std.</sub></div>
+        <div class="pricing-note">netto gem. § 19 UStG · Pauschalangebote auf Anfrage</div>
+        <ul class="pricing-list">
+          <li>Flexible Buchung nach Bedarf</li>
+          <li>Keine Mindestlaufzeit</li>
+          <li>Pauschalangebote auf Anfrage</li>
+          <li>Kostenlose Erstberatung</li>
+          <li>Transparente Abrechnung</li>
+        </ul>
+        <a href="#kontakt" class="btn btn-primary" style="width:100%; text-align:center; display:block;">Jetzt anfragen</a>
+      </div>
+      <div class="pricing-info">
+        <h3>Zahlungshinweise</h3>
+        <div class="info-row">
+          <span class="icon">🧾</span>
+          <div><strong>Rechnungsstellung</strong><span>Ordnungsgemäße Rechnung per E-Mail als PDF nach Leistungserbringung</span></div>
+        </div>
+        <div class="info-row">
+          <span class="icon">🏦</span>
+          <div><strong>Zahlung</strong><span>Überweisung auf das angegebene Geschäftskonto innerhalb von 14 Tagen ohne Abzug</span></div>
+        </div>
+        <div class="info-row">
+          <span class="icon">📜</span>
+          <div><strong>Steuerhinweis</strong><span>Kleinunternehmer gemäß § 19 UStG – Preise sind Nettopreise ohne Umsatzsteuerausweis</span></div>
+        </div>
+        <div class="info-row">
+          <span class="icon">📦</span>
+          <div><strong>Paketpreise</strong><span>Individuelle Pauschalangebote oder Paketpreise auf Anfrage möglich</span></div>
+        </div>
+        <div class="info-row">
+          <span class="icon">💬</span>
+          <div><strong>Erstgespräch</strong><span>Das erste Beratungsgespräch ist für Sie kostenlos und unverbindlich</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROZESS -->
+<section id="prozess">
+  <div class="container" style="text-align:center;">
+    <div class="section-tag">Ablauf</div>
+    <h2 class="section-title">So arbeiten wir zusammen</h2>
+    <p class="section-sub" style="margin: 0 auto 3rem;">Von der ersten Anfrage bis zum Ergebnis – klar, strukturiert und ohne Umwege.</p>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-line"><div class="step-dot">1</div><div class="step-connector"></div></div>
+        <div class="step-content"><h3>Ihre Anfrage</h3><p>Sie nehmen Kontakt auf – per Formular, E-Mail oder Telefon. Beschreiben Sie kurz Ihr Anliegen.</p></div>
+      </div>
+      <div class="process-step">
+        <div class="step-line"><div class="step-dot">2</div><div class="step-connector"></div></div>
+        <div class="step-content"><h3>Erstgespräch (kostenlos &amp; unverbindlich)</h3><p>Wir besprechen Ihren Bedarf, klären offene Fragen und prüfen gemeinsam, wie ich helfen kann.</p></div>
+      </div>
+      <div class="process-step">
+        <div class="step-line"><div class="step-dot">3</div><div class="step-connector"></div></div>
+        <div class="step-content"><h3>Individuelles Angebot</h3><p>Sie erhalten ein maßgeschneidertes Angebot – transparent und fair kalkuliert.</p></div>
+      </div>
+      <div class="process-step">
+        <div class="step-line"><div class="step-dot">4</div><div class="step-connector"></div></div>
+        <div class="step-content"><h3>Start der Zusammenarbeit</h3><p>Nach Ihrer Freigabe beginnen wir – strukturiert, zuverlässig und termintreu.</p></div>
+      </div>
+      <div class="process-step">
+        <div class="step-line"><div class="step-dot">5</div><div class="step-connector"></div></div>
+        <div class="step-content"><h3>Ergebnis &amp; Weiterbetreuung</h3><p>Sie erhalten Ihre Ergebnisse und können mich bei Bedarf jederzeit wieder beauftragen.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENZEN -->
+<section id="referenzen">
+  <div class="container">
+    <div class="section-tag">Referenzen</div>
+    <h2 class="section-title">Was Kunden sagen</h2>
+    <p class="section-sub">In dieser Rubrik finden Sie künftig eine Auswahl an Referenzen meiner bisherigen Projekte.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-text">Herr Blischke hat uns fachlich wie menschlich überzeugt. Seine Beratung war für unser Unternehmen ein echter Gewinn!</p>
+        <div class="testimonial-footer">
+          <img src="img/LinkedINReferenz-Foto-e1747710126642-1024x1024.jpg" alt="Referenz" class="testimonial-photo">
+          <div>
+            <div class="testimonial-author">Beispiel-Referenz</div>
+            <div class="testimonial-role">Geschäftsführer, Kleinunternehmen</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">Endlich jemand, der kaufmännische Aufgaben zuverlässig und ohne großen Aufwand übernimmt. Sehr empfehlenswert!</p>
+        <div class="testimonial-footer">
+          <div style="width:46px;height:46px;border-radius:50%;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.3rem;">👤</div>
+          <div>
+            <div class="testimonial-author">Folgt in Kürze</div>
+            <div class="testimonial-role">Selbstständige, Dienstleistungsbranche</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="referenzen-note">* Echte Kundenstimmen folgen in Kürze.</p>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <div class="container">
+    <div class="section-tag" style="color:var(--gold);">Kontakt</div>
+    <h2 class="section-title">Lassen Sie uns sprechen</h2>
+    <p class="section-sub">Das erste Gespräch ist kostenlos und unverbindlich. Ich freue mich auf Ihre Anfrage.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Direktkontakt</h3>
+        <div class="contact-detail">
+          <span class="icon">📍</span>
+          <div><strong>Adresse</strong><span>Adolf-Senger-Straße 3<br>79618 Rheinfelden</span></div>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">📞</span>
+          <div><strong>Telefon</strong><a href="tel:+4915784834080">+49 1578 4834080</a></div>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">✉️</span>
+          <div><strong>E-Mail</strong><a href="mailto:ycblischke@gmail.com">ycblischke@gmail.com</a></div>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">💼</span>
+          <div><strong>LinkedIn</strong><a href="https://www.linkedin.com/in/yves-claudio-blischke" target="_blank" rel="noopener">Profil ansehen</a></div>
+        </div>
+        <div style="margin-top:2rem; padding:1.2rem; background:rgba(200,150,60,.12); border-radius:8px; border:1px solid rgba(200,150,60,.25);">
+          <div style="color:var(--gold); font-weight:700; margin-bottom:.4rem;">⏱ Antwortzeit</div>
+          <div style="font-size:.85rem; color:rgba(255,255,255,.65);">In der Regel erhalten Sie eine Rückmeldung innerhalb von 24 Stunden.</div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-msg" id="formMsg"></div>
+        <!--
+          FORMSPREE SETUP:
+          1. Kostenlos registrieren auf formspree.io
+          2. Neues Formular anlegen → Sie erhalten eine ID
+          3. "YOUR_FORMSPREE_ID" unten durch Ihre ID ersetzen
+        -->
+        <form id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Vorname <span class="req">*</span></label>
+              <input type="text" name="vorname" placeholder="Max" required>
+            </div>
+            <div class="form-group">
+              <label>Nachname <span class="req">*</span></label>
+              <input type="text" name="nachname" placeholder="Mustermann" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>E-Mail-Adresse <span class="req">*</span></label>
+            <input type="email" name="email" placeholder="max@musterfirma.de" required>
+          </div>
+          <div class="form-group">
+            <label>Telefon (optional)</label>
+            <input type="tel" name="telefon" placeholder="+49 ...">
+          </div>
+          <div class="form-group">
+            <label>Betreff <span class="req">*</span></label>
+            <select name="betreff" required>
+              <option value="" disabled selected>Bitte wählen...</option>
+              <option>Erstgespräch vereinbaren</option>
+              <option>Angebot anfordern</option>
+              <option>Vorbereitende Buchhaltung</option>
+              <option>Controlling &amp; Businessplan</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Nachricht <span class="req">*</span></label>
+            <textarea name="nachricht" placeholder="Beschreiben Sie kurz Ihr Anliegen..." required></textarea>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="agbCheck" name="agb" required>
+            <label for="agbCheck">
+              Ich habe die <a href="#" onclick="openModal('agbModal'); return false;">AGB</a> gelesen und akzeptiere diese. Ich stimme der Verarbeitung meiner Daten gemäß der <a href="#" onclick="openModal('datenschutzModal'); return false;">Datenschutzerklärung</a> zu. <span class="req">*</span>
+            </label>
+          </div>
+          <button type="submit" class="btn-submit" id="submitBtn">Nachricht senden →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="#" onclick="openModal('impressumModal'); return false;">Impressum</a>
+    <a href="#" onclick="openModal('datenschutzModal'); return false;">Datenschutzerklärung</a>
+    <a href="#" onclick="openModal('agbModal'); return false;">AGB</a>
+    <a href="https://www.linkedin.com/in/yves-claudio-blischke" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+  <div>Copyright &copy; 2026 Yves Claudio Blischke · Betriebswirt IHK · Rheinfelden</div>
+</footer>
+
+<!-- IMPRESSUM MODAL -->
+<div class="modal-overlay" id="impressumModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('impressumModal')">&times;</button>
+    <h2>Impressum</h2>
+    <p><strong>Angaben gemäß § 5 TMG</strong></p>
+    <h3>Dienstanbieter</h3>
+    <p>Yves Claudio Blischke<br>Geprüfter Handelsfachwirt und Betriebswirt (IHK)<br>Adolf-Senger-Straße 3<br>79618 Rheinfelden</p>
+    <h3>Kontakt</h3>
+    <p>Telefon: +49 1578 4834080<br>E-Mail: ycblischke@gmail.com</p>
+    <h3>Steuerliche Angaben</h3>
+    <p>Gemäß § 19 UStG wird keine Umsatzsteuer berechnet (Kleinunternehmerregelung).</p>
+    <h3>Hinweis zur Berufsbezeichnung</h3>
+    <p>Die Bezeichnung „Betriebswirt IHK" ist ein staatlich anerkannter Abschluss der Industrie- und Handelskammer. Es handelt sich nicht um eine steuer- oder rechtsberatende Tätigkeit im Sinne des StBerG oder RDG.</p>
+  </div>
+</div>
+
+<!-- DATENSCHUTZ MODAL -->
+<div class="modal-overlay" id="datenschutzModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('datenschutzModal')">&times;</button>
+    <h2>Datenschutzerklärung</h2>
+    <h3>Verantwortlicher</h3>
+    <p>Yves Claudio Blischke · Adolf-Senger-Straße 3 · 79618 Rheinfelden<br>E-Mail: ycblischke@gmail.com · Tel: +49 1578 4834080</p>
+    <h3>Grundsatz</h3>
+    <p>Ihre Daten werden vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften behandelt. Die Nutzung der Website ist in der Regel ohne Angabe personenbezogener Daten möglich.</p>
+    <h3>Server-Logfiles</h3>
+    <p>Der Hosting-Anbieter erhebt automatisch Informationen in Server-Logfiles (Browsertyp, Betriebssystem, Referrer-URL, IP-Adresse). Diese Daten werden nicht mit anderen Quellen zusammengeführt.</p>
+    <h3>Kontaktformular</h3>
+    <p>Angaben aus dem Kontaktformular werden zur Bearbeitung der Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt ohne Ihre Einwilligung nicht.</p>
+    <h3>Ihre Rechte</h3>
+    <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung sowie auf Datenübertragbarkeit.</p>
+    <h3>Beschwerderecht</h3>
+    <p>Landesbeauftragter für Datenschutz Baden-Württemberg, Königstraße 10a, 70173 Stuttgart, Tel: 0711/615541-0</p>
+  </div>
+</div>
+
+<!-- AGB MODAL -->
+<div class="modal-overlay" id="agbModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('agbModal')">&times;</button>
+    <h2>Allgemeine Geschäftsbedingungen</h2>
+    <p><strong>Yves Claudio Blischke – Betriebswirt IHK</strong></p>
+    <h3>§ 1 Geltungsbereich</h3>
+    <p>Diese AGB gelten für alle Verträge zwischen Yves Claudio Blischke und seinen Auftraggebern über betriebswirtschaftliche Beratungsleistungen sowie kaufmännische Dienstleistungen.</p>
+    <h3>§ 2 Leistungsbeschreibung</h3>
+    <p><strong>a) Betriebswirtschaftliche Beratung:</strong> Analyse, Optimierung und Unterstützung in betriebswirtschaftlichen Fragestellungen (Organisation, Controlling, Geschäftsplanung, Kalkulation, Prozessmanagement).</p>
+    <p><strong>b) Kaufmännische Dienstleistungen:</strong> Unterstützung bei Erstellung, Erfassung oder Verwaltung von Geschäftsunterlagen (Angebote, Rechnungen, Schriftverkehr, vorbereitende Buchführung, Auswertungen).</p>
+    <h3>§ 3 Mitwirkungspflichten des Kunden</h3>
+    <p>Der Kunde verpflichtet sich, alle erforderlichen Informationen, Unterlagen und Zugänge vollständig, korrekt und rechtzeitig zur Verfügung zu stellen.</p>
+    <h3>§ 4 Nachbesserung bei Mängeln</h3>
+    <p>Bei berechtigten Beanstandungen ist der Dienstleister zur kostenlosen Nachbesserung verpflichtet. Weitergehende Ansprüche sind ausgeschlossen.</p>
+    <h3>§ 5 Zahlungsbedingungen</h3>
+    <p>Die Vergütung ist nach Rechnungsstellung ohne Abzug innerhalb von 14 Werktagen fällig. Bei Zahlungsverzug werden Verzugszinsen gemäß § 288 BGB berechnet.</p>
+    <h3>§ 6 Leistungsfristen</h3>
+    <p>Fristen sind nur dann verbindlich, wenn sie ausdrücklich schriftlich vereinbart wurden.</p>
+    <h3>§ 7 Haftung</h3>
+    <p>Der Dienstleister haftet bei Vorsatz und grober Fahrlässigkeit uneingeschränkt. Eine Haftung für mittelbare Schäden oder entgangenen Gewinn ist ausgeschlossen.</p>
+    <h3>§ 8 Urheberrecht</h3>
+    <p>Urheberrechte an erstellten Unterlagen verbleiben beim Dienstleister. Die Nutzung durch den Kunden ist ausschließlich für eigene Zwecke gestattet.</p>
+    <h3>§ 9 Vertraulichkeit</h3>
+    <p>Alle Informationen werden vertraulich behandelt und ausschließlich zur Vertragserfüllung verwendet.</p>
+    <h3>§ 10 Schlussbestimmungen</h3>
+    <p>Es gilt das Recht der Bundesrepublik Deutschland. Gerichtsstand ist der Sitz des Dienstleisters.</p>
+  </div>
+</div>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Modals
+  function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
+  document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); }));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id)); });
+
+  // Kontaktformular
+  const form      = document.getElementById('contactForm');
+  const formMsg   = document.getElementById('formMsg');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    let valid = true;
+    form.querySelectorAll('[required]').forEach(f => {
+      if (f.type === 'checkbox' && !f.checked) valid = false;
+      else if (f.type !== 'checkbox' && !f.value.trim()) valid = false;
+    });
+    if (!valid) {
+      formMsg.className = 'form-msg error';
+      formMsg.textContent = 'Bitte füllen Sie alle Pflichtfelder aus und akzeptieren Sie die AGB.';
+      return;
+    }
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gesendet…';
+    formMsg.style.display = 'none';
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+      if (res.ok) {
+        formMsg.className = 'form-msg success';
+        formMsg.textContent = '✓ Vielen Dank! Ihre Nachricht wurde gesendet. Ich melde mich in Kürze bei Ihnen.';
+        form.reset();
+      } else { throw new Error(); }
+    } catch {
+      formMsg.className = 'form-msg error';
+      formMsg.textContent = 'Fehler beim Senden. Bitte schreiben Sie direkt an ycblischke@gmail.com.';
+    }
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Nachricht senden →';
+  });
+</script>
+</body>
+</html>
