@@ -32,7 +32,8 @@
     nav { position: fixed; top: 0; left: 0; right: 0; background: #ffffff; box-shadow: 0 2px 12px rgba(27,47,94,.10); z-index: 1000; padding: 0 2rem; }
     .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
     .nav-brand { display: flex; align-items: center; gap: .9rem; text-decoration: none; }
-    .nav-brand img { height: 36px; border: 1px solid var(--border); border-radius: 5px; padding: 3px; background: #fff; }
+    .nav-brand img { display: none; }
+    .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--navy); letter-spacing: 2px; line-height: 1; }
     .nav-brand-text { display: flex; flex-direction: column; line-height: 1.2; }
     .nav-brand-name { font-weight: 700; font-size: .95rem; color: var(--navy); }
     .nav-brand-title { font-size: .72rem; color: var(--muted); font-weight: 400; }
@@ -66,15 +67,15 @@
       width: 100%;
       max-width: 420px;
       border-radius: 12px;
-      box-shadow: var(--shadow);
       object-fit: cover;
+      box-shadow: var(--shadow);
     }
     .hero-badge { display: inline-block; background: rgba(200,150,60,.12); border: 1px solid rgba(200,150,60,.4); color: var(--gold); font-size: .78rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: .35rem 1rem; border-radius: 20px; margin-bottom: 1.4rem; }
     .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.9rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; color: var(--navy); }
     .hero-title span { color: var(--gold); }
     .hero-sub { font-size: 1rem; color: var(--muted); max-width: 480px; margin-bottom: 1.4rem; }
-    .hero-signature { margin-bottom: 2rem; max-width: 280px; }
-    .hero-signature img { width: 100%; }
+    .hero-signature { margin-bottom: 2rem; max-width: 520px; }
+    .hero-signature img { display: block; width: 100%; }
     .btn { display: inline-block; padding: .85rem 2.2rem; border-radius: 8px; font-weight: 600; font-size: .95rem; text-decoration: none; transition: all .2s; cursor: pointer; border: none; }
     .btn-primary { background: var(--gold); color: #fff; }
     .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
@@ -232,7 +233,7 @@
 <nav id="navbar">
   <div class="nav-inner">
     <a href="#start" class="nav-brand">
-      <img src="img/Logo-pictogram-YCB-1-89x33.png" alt="YCB Logo">
+      <span class="nav-logo-text">YCB</span>
       <div class="nav-brand-text">
         <span class="nav-brand-name">Yves Claudio Blischke</span>
         <span class="nav-brand-title">Betriebswirt IHK</span>
@@ -263,7 +264,7 @@
       <h1 class="hero-title">Gemeinsam zum<br><span>unternehmerischen Erfolg</span></h1>
       <p class="hero-sub">Willkommen – schön, dass Sie da sind! Hier finden Sie Unterstützung, Ideen und Lösungen rund um Betriebswirtschaft und kaufmännische Aufgaben.</p>
       <div class="hero-signature">
-        <img src="img/handschrift-1-e1747663286594-1024x77.png" alt="Unterschrift Yves Claudio Blischke">
+        <img src="img/handschrift-cropped.png" alt="Unterschrift Yves Claudio Blischke">
       </div>
       <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
       <a href="#leistungen" class="btn btn-outline">Leistungen ansehen</a>
