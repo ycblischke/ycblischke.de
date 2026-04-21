@@ -31,7 +31,11 @@
     /* ── NAV ─────────────────────────────────────────── */
     nav { position: fixed; top: 0; left: 0; right: 0; background: #ffffff; box-shadow: 0 2px 12px rgba(27,47,94,.10); z-index: 1000; padding: 0 2rem; }
     .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .nav-logo img { height: 33px; }
+    .nav-brand { display: flex; align-items: center; gap: .9rem; text-decoration: none; }
+    .nav-brand img { height: 36px; border: 1px solid var(--border); border-radius: 5px; padding: 3px; background: #fff; }
+    .nav-brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .nav-brand-name { font-weight: 700; font-size: .95rem; color: var(--navy); }
+    .nav-brand-title { font-size: .72rem; color: var(--muted); font-weight: 400; }
     .nav-links { display: flex; gap: 1.6rem; list-style: none; }
     .nav-links a { color: var(--navy); text-decoration: none; font-size: .875rem; font-weight: 500; transition: color .2s; }
     .nav-links a:hover { color: var(--gold); }
@@ -227,7 +231,13 @@
 <!-- NAV -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="#start"><img src="img/Logo-pictogram-YCB-1-89x33.png" alt="YCB Logo" class="nav-logo" style="height:33px;"></a>
+    <a href="#start" class="nav-brand">
+      <img src="img/Logo-pictogram-YCB-1-89x33.png" alt="YCB Logo">
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Yves Claudio Blischke</span>
+        <span class="nav-brand-title">Betriebswirt IHK</span>
+      </div>
+    </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#ueber-mich">Über mich</a></li>
       <li><a href="#leistungen">Leistungen</a></li>
