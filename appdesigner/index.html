@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Yves Claudio Blischke – App Design & Entwicklung für iOS und Android. Flutter-Apps, Webdesign und Beta-Testing. Entdecken Sie meine Apps: FoodKey, IWriteThai, Hypno.">
+  <title>App Design & Entwicklung – Yves Claudio Blischke</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1B2F5E;
+      --navy2:  #243d78;
+      --gold:   #C8963C;
+      --gold2:  #e0aa4a;
+      --bg:     #F7F8FC;
+      --bg2:    #ffffff;
+      --text:   #2D3748;
+      --muted:  #718096;
+      --border: #E2E8F0;
+      --radius: 10px;
+      --shadow: 0 4px 24px rgba(27,47,94,.10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg2); line-height: 1.65; }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav { position: fixed; top: 0; left: 0; right: 0; background: #ffffff; box-shadow: 0 2px 12px rgba(27,47,94,.10); z-index: 1000; padding: 0 2rem; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-brand { display: flex; align-items: center; gap: .9rem; text-decoration: none; }
+    .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--navy); letter-spacing: 2px; line-height: 1; }
+    .nav-brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .nav-brand-name { font-weight: 700; font-size: .95rem; color: var(--navy); }
+    .nav-brand-title { font-size: .72rem; color: var(--muted); font-weight: 400; }
+    .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+    .nav-links a { color: var(--navy); text-decoration: none; font-size: .875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { background: var(--navy); color: #fff !important; padding: .4rem 1.1rem; border-radius: 6px; }
+    .nav-cta:hover { background: var(--navy2) !important; color: #fff !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; }
+
+    /* ── HERO ─────────────────────────────────────────── */
+    #start {
+      background: linear-gradient(135deg, var(--navy) 0%, #243d78 60%, #1a2d5a 100%);
+      color: #fff;
+      padding: 110px 2rem 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    #start::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge { display: inline-block; background: rgba(200,150,60,.2); border: 1px solid rgba(200,150,60,.5); color: var(--gold2); font-size: .78rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: .35rem 1rem; border-radius: 20px; margin-bottom: 1.4rem; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.9rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; color: #fff; }
+    .hero-title span { color: var(--gold2); }
+    .hero-sub { font-size: 1rem; color: rgba(255,255,255,.75); max-width: 480px; margin-bottom: 2rem; }
+    .btn { display: inline-block; padding: .85rem 2.2rem; border-radius: 8px; font-weight: 600; font-size: .95rem; text-decoration: none; transition: all .2s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--gold); color: #fff; }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+    .btn-outline-white { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.35); margin-left: .8rem; }
+    .btn-outline-white:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+
+    /* Phone mockup */
+    .hero-phones {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 1rem;
+    }
+    .phone-frame {
+      background: #0a0a0a;
+      border-radius: 40px;
+      padding: 10px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.1);
+      position: relative;
+    }
+    .phone-frame.main { width: 200px; }
+    .phone-frame.side { width: 160px; opacity: 0.7; transform: translateY(20px) scale(0.92); }
+    .phone-screen {
+      border-radius: 32px;
+      overflow: hidden;
+      background: #111;
+      aspect-ratio: 9/19;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .phone-screen img { width: 100%; height: 100%; object-fit: cover; }
+    .phone-notch {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 8px;
+      background: #0a0a0a;
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    /* ── SECTIONS ────────────────────────────────────── */
+    section { padding: 90px 2rem; }
+    section:nth-of-type(even) { background: var(--bg); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-tag { display: inline-block; color: var(--gold); font-size: .78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: .6rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
+    .section-sub { color: var(--muted); font-size: 1rem; max-width: 580px; margin-bottom: 3rem; }
+
+    /* ── LEISTUNGEN ──────────────────────────────────── */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+    .service-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.6rem;
+      text-align: center;
+      transition: all .25s;
+    }
+    .service-card:hover { border-color: var(--gold); box-shadow: 0 8px 30px rgba(27,47,94,.12); transform: translateY(-3px); }
+    .service-icon { font-size: 2.8rem; margin-bottom: 1rem; display: block; }
+    .service-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: .5rem; }
+    .service-card p { font-size: .88rem; color: var(--muted); margin-bottom: 1rem; }
+    .service-tags { display: flex; flex-wrap: wrap; gap: .4rem; justify-content: center; }
+    .service-tag-chip { background: rgba(200,150,60,.1); border: 1px solid rgba(200,150,60,.3); color: var(--gold); font-size: .72rem; font-weight: 600; padding: .2rem .7rem; border-radius: 20px; }
+
+    /* ── VORTEILE ────────────────────────────────────── */
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.6rem; }
+    .benefit-card { background: var(--bg2); border-radius: var(--radius); padding: 1.8rem; border-left: 4px solid var(--gold); box-shadow: var(--shadow); }
+    .benefit-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: .5rem; }
+    .benefit-card p { font-size: .9rem; color: var(--muted); }
+
+    /* ── APPS SECTION ────────────────────────────────── */
+    .app-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 4rem;
+    }
+    .app-card-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 0;
+    }
+    .app-card:nth-child(even) .app-card-inner { direction: rtl; }
+    .app-card:nth-child(even) .app-card-inner > * { direction: ltr; }
+    .app-info {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .app-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      object-fit: cover;
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+    }
+    .app-icon-placeholder {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+    }
+    .app-name { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--navy); }
+    .app-platform-chips { display: flex; gap: .5rem; margin-top: .3rem; }
+    .platform-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .2rem .65rem;
+      border-radius: 20px;
+    }
+    .chip-android { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .chip-ios { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+    .app-desc { color: var(--muted); font-size: .93rem; margin-bottom: 1.4rem; line-height: 1.7; }
+    .app-features { list-style: none; margin-bottom: 1.6rem; display: flex; flex-direction: column; gap: .45rem; }
+    .app-features li { font-size: .88rem; color: var(--text); display: flex; align-items: flex-start; gap: .6rem; }
+    .app-features li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .app-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+    .btn-store {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .55rem 1.1rem;
+      border-radius: 8px;
+      font-size: .82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .2s;
+      border: 1px solid var(--border);
+      color: var(--navy);
+      background: var(--bg);
+    }
+    .btn-store:hover { border-color: var(--navy); background: var(--bg2); box-shadow: var(--shadow); }
+    .btn-datenschutz {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .5rem .9rem;
+      border-radius: 8px;
+      font-size: .8rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-datenschutz:hover { color: var(--navy); border-color: var(--navy); }
+
+    /* Screenshots gallery */
+    .app-screenshots {
+      background: linear-gradient(135deg, var(--bg) 0%, #e8edf5 100%);
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      overflow: hidden;
+      min-height: 420px;
+    }
+    .screen-mock {
+      background: #0a0a0a;
+      border-radius: 28px;
+      padding: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      flex-shrink: 0;
+    }
+    .screen-mock.main { width: 150px; }
+    .screen-mock.side { width: 120px; opacity: .65; transform: translateY(15px) scale(0.93); }
+    .screen-inner {
+      border-radius: 21px;
+      overflow: hidden;
+      aspect-ratio: 9/19.5;
+      background: #111;
+    }
+    .screen-inner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* Hypno placeholder screens */
+    .screen-placeholder {
+      border-radius: 21px;
+      overflow: hidden;
+      aspect-ratio: 9/19.5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      text-align: center;
+    }
+    .screen-placeholder .sp-emoji { font-size: 2rem; margin-bottom: .5rem; }
+    .screen-placeholder .sp-text { font-size: .6rem; color: rgba(255,255,255,.6); }
+
+    /* ── KONTAKT ─────────────────────────────────────── */
+    #kontakt { background: var(--navy); color: #fff; }
+    #kontakt .section-title { color: #fff; }
+    #kontakt .section-sub { color: rgba(255,255,255,.65); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
+    .contact-info h3 { font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 1.4rem; }
+    .contact-detail { display: flex; align-items: flex-start; gap: .9rem; margin-bottom: 1.1rem; }
+    .contact-detail .icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+    .contact-detail strong { display: block; font-size: .82rem; color: rgba(255,255,255,.5); margin-bottom: .1rem; }
+    .contact-detail a, .contact-detail span { color: rgba(255,255,255,.88); text-decoration: none; font-size: .92rem; }
+    .contact-detail a:hover { color: var(--gold); }
+    .contact-form { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); padding: 2.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label { display: block; font-size: .82rem; font-weight: 600; color: rgba(255,255,255,.7); margin-bottom: .4rem; }
+    .form-group label .req { color: var(--gold); margin-left: 2px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 7px; color: #fff; font-family: 'Inter', sans-serif; font-size: .9rem; padding: .7rem 1rem; transition: border-color .2s; outline: none; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,.3); }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-group select option { background: var(--navy); }
+    .form-check { display: flex; align-items: flex-start; gap: .7rem; margin-bottom: 1.4rem; }
+    .form-check input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: var(--gold); cursor: pointer; }
+    .form-check label { font-size: .82rem; color: rgba(255,255,255,.65); line-height: 1.5; cursor: pointer; }
+    .form-check label a { color: var(--gold); }
+    .form-msg { display: none; padding: .8rem 1rem; border-radius: 7px; font-size: .88rem; margin-bottom: 1rem; }
+    .form-msg.success { background: rgba(72,187,120,.2); border: 1px solid rgba(72,187,120,.4); color: #9ae6b4; display: block; }
+    .form-msg.error { background: rgba(245,101,101,.2); border: 1px solid rgba(245,101,101,.4); color: #fc8181; display: block; }
+    .btn-submit { width: 100%; padding: .9rem; background: var(--gold); color: #fff; border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 700; cursor: pointer; transition: all .2s; }
+    .btn-submit:hover { background: var(--gold2); }
+    .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer { background: #111827; color: rgba(255,255,255,.5); padding: 2rem; text-align: center; font-size: .83rem; }
+    .footer-links { display: flex; justify-content: center; gap: 1.4rem; margin-bottom: .8rem; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255,255,255,.5); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── MODAL ───────────────────────────────────────── */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 2000; padding: 2rem; overflow-y: auto; }
+    .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+    .modal-box { background: #fff; border-radius: var(--radius); max-width: 720px; width: 100%; padding: 2.5rem; position: relative; margin: auto; }
+    .modal-close { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--muted); line-height: 1; }
+    .modal-box h2 { font-family: 'Playfair Display', serif; color: var(--navy); margin-bottom: 1.4rem; font-size: 1.5rem; }
+    .modal-box h3 { color: var(--navy); font-size: 1rem; margin: 1.4rem 0 .5rem; }
+    .modal-box p, .modal-box li { font-size: .9rem; color: var(--muted); line-height: 1.7; }
+    .modal-box ul { padding-left: 1.2rem; margin-bottom: .6rem; }
+    .modal-box strong { color: var(--text); }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .app-card-inner { grid-template-columns: 1fr; }
+      .app-card:nth-child(even) .app-card-inner { direction: ltr; }
+      .app-screenshots { min-height: 280px; }
+      .screen-mock.side { display: none; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: #fff; box-shadow: 0 8px 16px rgba(27,47,94,.10); padding: 1rem 2rem 1.5rem; gap: 1rem; }
+      .hamburger { display: flex; }
+      .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-phones { order: -1; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+      section { padding: 60px 1.2rem; }
+      #start { padding: 90px 1.2rem 60px; }
+    }
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">
+      <span class="nav-logo-text">YCB</span>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Yves Claudio Blischke</span>
+        <span class="nav-brand-title">App Design & Entwicklung</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#leistungen">Leistungen</a></li>
+      <li><a href="#apps">Meine Apps</a></li>
+      <li><a href="#vorteile">Vorteile</a></li>
+      <li><a href="/">Betriebswirt</a></li>
+      <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="start">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <div class="hero-badge">Flutter · iOS · Android · Web</div>
+      <h1 class="hero-title">App Design &<br><span>Entwicklung</span></h1>
+      <p class="hero-sub">Von der Idee zur fertigen App – ich entwickle native Flutter-Anwendungen für iOS und Android, designe moderne Webseiten und begleite Projekte als Testkooperationspartner.</p>
+      <div>
+        <a href="#apps" class="btn btn-primary">Meine Apps ansehen</a>
+        <a href="#kontakt" class="btn btn-outline-white">Kontakt</a>
+      </div>
+    </div>
+    <div class="hero-phones">
+      <div class="phone-frame side">
+        <div class="phone-screen">
+          <img src="img/screens/iwritethai/iwt1.jpg" alt="IWriteThai App">
+        </div>
+      </div>
+      <div class="phone-frame main">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="img/screens/foodkey/fk1.jpg" alt="FoodKey App">
+        </div>
+      </div>
+      <div class="phone-frame side">
+        <div class="phone-screen">
+          <img src="img/screens/foodkey/fk3.jpg" alt="FoodKey App">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEISTUNGEN -->
+<section id="leistungen">
+  <div class="container">
+    <div class="section-tag">Was ich anbiete</div>
+    <h2 class="section-title">Meine Leistungen</h2>
+    <p class="section-sub">Ich entwickle vollständige Apps von Design bis Deployment – und unterstütze Teams als erfahrener Testpartner.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">📱</span>
+        <h3>App Design & Entwicklung</h3>
+        <p>Komplette Flutter-Apps für Android und iOS – vom UI/UX-Design bis zum Release im Play Store und App Store.</p>
+        <div class="service-tags">
+          <span class="service-tag-chip">Flutter</span>
+          <span class="service-tag-chip">Android</span>
+          <span class="service-tag-chip">iOS</span>
+          <span class="service-tag-chip">UI/UX</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🧪</span>
+        <h3>Test-Kooperationspartner</h3>
+        <p>Zuverlässige Beta-Tests für mobile Apps und Software – strukturiertes Feedback, Fehlerberichte und praxisnahe Nutzerperspektive.</p>
+        <div class="service-tags">
+          <span class="service-tag-chip">Beta-Testing</span>
+          <span class="service-tag-chip">Feedback</span>
+          <span class="service-tag-chip">QA</span>
+          <span class="service-tag-chip">Android & iOS</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🌐</span>
+        <h3>Webdesign</h3>
+        <p>Moderne, responsive Webseiten – sauber gestaltet, schnell geladen und auf Ihre Zielgruppe zugeschnitten.</p>
+        <div class="service-tags">
+          <span class="service-tag-chip">HTML/CSS</span>
+          <span class="service-tag-chip">Responsive</span>
+          <span class="service-tag-chip">GitHub Pages</span>
+          <span class="service-tag-chip">SEO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VORTEILE -->
+<section id="vorteile">
+  <div class="container">
+    <div class="section-tag">Vorteile</div>
+    <h2 class="section-title">Warum mit mir?</h2>
+    <p class="section-sub">Erfahrung aus eigenen Projekten, die produktiv im Store sind – keine Konzepte, echte Ergebnisse.</p>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <h3>🚀 Ende-zu-Ende aus einer Hand</h3>
+        <p>Von der ersten Wireframe-Idee bis zum fertigen Store-Release – Konzept, Design, Entwicklung und Deployment komplett bei mir.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>📲 Plattformübergreifend mit Flutter</h3>
+        <p>Eine Codebasis, zwei Plattformen. Durch Flutter entstehen native iOS- und Android-Apps aus einem Entwicklungszyklus.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>🧪 Erfahrener Testpartner</h3>
+        <p>Ich teste Apps selbst produktiv und kenne die Schwachstellen aus Nutzerperspektive – kein theoretisches QA, sondern praxisnahe Rückmeldung.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>🎨 Klares, modernes Design</h3>
+        <p>Benutzeroberflächen, die intuitiv wirken und visuell überzeugen – getestet mit echten Nutzern in meinen eigenen Apps.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>🔒 Datenschutz von Anfang an</h3>
+        <p>DSGVO-konforme Umsetzung – von der Datenschutzerklärung bis zur technischen Implementierung denke ich Datenschutz von Beginn an mit.</p>
+      </div>
+      <div class="benefit-card">
+        <h3>💬 Direkte Kommunikation</h3>
+        <p>Keine Umwege über Projektmanager. Sie sprechen direkt mit dem Entwickler – schnell, unkompliziert und auf Augenhöhe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPS -->
+<section id="apps" style="background: var(--bg2);">
+  <div class="container">
+    <div class="section-tag">Portfolio</div>
+    <h2 class="section-title">Meine Apps</h2>
+    <p class="section-sub">Drei produktive Apps im Google Play Store – entwickelt, designed und kontinuierlich weiterentwickelt.</p>
+
+    <!-- FoodKey -->
+    <div class="app-card">
+      <div class="app-card-inner">
+        <div class="app-info">
+          <div class="app-header">
+            <img src="img/foodkey-icon.png" alt="FoodKey Icon" class="app-icon">
+            <div>
+              <div class="app-name">FoodKey</div>
+              <div class="app-platform-chips">
+                <span class="platform-chip chip-android">🤖 Android</span>
+                <span class="platform-chip chip-ios">🍎 iOS</span>
+              </div>
+            </div>
+          </div>
+          <p class="app-desc">FoodKey ist dein smarter Begleiter für eine bewusstere Ernährung. Scanne Barcodes, analysiere Inhaltsstoffe und behalte den Überblick über deine Lebensmittel – einfach, schnell und verständlich.</p>
+          <ul class="app-features">
+            <li>Barcode-Scanner für Lebensmittel</li>
+            <li>Detaillierte Nährwertanalyse</li>
+            <li>Persönliche Lebensmitteldatenbank</li>
+            <li>Übersichtliches Dashboard</li>
+            <li>Offline-Funktionalität</li>
+          </ul>
+          <div class="app-actions">
+            <a href="https://play.google.com/store/apps/details?id=com.ycblischke.foodkey" target="_blank" rel="noopener" class="btn-store">
+              🤖 Google Play
+            </a>
+            <button class="btn-datenschutz" onclick="openModal('dsModal_foodkey')">
+              🔒 Datenschutz
+            </button>
+          </div>
+        </div>
+        <div class="app-screenshots">
+          <div class="screen-mock side">
+            <div class="screen-inner"><img src="img/screens/foodkey/fk2.jpg" alt="FoodKey Screenshot"></div>
+          </div>
+          <div class="screen-mock main">
+            <div class="screen-inner"><img src="img/screens/foodkey/fk1.jpg" alt="FoodKey Screenshot"></div>
+          </div>
+          <div class="screen-mock side">
+            <div class="screen-inner"><img src="img/screens/foodkey/fk3.jpg" alt="FoodKey Screenshot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IWriteThai -->
+    <div class="app-card">
+      <div class="app-card-inner">
+        <div class="app-screenshots">
+          <div class="screen-mock side">
+            <div class="screen-inner"><img src="img/screens/iwritethai/iwt2.jpg" alt="IWriteThai Screenshot"></div>
+          </div>
+          <div class="screen-mock main">
+            <div class="screen-inner"><img src="img/screens/iwritethai/iwt1.jpg" alt="IWriteThai Screenshot"></div>
+          </div>
+          <div class="screen-mock side">
+            <div class="screen-inner"><img src="img/screens/iwritethai/iwt3.jpg" alt="IWriteThai Screenshot"></div>
+          </div>
+        </div>
+        <div class="app-info">
+          <div class="app-header">
+            <img src="img/iwritethai-icon.png" alt="IWriteThai Icon" class="app-icon">
+            <div>
+              <div class="app-name">IWriteThai</div>
+              <div class="app-platform-chips">
+                <span class="platform-chip chip-android">🤖 Android</span>
+                <span class="platform-chip chip-ios">🍎 iOS</span>
+              </div>
+            </div>
+          </div>
+          <p class="app-desc">IWriteThai macht das Erlernen der thailändischen Schrift zum Erlebnis. Schritt für Schritt lernst du, die Thai-Zeichen zu schreiben und zu erkennen – mit sofortigem Feedback und persönlichem Lernfortschritt.</p>
+          <ul class="app-features">
+            <li>Alle 44 Konsonanten & Vokale</li>
+            <li>Strich-für-Strich Schreibanimation</li>
+            <li>Interaktive Erkennungstests</li>
+            <li>Gamification mit XP & Streak</li>
+            <li>Tägliche Übungsherausforderungen</li>
+          </ul>
+          <div class="app-actions">
+            <a href="https://play.google.com/store/apps/details?id=com.ycblischke.iwritethai" target="_blank" rel="noopener" class="btn-store">
+              🤖 Google Play
+            </a>
+            <button class="btn-datenschutz" onclick="openModal('dsModal_iwritethai')">
+              🔒 Datenschutz
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hypno -->
+    <div class="app-card">
+      <div class="app-card-inner">
+        <div class="app-info">
+          <div class="app-header">
+            <img src="img/hypno-icon.png" alt="Hypno Icon" class="app-icon">
+            <div>
+              <div class="app-name">Hypno</div>
+              <div class="app-platform-chips">
+                <span class="platform-chip chip-android">🤖 Android</span>
+                <span class="platform-chip chip-ios">🍎 iOS</span>
+              </div>
+            </div>
+          </div>
+          <p class="app-desc">Hypno ist eine Lernapp für Hypnose-Skripte. Mit Teleprompter, Aufnahme-Funktion und einem stufenweisen Memorierungssystem lernst du deine Texte systematisch auswendig – von Volltext bis zur freien Rede.</p>
+          <ul class="app-features">
+            <li>Strukturierter Lernpfad mit 3 Levels</li>
+            <li>Teleprompter mit Tempo-Steuerung</li>
+            <li>Sprach-Aufnahme & Wiedergabe</li>
+            <li>4-stufiges Auswendiglern-System</li>
+            <li>Tägliche Übungen & XP-System</li>
+          </ul>
+          <div class="app-actions">
+            <a href="https://play.google.com/store/apps/details?id=com.hypnoapp.hypno" target="_blank" rel="noopener" class="btn-store">
+              🤖 Google Play
+            </a>
+            <button class="btn-datenschutz" onclick="openModal('dsModal_hypno')">
+              🔒 Datenschutz
+            </button>
+          </div>
+        </div>
+        <div class="app-screenshots" style="background: linear-gradient(135deg, #0d0132 0%, #1a1040 100%);">
+          <div class="screen-mock side">
+            <div class="screen-placeholder" style="background: #1a1040;">
+              <span class="sp-emoji">🌀</span>
+              <span class="sp-text">Startseite</span>
+            </div>
+          </div>
+          <div class="screen-mock main">
+            <div class="screen-placeholder" style="background: #0d0132;">
+              <span class="sp-emoji">🎙️</span>
+              <span class="sp-text" style="color:rgba(255,255,255,.5);">Übungsmodus</span>
+            </div>
+          </div>
+          <div class="screen-mock side">
+            <div class="screen-placeholder" style="background: #1a1040;">
+              <span class="sp-emoji">📊</span>
+              <span class="sp-text">Fortschritt</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <div class="container">
+    <div class="section-tag" style="color:var(--gold);">Kontakt</div>
+    <h2 class="section-title">Projekt anfragen</h2>
+    <p class="section-sub">Sie haben eine App-Idee, brauchen einen Testpartner oder möchten eine neue Webseite? Melden Sie sich – das erste Gespräch ist kostenlos.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Direktkontakt</h3>
+        <div class="contact-detail">
+          <span class="icon">📍</span>
+          <div><strong>Standort</strong><span>Rheinfelden (Baden)</span></div>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">📞</span>
+          <div><strong>Telefon</strong><a href="tel:+4915784834080">+49 1578 4834080</a></div>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">✉️</span>
+          <div><strong>E-Mail</strong><a href="mailto:ycblischke@gmail.com">ycblischke@gmail.com</a></div>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">💼</span>
+          <div><strong>LinkedIn</strong><a href="https://www.linkedin.com/in/yves-claudio-blischke" target="_blank" rel="noopener">Profil ansehen</a></div>
+        </div>
+        <div style="margin-top:2rem; padding:1.2rem; background:rgba(200,150,60,.12); border-radius:8px; border:1px solid rgba(200,150,60,.25);">
+          <div style="color:var(--gold); font-weight:700; margin-bottom:.4rem;">⏱ Antwortzeit</div>
+          <div style="font-size:.85rem; color:rgba(255,255,255,.65);">In der Regel Rückmeldung innerhalb von 24 Stunden.</div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-msg" id="formMsg"></div>
+        <form id="contactForm" action="https://formspree.io/f/xnjlbolv" method="POST" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Vorname <span class="req">*</span></label>
+              <input type="text" name="vorname" placeholder="Max" required>
+            </div>
+            <div class="form-group">
+              <label>Nachname <span class="req">*</span></label>
+              <input type="text" name="nachname" placeholder="Mustermann" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>E-Mail <span class="req">*</span></label>
+            <input type="email" name="email" placeholder="max@beispiel.de" required>
+          </div>
+          <div class="form-group">
+            <label>Betreff <span class="req">*</span></label>
+            <select name="betreff" required>
+              <option value="" disabled selected>Bitte wählen…</option>
+              <option>App Design & Entwicklung</option>
+              <option>Test-Kooperation anfragen</option>
+              <option>Webdesign-Projekt</option>
+              <option>Allgemeine Anfrage</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Nachricht <span class="req">*</span></label>
+            <textarea name="nachricht" placeholder="Beschreiben Sie kurz Ihr Projekt oder Ihre Anfrage…" required></textarea>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="agbCheck" name="agb" required>
+            <label for="agbCheck">
+              Ich stimme der Verarbeitung meiner Daten gemäß der <a href="#" onclick="openModal('dsModal_website'); return false;">Datenschutzerklärung</a> zu. <span class="req">*</span>
+            </label>
+          </div>
+          <button type="submit" class="btn-submit" id="submitBtn">Nachricht senden →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="/">Betriebswirt-Seite</a>
+    <a href="#" onclick="openModal('impressumModal'); return false;">Impressum</a>
+    <a href="#" onclick="openModal('dsModal_website'); return false;">Datenschutzerklärung</a>
+    <a href="https://www.linkedin.com/in/yves-claudio-blischke" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+  <div>Copyright &copy; 2026 Yves Claudio Blischke · App Design & Entwicklung · Rheinfelden</div>
+</footer>
+
+<!-- IMPRESSUM MODAL -->
+<div class="modal-overlay" id="impressumModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('impressumModal')">&times;</button>
+    <h2>Impressum</h2>
+    <p><strong>Angaben gemäß § 5 TMG</strong></p>
+    <h3>Dienstanbieter</h3>
+    <p>Yves Claudio Blischke<br>Adolf-Senger-Straße 3<br>79618 Rheinfelden</p>
+    <h3>Kontakt</h3>
+    <p>Telefon: +49 1578 4834080<br>E-Mail: ycblischke@gmail.com</p>
+    <h3>Steuerliche Angaben</h3>
+    <p>Gemäß § 19 UStG wird keine Umsatzsteuer berechnet (Kleinunternehmerregelung).</p>
+  </div>
+</div>
+
+<!-- DATENSCHUTZ WEBSITE MODAL -->
+<div class="modal-overlay" id="dsModal_website">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('dsModal_website')">&times;</button>
+    <h2>Datenschutzerklärung</h2>
+    <h3>Verantwortlicher</h3>
+    <p>Yves Claudio Blischke · Adolf-Senger-Straße 3 · 79618 Rheinfelden<br>E-Mail: ycblischke@gmail.com · Tel: +49 1578 4834080</p>
+    <h3>Grundsatz</h3>
+    <p>Ihre Daten werden vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften behandelt. Die Nutzung der Website ist in der Regel ohne Angabe personenbezogener Daten möglich.</p>
+    <h3>Server-Logfiles</h3>
+    <p>Der Hosting-Anbieter (GitHub Pages) erhebt automatisch Informationen in Server-Logfiles (Browsertyp, Betriebssystem, Referrer-URL, IP-Adresse). Diese Daten werden nicht mit anderen Quellen zusammengeführt.</p>
+    <h3>Kontaktformular</h3>
+    <p>Angaben aus dem Kontaktformular werden über Formspree zur Bearbeitung der Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt ohne Ihre Einwilligung nicht.</p>
+    <h3>Ihre Rechte</h3>
+    <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung (Art. 15–18 DSGVO).</p>
+    <h3>Beschwerderecht</h3>
+    <p>Landesbeauftragter für Datenschutz Baden-Württemberg, Königstraße 10a, 70173 Stuttgart</p>
+  </div>
+</div>
+
+<!-- DATENSCHUTZ FOODKEY MODAL -->
+<div class="modal-overlay" id="dsModal_foodkey">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('dsModal_foodkey')">&times;</button>
+    <h2>Datenschutzerklärung – FoodKey</h2>
+    <h3>Verantwortlicher</h3>
+    <p>Yves Claudio Blischke · Adolf-Senger-Straße 3 · 79618 Rheinfelden<br>E-Mail: ycblischke@gmail.com</p>
+    <h3>Erhobene Daten</h3>
+    <p>FoodKey speichert alle Daten ausschließlich lokal auf Ihrem Gerät. Es werden keine personenbezogenen Daten an externe Server übertragen.</p>
+    <ul>
+      <li>Lebensmitteldaten (lokal gespeichert)</li>
+      <li>Nutzungsstatistiken (nur lokal, kein Tracking)</li>
+    </ul>
+    <h3>Berechtigungen</h3>
+    <p><strong>Kamera:</strong> Für den Barcode-Scanner zur Erfassung von Lebensmitteln. Die Kamera wird ausschließlich für diese Funktion verwendet.</p>
+    <h3>Drittanbieter</h3>
+    <p>FoodKey verwendet die Open Food Facts API zur Produktdatenabfrage. Dabei werden gescannte Barcodes zur Datenbankabfrage übermittelt. Keine personenbezogenen Daten.</p>
+    <h3>Datenlöschung</h3>
+    <p>Alle lokal gespeicherten Daten können jederzeit durch Deinstallation der App gelöscht werden.</p>
+    <h3>Kontakt</h3>
+    <p>Bei Fragen: ycblischke@gmail.com</p>
+  </div>
+</div>
+
+<!-- DATENSCHUTZ IWRITETHAI MODAL -->
+<div class="modal-overlay" id="dsModal_iwritethai">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('dsModal_iwritethai')">&times;</button>
+    <h2>Datenschutzerklärung – IWriteThai</h2>
+    <h3>Verantwortlicher</h3>
+    <p>Yves Claudio Blischke · Adolf-Senger-Straße 3 · 79618 Rheinfelden<br>E-Mail: ycblischke@gmail.com</p>
+    <h3>Erhobene Daten</h3>
+    <p>IWriteThai speichert alle Lernfortschrittsdaten ausschließlich lokal auf Ihrem Gerät. Es werden keine personenbezogenen Daten erhoben oder übertragen.</p>
+    <ul>
+      <li>Lernfortschritt und Übungsergebnisse (lokal)</li>
+      <li>Streak und XP-Punkte (lokal)</li>
+    </ul>
+    <h3>Berechtigungen</h3>
+    <p>IWriteThai benötigt keine besonderen Gerätezugriffe. Die App funktioniert vollständig offline.</p>
+    <h3>Drittanbieter</h3>
+    <p>Es werden keine Drittanbieter-Dienste oder externe APIs verwendet.</p>
+    <h3>Datenlöschung</h3>
+    <p>Alle lokal gespeicherten Daten können durch Löschen der App-Daten in den Geräteeinstellungen oder durch Deinstallation entfernt werden.</p>
+    <h3>Kontakt</h3>
+    <p>Bei Fragen: ycblischke@gmail.com</p>
+  </div>
+</div>
+
+<!-- DATENSCHUTZ HYPNO MODAL -->
+<div class="modal-overlay" id="dsModal_hypno">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('dsModal_hypno')">&times;</button>
+    <h2>Datenschutzerklärung – Hypno</h2>
+    <h3>Verantwortlicher</h3>
+    <p>Yves Claudio Blischke · Adolf-Senger-Straße 3 · 79618 Rheinfelden<br>E-Mail: ycblischke@gmail.com</p>
+    <h3>Erhobene Daten</h3>
+    <p>Hypno speichert alle Daten ausschließlich lokal auf Ihrem Gerät. Es werden keine personenbezogenen Daten an externe Server übertragen.</p>
+    <ul>
+      <li>Lernfortschritt und Übungsstände (lokal)</li>
+      <li>Sprachaufnahmen (lokal, nur auf Ihrem Gerät)</li>
+      <li>XP-Punkte und Streak (lokal)</li>
+    </ul>
+    <h3>Berechtigungen</h3>
+    <p><strong>Mikrofon:</strong> Für die Sprachaufnahme- und Übungsfunktion. Aufnahmen werden ausschließlich lokal auf Ihrem Gerät gespeichert und nicht übertragen.</p>
+    <p><strong>Spracherkennung:</strong> Hypno verwendet die systemeigene Spracherkennungs-API (Speech-to-Text) Ihres Gerätes zur Bewertung Ihrer Aussprache.</p>
+    <h3>Drittanbieter</h3>
+    <p>Die Spracherkennungsfunktion nutzt die vom Betriebssystem bereitgestellte API (Google Speech-to-Text auf Android, Apple Speech auf iOS). Hierbei können Audiodaten temporär an die Server der jeweiligen Plattform übertragen werden. Weitere Informationen finden Sie in den Datenschutzrichtlinien von Google bzw. Apple.</p>
+    <h3>Datenlöschung</h3>
+    <p>Aufnahmen können direkt in der App gelöscht werden. Alle weiteren Daten werden bei Deinstallation entfernt.</p>
+    <h3>Kontakt</h3>
+    <p>Bei Fragen: ycblischke@gmail.com</p>
+  </div>
+</div>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Modals
+  function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
+  document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); }));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id)); });
+
+  // Kontaktformular
+  const form      = document.getElementById('contactForm');
+  const formMsg   = document.getElementById('formMsg');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    let valid = true;
+    form.querySelectorAll('[required]').forEach(f => {
+      if (f.type === 'checkbox' && !f.checked) valid = false;
+      else if (f.type !== 'checkbox' && !f.value.trim()) valid = false;
+    });
+    if (!valid) {
+      formMsg.className = 'form-msg error';
+      formMsg.textContent = 'Bitte füllen Sie alle Pflichtfelder aus.';
+      return;
+    }
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gesendet…';
+    formMsg.style.display = 'none';
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+      if (res.ok) {
+        formMsg.className = 'form-msg success';
+        formMsg.textContent = '✓ Vielen Dank! Ihre Nachricht wurde gesendet.';
+        form.reset();
+      } else { throw new Error(); }
+    } catch {
+      formMsg.className = 'form-msg error';
+      formMsg.textContent = 'Fehler beim Senden. Bitte schreiben Sie direkt an ycblischke@gmail.com.';
+    }
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Nachricht senden →';
+  });
+</script>
+</body>
+</html>
