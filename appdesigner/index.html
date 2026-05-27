@@ -639,6 +639,46 @@
   </div>
 </section>
 
+    <!-- Claude Usage Viewer -->
+    <div class="app-card">
+      <div class="app-card-inner">
+        <div class="app-info">
+          <div class="app-header">
+            <div class="app-icon-placeholder" style="background:linear-gradient(135deg,#1A1A2E,#7C5CBF);border-radius:18px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-size:28px;">✦</div>
+            <div>
+              <div class="app-name">Claude Usage Viewer</div>
+              <div class="app-platform-chips">
+                <span class="platform-chip chip-android">🤖 Android</span>
+              </div>
+            </div>
+          </div>
+          <p class="app-desc">Claude Usage Viewer zeigt dir in Echtzeit deine Anthropic API-Nutzung — verbleibende Tokens, Anfragen und Reset-Zeit auf einen Blick. Auch als Android Home-Screen-Widget verfügbar, damit du immer weißt, wann du Claude wieder intensiv nutzen kannst.</p>
+          <ul class="app-features">
+            <li>Echtzeit Rate-Limit-Anzeige (Tokens & Anfragen)</li>
+            <li>Countdown bis zum nächsten Reset</li>
+            <li>5-Stunden- und 7-Tage-Verlauf</li>
+            <li>Android Home-Screen-Widget</li>
+            <li>Kein Server — alle Daten bleiben auf deinem Gerät</li>
+          </ul>
+          <div class="app-actions">
+            <a href="https://play.google.com/store/apps/details?id=com.yvesblischke.usageviewer" target="_blank" rel="noopener" class="btn-store">
+              🤖 Google Play
+            </a>
+            <button class="btn-datenschutz" onclick="openModal('dsModal_usageviewer')">
+              🔒 Datenschutz
+            </button>
+          </div>
+        </div>
+        <div class="app-screenshots">
+          <div class="screen-mock main" style="opacity:0.4;display:flex;align-items:center;justify-content:center;">
+            <div style="text-align:center;color:#7C5CBF;font-size:48px;">✦</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- KONTAKT -->
 <section id="kontakt">
   <div class="container">
@@ -828,6 +868,29 @@
     <p>Die Spracherkennungsfunktion nutzt die vom Betriebssystem bereitgestellte API (Google Speech-to-Text auf Android, Apple Speech auf iOS). Hierbei können Audiodaten temporär an die Server der jeweiligen Plattform übertragen werden. Weitere Informationen finden Sie in den Datenschutzrichtlinien von Google bzw. Apple.</p>
     <h3>Datenlöschung</h3>
     <p>Aufnahmen können direkt in der App gelöscht werden. Alle weiteren Daten werden bei Deinstallation entfernt.</p>
+    <h3>Kontakt</h3>
+    <p>Bei Fragen: ycblischke@gmail.com</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="dsModal_usageviewer">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('dsModal_usageviewer')">&times;</button>
+    <h2>Datenschutzerklärung – Claude Usage Viewer</h2>
+    <h3>Verantwortlicher</h3>
+    <p>Yves Claudio Blischke · E-Mail: ycblischke@gmail.com</p>
+    <h3>Erhobene Daten</h3>
+    <p>Claude Usage Viewer verarbeitet ausschließlich folgende Daten:</p>
+    <ul>
+      <li><strong>Anthropic API-Key:</strong> Wird ausschließlich lokal auf Ihrem Gerät gespeichert und niemals an externe Server übertragen.</li>
+      <li><strong>Rate-Limit-Daten:</strong> Token- und Anfragenzahlen werden lokal für bis zu 7 Tage gespeichert (5h- und Wochenübersicht).</li>
+    </ul>
+    <h3>Drittanbieter</h3>
+    <p>Die App kommuniziert ausschließlich mit der Anthropic API (<strong>api.anthropic.com</strong>), um Rate-Limit-Informationen abzurufen. Es gelten die Datenschutzbestimmungen von Anthropic: <a href="https://www.anthropic.com/privacy" target="_blank">anthropic.com/privacy</a></p>
+    <h3>Keine Weitergabe</h3>
+    <p>Es werden keine Nutzerdaten verkauft, vermietet oder an Dritte weitergegeben.</p>
+    <h3>Datenlöschung</h3>
+    <p>Alle lokal gespeicherten Daten (API-Key, Verlaufsdaten) werden bei Deinstallation der App vollständig gelöscht.</p>
     <h3>Kontakt</h3>
     <p>Bei Fragen: ycblischke@gmail.com</p>
   </div>
