@@ -180,7 +180,7 @@
     .form-check label { font-size: .82rem; color: rgba(255,255,255,.65); line-height: 1.5; cursor: pointer; }
     .form-check label a { color: var(--gold); }
     .form-msg { display: none; padding: .8rem 1rem; border-radius: 7px; font-size: .88rem; margin-bottom: 1rem; }
-    .form-msg.success { background: rgba(72,187,120,.2); border: 1px solid rgba(72,187,120,.4); color: #9ae6b4; display: block; }
+    .form-msg.success { background: rgba(72,187,120,.2); border: 1px solid rgba(72,187,120,.4); color: #9ae6b4; display: flex; align-items: center; gap: .6rem; font-size: .95rem; font-weight: 600; padding: 1.1rem 1.2rem; }
     .form-msg.error   { background: rgba(245,101,101,.2); border: 1px solid rgba(245,101,101,.4); color: #fc8181; display: block; }
     .btn-submit { width: 100%; padding: .9rem; background: var(--gold); color: #fff; border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 700; cursor: pointer; transition: all .2s; }
     .btn-submit:hover { background: var(--gold2); }
@@ -695,12 +695,12 @@
     }
     submitBtn.disabled = true;
     submitBtn.textContent = 'Wird gesendet…';
-    formMsg.style.display = 'none';
+    formMsg.className = 'form-msg';
     try {
       const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
       if (res.ok) {
         formMsg.className = 'form-msg success';
-        formMsg.textContent = '✓ Vielen Dank! Ihre Nachricht wurde gesendet. Ich melde mich in Kürze bei Ihnen.';
+        formMsg.textContent = '✓ Ihre Anfrage wurde erfolgreich versendet. Ein Mitarbeiter wird in Kürze mit Ihnen Kontakt aufnehmen.';
         form.reset();
       } else { throw new Error(); }
     } catch {
@@ -709,6 +709,7 @@
     }
     submitBtn.disabled = false;
     submitBtn.textContent = 'Nachricht senden →';
+    formMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 </script>
 </body>
