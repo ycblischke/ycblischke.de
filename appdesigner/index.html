@@ -356,6 +356,47 @@
     @media (max-width: 480px) {
       .services-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── WEBSHOP-DEMO ─────────────────────────────────── */
+    .demo-badge { display: inline-block; background: rgba(200,150,60,.12); color: var(--gold); border: 1px solid rgba(200,150,60,.3); border-radius: 6px; padding: .15rem .6rem; font-size: .72rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; margin-bottom: .8rem; }
+    .shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
+    .product-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.6rem; display: flex; flex-direction: column; }
+    .product-card .product-icon { font-size: 2.2rem; margin-bottom: .6rem; }
+    .product-card h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: .4rem; }
+    .product-card p { font-size: .85rem; color: var(--muted); flex-grow: 1; margin-bottom: 1rem; }
+    .product-price { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--navy); font-size: 1.3rem; margin-bottom: 1rem; }
+    .product-price sub { font-family: 'Inter', sans-serif; font-size: .7rem; color: var(--muted); font-weight: 400; }
+    .btn-add-cart { background: var(--navy); color: #fff; border: none; border-radius: 8px; padding: .7rem 1rem; font-size: .88rem; font-weight: 600; cursor: pointer; transition: background .2s; }
+    .btn-add-cart:hover { background: var(--navy2); }
+    .btn-add-cart.added { background: #2f9e5e; }
+
+    .cart-fab { position: fixed; bottom: 1.6rem; right: 1.6rem; background: var(--gold); color: #fff; border: none; border-radius: 50px; padding: .9rem 1.3rem; font-size: .95rem; font-weight: 700; box-shadow: 0 8px 24px rgba(200,150,60,.4); cursor: pointer; z-index: 999; display: flex; align-items: center; gap: .5rem; }
+    .cart-fab:hover { background: var(--gold2); }
+    .cart-count { background: var(--navy); color: #fff; border-radius: 50%; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: .72rem; }
+
+    .cart-item { display: flex; justify-content: space-between; align-items: center; gap: .8rem; padding: .8rem 0; border-bottom: 1px solid var(--border); }
+    .cart-item-name { font-size: .9rem; font-weight: 600; color: var(--text); }
+    .cart-item-price { font-size: .82rem; color: var(--muted); }
+    .cart-item-remove { background: none; border: none; color: #c0392b; cursor: pointer; font-size: .8rem; text-decoration: underline; }
+    .cart-total-row { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; margin-top: .6rem; font-weight: 700; color: var(--navy); font-size: 1.1rem; }
+    .cart-empty { color: var(--muted); font-size: .9rem; text-align: center; padding: 1.5rem 0; }
+
+    .checkout-steps { display: flex; gap: .5rem; margin-bottom: 1.4rem; }
+    .checkout-step-dot { flex: 1; height: 4px; border-radius: 2px; background: var(--border); }
+    .checkout-step-dot.active { background: var(--gold); }
+    .demo-note { background: rgba(200,150,60,.08); border: 1px solid rgba(200,150,60,.25); border-radius: 8px; padding: .8rem 1rem; font-size: .8rem; color: var(--muted); margin-top: 1rem; }
+
+    /* .form-group ist ursprünglich für den dunklen Kontakt-Bereich gedacht
+       (helle Schrift) - im weißen Modal hier auf dunkle Schrift umstellen. */
+    .modal-box .form-group label { color: var(--text); }
+    .modal-box .form-group input { background: var(--bg); border: 1px solid var(--border); color: var(--text); }
+    .modal-box .form-group input::placeholder { color: var(--muted); }
+    .modal-box .form-group input:focus { border-color: var(--gold); }
+    .modal-box .form-msg { display: none; }
+
+    @media (max-width: 768px) {
+      .shop-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -372,6 +413,7 @@
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#leistungen">Leistungen</a></li>
+      <li><a href="#webshop">Webshop-Demo</a></li>
       <li><a href="#apps">Meine Apps</a></li>
       <li><a href="#vorteile">Vorteile</a></li>
       <li><a href="/">Betriebswirt</a></li>
@@ -459,6 +501,20 @@
     </div>
   </div>
 </section>
+
+<!-- WEBSHOP DEMO -->
+<section id="webshop" style="background: var(--bg);">
+  <div class="container">
+    <div class="demo-badge">Live-Demo · Webdesign</div>
+    <h2 class="section-title">Ein Online-Shop, wie ich ihn für Sie bauen würde</h2>
+    <p class="section-sub">Voll funktionsfähige Demo: Produkte in den Warenkorb legen, ein Konto anlegen und eine unverbindliche Anfrage absenden – kein echter Zahlungsvorgang, aber genau der Ablauf, den auch Ihre Kunden später durchlaufen würden.</p>
+    <div class="shop-grid" id="shopGrid"></div>
+  </div>
+</section>
+
+<button class="cart-fab" id="cartFab">
+  🛒 Warenkorb <span class="cart-count" id="cartCount">0</span>
+</button>
 
 <!-- VORTEILE -->
 <section id="vorteile">
@@ -887,6 +943,62 @@
   </div>
 </div>
 
+<!-- WARENKORB -->
+<div class="modal-overlay" id="cartModal">
+  <div class="modal-box" style="max-width: 480px;">
+    <button class="modal-close" onclick="closeModal('cartModal')">&times;</button>
+    <h2>Ihr Warenkorb</h2>
+    <div id="cartItems"></div>
+    <div id="cartTotalRow" class="cart-total-row" style="display:none;">
+      <span>Gesamt</span>
+      <span id="cartTotal">0 €</span>
+    </div>
+    <button class="btn btn-primary" id="checkoutBtn" style="width:100%; margin-top:1.2rem; text-align:center;" onclick="startCheckout()">Zur Kasse →</button>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal-box" style="max-width: 480px;">
+    <button class="modal-close" onclick="closeModal('checkoutModal')">&times;</button>
+    <div class="checkout-steps">
+      <div class="checkout-step-dot active" id="stepDot1"></div>
+      <div class="checkout-step-dot" id="stepDot2"></div>
+    </div>
+
+    <div id="checkoutStep1">
+      <h2>Kundenkonto anlegen</h2>
+      <p style="margin-bottom:1rem;">Für den Abschluss der Bestellung wird ein Kundenkonto benötigt.</p>
+      <div class="form-group">
+        <label>Name <span class="req">*</span></label>
+        <input type="text" id="acctName" placeholder="Max Mustermann" required>
+      </div>
+      <div class="form-group">
+        <label>E-Mail <span class="req">*</span></label>
+        <input type="email" id="acctEmail" placeholder="max@beispiel.de" required>
+      </div>
+      <div class="form-group">
+        <label>Passwort <span class="req">*</span></label>
+        <input type="password" id="acctPassword" placeholder="••••••••" required>
+      </div>
+      <div class="demo-note">🔒 Nur zur Demonstration: Das Passwort wird nicht gespeichert oder übertragen – in einem echten Shop würde hier ein richtiges Kundenkonto entstehen.</div>
+      <button class="btn btn-primary" style="width:100%; margin-top:1.2rem; text-align:center;" onclick="goToStep2()">Konto erstellen & weiter →</button>
+    </div>
+
+    <div id="checkoutStep2" style="display:none;">
+      <h2>Bestellung abschließen</h2>
+      <div id="checkoutSummary"></div>
+      <div class="cart-total-row">
+        <span>Gesamt</span>
+        <span id="checkoutTotal">0 €</span>
+      </div>
+      <div class="form-msg" id="checkoutMsg"></div>
+      <button class="btn btn-primary" id="checkoutSubmitBtn" style="width:100%; margin-top:1.2rem; text-align:center;" onclick="submitOrder()">Unverbindlich anfragen →</button>
+      <div class="demo-note">Dies ist eine Demo: Es findet keine echte Zahlung statt. Die Anfrage geht unverbindlich direkt an mich, genau wie eine echte Bestellanfrage es tun würde.</div>
+    </div>
+  </div>
+</div>
+
 <script>
   // Hamburger
   const hamburger = document.getElementById('hamburger');
@@ -899,6 +1011,161 @@
   function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
   document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); }));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id)); });
+
+  // ── Webshop-Demo ─────────────────────────────────────
+  const PRODUCTS = [
+    { id: 'website-basic', icon: '🎨', name: 'Website Basic', price: 490,
+      desc: 'Responsive One-Pager mit Kontaktformular, Impressum & Datenschutz – startklar in wenigen Tagen.' },
+    { id: 'webshop-setup', icon: '🛒', name: 'Online-Shop Setup', price: 1490,
+      desc: 'Produktkatalog, Warenkorb und Checkout-Anbindung – genau wie diese Demo, nur für Ihr Business.' },
+    { id: 'branding', icon: '✨', name: 'Icon & Branding', price: 290,
+      desc: 'Logo, Icon-Set und ein kleiner Styleguide, damit Ihr Auftritt einheitlich wirkt.' },
+    { id: 'wartung', icon: '🔧', name: 'Wartung & Support', price: 79, unit: '/ Monat',
+      desc: 'Updates, Backups und kleine Anpassungen – damit Ihre Seite zuverlässig läuft.' },
+  ];
+
+  let cart = JSON.parse(localStorage.getItem('demoCart') || '[]');
+
+  function saveCart() { localStorage.setItem('demoCart', JSON.stringify(cart)); }
+
+  function renderShop() {
+    const grid = document.getElementById('shopGrid');
+    grid.innerHTML = PRODUCTS.map(p => `
+      <div class="product-card">
+        <div class="product-icon">${p.icon}</div>
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="product-price">${p.price} €<sub>${p.unit || ''}</sub></div>
+        <button class="btn-add-cart" id="add-${p.id}" onclick="addToCart('${p.id}')">In den Warenkorb</button>
+      </div>
+    `).join('');
+  }
+
+  function addToCart(id) {
+    if (!cart.includes(id)) cart.push(id);
+    saveCart();
+    renderCartBadge();
+    const btn = document.getElementById('add-' + id);
+    if (btn) {
+      btn.textContent = '✓ Im Warenkorb';
+      btn.classList.add('added');
+    }
+  }
+
+  function removeFromCart(id) {
+    cart = cart.filter(x => x !== id);
+    saveCart();
+    renderCartBadge();
+    renderCart();
+    const btn = document.getElementById('add-' + id);
+    if (btn) { btn.textContent = 'In den Warenkorb'; btn.classList.remove('added'); }
+  }
+
+  function cartProducts() { return cart.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean); }
+  function cartTotal() { return cartProducts().reduce((sum, p) => sum + p.price, 0); }
+
+  function renderCartBadge() {
+    document.getElementById('cartCount').textContent = cart.length;
+  }
+
+  function renderCart() {
+    const items = cartProducts();
+    const itemsEl = document.getElementById('cartItems');
+    const totalRow = document.getElementById('cartTotalRow');
+    if (items.length === 0) {
+      itemsEl.innerHTML = '<div class="cart-empty">Ihr Warenkorb ist leer.</div>';
+      totalRow.style.display = 'none';
+      document.getElementById('checkoutBtn').disabled = true;
+      document.getElementById('checkoutBtn').style.opacity = '.5';
+      return;
+    }
+    itemsEl.innerHTML = items.map(p => `
+      <div class="cart-item">
+        <div>
+          <div class="cart-item-name">${p.icon} ${p.name}</div>
+          <div class="cart-item-price">${p.price} €${p.unit || ''}</div>
+        </div>
+        <button class="cart-item-remove" onclick="removeFromCart('${p.id}')">Entfernen</button>
+      </div>
+    `).join('');
+    document.getElementById('cartTotal').textContent = cartTotal() + ' €';
+    totalRow.style.display = 'flex';
+    document.getElementById('checkoutBtn').disabled = false;
+    document.getElementById('checkoutBtn').style.opacity = '1';
+  }
+
+  function startCheckout() {
+    if (cart.length === 0) return;
+    closeModal('cartModal');
+    document.getElementById('checkoutStep1').style.display = 'block';
+    document.getElementById('checkoutStep2').style.display = 'none';
+    document.getElementById('stepDot1').classList.add('active');
+    document.getElementById('stepDot2').classList.remove('active');
+    openModal('checkoutModal');
+  }
+
+  function goToStep2() {
+    const name  = document.getElementById('acctName').value.trim();
+    const email = document.getElementById('acctEmail').value.trim();
+    const pw    = document.getElementById('acctPassword').value;
+    if (!name || !email || !pw) { alert('Bitte alle Felder ausfüllen (Demo-Konto).'); return; }
+    const items = cartProducts();
+    document.getElementById('checkoutSummary').innerHTML = items.map(p =>
+      `<div class="cart-item"><div class="cart-item-name">${p.icon} ${p.name}</div><div class="cart-item-price">${p.price} €${p.unit || ''}</div></div>`
+    ).join('');
+    document.getElementById('checkoutTotal').textContent = cartTotal() + ' €';
+    document.getElementById('checkoutStep1').style.display = 'none';
+    document.getElementById('checkoutStep2').style.display = 'block';
+    document.getElementById('stepDot2').classList.add('active');
+  }
+
+  async function submitOrder() {
+    const msg = document.getElementById('checkoutMsg');
+    const btn = document.getElementById('checkoutSubmitBtn');
+    const name  = document.getElementById('acctName').value.trim();
+    const email = document.getElementById('acctEmail').value.trim();
+    const items = cartProducts();
+    const summary = items.map(p => `${p.name} (${p.price} €${p.unit || ''})`).join(', ');
+    btn.disabled = true;
+    btn.textContent = 'Wird gesendet…';
+    try {
+      const res = await fetch('https://formspree.io/f/xnjlbolv', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name, email,
+          betreff: 'Webshop-Demo Anfrage',
+          nachricht: `Demo-Bestellung über den Webshop-Demo-Bereich:\n${summary}\nGesamt: ${cartTotal()} €`,
+        }),
+      });
+      if (res.ok) {
+        msg.className = 'form-msg success';
+        msg.style.display = 'block';
+        msg.textContent = '✓ Danke! Ihre unverbindliche Anfrage wurde an mich gesendet.';
+        cart = [];
+        saveCart();
+        renderCartBadge();
+        btn.style.display = 'none';
+      } else {
+        throw new Error('Formspree error');
+      }
+    } catch (err) {
+      msg.className = 'form-msg error';
+      msg.style.display = 'block';
+      msg.textContent = 'Fehler beim Senden. Bitte schreiben Sie direkt an ycblischke@gmail.com.';
+      btn.disabled = false;
+      btn.textContent = 'Unverbindlich anfragen →';
+    }
+  }
+
+  document.getElementById('cartFab').addEventListener('click', () => { renderCart(); openModal('cartModal'); });
+
+  renderShop();
+  renderCartBadge();
+  cart.forEach(id => {
+    const btn = document.getElementById('add-' + id);
+    if (btn) { btn.textContent = '✓ Im Warenkorb'; btn.classList.add('added'); }
+  });
 
   // Kontaktformular
   const form      = document.getElementById('contactForm');
