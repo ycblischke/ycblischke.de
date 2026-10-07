@@ -424,6 +424,10 @@
     .mock-icon-slide { align-items: center; justify-content: center; display: flex; }
     .mock-icon-slide img { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; }
 
+    /* Live-Vorschau: echte eigene Seite verkleinert eingebettet (keine Fake-Screenshots) */
+    .mock-live-wrap { position: relative; width: 100%; aspect-ratio: 16/10; overflow: hidden; background: #fff; }
+    .mock-live-wrap iframe { position: absolute; top: 0; left: 0; width: 400%; height: 400%; border: none; transform: scale(.25); transform-origin: 0 0; pointer-events: none; }
+
     .cart-fab { position: fixed; bottom: 1.6rem; right: 1.6rem; background: var(--gold); color: #fff; border: none; border-radius: 50px; padding: .9rem 1.3rem; font-size: .95rem; font-weight: 700; box-shadow: 0 8px 24px rgba(200,150,60,.4); cursor: pointer; z-index: 999; display: flex; align-items: center; gap: .5rem; }
     .cart-fab:hover { background: var(--gold2); }
     .cart-count { background: var(--navy); color: #fff; border-radius: 50%; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: .72rem; }
@@ -1070,7 +1074,11 @@
   const PRODUCTS = [
     { id: 'website-basic', icon: '🎨', name: 'Website Basic', price: 490,
       desc: 'Responsive One-Pager mit Kontaktformular, Impressum & Datenschutz – startklar in wenigen Tagen.',
-      gallery: [{ kind: 'hero' }, { kind: 'about' }, { kind: 'contact' }] },
+      gallery: [
+        { live: '../index.html#start', alt: 'Live-Vorschau: Startseite' },
+        { live: '../index.html#ueber-mich', alt: 'Live-Vorschau: Über-mich-Bereich' },
+        { live: '../index.html#kontakt', alt: 'Live-Vorschau: Kontaktformular' },
+      ] },
     { id: 'webshop-setup', icon: '🛒', name: 'Online-Shop Setup', price: 1490,
       desc: 'Produktkatalog, Warenkorb und Checkout-Anbindung – genau wie diese Demo, nur für Ihr Business.',
       gallery: [{ kind: 'catalog' }, { kind: 'cart' }, { kind: 'checkout' }] },
@@ -1100,10 +1108,11 @@
   };
 
   function renderGallery(p) {
-    const slides = p.gallery.map(g => g.img
-      ? `<div class="gallery-slide"><div class="mock-browser mock-icon-slide"><img src="${g.img}" alt="${g.alt || ''}" loading="lazy"></div></div>`
-      : `<div class="gallery-slide"><div class="mock-browser"><div class="mock-bar"><span></span><span></span><span></span></div><div class="mock-body">${MOCK_SLIDES[g.kind] || ''}</div></div></div>`
-    ).join('');
+    const slides = p.gallery.map(g => {
+      if (g.img) return `<div class="gallery-slide"><div class="mock-browser mock-icon-slide"><img src="${g.img}" alt="${g.alt || ''}" loading="lazy"></div></div>`;
+      if (g.live) return `<div class="gallery-slide"><div class="mock-browser"><div class="mock-bar"><span></span><span></span><span></span></div><div class="mock-live-wrap"><iframe src="${g.live}" title="${g.alt || ''}" scrolling="no" tabindex="-1" loading="lazy"></iframe></div></div></div>`;
+      return `<div class="gallery-slide"><div class="mock-browser"><div class="mock-bar"><span></span><span></span><span></span></div><div class="mock-body">${MOCK_SLIDES[g.kind] || ''}</div></div></div>`;
+    }).join('');
     const dots = p.gallery.map((_, i) => `<span class="gallery-dot${i === 0 ? ' active' : ''}"></span>`).join('');
     return `
       <div class="gallery">
