@@ -885,7 +885,7 @@
 </div>
 
 <!-- DATENSCHUTZ WEBSITE MODAL -->
-<div class="modal-overlay" id="dsModal_website">
+<div class="modal-overlay" id="dsModal_website" style="z-index: 2100;">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('dsModal_website')">&times;</button>
     <h2>Datenschutzerklärung</h2>
@@ -897,6 +897,10 @@
     <p>Der Hosting-Anbieter (GitHub Pages) erhebt automatisch Informationen in Server-Logfiles (Browsertyp, Betriebssystem, Referrer-URL, IP-Adresse). Diese Daten werden nicht mit anderen Quellen zusammengeführt.</p>
     <h3>Kontaktformular</h3>
     <p>Angaben aus dem Kontaktformular werden über Formspree zur Bearbeitung der Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt ohne Ihre Einwilligung nicht.</p>
+    <h3>Webshop-Demo: Kundenkonto und Bestellanfragen</h3>
+    <p>Für den Checkout der Webshop-Demo können Sie ein Kundenkonto anlegen. Dafür nutze ich Google Firebase (Firebase Authentication und Cloud Firestore) der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Gespeichert werden Ihr Name, Ihre E-Mail-Adresse, der Zeitpunkt der Registrierung sowie Ihre Bestellanfragen (gewählte Leistungen, Gesamtsumme, Zeitpunkt). Ihr Passwort wird ausschließlich verschlüsselt (gehasht) von Firebase Authentication verarbeitet und ist für mich nicht einsehbar. Die Datenbank liegt im Rechenzentrum Frankfurt am Main; bei der Anmeldung über Firebase Authentication kann eine Verarbeitung auch in den USA nicht ausgeschlossen werden. Google ist nach dem EU-US Data Privacy Framework zertifiziert.</p>
+    <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Durchführung vorvertraglicher Maßnahmen auf Ihre Anfrage). Die Bestellanfrage wird zusätzlich per E-Mail über Formspree an mich übermittelt. Ihre Daten werden gelöscht, sobald sie für die Bearbeitung nicht mehr erforderlich sind, spätestens jedoch auf Ihren Wunsch hin. Eine formlose E-Mail an ycblischke@gmail.com genügt, um Ihr Konto samt aller gespeicherten Daten löschen zu lassen.</p>
+    <p>Der Inhalt Ihres Warenkorbs wird lediglich lokal in Ihrem Browser (localStorage) gespeichert und nicht an mich übertragen, bis Sie eine Anfrage absenden. Firebase speichert zudem einen Anmeldestatus in Ihrem Browser, damit Sie eingeloggt bleiben.</p>
     <h3>Ihre Rechte</h3>
     <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung (Art. 15–18 DSGVO).</p>
     <h3>Beschwerderecht</h3>
@@ -1037,14 +1041,16 @@
       </div>
       <div class="form-group">
         <label>Passwort <span class="req">*</span></label>
-        <input type="password" id="acctPassword" placeholder="••••••••" required>
+        <input type="password" id="acctPassword" placeholder="mind. 6 Zeichen" required>
       </div>
-      <div class="demo-note">🔒 Nur zur Demonstration: Das Passwort wird nicht gespeichert oder übertragen – in einem echten Shop würde hier ein richtiges Kundenkonto entstehen.</div>
-      <button class="btn btn-primary" style="width:100%; margin-top:1.2rem; text-align:center;" onclick="goToStep2()">Konto erstellen & weiter →</button>
+      <div class="form-msg" id="acctMsg"></div>
+      <div class="demo-note">🔒 Echtes Kundenkonto (Firebase Authentication): Neu hier? Es wird automatisch ein Konto angelegt. Schon registriert? Mit derselben E-Mail/Passwort werden Sie eingeloggt. Es findet aber keine echte Zahlung statt. Details in der <a href="#" onclick="openModal('dsModal_website'); return false;">Datenschutzerklärung</a>.</div>
+      <button class="btn btn-primary" id="acctSubmitBtn" style="width:100%; margin-top:1.2rem; text-align:center;" onclick="goToStep2()">Konto erstellen / Anmelden →</button>
     </div>
 
     <div id="checkoutStep2" style="display:none;">
       <h2>Bestellung abschließen</h2>
+      <p style="margin-bottom:.8rem; font-size:.85rem; color:var(--muted);">Angemeldet als <strong id="checkoutUserEmail"></strong> · <a href="#" onclick="logoutAccount(); return false;">Abmelden</a></p>
       <div id="checkoutSummary"></div>
       <div class="cart-total-row">
         <span>Gesamt</span>
@@ -1057,7 +1063,23 @@
   </div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script>
+  // Firebase-Projekt: echtes Login/Konto für den Webshop-Demo-Checkout
+  const firebaseConfig = {
+    apiKey: "AIzaSyBrvD3hMdXtiaEhqZ4V4ryj5Ta4MDIQ8sQ",
+    authDomain: "ycblischke-webseite.firebaseapp.com",
+    projectId: "ycblischke-webseite",
+    storageBucket: "ycblischke-webseite.firebasestorage.app",
+    messagingSenderId: "821455311424",
+    appId: "1:821455311424:web:7176ca52e714d391b2c5a5"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db   = firebase.firestore();
+
   // Hamburger
   const hamburger = document.getElementById('hamburger');
   const navLinks  = document.getElementById('navLinks');
@@ -1217,38 +1239,104 @@
   function startCheckout() {
     if (cart.length === 0) return;
     closeModal('cartModal');
-    document.getElementById('checkoutStep1').style.display = 'block';
-    document.getElementById('checkoutStep2').style.display = 'none';
-    document.getElementById('stepDot1').classList.add('active');
-    document.getElementById('stepDot2').classList.remove('active');
+    document.getElementById('acctMsg').style.display = 'none';
+    if (auth.currentUser) {
+      showCheckoutStep2();
+    } else {
+      document.getElementById('checkoutStep1').style.display = 'block';
+      document.getElementById('checkoutStep2').style.display = 'none';
+      document.getElementById('stepDot1').classList.add('active');
+      document.getElementById('stepDot2').classList.remove('active');
+    }
     openModal('checkoutModal');
   }
 
-  function goToStep2() {
-    const name  = document.getElementById('acctName').value.trim();
-    const email = document.getElementById('acctEmail').value.trim();
-    const pw    = document.getElementById('acctPassword').value;
-    if (!name || !email || !pw) { alert('Bitte alle Felder ausfüllen (Demo-Konto).'); return; }
+  function showCheckoutStep2() {
     const items = cartProducts();
     document.getElementById('checkoutSummary').innerHTML = items.map(p =>
       `<div class="cart-item"><div class="cart-item-name">${p.icon} ${p.name}</div><div class="cart-item-price">${p.price} €${p.unit || ''}</div></div>`
     ).join('');
     document.getElementById('checkoutTotal').textContent = cartTotal() + ' €';
+    document.getElementById('checkoutUserEmail').textContent = auth.currentUser ? auth.currentUser.email : '';
     document.getElementById('checkoutStep1').style.display = 'none';
     document.getElementById('checkoutStep2').style.display = 'block';
+    document.getElementById('stepDot1').classList.remove('active');
     document.getElementById('stepDot2').classList.add('active');
+  }
+
+  async function goToStep2() {
+    const name  = document.getElementById('acctName').value.trim();
+    const email = document.getElementById('acctEmail').value.trim();
+    const pw    = document.getElementById('acctPassword').value;
+    const msg   = document.getElementById('acctMsg');
+    const btn   = document.getElementById('acctSubmitBtn');
+    if (!name || !email || !pw) {
+      msg.className = 'form-msg error'; msg.style.display = 'block';
+      msg.textContent = 'Bitte alle Felder ausfüllen.';
+      return;
+    }
+    msg.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Einen Moment…';
+    try {
+      try {
+        const cred = await auth.createUserWithEmailAndPassword(email, pw);
+        await cred.user.updateProfile({ displayName: name });
+        // Kundenprofil in Firestore (Passwort bleibt ausschließlich bei Firebase Auth)
+        await db.collection('customers').doc(cred.user.uid).set({
+          name, email,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+      } catch (err) {
+        if (err.code === 'auth/email-already-in-use') {
+          await auth.signInWithEmailAndPassword(email, pw);
+        } else {
+          throw err;
+        }
+      }
+      showCheckoutStep2();
+    } catch (err) {
+      msg.className = 'form-msg error'; msg.style.display = 'block';
+      msg.textContent = authErrorText(err.code);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Konto erstellen / Anmelden →';
+    }
+  }
+
+  function authErrorText(code) {
+    switch (code) {
+      case 'auth/wrong-password': return 'Falsches Passwort für dieses Konto.';
+      case 'auth/invalid-email': return 'Ungültige E-Mail-Adresse.';
+      case 'auth/weak-password': return 'Passwort zu schwach (mind. 6 Zeichen).';
+      case 'auth/invalid-credential': return 'E-Mail oder Passwort falsch.';
+      case 'auth/too-many-requests': return 'Zu viele Versuche. Bitte kurz warten.';
+      default: return 'Anmeldung fehlgeschlagen. Bitte erneut versuchen.';
+    }
+  }
+
+  function logoutAccount() {
+    auth.signOut();
+    closeModal('checkoutModal');
   }
 
   async function submitOrder() {
     const msg = document.getElementById('checkoutMsg');
     const btn = document.getElementById('checkoutSubmitBtn');
-    const name  = document.getElementById('acctName').value.trim();
-    const email = document.getElementById('acctEmail').value.trim();
+    const user  = auth.currentUser;
+    const name  = (user && user.displayName) || document.getElementById('acctName').value.trim();
+    const email = user ? user.email : document.getElementById('acctEmail').value.trim();
     const items = cartProducts();
     const summary = items.map(p => `${p.name} (${p.price} €${p.unit || ''})`).join(', ');
     btn.disabled = true;
     btn.textContent = 'Wird gesendet…';
     try {
+      await db.collection('orders').add({
+        uid: user.uid, name, email,
+        items: items.map(p => ({ id: p.id, name: p.name, price: p.price, unit: p.unit || '' })),
+        total: cartTotal(),
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
       const res = await fetch('https://formspree.io/f/xnjlbolv', {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
