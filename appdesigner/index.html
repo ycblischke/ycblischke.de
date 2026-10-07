@@ -370,6 +370,60 @@
     .btn-add-cart:hover { background: var(--navy2); }
     .btn-add-cart.added { background: #2f9e5e; }
 
+    /* ── Produkt-Galerie (horizontal, swipebar) ──────────── */
+    .gallery { position: relative; margin-bottom: 1rem; border-radius: 8px; overflow: hidden; background: var(--bg); }
+    .gallery-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
+    .gallery-track::-webkit-scrollbar { display: none; }
+    .gallery-slide { flex: 0 0 100%; scroll-snap-align: start; padding: .4rem; box-sizing: border-box; }
+    .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(27,47,94,.55); color: #fff; border: none; width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-size: 1rem; line-height: 1; display: flex; align-items: center; justify-content: center; }
+    .gallery-arrow.prev { left: .4rem; }
+    .gallery-arrow.next { right: .4rem; }
+    .gallery-arrow:hover { background: var(--navy); }
+    .gallery-dots { position: absolute; bottom: .4rem; left: 0; right: 0; display: flex; justify-content: center; gap: .3rem; pointer-events: none; }
+    .gallery-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(27,47,94,.25); }
+    .gallery-dot.active { background: var(--gold); }
+
+    /* Illustrative Mockup-Frames (bewusst als Skizze/Konzept gestaltet, keine echten Screenshots) */
+    .mock-browser { background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; aspect-ratio: 16/10; display: flex; flex-direction: column; }
+    .mock-bar { display: flex; gap: .3rem; padding: .4rem .5rem; background: #EDEFF5; flex-shrink: 0; }
+    .mock-bar span { width: 7px; height: 7px; border-radius: 50%; background: #C7CCDA; }
+    .mock-body { flex: 1; padding: .6rem .7rem; display: flex; flex-direction: column; gap: .4rem; min-height: 0; }
+    .mock-nav { display: flex; align-items: center; gap: .4rem; margin-bottom: .2rem; }
+    .mock-logo { width: 14px; height: 14px; border-radius: 3px; background: var(--gold); flex-shrink: 0; }
+    .mock-line { height: 6px; border-radius: 3px; background: var(--border); }
+    .mock-line.sm { width: 30%; }
+    .mock-line.md { width: 55%; }
+    .mock-line.lg { width: 75%; height: 10px; }
+    .mock-hero { flex: 1; display: flex; flex-direction: column; gap: .5rem; justify-content: center; align-items: flex-start; }
+    .mock-btn { width: 70px; height: 18px; border-radius: 4px; background: var(--navy); }
+    .mock-split { flex: 1; flex-direction: row; gap: .6rem; align-items: center; }
+    .mock-col { flex: 1; display: flex; flex-direction: column; gap: .35rem; }
+    .mock-img-block { flex: 1; align-self: stretch; border-radius: 6px; background: linear-gradient(135deg, rgba(200,150,60,.25), rgba(27,47,94,.15)); }
+    .mock-form { flex: 1; display: flex; flex-direction: column; gap: .5rem; justify-content: center; }
+    .mock-input { height: 14px; border-radius: 4px; background: var(--border); width: 80%; }
+    .mock-textarea { height: 26px; border-radius: 4px; background: var(--border); width: 80%; }
+    .mock-steps { display: flex; gap: .3rem; margin-bottom: .2rem; }
+    .mock-steps span { flex: 1; height: 3px; border-radius: 2px; background: var(--border); }
+    .mock-steps span.active { background: var(--gold); }
+    .mock-catalog { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: .4rem; }
+    .mock-grid-item { border-radius: 5px; background: linear-gradient(135deg, rgba(27,47,94,.12), rgba(200,150,60,.18)); }
+    .mock-cart { flex: 1; display: flex; flex-direction: column; gap: .3rem; justify-content: center; }
+    .mock-cart-row { display: flex; align-items: center; gap: .4rem; }
+    .mock-thumb { width: 18px; height: 18px; border-radius: 4px; background: var(--border); flex-shrink: 0; }
+    .mock-cart-row .mock-line { flex: 1; }
+    .mock-price { width: 24px; height: 6px; border-radius: 3px; background: var(--gold); flex-shrink: 0; }
+    .mock-dash { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto 1fr; gap: .4rem; }
+    .mock-stat { border-radius: 5px; background: rgba(27,47,94,.1); height: 22px; }
+    .mock-chart { grid-column: 1 / -1; border-radius: 5px; background: linear-gradient(100deg, rgba(200,150,60,.15), rgba(27,47,94,.08)); }
+    .mock-center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .4rem; }
+    .mock-cloud { font-size: 1.6rem; }
+    .mock-check { color: #2f9e5e; font-weight: 700; }
+    .mock-chat { flex: 1; display: flex; flex-direction: column; gap: .35rem; justify-content: center; }
+    .mock-bubble { height: 14px; width: 55%; border-radius: 8px; background: var(--border); }
+    .mock-bubble.right { align-self: flex-end; background: rgba(200,150,60,.3); }
+    .mock-icon-slide { align-items: center; justify-content: center; display: flex; }
+    .mock-icon-slide img { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; }
+
     .cart-fab { position: fixed; bottom: 1.6rem; right: 1.6rem; background: var(--gold); color: #fff; border: none; border-radius: 50px; padding: .9rem 1.3rem; font-size: .95rem; font-weight: 700; box-shadow: 0 8px 24px rgba(200,150,60,.4); cursor: pointer; z-index: 999; display: flex; align-items: center; gap: .5rem; }
     .cart-fab:hover { background: var(--gold2); }
     .cart-count { background: var(--navy); color: #fff; border-radius: 50%; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: .72rem; }
@@ -1015,14 +1069,67 @@
   // ── Webshop-Demo ─────────────────────────────────────
   const PRODUCTS = [
     { id: 'website-basic', icon: '🎨', name: 'Website Basic', price: 490,
-      desc: 'Responsive One-Pager mit Kontaktformular, Impressum & Datenschutz – startklar in wenigen Tagen.' },
+      desc: 'Responsive One-Pager mit Kontaktformular, Impressum & Datenschutz – startklar in wenigen Tagen.',
+      gallery: [{ kind: 'hero' }, { kind: 'about' }, { kind: 'contact' }] },
     { id: 'webshop-setup', icon: '🛒', name: 'Online-Shop Setup', price: 1490,
-      desc: 'Produktkatalog, Warenkorb und Checkout-Anbindung – genau wie diese Demo, nur für Ihr Business.' },
+      desc: 'Produktkatalog, Warenkorb und Checkout-Anbindung – genau wie diese Demo, nur für Ihr Business.',
+      gallery: [{ kind: 'catalog' }, { kind: 'cart' }, { kind: 'checkout' }] },
     { id: 'branding', icon: '✨', name: 'Icon & Branding', price: 290,
-      desc: 'Logo, Icon-Set und ein kleiner Styleguide, damit Ihr Auftritt einheitlich wirkt.' },
+      desc: 'Logo, Icon-Set und ein kleiner Styleguide, damit Ihr Auftritt einheitlich wirkt.',
+      gallery: [
+        { img: 'img/iwritethai-icon.png', alt: 'App-Icon IWriteThai' },
+        { img: 'img/foodkey-icon.png', alt: 'App-Icon FoodKey' },
+        { img: 'img/hypno-icon.png', alt: 'App-Icon Hypno' },
+      ] },
     { id: 'wartung', icon: '🔧', name: 'Wartung & Support', price: 79, unit: '/ Monat',
-      desc: 'Updates, Backups und kleine Anpassungen – damit Ihre Seite zuverlässig läuft.' },
+      desc: 'Updates, Backups und kleine Anpassungen – damit Ihre Seite zuverlässig läuft.',
+      gallery: [{ kind: 'dashboard' }, { kind: 'backup' }, { kind: 'support' }] },
   ];
+
+  // Illustrative Mockup-Inhalte je Galerie-Folie (Konzept-Skizzen, keine echten Screenshots)
+  const MOCK_SLIDES = {
+    hero: `<div class="mock-nav"><span class="mock-logo"></span><span class="mock-line sm"></span><span class="mock-line sm"></span></div><div class="mock-hero"><div class="mock-line lg"></div><div class="mock-line md"></div><div class="mock-btn"></div></div>`,
+    about: `<div class="mock-split"><div class="mock-col"><div class="mock-line md"></div><div class="mock-line"></div><div class="mock-line"></div><div class="mock-line sm"></div></div><div class="mock-img-block"></div></div>`,
+    contact: `<div class="mock-form"><div class="mock-input"></div><div class="mock-input"></div><div class="mock-textarea"></div><div class="mock-btn"></div></div>`,
+    catalog: `<div class="mock-catalog"><div class="mock-grid-item"></div><div class="mock-grid-item"></div><div class="mock-grid-item"></div><div class="mock-grid-item"></div></div>`,
+    cart: `<div class="mock-cart"><div class="mock-cart-row"><span class="mock-thumb"></span><span class="mock-line sm"></span><span class="mock-price"></span></div><div class="mock-cart-row"><span class="mock-thumb"></span><span class="mock-line sm"></span><span class="mock-price"></span></div><div class="mock-cart-row"><span class="mock-thumb"></span><span class="mock-line sm"></span><span class="mock-price"></span></div><div class="mock-btn"></div></div>`,
+    checkout: `<div class="mock-form"><div class="mock-steps"><span class="active"></span><span></span><span></span></div><div class="mock-input"></div><div class="mock-input"></div><div class="mock-btn"></div></div>`,
+    dashboard: `<div class="mock-dash"><div class="mock-stat"></div><div class="mock-stat"></div><div class="mock-stat"></div><div class="mock-chart"></div></div>`,
+    backup: `<div class="mock-center"><div class="mock-cloud">☁️</div><div class="mock-line sm"></div><div class="mock-check">✓</div></div>`,
+    support: `<div class="mock-chat"><div class="mock-bubble left"></div><div class="mock-bubble right"></div><div class="mock-bubble left"></div></div>`,
+  };
+
+  function renderGallery(p) {
+    const slides = p.gallery.map(g => g.img
+      ? `<div class="gallery-slide"><div class="mock-browser mock-icon-slide"><img src="${g.img}" alt="${g.alt || ''}" loading="lazy"></div></div>`
+      : `<div class="gallery-slide"><div class="mock-browser"><div class="mock-bar"><span></span><span></span><span></span></div><div class="mock-body">${MOCK_SLIDES[g.kind] || ''}</div></div></div>`
+    ).join('');
+    const dots = p.gallery.map((_, i) => `<span class="gallery-dot${i === 0 ? ' active' : ''}"></span>`).join('');
+    return `
+      <div class="gallery">
+        <div class="gallery-track" id="track-${p.id}">${slides}</div>
+        <button class="gallery-arrow prev" onclick="scrollGallery('${p.id}', -1)" aria-label="Vorheriges Bild">‹</button>
+        <button class="gallery-arrow next" onclick="scrollGallery('${p.id}', 1)" aria-label="Nächstes Bild">›</button>
+        <div class="gallery-dots" id="dots-${p.id}">${dots}</div>
+      </div>
+    `;
+  }
+
+  function scrollGallery(id, dir) {
+    const track = document.getElementById('track-' + id);
+    const slide = track && track.querySelector('.gallery-slide');
+    if (!slide) return;
+    track.scrollBy({ left: dir * slide.getBoundingClientRect().width, behavior: 'smooth' });
+  }
+
+  function updateGalleryDots(id) {
+    const track = document.getElementById('track-' + id);
+    const slide = track && track.querySelector('.gallery-slide');
+    if (!slide) return;
+    const w = slide.getBoundingClientRect().width;
+    const idx = Math.round(track.scrollLeft / w);
+    document.querySelectorAll(`#dots-${id} .gallery-dot`).forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
 
   let cart = JSON.parse(localStorage.getItem('demoCart') || '[]');
 
@@ -1032,13 +1139,17 @@
     const grid = document.getElementById('shopGrid');
     grid.innerHTML = PRODUCTS.map(p => `
       <div class="product-card">
-        <div class="product-icon">${p.icon}</div>
-        <h3>${p.name}</h3>
+        ${renderGallery(p)}
+        <h3>${p.icon} ${p.name}</h3>
         <p>${p.desc}</p>
         <div class="product-price">${p.price} €<sub>${p.unit || ''}</sub></div>
         <button class="btn-add-cart" id="add-${p.id}" onclick="addToCart('${p.id}')">In den Warenkorb</button>
       </div>
     `).join('');
+    PRODUCTS.forEach(p => {
+      const track = document.getElementById('track-' + p.id);
+      if (track) track.addEventListener('scroll', () => updateGalleryDots(p.id));
+    });
   }
 
   function addToCart(id) {
