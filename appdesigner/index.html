@@ -444,6 +444,32 @@
       nav { padding-right: .25rem; }
     }
 
+    /* Mein Konto: Personen-Icon (Desktop) bzw. Eintrag im Menü (Handy) */
+    .account-dot { position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); display: none; }
+    .nav-account.logged-in .account-dot { display: block; }
+    .nav-account-mobile { display: none; }
+    @media (max-width: 768px) {
+      .nav-account { display: none; }
+      .nav-links .nav-account-mobile { display: block; }
+    }
+    .btn-small { padding: .6rem 1.2rem; font-size: .85rem; }
+    .btn-ghost { background: none; border: 1px solid var(--border); color: var(--navy); }
+    .btn-ghost:hover { border-color: var(--navy); }
+    .btn-danger { background: #c0392b; color: #fff; }
+    .btn-danger:hover { background: #a93226; }
+    .link-btn { background: none; border: none; padding: 0; color: var(--navy); text-decoration: underline; cursor: pointer; font-size: .82rem; font-family: inherit; }
+    .link-btn:hover { color: var(--gold); }
+    .acct-links { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+    .acct-section { border-top: 1px solid var(--border); margin-top: 1.6rem; padding-top: .2rem; }
+    .order-item { padding: .7rem 0; border-bottom: 1px solid var(--border); font-size: .85rem; }
+    .order-item:last-child { border-bottom: none; }
+    .order-head { display: flex; justify-content: space-between; gap: .8rem; font-weight: 600; color: var(--navy); }
+    .order-items { color: var(--muted); margin-top: .2rem; }
+    .danger-zone summary { cursor: pointer; color: #c0392b; font-size: .85rem; font-weight: 600; margin-top: 1.2rem; }
+    .danger-zone[open] summary { margin-bottom: .6rem; }
+    .modal-box .form-msg.success { color: #276749; }
+    .modal-box .form-msg.error { color: #c53030; }
+
     .cart-item { display: flex; justify-content: space-between; align-items: center; gap: .8rem; padding: .8rem 0; border-bottom: 1px solid var(--border); }
     .cart-item-name { font-size: .9rem; font-weight: 600; color: var(--text); }
     .cart-item-price { font-size: .82rem; color: var(--muted); }
@@ -487,9 +513,14 @@
       <li><a href="#apps">Meine Apps</a></li>
       <li><a href="#vorteile">Vorteile</a></li>
       <li><a href="/">Betriebswirt</a></li>
+      <li class="nav-account-mobile"><a href="#" id="navAccountLink">Anmelden</a></li>
       <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
     </ul>
     <div class="nav-actions">
+      <button class="nav-cart nav-account" id="navAccountBtn" aria-label="Mein Konto" title="Anmelden">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="account-dot"></span>
+      </button>
       <button class="nav-cart" id="cartFab" aria-label="Warenkorb öffnen" title="Warenkorb">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         <span class="cart-count" id="cartCount"></span>
@@ -914,7 +945,8 @@
     <p>Angaben aus dem Kontaktformular werden über Formspree zur Bearbeitung der Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt ohne Ihre Einwilligung nicht.</p>
     <h3>Webshop-Demo: Kundenkonto und Bestellanfragen</h3>
     <p>Für den Checkout der Webshop-Demo können Sie ein Kundenkonto anlegen. Dafür nutze ich Google Firebase (Firebase Authentication und Cloud Firestore) der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Gespeichert werden Ihr Name, Ihre E-Mail-Adresse, der Zeitpunkt der Registrierung sowie Ihre Bestellanfragen (gewählte Leistungen, Gesamtsumme, Zeitpunkt). Ihr Passwort wird ausschließlich verschlüsselt (gehasht) von Firebase Authentication verarbeitet und ist für mich nicht einsehbar. Die Datenbank liegt im Rechenzentrum Frankfurt am Main; bei der Anmeldung über Firebase Authentication kann eine Verarbeitung auch in den USA nicht ausgeschlossen werden. Google ist nach dem EU-US Data Privacy Framework zertifiziert.</p>
-    <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Durchführung vorvertraglicher Maßnahmen auf Ihre Anfrage). Die Bestellanfrage wird zusätzlich per E-Mail über Formspree an mich übermittelt. Ihre Daten werden gelöscht, sobald sie für die Bearbeitung nicht mehr erforderlich sind, spätestens jedoch auf Ihren Wunsch hin. Eine formlose E-Mail an ycblischke@gmail.com genügt, um Ihr Konto samt aller gespeicherten Daten löschen zu lassen.</p>
+    <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Durchführung vorvertraglicher Maßnahmen auf Ihre Anfrage). Die Bestellanfrage wird zusätzlich per E-Mail über Formspree an mich übermittelt. Ihre Daten werden gelöscht, sobald sie für die Bearbeitung nicht mehr erforderlich sind, spätestens jedoch auf Ihren Wunsch hin.</p>
+    <p>Unter „Mein Konto“ können Sie Ihren Namen und Ihr Passwort jederzeit selbst ändern, Ihre bisherigen Anfragen einsehen und Ihr Konto löschen. Beim Löschen werden Ihr Login, Ihr Profil und alle Ihre gespeicherten Anfragen sofort und endgültig entfernt. Alternativ genügt eine formlose E-Mail an ycblischke@gmail.com. Auf Wunsch lösche ich dann auch die per E-Mail erhaltenen Anfragen. Für die Funktion „Passwort vergessen“ versendet Firebase in meinem Auftrag eine E-Mail an die von Ihnen angegebene Adresse.</p>
     <p>Der Inhalt Ihres Warenkorbs wird lediglich lokal in Ihrem Browser (localStorage) gespeichert und nicht an mich übertragen, bis Sie eine Anfrage absenden. Firebase speichert zudem einen Anmeldestatus in Ihrem Browser, damit Sie eingeloggt bleiben.</p>
     <h3>Ihre Rechte</h3>
     <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung (Art. 15–18 DSGVO).</p>
@@ -1034,6 +1066,83 @@
   </div>
 </div>
 
+<!-- MEIN KONTO -->
+<div class="modal-overlay" id="accountModal">
+  <div class="modal-box" style="max-width: 480px;">
+    <button class="modal-close" onclick="closeModal('accountModal')">&times;</button>
+
+    <div id="acctLoggedOut">
+      <h2 id="loginTitle">Anmelden</h2>
+      <div class="form-group" id="loginNameGroup" style="display:none;">
+        <label>Name <span class="req">*</span></label>
+        <input type="text" id="loginName" placeholder="Max Mustermann" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label>E-Mail <span class="req">*</span></label>
+        <input type="email" id="loginEmail" placeholder="max@beispiel.de" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label>Passwort <span class="req">*</span></label>
+        <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <div class="form-msg" id="loginMsg"></div>
+      <button class="btn btn-primary" id="loginBtn" style="width:100%; text-align:center;" onclick="submitLogin()">Anmelden →</button>
+      <div class="acct-links">
+        <button class="link-btn" onclick="resetPassword('loginEmail', 'loginMsg')">Passwort vergessen?</button>
+        <button class="link-btn" id="loginModeToggle" onclick="toggleRegisterMode()">Neu hier? Konto anlegen</button>
+      </div>
+    </div>
+
+    <div id="acctLoggedIn" style="display:none;">
+      <h2>Mein Konto</h2>
+      <p>Angemeldet als <strong id="acctEmailShow"></strong></p>
+
+      <div class="acct-section">
+        <h3>Profil</h3>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="profileName" autocomplete="name">
+        </div>
+        <div class="form-msg" id="profileMsg"></div>
+        <button class="btn btn-primary btn-small" onclick="saveProfile()">Name speichern</button>
+      </div>
+
+      <div class="acct-section">
+        <h3>Passwort ändern</h3>
+        <div class="form-group">
+          <label>Aktuelles Passwort</label>
+          <input type="password" id="pwCurrent" autocomplete="current-password">
+        </div>
+        <div class="form-group">
+          <label>Neues Passwort</label>
+          <input type="password" id="pwNew" placeholder="mind. 6 Zeichen" autocomplete="new-password">
+        </div>
+        <div class="form-msg" id="pwMsg"></div>
+        <button class="btn btn-ghost btn-small" onclick="changePassword()">Passwort ändern</button>
+      </div>
+
+      <div class="acct-section">
+        <h3>Meine Anfragen</h3>
+        <div id="ordersList"></div>
+      </div>
+
+      <div class="acct-section">
+        <button class="btn btn-ghost btn-small" style="margin-top:1.2rem;" onclick="logoutAccount()">Abmelden</button>
+        <details class="danger-zone">
+          <summary>Konto löschen</summary>
+          <p>Löscht Ihr Kundenkonto, Ihr Profil und alle Ihre Anfragen endgültig. Das lässt sich nicht rückgängig machen.</p>
+          <div class="form-group">
+            <label>Passwort zur Bestätigung</label>
+            <input type="password" id="deletePw" autocomplete="current-password">
+          </div>
+          <div class="form-msg" id="deleteMsg"></div>
+          <button class="btn btn-danger btn-small" id="deleteBtn" onclick="deleteAccount()">Konto endgültig löschen</button>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- CHECKOUT -->
 <div class="modal-overlay" id="checkoutModal">
   <div class="modal-box" style="max-width: 480px;">
@@ -1061,6 +1170,7 @@
       <div class="form-msg" id="acctMsg"></div>
       <div class="demo-note">🔒 Echtes Kundenkonto (Firebase Authentication): Neu hier? Es wird automatisch ein Konto angelegt. Schon registriert? Mit derselben E-Mail/Passwort werden Sie eingeloggt. Es findet aber keine echte Zahlung statt. Details in der <a href="#" onclick="openModal('dsModal_website'); return false;">Datenschutzerklärung</a>.</div>
       <button class="btn btn-primary" id="acctSubmitBtn" style="width:100%; margin-top:1.2rem; text-align:center;" onclick="goToStep2()">Konto erstellen / Anmelden →</button>
+      <div class="acct-links"><button class="link-btn" onclick="resetPassword('acctEmail', 'acctMsg')">Passwort vergessen?</button></div>
     </div>
 
     <div id="checkoutStep2" style="display:none;">
@@ -1295,13 +1405,7 @@
     btn.textContent = 'Einen Moment…';
     try {
       try {
-        const cred = await auth.createUserWithEmailAndPassword(email, pw);
-        await cred.user.updateProfile({ displayName: name });
-        // Kundenprofil in Firestore (Passwort bleibt ausschließlich bei Firebase Auth)
-        await db.collection('customers').doc(cred.user.uid).set({
-          name, email,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        });
+        await registerCustomer(name, email, pw);
       } catch (err) {
         if (err.code === 'auth/email-already-in-use') {
           await auth.signInWithEmailAndPassword(email, pw);
@@ -1326,6 +1430,9 @@
       case 'auth/weak-password': return 'Passwort zu schwach (mind. 6 Zeichen).';
       case 'auth/invalid-credential': return 'E-Mail oder Passwort falsch.';
       case 'auth/too-many-requests': return 'Zu viele Versuche. Bitte kurz warten.';
+      case 'auth/email-already-in-use': return 'Für diese E-Mail gibt es schon ein Konto. Bitte anmelden.';
+      case 'auth/user-not-found': return 'Kein Konto mit dieser E-Mail gefunden.';
+      case 'auth/requires-recent-login': return 'Bitte melden Sie sich erneut an und versuchen Sie es noch einmal.';
       default: return 'Anmeldung fehlgeschlagen. Bitte erneut versuchen.';
     }
   }
@@ -1333,7 +1440,185 @@
   function logoutAccount() {
     auth.signOut();
     closeModal('checkoutModal');
+    closeModal('accountModal');
   }
+
+  // ── Mein Konto ───────────────────────────────────────
+  // Konto anlegen: Passwort verwaltet nur Firebase Auth, Profil liegt in Firestore
+  async function registerCustomer(name, email, pw) {
+    const cred = await auth.createUserWithEmailAndPassword(email, pw);
+    await cred.user.updateProfile({ displayName: name });
+    await db.collection('customers').doc(cred.user.uid).set({
+      name, email,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+  }
+
+  function showMsg(id, text, ok) {
+    const m = document.getElementById(id);
+    m.className = 'form-msg ' + (ok ? 'success' : 'error');
+    m.style.display = 'block';
+    m.textContent = text;
+  }
+  function hideMsg(id) { document.getElementById(id).style.display = 'none'; }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  let registerMode = false;
+  function setRegisterMode(on) {
+    registerMode = on;
+    document.getElementById('loginTitle').textContent = on ? 'Konto anlegen' : 'Anmelden';
+    document.getElementById('loginNameGroup').style.display = on ? 'block' : 'none';
+    document.getElementById('loginBtn').textContent = on ? 'Konto anlegen →' : 'Anmelden →';
+    document.getElementById('loginModeToggle').textContent = on ? 'Schon registriert? Anmelden' : 'Neu hier? Konto anlegen';
+    document.getElementById('loginPassword').autocomplete = on ? 'new-password' : 'current-password';
+    hideMsg('loginMsg');
+  }
+  function toggleRegisterMode() { setRegisterMode(!registerMode); }
+
+  function openAccount() {
+    ['loginMsg', 'profileMsg', 'pwMsg', 'deleteMsg'].forEach(hideMsg);
+    ['loginPassword', 'pwCurrent', 'pwNew', 'deletePw'].forEach(id => document.getElementById(id).value = '');
+    document.querySelector('#accountModal .danger-zone').open = false;
+    renderAccount();
+    openModal('accountModal');
+  }
+
+  function renderAccount() {
+    const user = auth.currentUser;
+    document.getElementById('acctLoggedOut').style.display = user ? 'none' : 'block';
+    document.getElementById('acctLoggedIn').style.display  = user ? 'block' : 'none';
+    if (!user) { setRegisterMode(false); return; }
+    document.getElementById('acctEmailShow').textContent = user.email;
+    document.getElementById('profileName').value = user.displayName || '';
+    loadOrders();
+  }
+
+  async function submitLogin() {
+    const name  = document.getElementById('loginName').value.trim();
+    const email = document.getElementById('loginEmail').value.trim();
+    const pw    = document.getElementById('loginPassword').value;
+    const btn   = document.getElementById('loginBtn');
+    if (!email || !pw || (registerMode && !name)) { showMsg('loginMsg', 'Bitte alle Felder ausfüllen.'); return; }
+    hideMsg('loginMsg');
+    const label = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Einen Moment…';
+    try {
+      if (registerMode) await registerCustomer(name, email, pw);
+      else await auth.signInWithEmailAndPassword(email, pw);
+      document.getElementById('loginPassword').value = '';
+      renderAccount();
+    } catch (err) {
+      showMsg('loginMsg', authErrorText(err.code));
+    } finally {
+      btn.disabled = false;
+      btn.textContent = label;
+    }
+  }
+
+  async function resetPassword(emailInputId, msgId) {
+    const email = document.getElementById(emailInputId).value.trim();
+    if (!email) { showMsg(msgId, 'Bitte zuerst Ihre E-Mail-Adresse eintragen.'); return; }
+    try {
+      auth.languageCode = 'de';
+      await auth.sendPasswordResetEmail(email);
+      showMsg(msgId, 'Falls ein Konto mit dieser E-Mail existiert, haben wir Ihnen einen Link zum Zurücksetzen geschickt. Bitte auch den Spam-Ordner prüfen.', true);
+    } catch (err) {
+      showMsg(msgId, authErrorText(err.code));
+    }
+  }
+
+  async function saveProfile() {
+    const user = auth.currentUser;
+    const name = document.getElementById('profileName').value.trim();
+    if (!name) { showMsg('profileMsg', 'Bitte einen Namen eingeben.'); return; }
+    try {
+      await user.updateProfile({ displayName: name });
+      await db.collection('customers').doc(user.uid).set({ name, email: user.email }, { merge: true });
+      showMsg('profileMsg', '✓ Name gespeichert.', true);
+    } catch (err) {
+      showMsg('profileMsg', 'Speichern fehlgeschlagen. Bitte erneut versuchen.');
+    }
+  }
+
+  // Sensible Aktionen verlangen eine frische Bestätigung mit dem Passwort
+  function reauth(pw) {
+    const user = auth.currentUser;
+    return user.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(user.email, pw));
+  }
+
+  async function changePassword() {
+    const cur = document.getElementById('pwCurrent').value;
+    const neu = document.getElementById('pwNew').value;
+    if (!cur || !neu) { showMsg('pwMsg', 'Bitte aktuelles und neues Passwort eingeben.'); return; }
+    try {
+      await reauth(cur);
+      await auth.currentUser.updatePassword(neu);
+      document.getElementById('pwCurrent').value = '';
+      document.getElementById('pwNew').value = '';
+      showMsg('pwMsg', '✓ Passwort geändert.', true);
+    } catch (err) {
+      showMsg('pwMsg', authErrorText(err.code));
+    }
+  }
+
+  async function loadOrders() {
+    const list = document.getElementById('ordersList');
+    list.innerHTML = '<div class="cart-empty">Wird geladen…</div>';
+    try {
+      const snap = await db.collection('orders').where('uid', '==', auth.currentUser.uid).get();
+      const orders = snap.docs.map(d => d.data())
+        .sort((a, b) => (b.createdAt ? b.createdAt.toMillis() : 0) - (a.createdAt ? a.createdAt.toMillis() : 0));
+      if (orders.length === 0) { list.innerHTML = '<div class="cart-empty">Noch keine Anfragen.</div>'; return; }
+      list.innerHTML = orders.map(o => {
+        const date = o.createdAt ? o.createdAt.toDate().toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
+        const items = (o.items || []).map(i => escapeHtml(i.name)).join(', ');
+        return `<div class="order-item"><div class="order-head"><span>${escapeHtml(date)}</span><span>${escapeHtml(o.total)} €</span></div><div class="order-items">${items}</div></div>`;
+      }).join('');
+    } catch (err) {
+      list.innerHTML = '<div class="cart-empty">Anfragen konnten nicht geladen werden.</div>';
+    }
+  }
+
+  async function deleteAccount() {
+    const pw  = document.getElementById('deletePw').value;
+    const btn = document.getElementById('deleteBtn');
+    if (!pw) { showMsg('deleteMsg', 'Bitte Ihr Passwort zur Bestätigung eingeben.'); return; }
+    if (!confirm('Konto, Profil und alle Anfragen wirklich endgültig löschen?')) return;
+    btn.disabled = true;
+    btn.textContent = 'Wird gelöscht…';
+    try {
+      await reauth(pw);
+      const user = auth.currentUser;
+      // Erst Firestore-Daten löschen (dafür muss der Kunde noch eingeloggt sein), dann das Login selbst
+      const snap = await db.collection('orders').where('uid', '==', user.uid).get();
+      const batch = db.batch();
+      snap.docs.forEach(d => batch.delete(d.ref));
+      batch.delete(db.collection('customers').doc(user.uid));
+      await batch.commit();
+      await user.delete();
+      closeModal('accountModal');
+      alert('Ihr Konto und alle zugehörigen Daten wurden gelöscht.');
+    } catch (err) {
+      showMsg('deleteMsg', authErrorText(err.code));
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Konto endgültig löschen';
+    }
+  }
+
+  document.getElementById('navAccountBtn').addEventListener('click', openAccount);
+  document.getElementById('navAccountLink').addEventListener('click', e => { e.preventDefault(); openAccount(); });
+
+  auth.onAuthStateChanged(user => {
+    const btn = document.getElementById('navAccountBtn');
+    btn.classList.toggle('logged-in', !!user);
+    btn.title = user ? 'Mein Konto' : 'Anmelden';
+    document.getElementById('navAccountLink').textContent = user ? 'Mein Konto' : 'Anmelden';
+  });
 
   async function submitOrder() {
     const msg = document.getElementById('checkoutMsg');

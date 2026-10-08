@@ -7,11 +7,12 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == uid;
     }
 
-    // Bestellungen: Kunde darf eigene anlegen und lesen, aber nicht ändern/löschen
+    // Bestellungen: Kunde darf eigene anlegen, lesen und (beim Konto-Löschen)
+    // löschen, aber nicht nachträglich ändern
     match /orders/{orderId} {
       allow create: if request.auth != null
                     && request.resource.data.uid == request.auth.uid;
-      allow read:   if request.auth != null
+      allow read, delete: if request.auth != null
                     && resource.data.uid == request.auth.uid;
     }
   }
