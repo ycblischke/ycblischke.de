@@ -346,12 +346,7 @@
       .nav-links { display: none; }
       .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: #fff; box-shadow: 0 8px 16px rgba(27,47,94,.10); padding: 1rem 2rem 1.5rem; gap: 1rem; }
       .hamburger { display: flex; }
-      nav { padding: 0 1rem; }
-      .nav-brand { gap: .6rem; }
-      .nav-logo-text { font-size: 1.6rem; }
-      .nav-brand-name { font-size: .85rem; white-space: nowrap; }
-      .nav-brand-title { font-size: .68rem; white-space: nowrap; }
-      .nav-actions { gap: .6rem; margin-left: .6rem; }
+      .nav-brand-text { white-space: nowrap; }
       .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
       .hero-phones { order: -1; }
       .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -441,6 +436,14 @@
     .nav-cart svg { width: 24px; height: 24px; }
     .cart-count { position: absolute; top: -2px; right: -4px; background: var(--gold); color: #fff; border-radius: 50%; min-width: 18px; height: 18px; padding: 0 4px; display: inline-flex; align-items: center; justify-content: center; font-size: .68rem; font-weight: 700; line-height: 1; }
     .cart-count:empty { display: none; }
+    @media (max-width: 768px) {
+      nav { padding-right: .75rem; }
+      .nav-actions { gap: .15rem; margin-left: .4rem; }
+      .nav-cart { padding: 4px; }
+    }
+    @media (max-width: 375px) {
+      nav { padding-right: .25rem; }
+    }
 
     .cart-item { display: flex; justify-content: space-between; align-items: center; gap: .8rem; padding: .8rem 0; border-bottom: 1px solid var(--border); }
     .cart-item-name { font-size: .9rem; font-weight: 600; color: var(--text); }
