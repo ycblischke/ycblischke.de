@@ -25,7 +25,7 @@
       --shadow: 0 4px 24px rgba(27,47,94,.10);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg2); line-height: 1.65; }
 
     /* ── NAV ─────────────────────────────────────────── */
@@ -178,9 +178,8 @@
     .app-icon {
       width: 64px;
       height: 64px;
-      border-radius: 14px;
-      object-fit: cover;
-      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+      object-fit: contain;
+      filter: drop-shadow(0 3px 8px rgba(0,0,0,.15));
     }
     .app-icon-placeholder {
       width: 64px;
@@ -423,7 +422,7 @@
     .mock-bubble { height: 14px; width: 55%; border-radius: 8px; background: var(--border); }
     .mock-bubble.right { align-self: flex-end; background: rgba(200,150,60,.3); }
     .mock-icon-slide { align-items: center; justify-content: center; display: flex; }
-    .mock-icon-slide img { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; }
+    .mock-icon-slide img { width: 56px; height: 56px; object-fit: contain; }
 
     /* Live-Vorschau: echte eigene Seite verkleinert eingebettet (keine Fake-Screenshots) */
     .mock-live-wrap { position: relative; width: 100%; aspect-ratio: 16/10; overflow: hidden; background: #fff; }

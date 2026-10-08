@@ -25,7 +25,7 @@
       --shadow: 0 4px 24px rgba(27,47,94,.10);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg2); line-height: 1.65; }
 
     /* ── NAV ─────────────────────────────────────────── */
@@ -100,8 +100,8 @@
     .cred-chip { background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: .3rem .9rem; font-size: .82rem; font-weight: 600; color: var(--navy); }
 
     /* ── LEISTUNGEN ──────────────────────────────────── */
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
-    .service-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.6rem 1.4rem; text-align: center; transition: all .25s; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.6rem; }
+    .service-card { min-width: 0; overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.6rem 1.4rem; text-align: center; transition: all .25s; }
     .service-card:hover { border-color: var(--gold); box-shadow: 0 8px 30px rgba(27,47,94,.12); transform: translateY(-3px); }
     .service-card img { width: 80px; height: 80px; object-fit: contain; margin-bottom: .8rem; }
     .service-card h3 { font-size: .95rem; font-weight: 600; color: var(--navy); }
@@ -205,7 +205,7 @@
 
     /* ── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 900px) {
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 768px) {
       .nav-links { display: none; }
@@ -218,12 +218,13 @@
       .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
       .form-row { grid-template-columns: 1fr; }
       .pricing-wrapper { flex-direction: column; }
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       section { padding: 60px 1.2rem; }
       #start { padding: 90px 1.2rem 60px; }
     }
     @media (max-width: 480px) {
-      .services-grid { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+      .service-card { padding: 1.2rem .8rem; }
     }
   </style>
 </head>
