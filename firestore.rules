@@ -10,8 +10,11 @@ service cloud.firestore {
     // Bestellungen: Kunde darf eigene anlegen, lesen und (beim Konto-Löschen)
     // löschen, aber nicht nachträglich ändern
     match /orders/{orderId} {
+      // Kunden dürfen nur unverbindliche Anfragen anlegen - ein Status wie
+      // "bezahlt" kann nur die Server-Funktion (PayPal) setzen
       allow create: if request.auth != null
-                    && request.resource.data.uid == request.auth.uid;
+                    && request.resource.data.uid == request.auth.uid
+                    && request.resource.data.keys().hasOnly(['uid', 'name', 'email', 'items', 'total', 'createdAt']);
       allow read, delete: if request.auth != null
                     && resource.data.uid == request.auth.uid;
     }

@@ -465,6 +465,14 @@
     .order-item:last-child { border-bottom: none; }
     .order-head { display: flex; justify-content: space-between; gap: .8rem; font-weight: 600; color: var(--navy); }
     .order-items { color: var(--muted); margin-top: .2rem; }
+    .tax-note { font-size: .75rem; color: var(--muted); text-align: right; margin-top: .3rem; }
+    .pay-divider { display: flex; align-items: center; gap: .8rem; margin: 1.4rem 0 .8rem; color: var(--muted); font-size: .8rem; }
+    .pay-divider::before, .pay-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .test-badge { background: #fff8e1; border: 1px dashed var(--gold); color: #8a6d1f; border-radius: 8px; padding: .5rem .8rem; font-size: .78rem; margin-bottom: .8rem; text-align: center; }
+    .order-status { display: inline-block; font-size: .7rem; font-weight: 700; padding: .1rem .5rem; border-radius: 10px; margin-left: .4rem; vertical-align: middle; }
+    .order-status.paid { background: rgba(72,187,120,.15); color: #276749; }
+    .order-status.pending { background: rgba(200,150,60,.15); color: #8a6d1f; }
+    .order-status.request { background: var(--bg); color: var(--muted); }
     .danger-zone summary { cursor: pointer; color: #c0392b; font-size: .85rem; font-weight: 600; margin-top: 1.2rem; }
     .danger-zone[open] summary { margin-bottom: .6rem; }
     .modal-box .form-msg.success { color: #276749; }
@@ -672,7 +680,6 @@
               <div class="app-name">FoodKey</div>
               <div class="app-platform-chips">
                 <span class="platform-chip chip-android">🤖 Android</span>
-                <span class="platform-chip chip-ios">🍎 iOS</span>
               </div>
             </div>
           </div>
@@ -728,7 +735,6 @@
               <div class="app-name">IWriteThai</div>
               <div class="app-platform-chips">
                 <span class="platform-chip chip-android">🤖 Android</span>
-                <span class="platform-chip chip-ios">🍎 iOS</span>
               </div>
             </div>
           </div>
@@ -759,7 +765,6 @@
               <div class="app-name">Hypno</div>
               <div class="app-platform-chips">
                 <span class="platform-chip chip-android">🤖 Android</span>
-                <span class="platform-chip chip-ios">🍎 iOS</span>
               </div>
             </div>
           </div>
@@ -1021,7 +1026,7 @@
     <p><strong>Mikrofon:</strong> Für die Sprachaufnahme- und Übungsfunktion. Aufnahmen werden ausschließlich lokal auf Ihrem Gerät gespeichert und nicht übertragen.</p>
     <p><strong>Spracherkennung:</strong> Hypno verwendet die systemeigene Spracherkennungs-API (Speech-to-Text) Ihres Gerätes zur Bewertung Ihrer Aussprache.</p>
     <h3>Drittanbieter</h3>
-    <p>Die Spracherkennungsfunktion nutzt die vom Betriebssystem bereitgestellte API (Google Speech-to-Text auf Android, Apple Speech auf iOS). Hierbei können Audiodaten temporär an die Server der jeweiligen Plattform übertragen werden. Weitere Informationen finden Sie in den Datenschutzrichtlinien von Google bzw. Apple.</p>
+    <p>Die Spracherkennungsfunktion nutzt die vom Android-Betriebssystem bereitgestellte API (Google Speech-to-Text). Hierbei können Audiodaten temporär an die Server von Google übertragen werden. Weitere Informationen finden Sie in der Datenschutzerklärung von Google.</p>
     <h3>Datenlöschung</h3>
     <p>Aufnahmen können direkt in der App gelöscht werden. Alle weiteren Daten werden bei Deinstallation entfernt.</p>
     <h3>Kontakt</h3>
@@ -1062,6 +1067,7 @@
       <span>Gesamt</span>
       <span id="cartTotal">0 €</span>
     </div>
+    <p class="tax-note" id="cartTaxNote" style="display:none;">Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.</p>
     <button class="btn btn-primary" id="checkoutBtn" style="width:100%; margin-top:1.2rem; text-align:center;" onclick="startCheckout()">Zur Kasse →</button>
   </div>
 </div>
@@ -1181,8 +1187,14 @@
         <span>Gesamt</span>
         <span id="checkoutTotal">0 €</span>
       </div>
+      <p class="tax-note">Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.</p>
       <div class="form-msg" id="checkoutMsg"></div>
       <button class="btn btn-primary" id="checkoutSubmitBtn" style="width:100%; margin-top:1.2rem; text-align:center;" onclick="submitOrder()">Unverbindlich anfragen →</button>
+      <div id="paypalSection" style="display:none;">
+        <div class="pay-divider">oder direkt bezahlen</div>
+        <div class="test-badge">🧪 Testmodus (PayPal Sandbox): Es fließt kein echtes Geld.</div>
+        <div id="paypalButtons"></div>
+      </div>
       <div class="demo-note">Dies ist eine Demo: Es findet keine echte Zahlung statt. Die Anfrage geht unverbindlich direkt an mich, genau wie eine echte Bestellanfrage es tun würde.</div>
     </div>
   </div>
@@ -1191,6 +1203,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-functions-compat.js"></script>
 <script>
   // Firebase-Projekt: echtes Login/Konto für den Webshop-Demo-Checkout
   const firebaseConfig = {
@@ -1204,6 +1217,10 @@
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const db   = firebase.firestore();
+  const fns  = firebase.app().functions('europe-west3');
+
+  // PayPal: öffentliche Client-ID (Sandbox = Testmodus). Leer = PayPal ausgeblendet.
+  const PAYPAL_CLIENT_ID = '';
 
   // Hamburger
   const hamburger = document.getElementById('hamburger');
@@ -1342,6 +1359,7 @@
     if (items.length === 0) {
       itemsEl.innerHTML = '<div class="cart-empty">Ihr Warenkorb ist leer.</div>';
       totalRow.style.display = 'none';
+      document.getElementById('cartTaxNote').style.display = 'none';
       document.getElementById('checkoutBtn').disabled = true;
       document.getElementById('checkoutBtn').style.opacity = '.5';
       return;
@@ -1357,6 +1375,7 @@
     `).join('');
     document.getElementById('cartTotal').textContent = cartTotal() + ' €';
     totalRow.style.display = 'flex';
+    document.getElementById('cartTaxNote').style.display = 'block';
     document.getElementById('checkoutBtn').disabled = false;
     document.getElementById('checkoutBtn').style.opacity = '1';
   }
@@ -1382,6 +1401,7 @@
       `<div class="cart-item"><div class="cart-item-name">${p.icon} ${p.name}</div><div class="cart-item-price">${p.price} €${p.unit || ''}</div></div>`
     ).join('');
     document.getElementById('checkoutTotal').textContent = cartTotal() + ' €';
+    renderPaypalButtons();
     document.getElementById('checkoutUserEmail').textContent = auth.currentUser ? auth.currentUser.email : '';
     document.getElementById('checkoutStep1').style.display = 'none';
     document.getElementById('checkoutStep2').style.display = 'block';
@@ -1441,6 +1461,83 @@
     auth.signOut();
     closeModal('checkoutModal');
     closeModal('accountModal');
+  }
+
+  // ── PayPal (Betrag wird serverseitig in functions/index.js berechnet) ──
+  let paypalSdk = null;
+  function loadPaypalSdk() {
+    if (!paypalSdk) {
+      paypalSdk = new Promise((resolve, reject) => {
+        const sc = document.createElement('script');
+        sc.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(PAYPAL_CLIENT_ID)}&currency=EUR&intent=capture&locale=de_DE&components=buttons`;
+        sc.onload = () => resolve(window.paypal);
+        sc.onerror = () => { paypalSdk = null; reject(new Error('PayPal konnte nicht geladen werden')); };
+        document.head.appendChild(sc);
+      });
+    }
+    return paypalSdk;
+  }
+
+  async function renderPaypalButtons() {
+    const section = document.getElementById('paypalSection');
+    const box = document.getElementById('paypalButtons');
+    if (!PAYPAL_CLIENT_ID || !auth.currentUser || cart.length === 0) { section.style.display = 'none'; return; }
+    section.style.display = 'block';
+    box.innerHTML = '';
+    let paypal;
+    try { paypal = await loadPaypalSdk(); }
+    catch (err) { section.style.display = 'none'; return; }
+    let pendingId = null;
+    paypal.Buttons({
+      style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' },
+      createOrder: async () => {
+        hideMsg('checkoutMsg');
+        const res = await fns.httpsCallable('createPaypalOrder')({ items: cart.slice() });
+        pendingId = res.data.paypalOrderId;
+        return pendingId;
+      },
+      onApprove: async (data) => {
+        showMsg('checkoutMsg', 'Zahlung wird bestätigt…', true);
+        try {
+          await fns.httpsCallable('capturePaypalOrder')({ paypalOrderId: data.orderID });
+          await notifyPaidOrder();
+          showMsg('checkoutMsg', '✓ Vielen Dank! Ihre Zahlung (Testmodus) ist eingegangen. Sie finden die Bestellung unter „Mein Konto“.', true);
+          cart = [];
+          saveCart();
+          renderCartBadge();
+          document.querySelectorAll('.btn-add-cart').forEach(b => { b.textContent = 'In den Warenkorb'; b.classList.remove('added'); });
+          document.getElementById('checkoutSubmitBtn').style.display = 'none';
+          section.style.display = 'none';
+        } catch (err) {
+          showMsg('checkoutMsg', 'Die Zahlung konnte nicht abgeschlossen werden. Es wurde nichts abgebucht. Bitte erneut versuchen.');
+        }
+      },
+      onCancel: () => {
+        // Abgebrochene Zahlung nicht als offene Bestellung liegen lassen
+        if (pendingId) db.collection('orders').doc(pendingId).delete().catch(() => {});
+        showMsg('checkoutMsg', 'Zahlung abgebrochen. Ihr Warenkorb ist unverändert.');
+      },
+      onError: () => {
+        showMsg('checkoutMsg', 'Bei PayPal ist ein Fehler aufgetreten. Bitte erneut versuchen.');
+      },
+    }).render('#paypalButtons');
+  }
+
+  // Benachrichtigung an mich, wie bei einer normalen Anfrage
+  async function notifyPaidOrder() {
+    const user = auth.currentUser;
+    const items = cartProducts();
+    try {
+      await fetch('https://formspree.io/f/xnjlbolv', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: user.displayName || '', email: user.email,
+          betreff: 'Webshop: BEZAHLTE Bestellung (PayPal-Testmodus)',
+          nachricht: `Bezahlt per PayPal (Sandbox):\n${items.map(p => p.name).join(', ')}\nGesamt: ${cartTotal()} €`,
+        }),
+      });
+    } catch (err) { /* Zahlung ist trotzdem gespeichert */ }
   }
 
   // ── Mein Konto ───────────────────────────────────────
@@ -1576,7 +1673,11 @@
       list.innerHTML = orders.map(o => {
         const date = o.createdAt ? o.createdAt.toDate().toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
         const items = (o.items || []).map(i => escapeHtml(i.name)).join(', ');
-        return `<div class="order-item"><div class="order-head"><span>${escapeHtml(date)}</span><span>${escapeHtml(o.total)} €</span></div><div class="order-items">${items}</div></div>`;
+        const status = o.status === 'paid' ? `<span class="order-status paid">bezahlt${o.sandbox ? ' (Test)' : ''}</span>`
+                     : o.status === 'pending' ? '<span class="order-status pending">Zahlung offen</span>'
+                     : o.status === 'failed' ? '<span class="order-status pending">Zahlung fehlgeschlagen</span>'
+                     : '<span class="order-status request">Anfrage</span>';
+        return `<div class="order-item"><div class="order-head"><span>${escapeHtml(date)}${status}</span><span>${escapeHtml(o.total)} €</span></div><div class="order-items">${items}</div></div>`;
       }).join('');
     } catch (err) {
       list.innerHTML = '<div class="cart-empty">Anfragen konnten nicht geladen werden.</div>';
