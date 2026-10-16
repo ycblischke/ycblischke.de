@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Websites, Webshops (Shopify) und Android-Apps für kleine Unternehmen und Hersteller – remote und persönlich aus Rheinfelden für Lörrach, Basel und ganz Deutschland. Mit dem Blick eines Betriebswirts (IHK).">
+  <meta name="description" content="Websites, Webshops (Shopify, WordPress/WooCommerce oder individuell programmiert) und Android-Apps für kleine Unternehmen und Hersteller – remote und persönlich aus Rheinfelden für Lörrach, Basel und ganz Deutschland. Mit dem Blick eines Betriebswirts (IHK).">
   <title>Websites & Webshops – Yves Claudio Blischke | Rheinfelden</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -278,6 +278,9 @@
     .pg-dot { width: 7px; height: 7px; padding: 0; border: none; border-radius: 99px; background: rgba(255,255,255,.7); box-shadow: 0 0 0 1px rgba(0,0,0,.15); cursor: pointer; transition: width .2s; }
     .pg-dot.is-active { width: 18px; background: var(--gold); }
     @media (prefers-reduced-motion: reduce) { .pg-track { scroll-behavior: auto; } .pg-dot { transition: none; } }
+
+    .tech-row { margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+    .tech-label { font-size: .85rem; font-weight: 700; color: var(--navy); margin-right: .3rem; }
   </style>
 </head>
 <body>
@@ -339,12 +342,14 @@
       <div class="about-text">
         <div class="section-tag">Über mich</div>
         <h2 class="section-title">Yves Claudio Blischke</h2>
-        <p>Ich entwickle <strong>Websites, Webshops und Android-Apps</strong> – von der ersten Skizze bis zum Livegang. Meine eigenen Apps sind im Google Play Store, Shops setze ich mit <strong>Shopify</strong> um.</p>
+        <p>Ich entwickle <strong>Websites, Webshops und Android-Apps</strong> – von der ersten Skizze bis zum Livegang. Meine eigenen Apps sind im Google Play Store. Die Technik wähle ich passend zu Ihnen: <strong>Shopify</strong>, <strong>WordPress</strong> oder <strong>individuell programmiert</strong>.</p>
         <p>Als <strong>geprüfter Handelsfachwirt und Betriebswirt (IHK)</strong> verstehe ich, was hinter einem Shop steckt: Preise, Rabatte, Händlerkonditionen, Versand und Zahlen. So entsteht kein hübsches Schaufenster, sondern ein Werkzeug, das sich für Sie rechnet.</p>
         <p>Ich arbeite <strong>remote</strong> – für Kunden in ganz Deutschland und der Schweiz – und auf Wunsch persönlich in Rheinfelden, Lörrach und Basel. Flexibel, transparent und ohne lange Vertragsbindung.</p>
         <div class="cred-chips">
           <span class="cred-chip">Webdesign</span>
           <span class="cred-chip">Shopify</span>
+          <span class="cred-chip">WordPress</span>
+          <span class="cred-chip">HTML/CSS/JS</span>
           <span class="cred-chip">Android-Apps</span>
           <span class="cred-chip">Betriebswirt IHK</span>
           <span class="cred-chip">Handelsfachwirt</span>
@@ -364,12 +369,12 @@
       <div class="service-card">
         <div class="service-emoji">🛒</div>
         <h3>Webshops</h3>
-        <p>Online-Shops mit Shopify – vom Design über Produkte bis zu Zahlung, Versand und Livegang</p>
+        <p>Online-Shops mit Shopify oder WooCommerce – vom Design über Produkte bis zu Zahlung, Versand und Livegang</p>
       </div>
       <a href="/appdesigner/" class="service-card" style="text-decoration:none; display:block;">
         <img src="img/webdesign-kachel.png" alt="Webdesign">
         <h3>Websites</h3>
-        <p>Moderne, schnelle Websites für Handy und Computer – sauber gestaltet und leicht zu pflegen</p>
+        <p>Mit WordPress zum Selbstpflegen oder individuell programmiert – schnell, schlank und für Handy und Computer</p>
         <div style="margin-top:.8rem;color:var(--gold);font-size:.78rem;font-weight:700;">Beispiele ansehen →</div>
       </a>
       <a href="/appdesigner/#apps" class="service-card" style="text-decoration:none; display:block;" id="card-appentwicklung">
@@ -391,8 +396,16 @@
       <div class="service-card">
         <div class="service-emoji">🔄</div>
         <h3>Shop-Umzug</h3>
-        <p>Ihr alter Shop (WooCommerce, Gambio, Shopware) ist veraltet? Ich ziehe ihn zu Shopify um</p>
+        <p>Ihr alter Shop (WooCommerce, Gambio, Shopware) ist veraltet? Ich ziehe ihn um – zu Shopify oder einer aktuellen WooCommerce-Lösung</p>
       </div>
+    </div>
+
+    <div class="tech-row">
+      <span class="tech-label">Technik nach Bedarf:</span>
+      <span class="cred-chip">Shopify</span>
+      <span class="cred-chip">WordPress &amp; WooCommerce</span>
+      <span class="cred-chip">Individuell programmiert (HTML, CSS, JavaScript)</span>
+      <span class="cred-chip">Android-Apps</span>
     </div>
 
     <div class="secondary-services">
@@ -424,7 +437,7 @@
         <h3>Webshop</h3>
         <div class="package-price">ab 1.000 €</div>
         <ul>
-          <li>Shopify-Shop in Ihrem Design</li>
+          <li>Shop in Ihrem Design (Shopify oder WooCommerce)</li>
           <li>Kategorien, Filter, Outlet &amp; Blog</li>
           <li>Bis zu 30 Produkte eingepflegt</li>
           <li>Zahlung, Versand &amp; Rechtstexte eingerichtet</li>
@@ -451,7 +464,7 @@
       </div>
     </div>
     <div class="hourly-note">
-      <strong>Nach Aufwand:</strong> 30 € / Stunde · Rechnung per E-Mail nach Leistung, zahlbar innerhalb von 14 Tagen · Bei Projekten 50 % Anzahlung · Laufende Kosten (z. B. Shopify-Tarif, Domain) zahlen Sie direkt an den Anbieter.
+      <strong>Nach Aufwand:</strong> 30 € / Stunde · Rechnung per E-Mail nach Leistung, zahlbar innerhalb von 14 Tagen · Bei Projekten 50 % Anzahlung · Laufende Kosten (z. B. Hosting, Shopify-Tarif, Domain) zahlen Sie direkt an den Anbieter.
       <a href="#kontakt" class="btn btn-primary" style="margin-top:1.2rem;">Kostenloses Erstgespräch</a>
     </div>
   </div>
@@ -581,7 +594,8 @@
     <div class="section-tag">FAQ</div>
     <h2 class="section-title">Häufige Fragen</h2>
     <div class="faq-list">
-      <details><summary>Was kostet ein Webshop?</summary><p>Ein Shopify-Shop in Ihrem Design startet bei 1.000 € Festpreis. Dazu kommen die laufenden Shopify-Kosten von ca. 30–40 € im Monat, die Sie direkt an Shopify zahlen. Größere Sortimente, Datenimporte oder ein Händlerbereich werden vorab klar kalkuliert.</p></details>
+      <details><summary>Was kostet ein Webshop?</summary><p>Ein Shop in Ihrem Design startet bei 1.000 € Festpreis. Dazu kommen laufende Kosten, die Sie direkt an den Anbieter zahlen: bei Shopify ca. 30–40 € im Monat, bei WooCommerce Hosting ab ca. 10 € im Monat. Größere Sortimente, Datenimporte oder ein Händlerbereich werden vorab klar kalkuliert.</p></details>
+      <details><summary>Shopify, WordPress oder programmiert – was ist das Richtige?</summary><p><strong>Shopify</strong> ist ideal für Shops, die schnell starten und wenig Technik-Pflege brauchen – Zahlung, Sicherheit und Updates sind inklusive. <strong>WordPress/WooCommerce</strong> bietet volle Kontrolle und viele Erweiterungen bei niedrigen laufenden Kosten, braucht aber regelmäßige Updates. <strong>Individuell programmiert</strong> (HTML, CSS, JavaScript) ist am schnellsten und günstigsten im Betrieb – perfekt für Visitenkarten-Websites und Landingpages. Im Erstgespräch empfehle ich Ihnen, was zu Ihrem Vorhaben und Budget passt.</p></details>
       <details><summary>Wie lange dauert es bis zum Livegang?</summary><p>Eine Website ist meist in 1–3 Wochen fertig, ein Shop in 3–6 Wochen – abhängig davon, wie schnell Texte, Fotos und Produktdaten vorliegen.</p></details>
       <details><summary>Kann ich meine Website oder meinen Shop selbst pflegen?</summary><p>Ja. Texte, Bilder, Produkte und Preise ändern Sie selbst – ohne Programmierkenntnisse, auch per App am Handy. Ich zeige Ihnen beim Livegang, wie es geht.</p></details>
       <details><summary>Arbeiten Sie auch remote und für Kunden in der Schweiz?</summary><p>Ja. Die meisten Projekte laufen komplett remote. Kunden in der Schweiz betreue ich gern – inklusive Preisen in CHF und Schweizer Zahlungsarten.</p></details>
