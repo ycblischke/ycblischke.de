@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Yves Claudio Blischke – Betriebswirt IHK. Kaufmännische Unterstützung und betriebswirtschaftliche Beratung für Selbstständige und kleine Unternehmen in Rheinfelden.">
-  <title>Yves Claudio Blischke – Betriebswirt IHK</title>
+  <meta name="description" content="Websites, Webshops (Shopify) und Android-Apps für kleine Unternehmen und Hersteller – remote und persönlich aus Rheinfelden für Lörrach, Basel und ganz Deutschland. Mit dem Blick eines Betriebswirts (IHK).">
+  <title>Websites & Webshops – Yves Claudio Blischke | Rheinfelden</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -226,6 +226,43 @@
       .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
       .service-card { padding: 1.2rem .8rem; }
     }
+
+    /* ── Neue Bereiche: Leistungen, Pakete, Projekte, FAQ ─────────── */
+    .service-emoji { font-size: 3rem; line-height: 80px; height: 80px; margin-bottom: .8rem; }
+    .secondary-services { margin-top: 2.2rem; padding: 1.4rem 1.6rem; border: 1px dashed var(--border); border-radius: 12px; background: var(--bg2); }
+    .secondary-services h3 { font-size: 1rem; color: var(--navy); margin-bottom: .4rem; }
+    .secondary-services p { font-size: .9rem; color: var(--muted); }
+    #pakete { background: var(--bg); }
+    .packages-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2rem; margin-top: 2rem; }
+    .package-card { position: relative; background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem 1.4rem; display: flex; flex-direction: column; gap: .8rem; }
+    .package-card--featured { border: 2px solid var(--gold); box-shadow: 0 10px 30px rgba(200,150,60,.15); }
+    .package-badge { position: absolute; top: -12px; left: 1.4rem; background: var(--gold); color: #fff; font-size: .72rem; font-weight: 700; padding: .25rem .7rem; border-radius: 99px; }
+    .package-card h3 { font-size: 1.05rem; color: var(--navy); }
+    .package-price { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--navy); font-weight: 700; }
+    .package-card ul { list-style: none; padding: 0; display: grid; gap: .45rem; }
+    .package-card li { font-size: .86rem; color: var(--muted); padding-left: 1.3rem; position: relative; }
+    .package-card li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+    .hourly-note { margin-top: 1.8rem; text-align: center; font-size: .88rem; color: var(--muted); }
+    .hourly-note .btn { display: inline-block; }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; margin-top: 2rem; }
+    .project-card { display: block; background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem 1.4rem; text-decoration: none; color: inherit; transition: all .25s; }
+    a.project-card:hover { border-color: var(--gold); box-shadow: 0 8px 30px rgba(27,47,94,.12); transform: translateY(-3px); }
+    .project-tag { display: inline-block; font-size: .72rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .6rem; }
+    .project-card h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: .5rem; }
+    .project-card p { font-size: .88rem; color: var(--muted); }
+    .project-link { display: inline-block; margin-top: .8rem; color: var(--gold); font-size: .8rem; font-weight: 700; }
+    #faq { background: var(--bg); }
+    .faq-list { margin-top: 2rem; display: grid; gap: .7rem; max-width: 820px; }
+    .faq-list details { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; }
+    .faq-list summary { cursor: pointer; font-weight: 600; color: var(--navy); }
+    .faq-list details p { margin-top: .7rem; font-size: .9rem; color: var(--muted); }
+    @media (max-width: 900px) {
+      .packages-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .packages-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -237,16 +274,15 @@
       <span class="nav-logo-text">YCB</span>
       <div class="nav-brand-text">
         <span class="nav-brand-name">Yves Claudio Blischke</span>
-        <span class="nav-brand-title">Betriebswirt IHK</span>
+        <span class="nav-brand-title">Web &amp; IT · Betriebswirt IHK</span>
       </div>
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#ueber-mich">Über mich</a></li>
       <li><a href="#leistungen">Leistungen</a></li>
-      <li><a href="#vorteile">Vorteile</a></li>
-      <li><a href="#preise">Preise</a></li>
-      <li><a href="#referenzen">Referenzen</a></li>
-      <li><a href="/appdesigner/">App &amp; Web</a></li>
+      <li><a href="#pakete">Pakete &amp; Preise</a></li>
+      <li><a href="#referenzen">Projekte</a></li>
+      <li><a href="#ueber-mich">Über mich</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
@@ -262,14 +298,14 @@
       <img src="img/LinkedINReferenz-Foto-e1747710126642-1024x1024.jpg" alt="Yves Claudio Blischke">
     </div>
     <div class="hero-text">
-      <div class="hero-badge">Betriebswirt IHK · Kaufmännische Beratung</div>
-      <h1 class="hero-title">Gemeinsam zum<br><span>unternehmerischen Erfolg</span></h1>
-      <p class="hero-sub">Willkommen – schön, dass Sie da sind! Hier finden Sie Unterstützung, Ideen und Lösungen rund um Betriebswirtschaft und kaufmännische Aufgaben.</p>
+      <div class="hero-badge">Websites · Webshops · Apps – remote &amp; persönlich</div>
+      <h1 class="hero-title">Ihr digitaler Auftritt –<br><span>durchdacht bis zur Kasse</span></h1>
+      <p class="hero-sub">Ich gestalte und baue Websites, Online-Shops und Apps für kleine Unternehmen, Hersteller und Selbstständige. Als Betriebswirt (IHK) denke ich dabei nicht nur an schönes Design, sondern auch an Kalkulation, Abläufe und das, was am Ende verkauft.</p>
       <div class="hero-signature">
         <img src="img/handschrift-cropped.png" alt="Unterschrift Yves Claudio Blischke">
       </div>
       <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
-      <a href="#leistungen" class="btn btn-outline">Leistungen ansehen</a>
+      <a href="#pakete" class="btn btn-outline">Pakete &amp; Preise</a>
     </div>
   </div>
 </section>
@@ -288,15 +324,15 @@
       <div class="about-text">
         <div class="section-tag">Über mich</div>
         <h2 class="section-title">Yves Claudio Blischke</h2>
-        <p>Als <strong>geprüfter Handelsfachwirt und Betriebswirt (IHK)</strong> bringe ich solides Wissen, eine strukturierte Arbeitsweise und ein echtes Interesse an wirtschaftlichen Zusammenhängen mit.</p>
-        <p>Mir sind klare Abläufe, saubere Zahlen und unkomplizierte Kommunikation wichtig. Meine Motivation ist Ihr unternehmerischer Erfolg.</p>
-        <p>Ich unterstütze Selbstständige und kleine Unternehmen zuverlässig bei kaufmännischen Aufgaben – flexibel, transparent und ohne langfristige Vertragsbindung.</p>
+        <p>Ich entwickle <strong>Websites, Webshops und Android-Apps</strong> – von der ersten Skizze bis zum Livegang. Meine eigenen Apps sind im Google Play Store, Shops setze ich mit <strong>Shopify</strong> um.</p>
+        <p>Als <strong>geprüfter Handelsfachwirt und Betriebswirt (IHK)</strong> verstehe ich, was hinter einem Shop steckt: Preise, Rabatte, Händlerkonditionen, Versand und Zahlen. So entsteht kein hübsches Schaufenster, sondern ein Werkzeug, das sich für Sie rechnet.</p>
+        <p>Ich arbeite <strong>remote</strong> – für Kunden in ganz Deutschland und der Schweiz – und auf Wunsch persönlich in Rheinfelden, Lörrach und Basel. Flexibel, transparent und ohne lange Vertragsbindung.</p>
         <div class="cred-chips">
+          <span class="cred-chip">Webdesign</span>
+          <span class="cred-chip">Shopify</span>
+          <span class="cred-chip">Android-Apps</span>
           <span class="cred-chip">Betriebswirt IHK</span>
           <span class="cred-chip">Handelsfachwirt</span>
-          <span class="cred-chip">Controlling</span>
-          <span class="cred-chip">Businessplanung</span>
-          <span class="cred-chip">Vorbereitende Buchhaltung</span>
         </div>
       </div>
     </div>
@@ -307,51 +343,101 @@
 <section id="leistungen">
   <div class="container">
     <div class="section-tag">Leistungen</div>
-    <h2 class="section-title">Mehr als Standard</h2>
-    <p class="section-sub">Individuelle kaufmännische Lösungen für Ihre Bedürfnisse – von der Rechnungsstellung bis zum Businessplan.</p>
+    <h2 class="section-title">Was ich für Sie umsetze</h2>
+    <p class="section-sub">Schwerpunkt Web &amp; IT – remote, zuverlässig und mit kaufmännischem Blick.</p>
     <div class="services-grid">
       <div class="service-card">
-        <img src="img/Datenpflege-1.png" alt="Datenpflege">
-        <h3>Datenpflege</h3>
-        <p>Strukturierte Erfassung und Pflege Ihrer Geschäftsdaten</p>
+        <div class="service-emoji">🛒</div>
+        <h3>Webshops</h3>
+        <p>Online-Shops mit Shopify – vom Design über Produkte bis zu Zahlung, Versand und Livegang</p>
       </div>
-      <div class="service-card">
-        <img src="img/Angebotskalkulation-6.png" alt="Angebotskalkulation">
-        <h3>Angebotskalkulation</h3>
-        <p>Präzise Kalkulation Ihrer Angebote und Leistungen</p>
-      </div>
-      <div class="service-card">
-        <img src="img/Buchhaltung-vorbereiten-1.png" alt="Buchhaltung vorbereiten">
-        <h3>Vorbereitende Buchhaltung</h3>
-        <p>Belege sortieren, erfassen und für den Steuerberater aufbereiten</p>
-      </div>
-      <div class="service-card">
-        <img src="img/Terminmanagement-1.png" alt="Terminmanagement">
-        <h3>Terminmanagement</h3>
-        <p>Professionelle Planung und Koordination Ihrer Termine</p>
-      </div>
-      <div class="service-card">
-        <img src="img/Controlling-1.png" alt="Controlling">
-        <h3>Controlling</h3>
-        <p>Auswertungen, Kennzahlen und betriebliche Steuerung</p>
-      </div>
-      <div class="service-card">
-        <img src="img/Businesplan-quadratisch.png" alt="Businessplan">
-        <h3>Businessplan</h3>
-        <p>Erstellung und Strukturierung Ihres Businessplans</p>
-      </div>
-      <a href="/appdesigner/" class="service-card" style="text-decoration:none; display:block;" id="card-appentwicklung">
-        <img src="img/appentwicklung-kachel.png" alt="App-Entwicklung">
-        <h3>App-Entwicklung</h3>
-        <p>Native Apps für iOS &amp; Android – vom Design bis zum Store-Release</p>
-        <div style="margin-top:.8rem;color:var(--gold);font-size:.78rem;font-weight:700;">Mehr erfahren →</div>
-      </a>
       <a href="/appdesigner/" class="service-card" style="text-decoration:none; display:block;">
         <img src="img/webdesign-kachel.png" alt="Webdesign">
-        <h3>Webdesign</h3>
-        <p>Moderne, responsive Webseiten – professionell gestaltet und schnell geladen</p>
-        <div style="margin-top:.8rem;color:var(--gold);font-size:.78rem;font-weight:700;">Mehr erfahren →</div>
+        <h3>Websites</h3>
+        <p>Moderne, schnelle Websites für Handy und Computer – sauber gestaltet und leicht zu pflegen</p>
+        <div style="margin-top:.8rem;color:var(--gold);font-size:.78rem;font-weight:700;">Beispiele ansehen →</div>
       </a>
+      <a href="/appdesigner/#apps" class="service-card" style="text-decoration:none; display:block;" id="card-appentwicklung">
+        <img src="img/appentwicklung-kachel.png" alt="App-Entwicklung">
+        <h3>App-Entwicklung</h3>
+        <p>Android-Apps vom Design bis zum Release im Google Play Store</p>
+        <div style="margin-top:.8rem;color:var(--gold);font-size:.78rem;font-weight:700;">Meine Apps →</div>
+      </a>
+      <div class="service-card">
+        <div class="service-emoji">🎨</div>
+        <h3>Design &amp; Branding</h3>
+        <p>Logo, Icons, Farben und Bildsprache – ein einheitlicher Auftritt für Web, Shop und App</p>
+      </div>
+      <div class="service-card">
+        <div class="service-emoji">🔧</div>
+        <h3>Betreuung &amp; Pflege</h3>
+        <p>Produkte einpflegen, Aktionen, Updates und kleine Anpassungen – im Monatspaket oder nach Bedarf</p>
+      </div>
+      <div class="service-card">
+        <div class="service-emoji">🔄</div>
+        <h3>Shop-Umzug</h3>
+        <p>Ihr alter Shop (WooCommerce, Gambio, Shopware) ist veraltet? Ich ziehe ihn zu Shopify um</p>
+      </div>
+    </div>
+
+    <div class="secondary-services">
+      <h3>Kaufmännische Unterstützung – gern ergänzend</h3>
+      <p>Als Betriebswirt (IHK) helfe ich auch bei Datenpflege, Angebotskalkulation, Controlling, Businessplänen und vorbereitender Buchhaltung – besonders rund um Ihr Online-Geschäft.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PAKETE -->
+<section id="pakete">
+  <div class="container">
+    <div class="section-tag">Pakete &amp; Preise</div>
+    <h2 class="section-title">Klare Pakete, faire Preise</h2>
+    <p class="section-sub">Festpreise für klar beschriebene Leistungen – oder flexibel nach Stunden. Alle Preise netto gem. § 19 UStG (keine Umsatzsteuer).</p>
+    <div class="packages-grid">
+      <div class="package-card">
+        <h3>Website</h3>
+        <div class="package-price">ab 600 €</div>
+        <ul>
+          <li>Bis zu 5 Seiten, für Handy optimiert</li>
+          <li>Kontaktformular &amp; Rechtstexte eingebaut</li>
+          <li>Grundlegende Google-Optimierung</li>
+          <li>Kurze Einweisung</li>
+        </ul>
+      </div>
+      <div class="package-card package-card--featured">
+        <div class="package-badge">Beliebt</div>
+        <h3>Webshop</h3>
+        <div class="package-price">ab 1.000 €</div>
+        <ul>
+          <li>Shopify-Shop in Ihrem Design</li>
+          <li>Kategorien, Filter, Outlet &amp; Blog</li>
+          <li>Bis zu 30 Produkte eingepflegt</li>
+          <li>Zahlung, Versand &amp; Rechtstexte eingerichtet</li>
+          <li>Livegang &amp; Einweisung</li>
+        </ul>
+      </div>
+      <div class="package-card">
+        <h3>Händler-Erweiterung (B2B)</h3>
+        <div class="package-price">ab 600 €</div>
+        <ul>
+          <li>Händler-Login mit eigenen Preisen</li>
+          <li>Staffelpreise &amp; Kauf auf Rechnung</li>
+          <li>Ideal für Hersteller &amp; Großhandel</li>
+        </ul>
+      </div>
+      <div class="package-card">
+        <h3>Betreuung</h3>
+        <div class="package-price">ab 50 € / Monat</div>
+        <ul>
+          <li>Produkte &amp; Inhalte pflegen</li>
+          <li>Aktionen, Updates, kleine Anpassungen</li>
+          <li>Monatlich kündbar</li>
+        </ul>
+      </div>
+    </div>
+    <div class="hourly-note">
+      <strong>Nach Aufwand:</strong> 30 € / Stunde · Rechnung per E-Mail nach Leistung, zahlbar innerhalb von 14 Tagen · Bei Projekten 50 % Anzahlung · Laufende Kosten (z. B. Shopify-Tarif, Domain) zahlen Sie direkt an den Anbieter.
+      <a href="#kontakt" class="btn btn-primary" style="margin-top:1.2rem;">Kostenloses Erstgespräch</a>
     </div>
   </div>
 </section>
@@ -361,15 +447,15 @@
   <div class="container">
     <div class="section-tag">Vorteile</div>
     <h2 class="section-title">Warum mit mir arbeiten?</h2>
-    <p class="section-sub">Sie buchen meine Dienstleistung nur dann, wenn Sie sie wirklich brauchen – flexibel, punktuell und ganz ohne langfristige Bindung.</p>
+    <p class="section-sub">Technik, Design und Betriebswirtschaft aus einer Hand – flexibel, remote und ohne lange Bindung.</p>
     <div class="benefits-grid">
       <div class="benefit-card">
-        <h3>🔄 Maximale Flexibilität</h3>
-        <p>Keine Mindestlaufzeiten, keine Kündigungsfristen. Sie beauftragen mich genau dann, wenn Sie Unterstützung brauchen.</p>
+        <h3>🌍 Remote &amp; persönlich</h3>
+        <p>Zusammenarbeit per Telefon, Mail oder Video – deutschlandweit und in der Schweiz. In der Region Rheinfelden, Lörrach und Basel gern auch vor Ort.</p>
       </div>
       <div class="benefit-card">
-        <h3>💡 Individuelle Lösungen</h3>
-        <p>Kein Schema F – ich passe meine Leistungen genau an Ihre Situation und Ihre Bedürfnisse an.</p>
+        <h3>📊 Kaufmännischer Blick</h3>
+        <p>Als Betriebswirt (IHK) achte ich auf das, was sich rechnet: Preise, Rabatte, Händlerkonditionen und klare Abläufe.</p>
       </div>
       <div class="benefit-card">
         <h3>📋 Transparente Abrechnung</h3>
@@ -380,59 +466,12 @@
         <p>Direkte Kommunikation ohne Umwege. Ihr Anliegen wird schnell und unkompliziert bearbeitet.</p>
       </div>
       <div class="benefit-card">
-        <h3>🎓 Fundiertes Fachwissen</h3>
-        <p>Als geprüfter Betriebswirt IHK bringe ich solides kaufmännisches Wissen und eine strukturierte Arbeitsweise mit.</p>
+        <h3>✍️ Selbst pflegbar</h3>
+        <p>Ihre Website und Ihr Shop bleiben in Ihrer Hand: Texte, Bilder und Produkte ändern Sie ohne Programmierkenntnisse.</p>
       </div>
       <div class="benefit-card">
         <h3>🔒 Vertraulichkeit</h3>
         <p>Alle Informationen und Unterlagen werden streng vertraulich behandelt und ausschließlich zur Auftragserfüllung verwendet.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PREISE -->
-<section id="preise">
-  <div class="container">
-    <div class="section-tag">Abrechnung &amp; Preise</div>
-    <h2 class="section-title">Faire und transparente Preise</h2>
-    <p class="section-sub">Flexibel nach Stunden oder als individuelles Paket – ganz nach Ihrem Bedarf.</p>
-    <div class="pricing-wrapper">
-      <div class="pricing-card">
-        <div>Stundensatz ab</div>
-        <div class="pricing-amount"><sup>€</sup>30<sub>/Std.</sub></div>
-        <div class="pricing-note">netto gem. § 19 UStG · Pauschalangebote auf Anfrage</div>
-        <ul class="pricing-list">
-          <li>Flexible Buchung nach Bedarf</li>
-          <li>Keine Mindestlaufzeit</li>
-          <li>Pauschalangebote auf Anfrage</li>
-          <li>Kostenlose Erstberatung</li>
-          <li>Transparente Abrechnung</li>
-        </ul>
-        <a href="#kontakt" class="btn btn-primary" style="width:100%; text-align:center; display:block;">Jetzt anfragen</a>
-      </div>
-      <div class="pricing-info">
-        <h3>Zahlungshinweise</h3>
-        <div class="info-row">
-          <span class="icon">🧾</span>
-          <div><strong>Rechnungsstellung</strong><span>Ordnungsgemäße Rechnung per E-Mail als PDF nach Leistungserbringung</span></div>
-        </div>
-        <div class="info-row">
-          <span class="icon">🏦</span>
-          <div><strong>Zahlung</strong><span>Überweisung auf das angegebene Geschäftskonto innerhalb von 14 Tagen ohne Abzug</span></div>
-        </div>
-        <div class="info-row">
-          <span class="icon">📜</span>
-          <div><strong>Steuerhinweis</strong><span>Kleinunternehmer gemäß § 19 UStG – Preise sind Nettopreise ohne Umsatzsteuerausweis</span></div>
-        </div>
-        <div class="info-row">
-          <span class="icon">📦</span>
-          <div><strong>Paketpreise</strong><span>Individuelle Pauschalangebote oder Paketpreise auf Anfrage möglich</span></div>
-        </div>
-        <div class="info-row">
-          <span class="icon">💬</span>
-          <div><strong>Erstgespräch</strong><span>Das erste Beratungsgespräch ist für Sie kostenlos und unverbindlich</span></div>
-        </div>
       </div>
     </div>
   </div>
@@ -455,7 +494,7 @@
       </div>
       <div class="process-step">
         <div class="step-line"><div class="step-dot">3</div><div class="step-connector"></div></div>
-        <div class="step-content"><h3>Individuelles Angebot</h3><p>Sie erhalten ein maßgeschneidertes Angebot – transparent und fair kalkuliert.</p></div>
+        <div class="step-content"><h3>Entwurf &amp; Angebot</h3><p>Sie erhalten ein klares Festpreis-Angebot – bei Shops oft mit einem ersten klickbaren Entwurf zum Anschauen.</p></div>
       </div>
       <div class="process-step">
         <div class="step-line"><div class="step-dot">4</div><div class="step-connector"></div></div>
@@ -463,41 +502,53 @@
       </div>
       <div class="process-step">
         <div class="step-line"><div class="step-dot">5</div><div class="step-connector"></div></div>
-        <div class="step-content"><h3>Ergebnis &amp; Weiterbetreuung</h3><p>Sie erhalten Ihre Ergebnisse und können mich bei Bedarf jederzeit wieder beauftragen.</p></div>
+        <div class="step-content"><h3>Livegang &amp; Betreuung</h3><p>Ihre Website oder Ihr Shop geht online. Auf Wunsch betreue ich ihn weiter – flexibel und monatlich kündbar.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- REFERENZEN -->
+<!-- PROJEKTE -->
 <section id="referenzen">
   <div class="container">
-    <div class="section-tag">Referenzen</div>
-    <h2 class="section-title">Was Kunden sagen</h2>
-    <p class="section-sub">In dieser Rubrik finden Sie künftig eine Auswahl an Referenzen meiner bisherigen Projekte.</p>
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <p class="testimonial-text">Herr Blischke hat uns fachlich wie menschlich überzeugt. Seine Beratung war für unser Unternehmen ein echter Gewinn!</p>
-        <div class="testimonial-footer">
-          <img src="img/LinkedINReferenz-Foto-e1747710126642-1024x1024.jpg" alt="Referenz" class="testimonial-photo">
-          <div>
-            <div class="testimonial-author">Beispiel-Referenz</div>
-            <div class="testimonial-role">Geschäftsführer, Kleinunternehmen</div>
-          </div>
-        </div>
+    <div class="section-tag">Projekte</div>
+    <h2 class="section-title">Ausgewählte Arbeiten</h2>
+    <p class="section-sub">Echte Projekte statt leerer Versprechen.</p>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-tag">Webshop · in Arbeit</div>
+        <h3>Online-Shop für einen Leuchtenhersteller</h3>
+        <p>Hersteller-Shop mit Shopify: großer Bild-Slider, Leuchtenarten mit Filtern (Lichtfarbe, Dimmart, Oberfläche), Outlet für Ausstellungsstücke, Blog und Vorbereitung für einen Händlerbereich.</p>
       </div>
-      <div class="testimonial-card">
-        <p class="testimonial-text">Endlich jemand, der kaufmännische Aufgaben zuverlässig und ohne großen Aufwand übernimmt. Sehr empfehlenswert!</p>
-        <div class="testimonial-footer">
-          <div style="width:46px;height:46px;border-radius:50%;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.3rem;">👤</div>
-          <div>
-            <div class="testimonial-author">Folgt in Kürze</div>
-            <div class="testimonial-role">Selbstständige, Dienstleistungsbranche</div>
-          </div>
-        </div>
-      </div>
+      <a class="project-card" href="/appdesigner/#apps">
+        <div class="project-tag">Android-Apps · Google Play</div>
+        <h3>FoodKey, IWriteThai &amp; Hypno</h3>
+        <p>Drei eigene Apps im Google Play Store – von der Idee über Design und Entwicklung bis zum Release und laufenden Updates.</p>
+        <span class="project-link">Apps ansehen →</span>
+      </a>
+      <a class="project-card" href="/appdesigner/#webshop">
+        <div class="project-tag">Live-Demo</div>
+        <h3>Shop-Demo mit Kundenkonto</h3>
+        <p>Funktionierender Demo-Shop mit Warenkorb, Kundenkonto und Bestellverlauf – zum Ausprobieren direkt auf dieser Website.</p>
+        <span class="project-link">Demo ausprobieren →</span>
+      </a>
     </div>
-    <p class="referenzen-note">* Echte Kundenstimmen folgen in Kürze.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-tag">FAQ</div>
+    <h2 class="section-title">Häufige Fragen</h2>
+    <div class="faq-list">
+      <details><summary>Was kostet ein Webshop?</summary><p>Ein Shopify-Shop in Ihrem Design startet bei 1.000 € Festpreis. Dazu kommen die laufenden Shopify-Kosten von ca. 30–40 € im Monat, die Sie direkt an Shopify zahlen. Größere Sortimente, Datenimporte oder ein Händlerbereich werden vorab klar kalkuliert.</p></details>
+      <details><summary>Wie lange dauert es bis zum Livegang?</summary><p>Eine Website ist meist in 1–3 Wochen fertig, ein Shop in 3–6 Wochen – abhängig davon, wie schnell Texte, Fotos und Produktdaten vorliegen.</p></details>
+      <details><summary>Kann ich meine Website oder meinen Shop selbst pflegen?</summary><p>Ja. Texte, Bilder, Produkte und Preise ändern Sie selbst – ohne Programmierkenntnisse, auch per App am Handy. Ich zeige Ihnen beim Livegang, wie es geht.</p></details>
+      <details><summary>Arbeiten Sie auch remote und für Kunden in der Schweiz?</summary><p>Ja. Die meisten Projekte laufen komplett remote. Kunden in der Schweiz betreue ich gern – inklusive Preisen in CHF und Schweizer Zahlungsarten.</p></details>
+      <details><summary>Wem gehören Shop und Inhalte?</summary><p>Ihnen. Shop, Domain und Konten laufen auf Ihren Namen. Ich behalte nur auf Wunsch Zugriff für Betreuung und Wartung.</p></details>
+      <details><summary>Helfen Sie auch bei kaufmännischen Aufgaben?</summary><p>Gern ergänzend – etwa bei Produktdaten, Preiskalkulation oder Auswertungen rund um Ihr Online-Geschäft. Sprechen Sie mich einfach an.</p></details>
+    </div>
   </div>
 </section>
 
@@ -564,8 +615,11 @@
               <option value="" disabled selected>Bitte wählen...</option>
               <option>Erstgespräch vereinbaren</option>
               <option>Angebot anfordern</option>
-              <option>Vorbereitende Buchhaltung</option>
-              <option>Controlling &amp; Businessplan</option>
+              <option>Webshop</option>
+              <option>Website</option>
+              <option>App-Entwicklung</option>
+              <option>Betreuung &amp; Pflege</option>
+              <option>Kaufmännische Unterstützung</option>
               <option>Sonstiges</option>
             </select>
           </div>

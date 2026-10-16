@@ -1,3 +1,4 @@
 functions/node_modules/
 functions/.secret.local
 .DS_Store
+functions/.env
