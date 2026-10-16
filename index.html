@@ -263,6 +263,21 @@
     @media (max-width: 560px) {
       .packages-grid { grid-template-columns: 1fr; }
     }
+
+    /* Projekt-Galerien */
+    .project-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+    .project-body { padding: 1.3rem 1.4rem 1.5rem; }
+    .project-gallery { position: relative; aspect-ratio: 16 / 10; background: var(--bg); }
+    .pg-track { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth; }
+    .pg-track::-webkit-scrollbar { display: none; }
+    .pg-slide { flex: 0 0 100%; scroll-snap-align: start; }
+    .pg-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pg-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; border: none; background: rgba(255,255,255,.92); color: var(--navy); font-size: 1.3rem; line-height: 1; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+    .pg-prev { left: .6rem; } .pg-next { right: .6rem; }
+    .pg-dots { position: absolute; bottom: .6rem; left: 0; right: 0; display: flex; justify-content: center; gap: .35rem; }
+    .pg-dot { width: 7px; height: 7px; padding: 0; border: none; border-radius: 99px; background: rgba(255,255,255,.7); box-shadow: 0 0 0 1px rgba(0,0,0,.15); cursor: pointer; transition: width .2s; }
+    .pg-dot.is-active { width: 18px; background: var(--gold); }
+    @media (prefers-reduced-motion: reduce) { .pg-track { scroll-behavior: auto; } .pg-dot { transition: none; } }
   </style>
 </head>
 <body>
@@ -516,22 +531,46 @@
     <p class="section-sub">Echte Projekte statt leerer Versprechen.</p>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="project-tag">Webshop · in Arbeit</div>
-        <h3>Online-Shop für einen Leuchtenhersteller</h3>
-        <p>Hersteller-Shop mit Shopify: großer Bild-Slider, Leuchtenarten mit Filtern (Lichtfarbe, Dimmart, Oberfläche), Outlet für Ausstellungsstücke, Blog und Vorbereitung für einen Händlerbereich.</p>
+        <div class="project-gallery" data-gallery="shop">
+          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/shop-1.jpg" alt="Startseite mit geteiltem Bild-Slider" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/shop-2.jpg" alt="Leuchtenarten als Bild-Mosaik" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/shop-3.jpg" alt="Produkt-Karussell mit Bewertungen und Farben" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/shop-5.jpg" alt="Kategorieseite mit Unterkategorien" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/shop-4.jpg" alt="Outlet und Blog" loading="lazy" width="1200" height="750"></div></div>
+          <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
+          <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
+          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button><button type="button" class="pg-dot" aria-label="Bild 4" data-i="3"></button><button type="button" class="pg-dot" aria-label="Bild 5" data-i="4"></button></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag">Webshop · in Arbeit</div>
+          <h3>Online-Shop für einen Leuchtenhersteller</h3>
+          <p>Hersteller-Shop mit Shopify: geteilter Bild-Slider, Leuchtenarten mit Filtern (Lichtfarbe, Dimmart, Oberfläche), Outlet für Ausstellungsstücke, Blog und Vorbereitung für einen Händlerbereich.</p>
+        </div>
       </div>
-      <a class="project-card" href="/appdesigner/#apps">
-        <div class="project-tag">Android-Apps · Google Play</div>
-        <h3>FoodKey, IWriteThai &amp; Hypno</h3>
-        <p>Drei eigene Apps im Google Play Store – von der Idee über Design und Entwicklung bis zum Release und laufenden Updates.</p>
-        <span class="project-link">Apps ansehen →</span>
-      </a>
-      <a class="project-card" href="/appdesigner/#webshop">
-        <div class="project-tag">Live-Demo</div>
-        <h3>Shop-Demo mit Kundenkonto</h3>
-        <p>Funktionierender Demo-Shop mit Warenkorb, Kundenkonto und Bestellverlauf – zum Ausprobieren direkt auf dieser Website.</p>
-        <span class="project-link">Demo ausprobieren →</span>
-      </a>
+      <div class="project-card">
+        <div class="project-gallery" data-gallery="apps">
+          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/app-foodkey.jpg" alt="FoodKey – Lebensmittel-Scanner" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/app-iwritethai.jpg" alt="IWriteThai – Thai-Schrift lernen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/app-hypno.jpg" alt="Hypno – Lern-App" loading="lazy" width="1200" height="750"></div></div>
+          <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
+          <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
+          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag">Android-Apps · Google Play</div>
+          <h3>FoodKey, IWriteThai &amp; Hypno</h3>
+          <p>Drei eigene Apps im Google Play Store – von der Idee über Design und Entwicklung bis zum Release und laufenden Updates.</p>
+          <a class="project-link" href="/appdesigner/#apps">Mehr zu den Apps →</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-gallery" data-gallery="demo">
+          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/demo-1.jpg" alt="Shop-Demo mit Produkten" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/demo-2.jpg" alt="Warenkorb" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/demo-3.jpg" alt="Checkout mit Kundenkonto" loading="lazy" width="1200" height="750"></div></div>
+          <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
+          <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
+          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag">Live-Demo</div>
+          <h3>Shop-Demo mit Kundenkonto</h3>
+          <p>Funktionierender Demo-Shop mit Warenkorb, Kundenkonto und Bestellverlauf – zum Ausprobieren direkt auf dieser Website.</p>
+          <a class="project-link" href="/appdesigner/#webshop">Demo ausprobieren →</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -765,6 +804,20 @@
     submitBtn.disabled = false;
     submitBtn.textContent = 'Nachricht senden →';
     formMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>
+
+<script>
+  // Projekt-Galerien: Pfeile, Punkte, Wischen
+  document.querySelectorAll('.project-gallery').forEach(g => {
+    const track = g.querySelector('.pg-track');
+    const dots = [...g.querySelectorAll('.pg-dot')];
+    const go = i => track.scrollTo({ left: i * track.clientWidth });
+    const cur = () => Math.round(track.scrollLeft / track.clientWidth);
+    g.querySelector('.pg-prev').addEventListener('click', () => go(Math.max(0, cur() - 1)));
+    g.querySelector('.pg-next').addEventListener('click', () => go(cur() + 1 >= dots.length ? 0 : cur() + 1));
+    dots.forEach(d => d.addEventListener('click', () => go(+d.dataset.i)));
+    track.addEventListener('scroll', () => dots.forEach((d, i) => d.classList.toggle('is-active', i === cur())), { passive: true });
   });
 </script>
 </body>
