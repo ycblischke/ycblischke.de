@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Websites, Webshops (Shopify, WordPress/WooCommerce oder individuell programmiert) und Android-Apps für kleine Unternehmen und Hersteller – remote und persönlich aus Rheinfelden für Lörrach, Basel und ganz Deutschland. Mit dem Blick eines Betriebswirts (IHK).">
   <title>Websites & Webshops – Yves Claudio Blischke | Rheinfelden</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="/fonts/fonts.css" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -683,7 +681,7 @@
           <div class="form-check">
             <input type="checkbox" id="agbCheck" name="agb" required>
             <label for="agbCheck">
-              Ich habe die <a href="#" onclick="openModal('agbModal'); return false;">AGB</a> gelesen und akzeptiere diese. Ich stimme der Verarbeitung meiner Daten gemäß der <a href="#" onclick="openModal('datenschutzModal'); return false;">Datenschutzerklärung</a> zu. <span class="req">*</span>
+              Ich habe die <a href="#" onclick="openModal('datenschutzModal'); return false;">Datenschutzerklärung</a> zur Kenntnis genommen und bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verwendet werden. <span class="req">*</span>
             </label>
           </div>
           <button type="submit" class="btn-submit" id="submitBtn">Nachricht senden →</button>
@@ -709,7 +707,7 @@
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('impressumModal')">&times;</button>
     <h2>Impressum</h2>
-    <p><strong>Angaben gemäß § 5 TMG</strong></p>
+    <p><strong>Angaben gemäß § 5 DDG</strong></p>
     <h3>Dienstanbieter</h3>
     <p>Yves Claudio Blischke<br>Geprüfter Handelsfachwirt und Betriebswirt (IHK)<br>Adolf-Senger-Straße 3<br>79618 Rheinfelden</p>
     <h3>Kontakt</h3>
@@ -726,18 +724,23 @@
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('datenschutzModal')">&times;</button>
     <h2>Datenschutzerklärung</h2>
-    <h3>Verantwortlicher</h3>
+    <h3>1. Verantwortlicher</h3>
     <p>Yves Claudio Blischke · Adolf-Senger-Straße 3 · 79618 Rheinfelden<br>E-Mail: ycblischke@gmail.com · Tel: +49 1578 4834080</p>
-    <h3>Grundsatz</h3>
-    <p>Ihre Daten werden vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften behandelt. Die Nutzung der Website ist in der Regel ohne Angabe personenbezogener Daten möglich.</p>
-    <h3>Server-Logfiles</h3>
-    <p>Der Hosting-Anbieter erhebt automatisch Informationen in Server-Logfiles (Browsertyp, Betriebssystem, Referrer-URL, IP-Adresse). Diese Daten werden nicht mit anderen Quellen zusammengeführt.</p>
-    <h3>Kontaktformular</h3>
-    <p>Angaben aus dem Kontaktformular werden zur Bearbeitung der Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt ohne Ihre Einwilligung nicht.</p>
-    <h3>Ihre Rechte</h3>
-    <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung sowie auf Datenübertragbarkeit.</p>
-    <h3>Beschwerderecht</h3>
-    <p>Landesbeauftragter für Datenschutz Baden-Württemberg, Königstraße 10a, 70173 Stuttgart, Tel: 0711/615541-0</p>
+    <h3>2. Hosting</h3>
+    <p>Diese Website wird bei GitHub Pages gehostet (GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA). Beim Aufruf der Seiten verarbeitet GitHub technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit, Browsertyp und Betriebssystem in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren und funktionsfähigen Website). Eine Übermittlung in die USA kann dabei nicht ausgeschlossen werden; GitHub ist nach dem EU-US Data Privacy Framework zertifiziert.</p>
+    <h3>3. Schriftarten</h3>
+    <p>Die verwendeten Schriftarten sind lokal auf dieser Website gespeichert. Beim Seitenaufruf wird keine Verbindung zu Servern von Google oder anderen Schriftanbietern hergestellt.</p>
+    <h3>4. Kontaktformular</h3>
+    <p>Wenn Sie das Kontaktformular nutzen, werden Ihre Angaben (Name, E-Mail, ggf. Telefon, Betreff, Nachricht) über den Dienst Formspree (Formspree Inc., USA) an mich per E-Mail übermittelt und zur Bearbeitung Ihrer Anfrage gespeichert. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung eines Vertrags) bzw. lit. f DSGVO (Beantwortung allgemeiner Anfragen). Ihre Daten werden gelöscht, sobald die Anfrage abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Eine Übermittlung in die USA kann nicht ausgeschlossen werden.</p>
+    <h3>5. Kontakt per E-Mail oder Telefon</h3>
+    <p>Wenn Sie mich direkt kontaktieren, verarbeite ich Ihre Angaben ausschließlich zur Bearbeitung Ihres Anliegens (Art. 6 Abs. 1 lit. b bzw. f DSGVO).</p>
+    <h3>6. Externe Links</h3>
+    <p>Diese Website enthält Links zu externen Angeboten (z. B. LinkedIn, Google Play). Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen; es gilt dann dessen Datenschutzerklärung.</p>
+    <h3>7. Ihre Rechte</h3>
+    <p>Sie haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie das Recht, einer Verarbeitung auf Grundlage berechtigter Interessen zu widersprechen (Art. 21 DSGVO). Eine formlose E-Mail an ycblischke@gmail.com genügt.</p>
+    <h3>8. Beschwerderecht</h3>
+    <p>Sie können sich bei einer Datenschutz-Aufsichtsbehörde beschweren, z. B. beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart.</p>
+    <p style="font-size:.8rem;">Stand: November 2026</p>
   </div>
 </div>
 
@@ -746,28 +749,31 @@
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('agbModal')">&times;</button>
     <h2>Allgemeine Geschäftsbedingungen</h2>
-    <p><strong>Yves Claudio Blischke – Betriebswirt IHK</strong></p>
+    <p>Yves Claudio Blischke – Web &amp; IT · Betriebswirt IHK · Stand: November 2026</p>
     <h3>§ 1 Geltungsbereich</h3>
-    <p>Diese AGB gelten für alle Verträge zwischen Yves Claudio Blischke und seinen Auftraggebern über betriebswirtschaftliche Beratungsleistungen sowie kaufmännische Dienstleistungen.</p>
-    <h3>§ 2 Leistungsbeschreibung</h3>
-    <p><strong>a) Betriebswirtschaftliche Beratung:</strong> Analyse, Optimierung und Unterstützung in betriebswirtschaftlichen Fragestellungen (Organisation, Controlling, Geschäftsplanung, Kalkulation, Prozessmanagement).</p>
-    <p><strong>b) Kaufmännische Dienstleistungen:</strong> Unterstützung bei Erstellung, Erfassung oder Verwaltung von Geschäftsunterlagen (Angebote, Rechnungen, Schriftverkehr, vorbereitende Buchführung, Auswertungen).</p>
-    <h3>§ 3 Mitwirkungspflichten des Kunden</h3>
-    <p>Der Kunde verpflichtet sich, alle erforderlichen Informationen, Unterlagen und Zugänge vollständig, korrekt und rechtzeitig zur Verfügung zu stellen.</p>
-    <h3>§ 4 Nachbesserung bei Mängeln</h3>
-    <p>Bei berechtigten Beanstandungen ist der Dienstleister zur kostenlosen Nachbesserung verpflichtet. Weitergehende Ansprüche sind ausgeschlossen.</p>
-    <h3>§ 5 Zahlungsbedingungen</h3>
-    <p>Die Vergütung ist nach Rechnungsstellung ohne Abzug innerhalb von 14 Werktagen fällig. Bei Zahlungsverzug werden Verzugszinsen gemäß § 288 BGB berechnet.</p>
-    <h3>§ 6 Leistungsfristen</h3>
-    <p>Fristen sind nur dann verbindlich, wenn sie ausdrücklich schriftlich vereinbart wurden.</p>
-    <h3>§ 7 Haftung</h3>
-    <p>Der Dienstleister haftet bei Vorsatz und grober Fahrlässigkeit uneingeschränkt. Eine Haftung für mittelbare Schäden oder entgangenen Gewinn ist ausgeschlossen.</p>
-    <h3>§ 8 Urheberrecht</h3>
-    <p>Urheberrechte an erstellten Unterlagen verbleiben beim Dienstleister. Die Nutzung durch den Kunden ist ausschließlich für eigene Zwecke gestattet.</p>
-    <h3>§ 9 Vertraulichkeit</h3>
-    <p>Alle Informationen werden vertraulich behandelt und ausschließlich zur Vertragserfüllung verwendet.</p>
-    <h3>§ 10 Schlussbestimmungen</h3>
-    <p>Es gilt das Recht der Bundesrepublik Deutschland. Gerichtsstand ist der Sitz des Dienstleisters.</p>
+    <p>Diese AGB gelten für alle Verträge zwischen Yves Claudio Blischke („Auftragnehmer“) und seinen Auftraggebern über (a) die Konzeption, Gestaltung und Umsetzung von Websites, Online-Shops und Apps einschließlich Betreuung und Pflege sowie (b) kaufmännische Unterstützungsleistungen. Abweichende Bedingungen des Auftraggebers gelten nur, wenn sie schriftlich bestätigt wurden.</p>
+    <h3>§ 2 Vertragsschluss und Leistungsumfang</h3>
+    <p>Der Umfang der Leistung ergibt sich aus dem jeweiligen Angebot bzw. der Auftragsbestätigung. Kostenlose Entwürfe dienen nur der Ansicht und begründen kein Nutzungsrecht. Zusätzliche Wünsche, die über das Angebot hinausgehen, werden gesondert nach Aufwand oder nach Absprache berechnet.</p>
+    <h3>§ 3 Mitwirkung des Auftraggebers</h3>
+    <p>Der Auftraggeber stellt Texte, Bilder, Logos, Produktdaten, Rechtstexte und erforderliche Zugänge rechtzeitig zur Verfügung. Er versichert, die nötigen Rechte an gelieferten Inhalten zu besitzen, und stellt den Auftragnehmer von Ansprüchen Dritter frei, die auf diesen Inhalten beruhen. Für die inhaltliche und rechtliche Richtigkeit seiner Inhalte (z. B. Impressum, AGB, Datenschutz, Preisangaben) ist der Auftraggeber verantwortlich.</p>
+    <h3>§ 4 Korrekturen und Abnahme</h3>
+    <p>Im Festpreis sind zwei Korrekturrunden enthalten, sofern nicht anders vereinbart. Nach Fertigstellung prüft der Auftraggeber die Leistung und erklärt die Abnahme. Die Leistung gilt als abgenommen, wenn sie in Betrieb genommen (z. B. veröffentlicht) wird oder der Auftraggeber nicht innerhalb von 14 Tagen nach Fertigstellungsmeldung wesentliche Mängel benennt.</p>
+    <h3>§ 5 Drittanbieter und laufende Kosten</h3>
+    <p>Für Hosting, Domains, Shop-Systeme (z. B. Shopify), Apps, Plugins und Zahlungsdienste schließt der Auftraggeber eigene Verträge mit den Anbietern und trägt deren Kosten. Der Auftragnehmer haftet nicht für Ausfälle, Preis- oder Funktionsänderungen dieser Drittanbieter.</p>
+    <h3>§ 6 Nutzungsrechte</h3>
+    <p>Mit vollständiger Bezahlung erhält der Auftraggeber das zeitlich und räumlich unbeschränkte Recht, die für ihn erstellten Arbeitsergebnisse für den vereinbarten Zweck zu nutzen und zu ändern. Bis dahin verbleiben alle Rechte beim Auftragnehmer. Der Auftragnehmer darf die Arbeit mit Zustimmung des Auftraggebers als Referenz nennen.</p>
+    <h3>§ 7 Vergütung und Zahlung</h3>
+    <p>Es gelten die im Angebot genannten Preise. Bei Projekten ist eine Anzahlung von 50 % bei Auftragserteilung fällig, der Rest bei Abnahme. Rechnungen sind innerhalb von 14 Tagen ohne Abzug zahlbar. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.</p>
+    <h3>§ 8 Termine</h3>
+    <p>Termine sind nur verbindlich, wenn sie schriftlich als verbindlich vereinbart wurden. Verzögerungen durch fehlende Mitwirkung des Auftraggebers verschieben Termine entsprechend.</p>
+    <h3>§ 9 Haftung</h3>
+    <p>Der Auftragnehmer haftet unbeschränkt bei Vorsatz, grober Fahrlässigkeit sowie bei Verletzung von Leben, Körper oder Gesundheit. Bei leichter Fahrlässigkeit haftet er nur bei Verletzung wesentlicher Vertragspflichten und begrenzt auf den vertragstypischen, vorhersehbaren Schaden. Für die regelmäßige Datensicherung ist der Auftraggeber verantwortlich, soweit nichts anderes vereinbart ist.</p>
+    <h3>§ 10 Betreuungsverträge</h3>
+    <p>Monatliche Betreuungspakete sind, soweit nicht anders vereinbart, mit einer Frist von einem Monat zum Monatsende kündbar.</p>
+    <h3>§ 11 Vertraulichkeit</h3>
+    <p>Alle Informationen und Zugangsdaten werden vertraulich behandelt und ausschließlich zur Vertragserfüllung verwendet.</p>
+    <h3>§ 12 Schlussbestimmungen</h3>
+    <p>Es gilt das Recht der Bundesrepublik Deutschland. Ist der Auftraggeber Kaufmann, ist Gerichtsstand der Sitz des Auftragnehmers. Sollte eine Bestimmung unwirksam sein, bleibt die Wirksamkeit der übrigen unberührt.</p>
   </div>
 </div>
 

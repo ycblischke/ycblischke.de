@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Yves Claudio Blischke – App Design & Entwicklung für Android. Native Apps, Webdesign und Beta-Testing. Entdecken Sie meine Apps: FoodKey, IWriteThai, Hypno.">
   <title>App Design & Entwicklung – Yves Claudio Blischke</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="/fonts/fonts.css" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -875,9 +873,10 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-links">
-    <a href="/">Betriebswirt-Seite</a>
+    <a href="/">Startseite</a>
     <a href="#" onclick="openModal('impressumModal'); return false;">Impressum</a>
     <a href="#" onclick="openModal('dsModal_website'); return false;">Datenschutzerklärung</a>
+    <a href="#" onclick="openModal('agbModal'); return false;">AGB</a>
     <a href="https://www.linkedin.com/in/yves-claudio-blischke-818b6b288" target="_blank" rel="noopener">LinkedIn</a>
   </div>
   <div>Copyright &copy; 2026 Yves Claudio Blischke · App Design & Entwicklung · Rheinfelden</div>
@@ -888,13 +887,46 @@
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('impressumModal')">&times;</button>
     <h2>Impressum</h2>
-    <p><strong>Angaben gemäß § 5 TMG</strong></p>
+    <p><strong>Angaben gemäß § 5 DDG</strong></p>
     <h3>Dienstanbieter</h3>
     <p>Yves Claudio Blischke<br>Adolf-Senger-Straße 3<br>79618 Rheinfelden</p>
     <h3>Kontakt</h3>
     <p>Telefon: +49 1578 4834080<br>E-Mail: ycblischke@gmail.com</p>
     <h3>Steuerliche Angaben</h3>
     <p>Gemäß § 19 UStG wird keine Umsatzsteuer berechnet (Kleinunternehmerregelung).</p>
+  </div>
+</div>
+
+<!-- AGB MODAL -->
+<div class="modal-overlay" id="agbModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('agbModal')">&times;</button>
+    <h2>Allgemeine Geschäftsbedingungen</h2>
+    <p>Yves Claudio Blischke – Web &amp; IT · Betriebswirt IHK · Stand: November 2026</p>
+    <h3>§ 1 Geltungsbereich</h3>
+    <p>Diese AGB gelten für alle Verträge zwischen Yves Claudio Blischke („Auftragnehmer“) und seinen Auftraggebern über (a) die Konzeption, Gestaltung und Umsetzung von Websites, Online-Shops und Apps einschließlich Betreuung und Pflege sowie (b) kaufmännische Unterstützungsleistungen. Abweichende Bedingungen des Auftraggebers gelten nur, wenn sie schriftlich bestätigt wurden.</p>
+    <h3>§ 2 Vertragsschluss und Leistungsumfang</h3>
+    <p>Der Umfang der Leistung ergibt sich aus dem jeweiligen Angebot bzw. der Auftragsbestätigung. Kostenlose Entwürfe dienen nur der Ansicht und begründen kein Nutzungsrecht. Zusätzliche Wünsche, die über das Angebot hinausgehen, werden gesondert nach Aufwand oder nach Absprache berechnet.</p>
+    <h3>§ 3 Mitwirkung des Auftraggebers</h3>
+    <p>Der Auftraggeber stellt Texte, Bilder, Logos, Produktdaten, Rechtstexte und erforderliche Zugänge rechtzeitig zur Verfügung. Er versichert, die nötigen Rechte an gelieferten Inhalten zu besitzen, und stellt den Auftragnehmer von Ansprüchen Dritter frei, die auf diesen Inhalten beruhen. Für die inhaltliche und rechtliche Richtigkeit seiner Inhalte (z. B. Impressum, AGB, Datenschutz, Preisangaben) ist der Auftraggeber verantwortlich.</p>
+    <h3>§ 4 Korrekturen und Abnahme</h3>
+    <p>Im Festpreis sind zwei Korrekturrunden enthalten, sofern nicht anders vereinbart. Nach Fertigstellung prüft der Auftraggeber die Leistung und erklärt die Abnahme. Die Leistung gilt als abgenommen, wenn sie in Betrieb genommen (z. B. veröffentlicht) wird oder der Auftraggeber nicht innerhalb von 14 Tagen nach Fertigstellungsmeldung wesentliche Mängel benennt.</p>
+    <h3>§ 5 Drittanbieter und laufende Kosten</h3>
+    <p>Für Hosting, Domains, Shop-Systeme (z. B. Shopify), Apps, Plugins und Zahlungsdienste schließt der Auftraggeber eigene Verträge mit den Anbietern und trägt deren Kosten. Der Auftragnehmer haftet nicht für Ausfälle, Preis- oder Funktionsänderungen dieser Drittanbieter.</p>
+    <h3>§ 6 Nutzungsrechte</h3>
+    <p>Mit vollständiger Bezahlung erhält der Auftraggeber das zeitlich und räumlich unbeschränkte Recht, die für ihn erstellten Arbeitsergebnisse für den vereinbarten Zweck zu nutzen und zu ändern. Bis dahin verbleiben alle Rechte beim Auftragnehmer. Der Auftragnehmer darf die Arbeit mit Zustimmung des Auftraggebers als Referenz nennen.</p>
+    <h3>§ 7 Vergütung und Zahlung</h3>
+    <p>Es gelten die im Angebot genannten Preise. Bei Projekten ist eine Anzahlung von 50 % bei Auftragserteilung fällig, der Rest bei Abnahme. Rechnungen sind innerhalb von 14 Tagen ohne Abzug zahlbar. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.</p>
+    <h3>§ 8 Termine</h3>
+    <p>Termine sind nur verbindlich, wenn sie schriftlich als verbindlich vereinbart wurden. Verzögerungen durch fehlende Mitwirkung des Auftraggebers verschieben Termine entsprechend.</p>
+    <h3>§ 9 Haftung</h3>
+    <p>Der Auftragnehmer haftet unbeschränkt bei Vorsatz, grober Fahrlässigkeit sowie bei Verletzung von Leben, Körper oder Gesundheit. Bei leichter Fahrlässigkeit haftet er nur bei Verletzung wesentlicher Vertragspflichten und begrenzt auf den vertragstypischen, vorhersehbaren Schaden. Für die regelmäßige Datensicherung ist der Auftraggeber verantwortlich, soweit nichts anderes vereinbart ist.</p>
+    <h3>§ 10 Betreuungsverträge</h3>
+    <p>Monatliche Betreuungspakete sind, soweit nicht anders vereinbart, mit einer Frist von einem Monat zum Monatsende kündbar.</p>
+    <h3>§ 11 Vertraulichkeit</h3>
+    <p>Alle Informationen und Zugangsdaten werden vertraulich behandelt und ausschließlich zur Vertragserfüllung verwendet.</p>
+    <h3>§ 12 Schlussbestimmungen</h3>
+    <p>Es gilt das Recht der Bundesrepublik Deutschland. Ist der Auftraggeber Kaufmann, ist Gerichtsstand der Sitz des Auftragnehmers. Sollte eine Bestimmung unwirksam sein, bleibt die Wirksamkeit der übrigen unberührt.</p>
   </div>
 </div>
 
@@ -909,10 +941,13 @@
     <p>Ihre Daten werden vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften behandelt. Die Nutzung der Website ist in der Regel ohne Angabe personenbezogener Daten möglich.</p>
     <h3>Server-Logfiles</h3>
     <p>Der Hosting-Anbieter (GitHub Pages) erhebt automatisch Informationen in Server-Logfiles (Browsertyp, Betriebssystem, Referrer-URL, IP-Adresse). Diese Daten werden nicht mit anderen Quellen zusammengeführt.</p>
+    <h3>Schriftarten</h3>
+    <p>Die verwendeten Schriftarten sind lokal auf dieser Website gespeichert. Beim Seitenaufruf wird keine Verbindung zu Servern von Google oder anderen Schriftanbietern hergestellt.</p>
     <h3>Kontaktformular</h3>
     <p>Angaben aus dem Kontaktformular werden über Formspree zur Bearbeitung der Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt ohne Ihre Einwilligung nicht.</p>
     <h3>Webshop-Demo: Kundenkonto und Bestellanfragen</h3>
     <p>Für den Checkout der Webshop-Demo können Sie ein Kundenkonto anlegen. Dafür nutze ich Google Firebase (Firebase Authentication und Cloud Firestore) der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Gespeichert werden Ihr Name, Ihre E-Mail-Adresse, der Zeitpunkt der Registrierung sowie Ihre Bestellanfragen (gewählte Leistungen, Gesamtsumme, Zeitpunkt). Ihr Passwort wird ausschließlich verschlüsselt (gehasht) von Firebase Authentication verarbeitet und ist für mich nicht einsehbar. Die Datenbank liegt im Rechenzentrum Frankfurt am Main; bei der Anmeldung über Firebase Authentication kann eine Verarbeitung auch in den USA nicht ausgeschlossen werden. Google ist nach dem EU-US Data Privacy Framework zertifiziert.</p>
+    <p>Damit die Shop-Demo funktioniert, werden die Programmbibliotheken von Firebase beim Aufruf dieser Seite von Servern von Google (www.gstatic.com) geladen. Dabei wird technisch bedingt Ihre IP-Adresse an Google übermittelt (Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse an einer funktionsfähigen Demo).</p>
     <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Durchführung vorvertraglicher Maßnahmen auf Ihre Anfrage). Die Bestellanfrage wird zusätzlich per E-Mail über Formspree an mich übermittelt. Ihre Daten werden gelöscht, sobald sie für die Bearbeitung nicht mehr erforderlich sind, spätestens jedoch auf Ihren Wunsch hin.</p>
     <p>Unter „Mein Konto“ können Sie Ihren Namen und Ihr Passwort jederzeit selbst ändern, Ihre bisherigen Anfragen einsehen und Ihr Konto löschen. Beim Löschen werden Ihr Login, Ihr Profil und alle Ihre gespeicherten Anfragen sofort und endgültig entfernt. Alternativ genügt eine formlose E-Mail an ycblischke@gmail.com. Auf Wunsch lösche ich dann auch die per E-Mail erhaltenen Anfragen. Für die Funktion „Passwort vergessen“ versendet Firebase in meinem Auftrag eine E-Mail an die von Ihnen angegebene Adresse.</p>
     <p>Der Inhalt Ihres Warenkorbs wird lediglich lokal in Ihrem Browser (localStorage) gespeichert und nicht an mich übertragen, bis Sie eine Anfrage absenden. Firebase speichert zudem einen Anmeldestatus in Ihrem Browser, damit Sie eingeloggt bleiben.</p>
