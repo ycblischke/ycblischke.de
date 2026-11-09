@@ -39,8 +39,8 @@
   .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
   .btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
   .btn-outline:hover { background: var(--navy); color: #fff; }
-  .btn-dark { background: var(--w-bg); color: var(--w-green); border: 1px solid #2a2a2a; }
-  .btn-dark:hover { border-color: var(--w-green); }
+  .btn-dark { background: var(--navy); color: #fff; }
+  .btn-dark:hover { background: var(--navy2); transform: translateY(-1px); }
 
   section { padding: 5rem 0; }
   .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--gold); margin-bottom: .6rem; }
@@ -48,22 +48,20 @@
   .section-sub { color: var(--muted); max-width: 640px; margin-bottom: 2.6rem; }
 
   /* Hero */
-  .hero { background: linear-gradient(160deg, #0b0f0c 0%, #101a12 55%, #1B2F5E 140%); color: #e8f0ea; padding: 5.5rem 0 4.5rem; overflow: hidden; }
+  .hero { background: linear-gradient(160deg, var(--bg) 0%, #ffffff 60%); padding: 4.5rem 0 4rem; overflow: hidden; border-bottom: 1px solid var(--border); }
   .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center; }
-  .hero-badge { display: inline-block; border: 1px solid rgba(0,255,65,.4); color: var(--w-green); font-size: .74rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: .3rem .9rem; border-radius: 20px; margin-bottom: 1.3rem; }
-  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4.4vw, 3.1rem); line-height: 1.15; margin-bottom: 1.1rem; color: #fff; }
-  .hero h1 span { color: var(--w-green); }
-  .hero p { color: #b9c8bd; max-width: 520px; margin-bottom: 1.8rem; }
-  .hero .btn-outline { color: #fff; border-color: rgba(255,255,255,.5); }
-  .hero .btn-outline:hover { background: #fff; color: var(--navy); }
+  .hero-badge { display: inline-block; background: rgba(200,150,60,.12); border: 1px solid rgba(200,150,60,.4); color: var(--gold); font-size: .74rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: .3rem .9rem; border-radius: 20px; margin-bottom: 1.3rem; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4.4vw, 3.1rem); line-height: 1.15; margin-bottom: 1.1rem; color: var(--navy); }
+  .hero h1 span { color: var(--gold); }
+  .hero p { color: var(--muted); max-width: 520px; margin-bottom: 1.8rem; }
   .hero-actions { display: flex; gap: .8rem; flex-wrap: wrap; }
   .hero-facts { display: flex; gap: 2rem; margin-top: 2.2rem; flex-wrap: wrap; }
-  .hero-facts div { font-size: .8rem; color: #9fb3a5; }
-  .hero-facts strong { display: block; font-size: 1.5rem; color: var(--w-green); font-weight: 700; }
+  .hero-facts div { font-size: .8rem; color: var(--muted); }
+  .hero-facts strong { display: block; font-size: 1.5rem; color: var(--navy); font-weight: 700; }
   @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } .hero-phone { display: none; } }
 
   /* Handy-Rahmen */
-  .phone { width: 340px; max-width: 100%; aspect-ratio: 9 / 17; background: #000; border-radius: 42px; padding: 12px; box-shadow: 0 30px 60px rgba(0,0,0,.35), inset 0 0 0 2px #2b2b2b; position: relative; margin: 0 auto; }
+  .phone { width: 340px; max-width: 100%; aspect-ratio: 9 / 17; background: #000; border-radius: 42px; padding: 12px; box-shadow: 0 24px 50px rgba(27,47,94,.22), inset 0 0 0 2px #2b2b2b; position: relative; margin: 0 auto; }
   .phone::before { content: ""; position: absolute; top: 18px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: #1a1a1a; z-index: 3; }
   .screen { width: 100%; height: 100%; border-radius: 32px; overflow: hidden; position: relative;
     background: radial-gradient(120% 80% at 30% 10%, #3a3d46 0%, #22242a 55%, #17181c 100%); padding: 44px 12px 14px; display: flex; flex-direction: column; gap: 12px; }

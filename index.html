@@ -228,6 +228,14 @@
 
     /* ── Neue Bereiche: Leistungen, Pakete, Projekte, FAQ ─────────── */
     .service-emoji { font-size: 3rem; line-height: 80px; height: 80px; margin-bottom: .8rem; }
+    .card-wide { grid-column: 1 / -1; display: grid !important; grid-template-columns: 1.2fr 1fr; gap: 1.6rem 2rem; align-items: center; text-align: left !important; }
+    .card-wide .service-emoji { text-align: left; }
+    .card-wide img.wide-img { width: 100% !important; max-width: none !important; height: auto !important; margin: 0 !important; border-radius: 10px; border: 1px solid var(--border); }
+    .card-wide .wide-links { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: .8rem; }
+    .card-wide .wide-links a { color: var(--gold); font-size: .82rem; font-weight: 700; text-decoration: none; }
+    .package-card.card-wide ul { columns: 2; column-gap: 1.6rem; margin: 0; }
+    .package-card.card-wide ul li { break-inside: avoid; }
+    @media (max-width: 760px) { .card-wide { grid-template-columns: 1fr; } .package-card.card-wide ul { columns: 1; } }
     .secondary-services { margin-top: 2.2rem; padding: 1.4rem 1.6rem; border: 1px dashed var(--border); border-radius: 12px; background: var(--bg2); }
     .secondary-services h3 { font-size: 1rem; color: var(--navy); margin-bottom: .4rem; }
     .secondary-services p { font-size: .9rem; color: var(--muted); }
@@ -434,6 +442,18 @@
         <h3>Betreuung &amp; Pflege</h3>
         <p>Inhalte und Produkte einpflegen, Aktionen, Updates und kleine Anpassungen – im Monatspaket oder nach Bedarf.</p>
       </div>
+      <div class="service-card card-wide">
+        <div>
+          <div class="service-emoji">📱</div>
+          <h3>Apps &amp; Widgets für Android</h3>
+          <p>Eine eigene App oder ein Widget für Ihre Kunden oder Ihr Team: Tagesangebot, Auslastung, Terminstatus oder Kennzahlen – live aus Ihrem System, Ihrem Shop oder öffentlichen Daten, direkt auf dem Startbildschirm. Von der Idee über das Design bis in den Google Play Store oder zur internen Verteilung.</p>
+          <div class="wide-links">
+            <a href="/widgets/">Widgets &amp; Live-Demo ansehen →</a>
+            <a href="/appdesigner/#apps">Meine Apps im Play Store →</a>
+          </div>
+        </div>
+        <img class="wide-img" src="img/projekte/widgets-1.jpg" alt="Android-Widgets mit Live-Daten auf dem Startbildschirm" loading="lazy" width="1200" height="750">
+      </div>
     </div>
 
     <div class="tech-row">
@@ -441,11 +461,12 @@
       <span class="cred-chip">Shopify</span>
       <span class="cred-chip">WordPress &amp; WooCommerce</span>
       <span class="cred-chip">HTML, CSS, JavaScript</span>
+      <span class="cred-chip">Android (Kotlin, Flutter)</span>
     </div>
 
     <div class="secondary-services">
       <h3>Außerdem</h3>
-      <p><a href="/appdesigner/#apps">Android-Apps</a> vom Design bis zum Google Play Store sowie Logo und Design für einen einheitlichen Auftritt.</p>
+      <p>Logo und Design für einen einheitlichen Auftritt – von der Visitenkarte bis zum Shop.</p>
     </div>
   </div>
 </section>
@@ -516,6 +537,21 @@
           <li>Produkte &amp; Inhalte pflegen</li>
           <li>Aktionen, Updates, kleine Anpassungen</li>
           <li>Monatlich kündbar</li>
+        </ul>
+      </div>
+      <div class="package-card card-wide">
+        <div>
+          <h3>App oder Widget (Android)</h3>
+          <div class="package-price">nach Aufwand · 45 € / Stunde</div>
+          <p style="font-size:.88rem;color:var(--muted);margin-top:.4rem">Jede App ist anders – deshalb kein Pauschalpreis. Sie erhalten vorab eine verbindliche Aufwandsschätzung; ein einfaches Widget mit einer Datenquelle ist oft schon in wenigen Tagen umgesetzt.</p>
+        </div>
+        <ul>
+          <li>Kostenlose Einschätzung im Erstgespräch</li>
+          <li>Aufwandsschätzung vor Projektstart</li>
+          <li>Design passend zu Ihrem Auftritt</li>
+          <li>Anbindung Ihrer Daten oder öffentlicher Quellen</li>
+          <li>Test auf echten Geräten</li>
+          <li>Google Play oder interne Verteilung</li>
         </ul>
       </div>
     </div>
