@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Widgets &amp; Live-Daten – Yves Claudio Blischke</title>
+<meta name="description" content="Android-Widgets, die Daten aus vielen Quellen live auf den Startbildschirm bringen: Wetter, Fahrpläne, Wassertemperatur, Kurse – mit Live-Demo zum Ausprobieren.">
+<link href="/fonts/fonts.css" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B2F5E; --navy2: #243d78; --gold: #C8963C; --gold2: #e0aa4a;
+    --bg: #F7F8FC; --bg2: #ffffff; --text: #2D3748; --muted: #718096; --border: #E2E8F0;
+    --radius: 10px; --shadow: 0 4px 24px rgba(27,47,94,.10);
+    /* Farben der Widgets */
+    --w-bg: #101010; --w-green: #00FF41; --w-dark: #088729; --w-line: #1E3A25;
+    --w-yellow: #FFE14D; --w-orange: #FFB000; --w-red: #FF4D4D;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg2); line-height: 1.65; }
+  a { color: var(--navy); }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 1.4rem; }
+
+  /* Navigation wie auf der Startseite */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .nav-brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; }
+  .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; color: var(--navy); letter-spacing: 2px; }
+  .nav-brand-name { font-weight: 700; font-size: .9rem; color: var(--navy); line-height: 1.2; }
+  .nav-brand-title { font-size: .7rem; color: var(--muted); }
+  .nav-links { display: flex; gap: 1.4rem; list-style: none; align-items: center; }
+  .nav-links a { text-decoration: none; font-size: .86rem; font-weight: 500; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--navy); color: #fff !important; padding: .4rem 1rem; border-radius: 6px; }
+  @media (max-width: 760px) { .nav-links li:not(:last-child) { display: none; } .nav-brand-title { display: none; } }
+
+  .btn { display: inline-block; padding: .8rem 1.8rem; border-radius: 8px; font-weight: 600; font-size: .93rem; text-decoration: none; transition: all .2s; cursor: pointer; border: none; font-family: inherit; }
+  .btn-primary { background: var(--gold); color: #fff; }
+  .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
+  .btn-outline:hover { background: var(--navy); color: #fff; }
+  .btn-dark { background: var(--w-bg); color: var(--w-green); border: 1px solid #2a2a2a; }
+  .btn-dark:hover { border-color: var(--w-green); }
+
+  section { padding: 5rem 0; }
+  .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--gold); margin-bottom: .6rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--navy); line-height: 1.25; margin-bottom: .8rem; }
+  .section-sub { color: var(--muted); max-width: 640px; margin-bottom: 2.6rem; }
+
+  /* Hero */
+  .hero { background: linear-gradient(160deg, #0b0f0c 0%, #101a12 55%, #1B2F5E 140%); color: #e8f0ea; padding: 5.5rem 0 4.5rem; overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center; }
+  .hero-badge { display: inline-block; border: 1px solid rgba(0,255,65,.4); color: var(--w-green); font-size: .74rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: .3rem .9rem; border-radius: 20px; margin-bottom: 1.3rem; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4.4vw, 3.1rem); line-height: 1.15; margin-bottom: 1.1rem; color: #fff; }
+  .hero h1 span { color: var(--w-green); }
+  .hero p { color: #b9c8bd; max-width: 520px; margin-bottom: 1.8rem; }
+  .hero .btn-outline { color: #fff; border-color: rgba(255,255,255,.5); }
+  .hero .btn-outline:hover { background: #fff; color: var(--navy); }
+  .hero-actions { display: flex; gap: .8rem; flex-wrap: wrap; }
+  .hero-facts { display: flex; gap: 2rem; margin-top: 2.2rem; flex-wrap: wrap; }
+  .hero-facts div { font-size: .8rem; color: #9fb3a5; }
+  .hero-facts strong { display: block; font-size: 1.5rem; color: var(--w-green); font-weight: 700; }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } .hero-phone { display: none; } }
+
+  /* Handy-Rahmen */
+  .phone { width: 340px; max-width: 100%; aspect-ratio: 9 / 17; background: #000; border-radius: 42px; padding: 12px; box-shadow: 0 30px 60px rgba(0,0,0,.35), inset 0 0 0 2px #2b2b2b; position: relative; margin: 0 auto; }
+  .phone::before { content: ""; position: absolute; top: 18px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: #1a1a1a; z-index: 3; }
+  .screen { width: 100%; height: 100%; border-radius: 32px; overflow: hidden; position: relative;
+    background: radial-gradient(120% 80% at 30% 10%, #3a3d46 0%, #22242a 55%, #17181c 100%); padding: 44px 12px 14px; display: flex; flex-direction: column; gap: 12px; }
+  .statusbar { position: absolute; top: 12px; left: 22px; right: 22px; display: flex; justify-content: space-between; font-size: 11px; color: #ddd; font-weight: 600; }
+  .dock { margin-top: auto; display: flex; justify-content: space-around; padding-top: 6px; }
+  .dock span { width: 46px; height: 46px; border-radius: 15px; background: #101010; display: grid; place-items: center; font-size: 22px; box-shadow: 0 0 0 1px #1d1d1d; }
+  .dock span i { font-style: normal; filter: drop-shadow(0 0 4px rgba(0,255,65,.7)); color: var(--w-green); }
+
+  /* Widget-Grundstil */
+  .w { background: var(--w-bg); border-radius: 22px; color: var(--w-green); font-size: 12px; line-height: 1.45; padding: 12px 13px 10px; }
+  .w .muted { color: var(--w-dark); }
+  .w hr { border: 0; border-top: 1px solid var(--w-line); margin: 6px 0 5px; }
+  .w .line { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .w-head { display: flex; align-items: center; gap: 7px; }
+  .w-temp { font-size: 30px; font-weight: 700; line-height: 1; white-space: nowrap; }
+  .w-wx { flex: 1; min-width: 0; font-size: 11px; color: var(--w-dark); line-height: 1.35; }
+  .w-wx div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .w-water { text-align: center; line-height: 1.1; }
+  .w-water b { font-size: 16px; display: block; }
+  .w-water small { font-size: 9px; color: var(--w-dark); }
+  .w-stamp { font-size: 9.5px; color: var(--w-dark); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .alert { color: var(--w-orange); }
+  .rain-dry { color: var(--w-green); } .rain-light { color: var(--w-yellow); } .rain-mid { color: var(--w-orange); } .rain-heavy { color: var(--w-red); }
+
+  /* Live-Demo */
+  .live { background: var(--bg); }
+  .live-grid { display: grid; grid-template-columns: 360px 1fr; gap: 3.5rem; align-items: start; }
+  @media (max-width: 860px) { .live-grid { grid-template-columns: 1fr; } }
+  .live-actions { display: flex; gap: .7rem; flex-wrap: wrap; margin: 1.4rem 0 .8rem; }
+  .live-status { font-size: .85rem; color: var(--muted); min-height: 1.4em; }
+  .privacy-note { font-size: .78rem; color: var(--muted); background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: .8rem 1rem; margin-top: 1rem; }
+  .sources { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .7rem; margin-top: 1.6rem; }
+  .source { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: .7rem .9rem; font-size: .84rem; }
+  .source b { color: var(--navy); display: block; font-size: .88rem; }
+  .source span { color: var(--muted); font-size: .78rem; }
+  .legend { display: flex; gap: .9rem; flex-wrap: wrap; font-size: .8rem; margin-top: 1rem; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: .35rem; vertical-align: -1px; }
+
+  /* Fallbeispiele */
+  .cases { display: grid; gap: 4.5rem; }
+  .case { display: grid; grid-template-columns: 360px 1fr; gap: 3.5rem; align-items: center; }
+  .case:nth-child(even) { grid-template-columns: 1fr 360px; }
+  .case:nth-child(even) .case-phone { order: 2; }
+  @media (max-width: 860px) { .case, .case:nth-child(even) { grid-template-columns: 1fr; } .case:nth-child(even) .case-phone { order: 0; } }
+  .case-tag { font-size: .74rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); }
+  .case h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--navy); margin: .3rem 0 .7rem; }
+  .case p { color: var(--muted); margin-bottom: .9rem; }
+  .case ul { list-style: none; display: grid; gap: .35rem; margin-bottom: 1rem; }
+  .case li { padding-left: 1.4rem; position: relative; font-size: .93rem; }
+  .case li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+  .try { font-size: .82rem; color: var(--navy); background: rgba(200,150,60,.12); border-radius: 6px; padding: .35rem .7rem; display: inline-block; }
+
+  /* Foto-Widget */
+  .photo-w { border-radius: 22px; overflow: hidden; aspect-ratio: 1; position: relative; background: #000; }
+  .photo-w img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.1s ease; }
+  .photo-w img.on { opacity: 1; }
+
+  /* App-Leiste */
+  .bar-w { background: var(--w-bg); border-radius: 22px; padding: 12px 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px 6px; }
+  .app { display: grid; place-items: center; gap: 3px; cursor: pointer; user-select: none; }
+  .app .ico { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; font-size: 24px; transition: transform .2s; }
+  .app small { font-size: 9px; color: #9a9a9a; }
+  .app.todo .ico { animation: spin 3.2s steps(8) infinite; }
+  .app.done small { color: var(--w-green); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Trades */
+  .trade-w .row { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; margin-top: 7px; }
+  .trade-w .name { color: var(--w-green); font-size: 13px; }
+  .trade-w .pl { font-weight: 700; font-size: 13px; }
+  .trade-w .det { color: var(--w-dark); font-size: 10.5px; }
+  .trade-w .total { font-size: 21px; font-weight: 700; }
+  .neg { color: var(--w-red) !important; } .pos { color: var(--w-green) !important; }
+
+  /* Für Unternehmen */
+  .biz { background: var(--bg); }
+  .biz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.4rem; }
+  .biz-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; box-shadow: var(--shadow); }
+  .biz-card h4 { color: var(--navy); margin: .9rem 0 .3rem; }
+  .biz-card p { font-size: .87rem; color: var(--muted); }
+  .mini { background: var(--w-bg); color: var(--w-green); border-radius: 16px; padding: 11px 12px; font-size: 12px; line-height: 1.5; }
+  .mini b { font-size: 15px; }
+  .mini .muted { color: var(--w-dark); }
+  .meter { height: 7px; background: #1d1d1d; border-radius: 4px; overflow: hidden; margin: 5px 0 3px; }
+  .meter i { display: block; height: 100%; background: var(--w-green); border-radius: 4px; }
+
+  /* Ablauf */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.4rem; counter-reset: s; }
+  .step { border-left: 3px solid var(--gold); padding: .3rem 0 .3rem 1.1rem; }
+  .step h4 { color: var(--navy); margin-bottom: .3rem; }
+  .step h4::before { counter-increment: s; content: counter(s) ". "; color: var(--gold); }
+  .step p { font-size: .9rem; color: var(--muted); }
+
+  .cta { background: linear-gradient(135deg, var(--navy), #0f1d3d); color: #fff; text-align: center; }
+  .cta h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: .8rem; }
+  .cta p { color: #c9d3ea; max-width: 560px; margin: 0 auto 1.8rem; }
+
+  footer { background: #0f1d3d; color: #9aa7c4; font-size: .82rem; padding: 1.6rem 0; text-align: center; }
+  footer a { color: #c9d3ea; margin: 0 .6rem; text-decoration: none; }
+  footer a:hover { color: var(--gold2); }
+
+  /* Rechtstexte (wie Startseite) */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 2000; padding: 2rem; overflow-y: auto; }
+  .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+  .modal-box { background: #fff; border-radius: var(--radius); max-width: 720px; width: 100%; padding: 2.5rem; position: relative; margin: auto; }
+  .modal-close { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--muted); line-height: 1; }
+  .modal-box h2 { font-family: 'Playfair Display', serif; color: var(--navy); margin-bottom: 1.4rem; font-size: 1.5rem; }
+  .modal-box h3 { color: var(--navy); font-size: 1rem; margin: 1.4rem 0 .5rem; }
+  .modal-box p, .modal-box li { font-size: .9rem; color: var(--muted); line-height: 1.7; }
+  .modal-box ul { padding-left: 1.2rem; margin-bottom: .6rem; }
+  .modal-box strong { color: var(--text); }
+
+  @media (prefers-reduced-motion: reduce) { .app.todo .ico { animation: none; outline: 2px solid var(--w-green); } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="/" class="nav-brand">
+      <span class="nav-logo-text">YCB</span>
+      <span><span class="nav-brand-name">Yves Claudio Blischke</span><br><span class="nav-brand-title">Websites · Webshops · Apps</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#live">Live-Demo</a></li>
+      <li><a href="#beispiele">Beispiele</a></li>
+      <li><a href="#unternehmen">Für Unternehmen</a></li>
+      <li><a href="/#kontakt" class="nav-cta">Kontakt</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-badge">Android-Widgets · Live-Daten</div>
+      <h1>Alles Wichtige.<br><span>Ein Blick</span> auf den Startbildschirm.</h1>
+      <p>Ich entwickle Widgets, die Informationen aus vielen Quellen zusammenführen – Wetter, Fahrpläne, Preise, Kurse oder Ihre eigenen Daten. Ohne App öffnen, ohne Suchen. Hier sehen Sie vier Eigenentwicklungen, die ich jeden Tag selbst nutze – und eine Live-Demo zum Ausprobieren.</p>
+      <div class="hero-actions">
+        <a href="#live" class="btn btn-primary">Live-Demo starten</a>
+        <a href="#unternehmen" class="btn btn-outline">Ideen für Unternehmen</a>
+      </div>
+      <div class="hero-facts">
+        <div><strong>12</strong>Datenquellen in einem Widget</div>
+        <div><strong>1 min</strong>Aktualisierung, solange sichtbar</div>
+        <div><strong>4</strong>Widgets im Alltag im Einsatz</div>
+      </div>
+    </div>
+    <div class="hero-phone">
+      <div class="phone"><div class="screen">
+        <div class="statusbar"><span>8:05</span><span>●●● 5G 84%</span></div>
+        <div class="w" id="heroWidget"></div>
+        <div class="bar-w" style="grid-template-columns:repeat(4,1fr)">
+          <div class="app todo"><div class="ico" style="background:#58cc02">🦉</div></div>
+          <div class="app"><div class="ico" style="background:#25d366">💬</div></div>
+          <div class="app"><div class="ico" style="background:#fff">✉️</div></div>
+          <div class="app todo"><div class="ico" style="background:#003087">💳</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="photo-w"><img src="img/11_wert.jpg" alt="" class="on"></div>
+          <div class="w trade-w" style="padding:10px"><div class="name" style="font-size:11px">Ü · SAP</div>
+            <div class="pl pos" style="font-size:17px">+2,84 €</div><div class="det">+0,7 % · Schwelle 210,50</div>
+            <div class="name" style="font-size:11px;margin-top:6px">Ü · Allianz</div><div class="pl neg">−0,62 €</div></div>
+        </div>
+        <div class="dock"><span><i>📞</i></span><span><i>🛰️</i></span><span><i>📷</i></span></div>
+      </div></div>
+    </div>
+  </div>
+</header>
+
+<!-- LIVE-DEMO -->
+<section class="live" id="live">
+  <div class="container live-grid">
+    <div>
+      <div class="phone"><div class="screen">
+        <div class="statusbar"><span id="clock">--:--</span><span>●●● 5G 84%</span></div>
+        <div class="w" id="cockpit"></div>
+        <div class="dock"><span><i>📞</i></span><span><i>🛰️</i></span><span><i>📷</i></span></div>
+      </div></div>
+    </div>
+    <div>
+      <div class="section-tag">Live-Demo · Grenz-Cockpit</div>
+      <h2 class="section-title">Ein Widget, zwölf Datenquellen</h2>
+      <p class="section-sub" style="margin-bottom:1rem">Mein Morgen-Cockpit als Grenzgänger zwischen Deutschland und der Schweiz: Wetter mit Regen-Ampel für die Rollerfahrt, Wassertemperatur des Rheins, die nächsten Busse ab der nächsten Haltestelle, Unwetterwarnungen, Franken- und Baht-Kurs. Laden Sie die Daten hier live – für Rheinfelden oder für Ihren eigenen Standort.</p>
+      <div class="live-actions">
+        <button class="btn btn-dark" id="btnHome">▶ Live-Daten für Rheinfelden</button>
+        <button class="btn btn-outline" id="btnGeo">📍 Meinen Standort verwenden</button>
+      </div>
+      <div class="live-status" id="liveStatus">Noch nicht geladen – angezeigt werden Beispielwerte.</div>
+      <div class="legend">
+        <span><i style="background:var(--w-green)"></i>trocken</span>
+        <span><i style="background:var(--w-yellow)"></i>Niesel</span>
+        <span><i style="background:var(--w-orange)"></i>Regen</span>
+        <span><i style="background:var(--w-red)"></i>viel Regen</span>
+        <span style="color:var(--muted)">– Regen-Ampel für die nächsten 3 Stunden</span>
+      </div>
+      <div class="sources">
+        <div class="source"><b>🌧 Wetter &amp; Regen in mm</b><span>Deutscher Wetterdienst (Bright Sky)</span></div>
+        <div class="source"><b>🌊 Wassertemperatur</b><span>BAFU Schweiz · Pegelonline · Meer</span></div>
+        <div class="source"><b>🚆 Abfahrten mit Echtzeit</b><span>EFA-BW – auch Basel</span></div>
+        <div class="source"><b>⚠️ Unwetterwarnungen</b><span>Deutscher Wetterdienst</span></div>
+        <div class="source"><b>💱 Franken &amp; Baht</b><span>Referenzkurse der EZB</span></div>
+        <div class="source"><b>⛽ Sprit · 🚗 Stau · 💶 Ausgaben</b><span>Tankerkönig, Autobahn GmbH, Excel/OneDrive – in der App</span></div>
+      </div>
+      <p class="privacy-note">🔒 Erst beim Klick ruft Ihr Browser die Daten direkt bei den genannten Diensten ab; dabei wird Ihre IP-Adresse übertragen. Ihr Standort wird nur für diese Abfrage verwendet und weder gespeichert noch an mich gesendet. Sprit, Stau und Ausgaben zeigt die Demo mit Beispielwerten. Details in der <a href="#" onclick="openModal('datenschutzModal'); return false;">Datenschutzerklärung</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BEISPIELE -->
+<section id="beispiele">
+  <div class="container">
+    <div class="section-tag">Eigenentwicklungen</div>
+    <h2 class="section-title">Drei weitere Widgets aus meinem Alltag</h2>
+    <p class="section-sub">Jedes ist aus einem echten Bedürfnis entstanden – genau so, wie Kundenprojekte entstehen. Alle laufen täglich auf meinem Smartphone; sie sind Eigenentwicklungen und nicht im Play Store. Probieren Sie die Vorschauen aus.</p>
+
+    <div class="cases">
+      <div class="case">
+        <div class="case-phone"><div class="phone"><div class="screen">
+          <div class="statusbar"><span>21:14</span><span>●●● 5G 62%</span></div>
+          <div class="photo-w" id="photoW">
+            <img src="img/11_wert.jpg" alt="Motiv: Verkaufe Wert, nicht Stunden" class="on">
+            <img src="img/06_ein_prozent.gif" alt="Animation: 1 % besser jeden Tag">
+            <img src="img/04_nutzen.jpg" alt="Motiv: Nutzen mal Menschen gleich Einkommen">
+            <img src="img/16_zinseszins.gif" alt="Animation: Zinseszins">
+          </div>
+          <div class="dock"><span><i>📞</i></span><span><i>🛰️</i></span><span><i>📷</i></span></div>
+        </div></div></div>
+        <div>
+          <div class="case-tag">Foto-Widget</div>
+          <h3>Fotos und GIFs als flüssige Diashow</h3>
+          <p>Eigene Bilder und animierte GIFs wechseln sich mit sanfter Überblendung ab – mehrere Widgets mit jeweils eigener Galerie, zum Beispiel „Motivation“ und „Privat“. Teilen aus der Galerie fügt Bilder direkt hinzu.</p>
+          <ul>
+            <li>GIFs laufen flüssig – auf Android-Widgets alles andere als selbstverständlich</li>
+            <li>Bildausschnitt und Anzeigedauer pro Bild einstellbar</li>
+            <li>Akkuschonend: läuft nur, solange der Startbildschirm sichtbar ist</li>
+          </ul>
+          <span class="try">Die Vorschau links wechselt automatisch.</span>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-phone"><div class="phone"><div class="screen">
+          <div class="statusbar"><span>07:02</span><span>●●● 5G 97%</span></div>
+          <div class="bar-w" id="barW"></div>
+          <div class="dock"><span><i>📞</i></span><span><i>🛰️</i></span><span><i>📷</i></span></div>
+        </div></div></div>
+        <div>
+          <div class="case-tag">App-Leiste mit Routinen</div>
+          <h3>Gewohnheiten, die sich bemerkbar machen</h3>
+          <p>Eine schmale Leiste mit den Lieblings-Apps – nach oben wischen zeigt die nächste Reihe. Ausgewählte Apps sind „tägliche Routinen“: Ab Mitternacht drehen sie sich, bis man sie an diesem Tag geöffnet hat. Sprache lernen, Banking prüfen, Sport eintragen – man sieht sofort, was noch fehlt.</p>
+          <ul>
+            <li>Erkennt auch, wenn eine App anderswo geöffnet wurde</li>
+            <li>Passende Dock-Symbole im selben Look</li>
+            <li>Bis zu 30 Apps auf der Fläche einer Zeile</li>
+          </ul>
+          <span class="try">Tippen Sie links auf ein sich drehendes Symbol.</span>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-phone"><div class="phone"><div class="screen">
+          <div class="statusbar"><span>14:31</span><span>●●● 5G 71%</span></div>
+          <div class="w trade-w" id="tradeW"></div>
+          <div class="dock"><span><i>📞</i></span><span><i>🛰️</i></span><span><i>📷</i></span></div>
+        </div></div></div>
+        <div>
+          <div class="case-tag">Trades</div>
+          <h3>Gewinn oder Verlust – nach allen Kosten</h3>
+          <p>Zeigt für jede Position, was beim Verkauf in diesem Moment wirklich übrig bliebe: Geldkurs, Gebühren und Spanne eingerechnet. Dazu die Gewinnschwelle – der Kurs, ab dem man tatsächlich im Plus ist – und ein Übungsmodus ohne echtes Geld.</p>
+          <ul>
+            <li>Kurse der Börse, über die der Broker handelt</li>
+            <li>Minütliche Aktualisierung, solange sichtbar</li>
+            <li>Bilanz: Trefferquote, Summe, Durchschnitt</li>
+          </ul>
+          <span class="try">Vorschau mit simulierten Kursen und Beispieldaten.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FÜR UNTERNEHMEN -->
+<section class="biz" id="unternehmen">
+  <div class="container">
+    <div class="section-tag">Für Unternehmen</div>
+    <h2 class="section-title">Ihr Unternehmen – täglich auf dem Startbildschirm Ihrer Kunden</h2>
+    <p class="section-sub">Eine App öffnet man selten. Ein Widget sieht man jeden Tag, Dutzende Male. Vier Ideen, wie das für Ihr Geschäft aussehen kann:</p>
+    <div class="biz-grid">
+      <div class="biz-card">
+        <div class="mini"><span class="muted">Ihr Restaurant · heute</span><br><b>Kürbis-Risotto</b> · 13,90 €<br><span class="muted">Mittagstisch 11:30–14:00 · noch frei ✓</span></div>
+        <h4>Restaurant &amp; Café</h4><p>Tagesgericht, Öffnungszeiten und freie Tische – mit einem Tipp reservieren.</p>
+      </div>
+      <div class="biz-card">
+        <div class="mini"><span class="muted">Ihr Fitnessstudio · jetzt</span><br><b>Auslastung 34 %</b><div class="meter"><i style="width:34%"></i></div><span class="muted">ruhiger ab 20 Uhr</span></div>
+        <h4>Fitnessstudio</h4><p>Live-Auslastung und Kursplan – Mitglieder kommen, wenn es leer ist.</p>
+      </div>
+      <div class="biz-card">
+        <div class="mini"><span class="muted">Ihr Handwerksbetrieb</span><br><b>Termin morgen 8:00</b><br><span class="muted">Team unterwegs · ca. 15 min</span></div>
+        <h4>Handwerk &amp; Service</h4><p>Termin, Anfahrt und Auftragsstatus – weniger Rückfragen am Telefon.</p>
+      </div>
+      <div class="biz-card">
+        <div class="mini"><span class="muted">Ihr Verein</span><br><b>Sa 15:00 · Heimspiel</b><br><span class="muted">Letztes Spiel 2:1 ✓ · Tabellenplatz 3</span></div>
+        <h4>Verein</h4><p>Nächstes Spiel, Ergebnisse und Neuigkeiten – Mitglieder bleiben dran.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABLAUF -->
+<section>
+  <div class="container">
+    <div class="section-tag">So entsteht Ihr Widget</div>
+    <h2 class="section-title">Von der Idee bis aufs Smartphone</h2>
+    <p class="section-sub">Viele nützliche Daten gibt es bereits kostenlos – oder sie liegen in Ihrem System, Ihrer Excel-Liste oder Ihrem Shop.</p>
+    <div class="steps">
+      <div class="step"><h4>Daten finden</h4><p>Welche Informationen brauchen Ihre Kunden oder Ihr Team täglich? Ich prüfe, woher sie kommen und ob sie genutzt werden dürfen.</p></div>
+      <div class="step"><h4>Widget gestalten</h4><p>Wenig Platz, viel Information: Ich ordne die Inhalte so, dass man sie in einer Sekunde erfasst – in Ihrem Design.</p></div>
+      <div class="step"><h4>Entwickeln &amp; testen</h4><p>Akkuschonende Aktualisierung, Fehlerfälle, verschiedene Geräte – getestet auf echten Smartphones.</p></div>
+      <div class="step"><h4>Veröffentlichen</h4><p>Im Google Play Store oder intern für Ihr Team – inklusive Datenschutz und laufender Betreuung.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+    <h2>Welche Information gehört auf den Startbildschirm Ihrer Kunden?</h2>
+    <p>Erzählen Sie mir von Ihrer Idee – im kostenlosen Erstgespräch prüfen wir, welche Daten es gibt und was ein Widget kosten würde.</p>
+    <a href="/#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
+  </div>
+</section>
+
+<footer>
+  <div style="margin-bottom:.5rem">
+    <a href="/">Startseite</a>
+    <a href="#" onclick="openModal('impressumModal'); return false;">Impressum</a>
+    <a href="#" onclick="openModal('datenschutzModal'); return false;">Datenschutzerklärung</a>
+  </div>
+  <div>Copyright &copy; 2026 Yves Claudio Blischke · Rheinfelden</div>
+</footer>
+
+<!-- IMPRESSUM MODAL -->
+<div class="modal-overlay" id="impressumModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('impressumModal')">&times;</button>
+    <h2>Impressum</h2>
+    <p><strong>Angaben gemäß § 5 DDG</strong></p>
+    <h3>Dienstanbieter</h3>
+    <p>Yves Claudio Blischke<br>Geprüfter Handelsfachwirt und Betriebswirt (IHK)<br>Adolf-Senger-Straße 3<br>79618 Rheinfelden</p>
+    <h3>Kontakt</h3>
+    <p>Telefon: +49 1578 4834080<br>E-Mail: ycblischke@gmail.com</p>
+    <h3>Steuerliche Angaben</h3>
+    <p>Gemäß § 19 UStG wird keine Umsatzsteuer berechnet (Kleinunternehmerregelung).</p>
+    <h3>Hinweis zur Berufsbezeichnung</h3>
+    <p>Die Bezeichnung „Betriebswirt IHK" ist ein staatlich anerkannter Abschluss der Industrie- und Handelskammer. Es handelt sich nicht um eine steuer- oder rechtsberatende Tätigkeit im Sinne des StBerG oder RDG.</p>
+  </div>
+</div>
+
+<!-- DATENSCHUTZ MODAL -->
+<div class="modal-overlay" id="datenschutzModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('datenschutzModal')">&times;</button>
+    <h2>Datenschutzerklärung</h2>
+    <h3>1. Verantwortlicher</h3>
+    <p>Yves Claudio Blischke · Adolf-Senger-Straße 3 · 79618 Rheinfelden<br>E-Mail: ycblischke@gmail.com · Tel: +49 1578 4834080</p>
+    <h3>2. Hosting</h3>
+    <p>Diese Website wird bei GitHub Pages gehostet (GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA). Beim Aufruf der Seiten verarbeitet GitHub technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit, Browsertyp und Betriebssystem in Server-Logfiles. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren und funktionsfähigen Website). Eine Übermittlung in die USA kann dabei nicht ausgeschlossen werden; GitHub ist nach dem EU-US Data Privacy Framework zertifiziert.</p>
+    <h3>3. Schriftarten</h3>
+    <p>Die verwendeten Schriftarten sind lokal auf dieser Website gespeichert. Beim Seitenaufruf wird keine Verbindung zu Servern von Google oder anderen Schriftanbietern hergestellt.</p>
+    <h3>4. Kontaktformular</h3>
+    <p>Wenn Sie das Kontaktformular nutzen, werden Ihre Angaben (Name, E-Mail, ggf. Telefon, Betreff, Nachricht) über den Dienst Formspree (Formspree Inc., USA) an mich per E-Mail übermittelt und zur Bearbeitung Ihrer Anfrage gespeichert. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung eines Vertrags) bzw. lit. f DSGVO (Beantwortung allgemeiner Anfragen). Ihre Daten werden gelöscht, sobald die Anfrage abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Eine Übermittlung in die USA kann nicht ausgeschlossen werden.</p>
+    <h3>5. Kontakt per E-Mail oder Telefon</h3>
+    <p>Wenn Sie mich direkt kontaktieren, verarbeite ich Ihre Angaben ausschließlich zur Bearbeitung Ihres Anliegens (Art. 6 Abs. 1 lit. b bzw. f DSGVO).</p>
+    <h3>6. Live-Demo auf der Widget-Seite</h3>
+    <p>Auf der Seite <a href="/widgets/">/widgets/</a> können Sie eine Live-Demo starten. Erst wenn Sie auf „Live-Daten laden“ oder „Meinen Standort verwenden“ klicken, ruft Ihr Browser Daten direkt bei folgenden Diensten ab: Bright Sky (Daten des Deutschen Wetterdienstes), api.existenz.ch (Wassertemperaturen des Schweizer Bundesamts für Umwelt), EFA-BW (Fahrplanauskunft der Nahverkehrsgesellschaft Baden-Württemberg) und Frankfurter (Referenzkurse der Europäischen Zentralbank). Dabei wird Ihre IP-Adresse an diese Anbieter übertragen. Wenn Sie „Meinen Standort verwenden“ wählen, fragt Ihr Browser zuvor um Erlaubnis; die Koordinaten werden nur an diese Dienste geschickt, um Wetter und Abfahrten für Ihren Ort zu laden, und weder von mir gespeichert noch an mich übermittelt. Rechtsgrundlage ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO).</p>
+    <h3>7. Externe Links</h3>
+    <p>Diese Website enthält Links zu externen Angeboten (z. B. LinkedIn, Google Play). Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen; es gilt dann dessen Datenschutzerklärung.</p>
+    <h3>8. Ihre Rechte</h3>
+    <p>Sie haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie das Recht, einer Verarbeitung auf Grundlage berechtigter Interessen zu widersprechen (Art. 21 DSGVO). Eine formlose E-Mail an ycblischke@gmail.com genügt.</p>
+    <h3>9. Beschwerderecht</h3>
+    <p>Sie können sich bei einer Datenschutz-Aufsichtsbehörde beschweren, z. B. beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart.</p>
+    <p style="font-size:.8rem;">Stand: November 2026</p>
+  </div>
+</div>
+
+<script>
+/* ── Rechtstexte ───────────────────────────────────────────────────────── */
+function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
+document.querySelectorAll('.modal-overlay').forEach(m => m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); }));
+
+const fmt = (v, d = 0) => v.toLocaleString('de-DE', { minimumFractionDigits: d, maximumFractionDigits: d });
+const $ = id => document.getElementById(id);
+
+/* ── Cockpit: Darstellung ──────────────────────────────────────────────── */
+// Beispielwerte, bis jemand die Live-Daten lädt
+let cockpit = {
+  icon: '🌦️', temp: 9, text: 'leichter Regen', dayMm: 6.4, rain3: 0.6, rainFrom: '', rainStop: '17',
+  water: 12, waterName: 'Rhein', alert: '',
+  deps: [['08:12', 'Bus 7302', 'Schopfheim'], ['08:15', 'S6', 'Basel Bad Bf']], stop: 'Rheinfelden Bahnhof',
+  chf: 0.9143, thb: 37.46, place: 'Rheinfelden (Baden)', time: '08:05', live: false
+};
+
+function rainClass(r) { return r < 0.2 ? 'rain-dry' : r < 1 ? 'rain-light' : r < 4 ? 'rain-mid' : 'rain-heavy'; }
+
+function rainText(c) {
+  if (c.rain3 == null) return '';
+  if (c.rain3 < 0.2) return c.rainFrom ? `trocken bis ${c.rainFrom} Uhr` : 'trocken';
+  return `3 h: ${fmt(c.rain3, 1)} mm` + (c.rainStop ? `, ab ${c.rainStop} trocken` : '');
+}
+
+function renderCockpit(el, c) {
+  const deps = c.deps.length ? c.deps : [['', '', 'keine Abfahrten in der Nähe']];
+  el.innerHTML = `
+    <div class="w-head">
+      <div class="w-temp">${c.icon} ${c.temp == null ? '–' : fmt(c.temp)}°</div>
+      <div class="w-wx"><div>${c.text}${c.dayMm >= 0.1 ? ' · heute ' + fmt(c.dayMm, c.dayMm < 10 ? 1 : 0) + ' mm' : ''}</div>
+        <div><span class="${rainClass(c.rain3 ?? 0)}">${rainText(c)}</span></div></div>
+      ${c.water != null ? `<div class="w-water"><b>🌊 ${fmt(c.water)}°</b><small>${c.waterName}</small></div>` : ''}
+    </div>
+    ${c.alert ? `<div class="line alert" style="margin-top:4px">⚠️ ${c.alert}</div>` : ''}
+    <hr>
+    <div class="line">⛽ E10 1,79⁹ € · Beispiel-Tankstelle · 1,2 km</div>
+    ${deps.slice(0, c.alert ? 1 : 2).map((d, i) => `<div class="line${i ? ' muted' : ''}">${i ? '&nbsp;&nbsp;&nbsp;&nbsp;' : '🚆 '}${d[0]} ${d[1]} ${d[1] ? '→' : ''} ${d[2]}</div>`).join('')}
+    <div class="line">🚗 Keine Staus</div>
+    <hr>
+    <div class="line">💱 1 CHF = ${fmt(1 / c.chf, 3)} € · 1 € = ${fmt(c.thb, 2)} ฿</div>
+    <div class="line">💶 Heute 12,40 € · Nov. 312,80 €</div>
+    <div class="w-stamp">${c.time} · 📍 ${c.place}${c.stop ? ' · 🚏 ' + c.stop : ''}</div>`;
+}
+
+function renderAll() { renderCockpit($('cockpit'), cockpit); renderCockpit($('heroWidget'), cockpit); }
+renderAll();
+setInterval(() => { $('clock').textContent = new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }); }, 1000);
+
+/* ── Cockpit: Live-Daten (erst nach Klick) ─────────────────────────────── */
+const ICONS = { 'clear-day': '☀️', 'clear-night': '🌙', 'partly-cloudy-day': '⛅', 'partly-cloudy-night': '☁️', cloudy: '☁️', fog: '🌫️',
+  wind: '💨', rain: '🌧️', sleet: '🌨️', snow: '❄️', hail: '🌨️', thunderstorm: '⛈️' };
+const COND = { dry: 'trocken', fog: 'Nebel', rain: 'Regen', sleet: 'Schneeregen', snow: 'Schnee', hail: 'Hagel', thunderstorm: 'Gewitter' };
+
+const getJSON = url => fetch(url).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+function distKm(a, b, c, d) {
+  const r = Math.PI / 180, h = Math.sin((c - a) * r / 2) ** 2 + Math.cos(a * r) * Math.cos(c * r) * Math.sin((d - b) * r / 2) ** 2;
+  return 6371 * 2 * Math.asin(Math.sqrt(h));
+}
+
+async function weather(lat, lon) {
+  const now = await getJSON(`https://api.brightsky.dev/current_weather?lat=${lat}&lon=${lon}&tz=Europe/Berlin`);
+  const day = new Date().toISOString().slice(0, 10);
+  const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+  const hourly = await getJSON(`https://api.brightsky.dev/weather?lat=${lat}&lon=${lon}&date=${day}&last_date=${tomorrow}&tz=Europe/Berlin`);
+  const w = now.weather, list = hourly.weather;
+  const hNow = new Date().getHours();
+  const todayList = list.filter(x => x.timestamp.slice(0, 10) === day);
+  const next = list.filter(x => new Date(x.timestamp) >= new Date(Date.now() - 3600000)).slice(0, 12);
+  const mm = next.map(x => x.precipitation || 0);
+  const hourOf = i => String(new Date(next[i].timestamp).getHours());
+  const sum3 = mm.slice(0, 3).reduce((a, b) => a + b, 0);
+  const fromI = sum3 < 0.2 ? mm.findIndex(v => v >= 0.2) : -1;
+  const stopI = sum3 >= 0.2 ? mm.findIndex(v => v < 0.2) : -1;
+  return {
+    icon: ICONS[w.icon] || '🌡️', temp: w.temperature,
+    text: w.condition && w.condition !== 'dry' ? COND[w.condition] || w.condition : ({ 'clear-day': 'klar', 'clear-night': 'klar', 'partly-cloudy-day': 'teils bewölkt', 'partly-cloudy-night': 'teils bewölkt', cloudy: 'bewölkt', fog: 'Nebel', wind: 'windig' }[w.icon] || ''),
+    dayMm: todayList.reduce((a, x) => a + (x.precipitation || 0), 0),
+    rain3: sum3, rainFrom: fromI >= 0 ? hourOf(fromI) : '', rainStop: stopI > 0 ? hourOf(stopI) : '',
+    station: now.sources?.[0]?.station_name, hNow
+  };
+}
+
+async function water(lat, lon) {
+  const [locs, latest] = await Promise.all([getJSON('https://api.existenz.ch/apiv1/hydro/locations'), getJSON('https://api.existenz.ch/apiv1/hydro/latest?parameters=temperature')]);
+  let best = null;
+  for (const m of latest.payload) {
+    const d = locs.payload[m.loc]?.details; if (!d || m.val == null) continue;
+    const km = distKm(lat, lon, d.lat, d.lon);
+    if (km <= 25 && (!best || km < best.km)) best = { km, t: m.val, name: d['water-body-name'] || d.name };
+  }
+  return best;
+}
+
+async function alertText(lat, lon) {
+  const a = await getJSON(`https://api.brightsky.dev/alerts?lat=${lat}&lon=${lon}`);
+  const rank = { minor: 1, moderate: 2, severe: 3, extreme: 4 };
+  const top = (a.alerts || []).filter(x => rank[x.severity] >= 2).sort((x, y) => rank[y.severity] - rank[x.severity])[0];
+  const place = a.location?.name_short;
+  if (!top) return { text: '', place };
+  const ev = top.event_de.toLowerCase().replace(/^./, c => c.toUpperCase());
+  const until = top.expires ? new Date(top.expires).toLocaleString('de-DE', { weekday: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+  return { text: ev + (until ? ' bis ' + until : ''), place };
+}
+
+async function departures(lat, lon) {
+  const efa = 'https://www.efa-bw.de/nvbw/';
+  const coord = encodeURIComponent(`${lon}:${lat}:WGS84[dd.ddddd]`);
+  const s = await getJSON(`${efa}XML_COORD_REQUEST?outputFormat=rapidJSON&coord=${coord}&coordOutputFormat=WGS84%5Bdd.ddddd%5D&inclFilter=1&type_1=STOP&radius_1=1000&max=4`);
+  for (const stop of (s.locations || []).sort((a, b) => (a.properties?.distance ?? 9e9) - (b.properties?.distance ?? 9e9))) {
+    const d = await getJSON(`${efa}XML_DM_REQUEST?outputFormat=rapidJSON&mode=direct&type_dm=stop&name_dm=${encodeURIComponent(stop.id)}&useRealtime=1&limit=6&depType=stopEvents`);
+    const ev = (d.stopEvents || []).filter(e => new Date(e.departureTimeEstimated || e.departureTimePlanned) > Date.now() - 60000);
+    if (ev.length) return {
+      stop: stop.name,
+      deps: ev.slice(0, 2).map(e => {
+        const t = new Date(e.departureTimePlanned), est = e.departureTimeEstimated ? new Date(e.departureTimeEstimated) : null;
+        const delay = est ? Math.round((est - t) / 60000) : 0;
+        const line = (e.transportation.name || '').replace(/^[\w-]*-Bus /, 'Bus ').replace(/^(Tram|Bus) [A-Z]{2,4} (?=\w)/, '$1 ');
+        return [t.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }), line, (e.transportation.destination?.name || '') + (delay > 0 ? ` (+${delay})` : '')];
+      })
+    };
+  }
+  return { stop: '', deps: [] };
+}
+
+async function loadLive(lat, lon, label) {
+  $('liveStatus').textContent = 'Lade Live-Daten …';
+  const settle = p => p.then(v => v, () => null);
+  const [wx, wt, al, dp, fx] = await Promise.all([settle(weather(lat, lon)), settle(water(lat, lon)), settle(alertText(lat, lon)),
+    settle(departures(lat, lon)), settle(getJSON('https://api.frankfurter.dev/v1/latest?from=EUR&to=CHF,THB'))]);
+  if (wx) Object.assign(cockpit, { icon: wx.icon, temp: wx.temp, text: wx.text, dayMm: wx.dayMm, rain3: wx.rain3, rainFrom: wx.rainFrom, rainStop: wx.rainStop });
+  cockpit.water = wt ? wt.t : null; cockpit.waterName = wt ? wt.name : '';
+  cockpit.alert = al?.text || '';
+  if (dp) { cockpit.deps = dp.deps; cockpit.stop = dp.stop; }
+  if (fx) { cockpit.chf = fx.rates.CHF; cockpit.thb = fx.rates.THB; }
+  cockpit.place = label || al?.place || wx?.station || 'Ihr Standort';
+  cockpit.time = new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+  renderAll();
+  const missing = [!wx && 'Wetter', !dp?.deps.length && 'Abfahrten (nur Baden-Württemberg und Basel)', !wt && 'Wassertemperatur (keine Messstelle im Umkreis von 25 km)'].filter(Boolean);
+  $('liveStatus').textContent = 'Live geladen um ' + cockpit.time + ' Uhr' + (missing.length ? ' · nicht verfügbar: ' + missing.join(', ') : '') + '.';
+}
+
+$('btnHome').onclick = () => loadLive(47.5661, 7.7853, 'Rheinfelden (Baden)');
+$('btnGeo').onclick = () => {
+  if (!navigator.geolocation) { $('liveStatus').textContent = 'Ihr Browser unterstützt keine Standortabfrage.'; return; }
+  $('liveStatus').textContent = 'Warte auf Standortfreigabe …';
+  navigator.geolocation.getCurrentPosition(
+    p => loadLive(+p.coords.latitude.toFixed(4), +p.coords.longitude.toFixed(4), ''),
+    () => { $('liveStatus').textContent = 'Standort nicht freigegeben – laden Sie stattdessen Rheinfelden.'; },
+    { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 });
+};
+
+/* ── Foto-Widget: Überblendung ─────────────────────────────────────────── */
+(() => {
+  const imgs = [...document.querySelectorAll('#photoW img')]; let i = 0;
+  setInterval(() => { imgs[i].classList.remove('on'); i = (i + 1) % imgs.length; imgs[i].classList.add('on'); }, 4000);
+})();
+
+/* ── App-Leiste: Routinen zum Antippen ─────────────────────────────────── */
+(() => {
+  const apps = [
+    ['🦉', '#58cc02', 'Sprache', true], ['💳', '#003087', 'Bank', true], ['🏃', '#ff5a1f', 'Sport', true], ['💬', '#25d366', 'Chat'],
+    ['✉️', '#ffffff', 'Mail'], ['🗺️', '#ffffff', 'Karten'], ['🚆', '#ec0016', 'Bahn'], ['📷', '#2b2b2b', 'Kamera'],
+    ['🎵', '#1db954', 'Musik'], ['📰', '#ffffff', 'News'], ['🛒', '#ffcc00', 'Einkauf'], ['📊', '#107c41', 'Excel'],
+  ];
+  const el = $('barW');
+  el.innerHTML = apps.map(([ico, bg, name, routine]) =>
+    `<div class="app${routine ? ' todo' : ''}" title="${name}"><div class="ico" style="background:${bg}">${ico}</div><small>${name}</small></div>`).join('');
+  el.querySelectorAll('.app.todo').forEach(a => a.addEventListener('click', () => {
+    a.classList.remove('todo'); a.classList.add('done'); a.querySelector('small').textContent = '✓ erledigt';
+  }));
+})();
+
+/* ── Trades: simulierte Kurse ──────────────────────────────────────────── */
+(() => {
+  const fee = 1;
+  const pos = [
+    { name: 'Ü · SAP', qty: 2, buy: 420.0, bid: 208.95, spread: .55 },
+    { name: 'Ü · Allianz', qty: 1, buy: 352.4, bid: 354.10, spread: .3 },
+    { name: 'Ü · MSCI World', qty: 4, buy: 437.8, bid: 109.42, spread: .05 },
+  ];
+  const el = $('tradeW');
+  function draw() {
+    let sum = 0;
+    const rows = pos.map(p => {
+      const pl = p.qty * p.bid - fee - p.buy; sum += pl;
+      const be = (p.buy + fee) / p.qty;
+      return `<div class="row"><span class="name">${p.name}</span><span class="pl ${pl >= 0 ? 'pos' : 'neg'}">${pl >= 0 ? '+' : '−'}${fmt(Math.abs(pl), 2)} €</span></div>
+        <div class="det">${pl >= 0 ? '+' : '−'}${fmt(Math.abs(pl / p.buy * 100), 1)} % · Schwelle ${fmt(be, 2)} · Geld ${fmt(p.bid, 2)}</div>`;
+    }).join('');
+    el.innerHTML = `<div style="display:flex;justify-content:space-between"><span class="total ${sum >= 0 ? 'pos' : 'neg'}">Übung ${sum >= 0 ? '+' : '−'}${fmt(Math.abs(sum), 2)} €</span><span>⟳</span></div>
+      ${rows}<div class="w-stamp" style="margin-top:8px">Stand ${new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })} · Lang &amp; Schwarz · simuliert</div>`;
+  }
+  draw();
+  setInterval(() => { pos.forEach(p => { p.bid *= 1 + (Math.random() - .48) * .004; }); draw(); }, 2500);
+})();
+</script>
+</body>
+</html>

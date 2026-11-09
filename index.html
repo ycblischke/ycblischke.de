@@ -246,7 +246,7 @@
     .package-card li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
     .hourly-note { margin-top: 1.8rem; text-align: center; font-size: .88rem; color: var(--muted); }
     .hourly-note .btn { display: inline-block; }
-    .projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; margin-top: 2rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; margin-top: 2rem; }
     .project-card { display: block; background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem 1.4rem; text-decoration: none; color: inherit; transition: all .25s; }
     a.project-card:hover { border-color: var(--gold); box-shadow: 0 8px 30px rgba(27,47,94,.12); transform: translateY(-3px); }
     .project-tag { display: inline-block; font-size: .72rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .6rem; }
@@ -376,6 +376,20 @@
           <h3>Shop-Demo mit Kundenkonto</h3>
           <p>Funktionierender Demo-Shop mit Warenkorb, Kundenkonto und Bestellverlauf – zum Ausprobieren direkt auf dieser Website.</p>
           <a class="project-link" href="/appdesigner/#webshop">Demo ausprobieren →</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-gallery" data-gallery="widgets">
+          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/widgets-1.jpg" alt="Widget-Übersicht auf dem Startbildschirm" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/widgets-2.jpg" alt="Live-Demo des Grenz-Cockpits mit Wetter, Regen, Abfahrten und Kursen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/widgets-3.jpg" alt="App-Leiste mit täglichen Routinen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/widgets-4.jpg" alt="Trades-Widget mit Gewinn nach Kosten" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/widgets-5.jpg" alt="Widget-Ideen für Unternehmen" loading="lazy" width="1200" height="750"></div></div>
+          <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
+          <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
+          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button><button type="button" class="pg-dot" aria-label="Bild 4" data-i="3"></button><button type="button" class="pg-dot" aria-label="Bild 5" data-i="4"></button></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag">Android-Widgets · Eigenentwicklung · Live-Demo</div>
+          <h3>Widgets mit Live-Daten</h3>
+          <p>Vier Widgets aus meinem Alltag: ein Cockpit mit zwölf Datenquellen (Wetter, Regen in mm, Rheintemperatur, Abfahrten, Kurse), eine Foto-Diashow, eine App-Leiste mit täglichen Routinen und ein Trade-Monitor nach allen Kosten – mit Live-Demo für Ihren Standort.</p>
+          <a class="project-link" href="/widgets/">Widgets &amp; Live-Demo ansehen →</a>
         </div>
       </div>
     </div>
@@ -759,11 +773,13 @@
     <p>Wenn Sie das Kontaktformular nutzen, werden Ihre Angaben (Name, E-Mail, ggf. Telefon, Betreff, Nachricht) über den Dienst Formspree (Formspree Inc., USA) an mich per E-Mail übermittelt und zur Bearbeitung Ihrer Anfrage gespeichert. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung eines Vertrags) bzw. lit. f DSGVO (Beantwortung allgemeiner Anfragen). Ihre Daten werden gelöscht, sobald die Anfrage abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Eine Übermittlung in die USA kann nicht ausgeschlossen werden.</p>
     <h3>5. Kontakt per E-Mail oder Telefon</h3>
     <p>Wenn Sie mich direkt kontaktieren, verarbeite ich Ihre Angaben ausschließlich zur Bearbeitung Ihres Anliegens (Art. 6 Abs. 1 lit. b bzw. f DSGVO).</p>
-    <h3>6. Externe Links</h3>
+    <h3>6. Live-Demo auf der Widget-Seite</h3>
+    <p>Auf der Seite <a href="/widgets/">/widgets/</a> können Sie eine Live-Demo starten. Erst wenn Sie auf „Live-Daten laden“ oder „Meinen Standort verwenden“ klicken, ruft Ihr Browser Daten direkt bei folgenden Diensten ab: Bright Sky (Daten des Deutschen Wetterdienstes), api.existenz.ch (Wassertemperaturen des Schweizer Bundesamts für Umwelt), EFA-BW (Fahrplanauskunft der Nahverkehrsgesellschaft Baden-Württemberg) und Frankfurter (Referenzkurse der Europäischen Zentralbank). Dabei wird Ihre IP-Adresse an diese Anbieter übertragen. Wenn Sie „Meinen Standort verwenden“ wählen, fragt Ihr Browser zuvor um Erlaubnis; die Koordinaten werden nur an diese Dienste geschickt, um Wetter und Abfahrten für Ihren Ort zu laden, und weder von mir gespeichert noch an mich übermittelt. Rechtsgrundlage ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO).</p>
+    <h3>7. Externe Links</h3>
     <p>Diese Website enthält Links zu externen Angeboten (z. B. LinkedIn, Google Play). Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen; es gilt dann dessen Datenschutzerklärung.</p>
-    <h3>7. Ihre Rechte</h3>
+    <h3>8. Ihre Rechte</h3>
     <p>Sie haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie das Recht, einer Verarbeitung auf Grundlage berechtigter Interessen zu widersprechen (Art. 21 DSGVO). Eine formlose E-Mail an ycblischke@gmail.com genügt.</p>
-    <h3>8. Beschwerderecht</h3>
+    <h3>9. Beschwerderecht</h3>
     <p>Sie können sich bei einer Datenschutz-Aufsichtsbehörde beschweren, z. B. beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg, Lautenschlagerstraße 20, 70173 Stuttgart.</p>
     <p style="font-size:.8rem;">Stand: November 2026</p>
   </div>
