@@ -128,25 +128,25 @@
   .app.done small { color: var(--w-green); }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* Trades */
-  .trade-w .row { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; margin-top: 7px; }
-  .trade-w .name { color: var(--w-green); font-size: 13px; }
-  .trade-w .pl { font-weight: 700; font-size: 13px; }
-  .trade-w .det { color: var(--w-dark); font-size: 10.5px; }
-  .trade-w .total { font-size: 21px; font-weight: 700; }
-  .neg { color: var(--w-red) !important; } .pos { color: var(--w-green) !important; }
+  /* Whiteboard */
+  .board-wrap { position: relative; aspect-ratio: 1; border-radius: 22px; overflow: hidden; background: var(--w-bg); touch-action: none; }
+  #board { width: 100%; height: 100%; display: block; cursor: crosshair; touch-action: none; }
+  .board-hint { position: absolute; left: 0; right: 0; bottom: 10px; text-align: center; color: var(--w-dark); font-size: 12px; pointer-events: none; transition: opacity .3s; }
+  .board-tools { display: flex; gap: 6px; align-items: center; justify-content: center; background: #101010; border: 1px solid var(--w-line); border-radius: 20px; padding: 6px 8px; }
+  .board-tools button { width: 20px; height: 20px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; padding: 0; }
+  .board-tools button.sel { border-color: #fff; }
+  .board-tools button.tool { background: none; width: 26px; font-size: 15px; border: none; }
+  .board-tools button.tool.sel { outline: 1px solid var(--w-green); border-radius: 8px; }
+  .board-mini svg { width: 100%; display: block; }
 
-  /* Für Unternehmen */
-  .biz { background: var(--bg); }
-  .biz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.4rem; }
-  .biz-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; box-shadow: var(--shadow); }
-  .biz-card h4 { color: var(--navy); margin: .9rem 0 .3rem; }
-  .biz-card p { font-size: .87rem; color: var(--muted); }
-  .mini { background: var(--w-bg); color: var(--w-green); border-radius: 16px; padding: 11px 12px; font-size: 12px; line-height: 1.5; }
-  .mini b { font-size: 15px; }
-  .mini .muted { color: var(--w-dark); }
-  .meter { height: 7px; background: #1d1d1d; border-radius: 4px; overflow: hidden; margin: 5px 0 3px; }
-  .meter i { display: block; height: 100%; background: var(--w-green); border-radius: 4px; }
+  /* Reise-Planer */
+  .trip-w .rt { color: var(--w-dark); font-size: 10.5px; display: flex; justify-content: space-between; }
+  .trip-w .c { margin-top: 7px; padding-top: 6px; border-top: 1px solid var(--w-line); }
+  .trip-w .c:first-of-type { border-top: 0; padding-top: 0; }
+  .trip-w .t { font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .trip-w .d { color: #b0b0b0; font-size: 10.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .trip-mini b { font-size: 18px; display: block; margin: 2px 0; }
+  .trip-mini .muted, .trip-w .muted { color: var(--w-dark); font-size: 10.5px; line-height: 1.35; }
 
   /* Ablauf */
   .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.4rem; counter-reset: s; }
@@ -188,7 +188,6 @@
     <ul class="nav-links">
       <li><a href="#live">Live-Demo</a></li>
       <li><a href="#beispiele">Beispiele</a></li>
-      <li><a href="#unternehmen">Für Unternehmen</a></li>
       <li><a href="/#kontakt" class="nav-cta">Kontakt</a></li>
     </ul>
   </div>
@@ -200,15 +199,15 @@
     <div>
       <div class="hero-badge">Android-Widgets · Live-Daten</div>
       <h1>Alles Wichtige.<br><span>Ein Blick</span> auf den Startbildschirm.</h1>
-      <p>Ich entwickle Widgets, die Informationen aus vielen Quellen zusammenführen – Wetter, Fahrpläne, Preise, Kurse oder Ihre eigenen Daten. Ohne App öffnen, ohne Suchen. Hier sehen Sie vier Eigenentwicklungen, die ich jeden Tag selbst nutze – und eine Live-Demo zum Ausprobieren.</p>
+      <p>Ich entwickle Widgets, die Informationen aus vielen Quellen zusammenführen – Wetter, Fahrpläne, Preise, Kurse oder Ihre eigenen Daten. Ohne App öffnen, ohne Suchen. Hier sehen Sie fünf Eigenentwicklungen, die ich jeden Tag selbst nutze – zwei davon können Sie direkt hier ausprobieren.</p>
       <div class="hero-actions">
         <a href="#live" class="btn btn-primary">Live-Demo starten</a>
-        <a href="#unternehmen" class="btn btn-outline">Ideen für Unternehmen</a>
+        <a href="#beispiele" class="btn btn-outline">Alle Widgets ansehen</a>
       </div>
       <div class="hero-facts">
         <div><strong>12</strong>Datenquellen in einem Widget</div>
         <div><strong>1 min</strong>Aktualisierung, solange sichtbar</div>
-        <div><strong>4</strong>Widgets im Alltag im Einsatz</div>
+        <div><strong>5</strong>Widgets im Alltag im Einsatz</div>
       </div>
     </div>
     <div class="hero-phone">
@@ -222,10 +221,8 @@
           <div class="app todo"><div class="ico" style="background:#003087">💳</div></div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div class="photo-w"><img src="img/11_wert.jpg" alt="" class="on"></div>
-          <div class="w trade-w" style="padding:10px"><div class="name" style="font-size:11px">Ü · SAP</div>
-            <div class="pl pos" style="font-size:17px">+2,84 €</div><div class="det">+0,7 % · Schwelle 210,50</div>
-            <div class="name" style="font-size:11px;margin-top:6px">Ü · Allianz</div><div class="pl neg">−0,62 €</div></div>
+          <div class="w board-mini"><svg viewBox="0 0 120 120"><path d="M14 40c10-18 22-20 26-6s-6 26 6 18 18-30 30-20M18 78h70M22 92c8-6 14-6 22 0s14 6 22 0" fill="none" stroke="#00FF41" stroke-width="4" stroke-linecap="round"/><circle cx="96" cy="44" r="5" fill="#FFE14D"/></svg></div>
+          <div class="w trip-mini"><div class="muted">→ Bangkok · 30 T</div><b>1.354 €</b><div class="muted">✈ MUC 10.01.<br>🏨 Avana 4★</div></div>
         </div>
         <div class="dock"><span><i>📞</i></span><span><i>🛰️</i></span><span><i>📷</i></span></div>
       </div></div>
@@ -276,10 +273,55 @@
 <section id="beispiele">
   <div class="container">
     <div class="section-tag">Eigenentwicklungen</div>
-    <h2 class="section-title">Drei weitere Widgets aus meinem Alltag</h2>
+    <h2 class="section-title">Vier weitere Widgets aus meinem Alltag</h2>
     <p class="section-sub">Jedes ist aus einem echten Bedürfnis entstanden – genau so, wie Kundenprojekte entstehen. Alle laufen täglich auf meinem Smartphone; sie sind Eigenentwicklungen und nicht im Play Store. Probieren Sie die Vorschauen aus.</p>
 
     <div class="cases">
+      <div class="case">
+        <div class="case-phone"><div class="phone"><div class="screen">
+          <div class="statusbar"><span>09:12</span><span>●●● 5G 88%</span></div>
+          <div class="board-wrap">
+            <canvas id="board" aria-label="Whiteboard zum Ausprobieren"></canvas>
+            <div class="board-hint" id="boardHint">✎ Hier schreiben</div>
+          </div>
+          <div class="board-tools" id="boardTools">
+            <button data-c="#00FF41" class="sel" aria-label="Grün"></button><button data-c="#FFFFFF" aria-label="Weiß"></button><button data-c="#00CCFF" aria-label="Blau"></button><button data-c="#FFE14D" aria-label="Gelb"></button><button data-c="#FF4D4D" aria-label="Rot"></button>
+            <button data-t="erase" class="tool" aria-label="Radieren">🧽</button><button data-t="clear" class="tool" aria-label="Alles löschen">🗑</button>
+          </div>
+          <div class="dock"><span><i>📞</i></span><span><i>🛰️</i></span><span><i>📷</i></span></div>
+        </div></div></div>
+        <div>
+          <div class="case-tag">Whiteboard · zum Ausprobieren</div>
+          <h3>Notizen mit dem Stift – direkt auf dem Startbildschirm</h3>
+          <p>Stift raus, aufs Widget tippen, schreiben. Die Tafel öffnet sich genau an der Stelle des Widgets, als würde man direkt darauf schreiben. Alles wird sofort gespeichert und bleibt bearbeitbar – fertige Notizen landen im Archiv und als Bild in der Galerie.</p>
+          <ul>
+            <li>Druckstärke des Stifts, Handballen wird ignoriert</li>
+            <li>Radieren mit der Stifttaste, Rückgängig, fünf Farben</li>
+            <li>Archiv: alte Tafeln wieder öffnen und weiterschreiben</li>
+          </ul>
+          <span class="try">Probieren Sie es im Handy aus – mit Maus, Finger oder Stift.</span>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-phone"><div class="phone"><div class="screen">
+          <div class="statusbar"><span>07:00</span><span>●●● 5G 93%</span></div>
+          <div class="w trip-w" id="tripW"></div>
+          <div class="dock"><span><i>📞</i></span><span><i>🛰️</i></span><span><i>📷</i></span></div>
+        </div></div></div>
+        <div>
+          <div class="case-tag">Reise-Planer</div>
+          <h3>Flug und Unterkunft – als Gesamtreise verglichen</h3>
+          <p>Frühester Abflug, Zeitfenster und Aufenthaltsdauer einstellen – zum Beispiel 30 Tage Bangkok, Abflug irgendwann zwischen Ende Dezember und Ende Januar. Der Planer sucht täglich die günstigsten Flüge ab allen gewählten Flughäfen, prüft sie live, erkennt den tatsächlichen Ankunftstag und sucht für genau diesen Aufenthalt passende Hotels. Ganz oben steht die günstigste Gesamtreise.</p>
+          <ul>
+            <li>Flüge aus mehreren Quellen, die besten live bei Google Flights geprüft</li>
+            <li>Hotels über alle großen Portale – nach Sternen, Preis und Lage gefiltert</li>
+            <li>Täglich aktualisiert, Preisalarm unter dem eigenen Budget</li>
+          </ul>
+          <span class="try">Im Handy: echte Suche vom 10.11.2026 – München/Berlin → Bangkok, 30 Tage.</span>
+        </div>
+      </div>
+
       <div class="case">
         <div class="case-phone"><div class="phone"><div class="screen">
           <div class="statusbar"><span>21:14</span><span>●●● 5G 62%</span></div>
@@ -300,7 +342,7 @@
             <li>Bildausschnitt und Anzeigedauer pro Bild einstellbar</li>
             <li>Akkuschonend: läuft nur, solange der Startbildschirm sichtbar ist</li>
           </ul>
-          <span class="try">Die Vorschau links wechselt automatisch.</span>
+          <span class="try">Die Vorschau im Handy wechselt automatisch.</span>
         </div>
       </div>
 
@@ -319,58 +361,14 @@
             <li>Passende Dock-Symbole im selben Look</li>
             <li>Bis zu 30 Apps auf der Fläche einer Zeile</li>
           </ul>
-          <span class="try">Tippen Sie links auf ein sich drehendes Symbol.</span>
+          <span class="try">Tippen Sie im Handy auf ein sich drehendes Symbol.</span>
         </div>
       </div>
 
-      <div class="case">
-        <div class="case-phone"><div class="phone"><div class="screen">
-          <div class="statusbar"><span>14:31</span><span>●●● 5G 71%</span></div>
-          <div class="w trade-w" id="tradeW"></div>
-          <div class="dock"><span><i>📞</i></span><span><i>🛰️</i></span><span><i>📷</i></span></div>
-        </div></div></div>
-        <div>
-          <div class="case-tag">Trades</div>
-          <h3>Gewinn oder Verlust – nach allen Kosten</h3>
-          <p>Zeigt für jede Position, was beim Verkauf in diesem Moment wirklich übrig bliebe: Geldkurs, Gebühren und Spanne eingerechnet. Dazu die Gewinnschwelle – der Kurs, ab dem man tatsächlich im Plus ist – und ein Übungsmodus ohne echtes Geld.</p>
-          <ul>
-            <li>Kurse der Börse, über die der Broker handelt</li>
-            <li>Minütliche Aktualisierung, solange sichtbar</li>
-            <li>Bilanz: Trefferquote, Summe, Durchschnitt</li>
-          </ul>
-          <span class="try">Vorschau mit simulierten Kursen und Beispieldaten.</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- FÜR UNTERNEHMEN -->
-<section class="biz" id="unternehmen">
-  <div class="container">
-    <div class="section-tag">Für Unternehmen</div>
-    <h2 class="section-title">Ihr Unternehmen – täglich auf dem Startbildschirm Ihrer Kunden</h2>
-    <p class="section-sub">Eine App öffnet man selten. Ein Widget sieht man jeden Tag, Dutzende Male. Vier Ideen, wie das für Ihr Geschäft aussehen kann:</p>
-    <div class="biz-grid">
-      <div class="biz-card">
-        <div class="mini"><span class="muted">Ihr Restaurant · heute</span><br><b>Kürbis-Risotto</b> · 13,90 €<br><span class="muted">Mittagstisch 11:30–14:00 · noch frei ✓</span></div>
-        <h4>Restaurant &amp; Café</h4><p>Tagesgericht, Öffnungszeiten und freie Tische – mit einem Tipp reservieren.</p>
-      </div>
-      <div class="biz-card">
-        <div class="mini"><span class="muted">Ihr Fitnessstudio · jetzt</span><br><b>Auslastung 34 %</b><div class="meter"><i style="width:34%"></i></div><span class="muted">ruhiger ab 20 Uhr</span></div>
-        <h4>Fitnessstudio</h4><p>Live-Auslastung und Kursplan – Mitglieder kommen, wenn es leer ist.</p>
-      </div>
-      <div class="biz-card">
-        <div class="mini"><span class="muted">Ihr Handwerksbetrieb</span><br><b>Termin morgen 8:00</b><br><span class="muted">Team unterwegs · ca. 15 min</span></div>
-        <h4>Handwerk &amp; Service</h4><p>Termin, Anfahrt und Auftragsstatus – weniger Rückfragen am Telefon.</p>
-      </div>
-      <div class="biz-card">
-        <div class="mini"><span class="muted">Ihr Verein</span><br><b>Sa 15:00 · Heimspiel</b><br><span class="muted">Letztes Spiel 2:1 ✓ · Tabellenplatz 3</span></div>
-        <h4>Verein</h4><p>Nächstes Spiel, Ergebnisse und Neuigkeiten – Mitglieder bleiben dran.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ABLAUF -->
 <section>
@@ -389,8 +387,8 @@
 
 <section class="cta">
   <div class="container">
-    <h2>Welche Information gehört auf den Startbildschirm Ihrer Kunden?</h2>
-    <p>Erzählen Sie mir von Ihrer Idee – im kostenlosen Erstgespräch prüfen wir, welche Daten es gibt und was ein Widget kosten würde.</p>
+    <h2>Eine Idee für ein eigenes Widget oder eine App?</h2>
+    <p>Ob Tagesangebot für Ihre Kunden, Kennzahlen für Ihr Team oder etwas ganz Eigenes – im kostenlosen Erstgespräch prüfen wir, welche Daten es gibt und was die Umsetzung kosten würde.</p>
     <a href="/#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
   </div>
 </section>
@@ -622,28 +620,73 @@ $('btnGeo').onclick = () => {
   }));
 })();
 
-/* ── Trades: simulierte Kurse ──────────────────────────────────────────── */
+/* ── Whiteboard zum Ausprobieren ──────────────────────────────────────── */
 (() => {
-  const fee = 1;
-  const pos = [
-    { name: 'Ü · SAP', qty: 2, buy: 420.0, bid: 208.95, spread: .55 },
-    { name: 'Ü · Allianz', qty: 1, buy: 352.4, bid: 354.10, spread: .3 },
-    { name: 'Ü · MSCI World', qty: 4, buy: 437.8, bid: 109.42, spread: .05 },
+  const cv = $('board'), hint = $('boardHint'), ctx = cv.getContext('2d');
+  let color = '#00FF41', erase = false, last = null, used = false;
+  const fit = () => {
+    const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    const img = cv.width ? ctx.getImageData(0, 0, cv.width, cv.height) : null;
+    cv.width = r.width * d; cv.height = r.height * d; ctx.scale(d, d);
+    ctx.fillStyle = '#101010'; ctx.fillRect(0, 0, r.width, r.height);
+    if (img) ctx.putImageData(img, 0, 0);
+  };
+  fit(); window.addEventListener('resize', fit);
+  // Beispiel-Notiz: kleine To-do-Liste mit Häkchen, wie von Hand geschrieben
+  (() => {
+    const r = cv.getBoundingClientRect(), w = r.width, h = r.height;
+    const pen = (col, lw, pts) => {
+      ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.shadowColor = col; ctx.shadowBlur = 4; ctx.beginPath();
+      pts.forEach(([x, y], i) => i ? ctx.lineTo(x * w, y * h) : ctx.moveTo(x * w, y * h)); ctx.stroke();
+    };
+    const wave = (x0, x1, y) => { const p = []; for (let x = x0; x <= x1; x += 0.012) p.push([x, y + 0.012 * Math.sin(x * 70) + 0.006 * Math.sin(x * 23)]); return p; };
+    pen('#FFFFFF', 3, wave(0.12, 0.55, 0.16));                    // „Überschrift“
+    pen('#00FF41', 3, [[0.12, 0.31], [0.16, 0.35], [0.24, 0.25]]); // ✓
+    pen('#00FF41', 2.5, wave(0.30, 0.78, 0.30));
+    pen('#00FF41', 3, [[0.12, 0.46], [0.16, 0.50], [0.24, 0.40]]); // ✓
+    pen('#00FF41', 2.5, wave(0.30, 0.70, 0.45));
+    pen('#FFE14D', 2.5, [[0.13, 0.57], [0.23, 0.57], [0.23, 0.65], [0.13, 0.65], [0.13, 0.57]]); // ☐
+    pen('#FFE14D', 2.5, wave(0.30, 0.82, 0.61));
+    pen('#00CCFF', 3, [[0.62, 0.80], [0.70, 0.74], [0.80, 0.82], [0.88, 0.76]]);   // Kringel unten rechts
+    ctx.shadowBlur = 0;
+  })();
+  const pos = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  cv.addEventListener('pointerdown', e => {
+    cv.setPointerCapture(e.pointerId); last = pos(e);
+    if (!used) { used = true; hint.style.opacity = 0; }
+  });
+  cv.addEventListener('pointermove', e => {
+    if (!last) return;
+    const p = pos(e), pr = e.pointerType === 'pen' && e.pressure > 0 ? e.pressure : 0.5;
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.strokeStyle = erase ? '#101010' : color;
+    ctx.lineWidth = erase ? 22 : 2 + pr * 4;
+    if (!erase) { ctx.shadowColor = color; ctx.shadowBlur = 4; } else ctx.shadowBlur = 0;
+    ctx.beginPath(); ctx.moveTo(...last); ctx.lineTo(...p); ctx.stroke();
+    last = p;
+  });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => cv.addEventListener(t, () => last = null));
+  document.querySelectorAll('#boardTools button').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.t === 'clear') { const r = cv.getBoundingClientRect(); ctx.fillStyle = '#101010'; ctx.fillRect(0, 0, r.width, r.height); return; }
+    document.querySelectorAll('#boardTools button').forEach(x => x.classList.remove('sel'));
+    b.classList.add('sel');
+    if (b.dataset.t === 'erase') erase = true; else { erase = false; color = b.dataset.c; }
+  }));
+  document.querySelectorAll('#boardTools button[data-c]').forEach(b => b.style.background = b.dataset.c);
+})();
+
+/* ── Reise-Planer: echte Suche vom 10.11.2026 ─────────────────────────── */
+(() => {
+  const combos = [
+    { total: 1354, route: 'MUC 10.01.–10.02.', days: 29, flight: '616 € Oman Air', hotel: '738 € Avana Bangkok Hotel 4–5★' },
+    { total: 1439, route: 'BER 11.01.–11.02.', days: 30, flight: '675 € Qatar Airways', hotel: '764 € Avana Bangkok Hotel 4–5★' },
+    { total: 1470, route: 'BER 15.01.–15.02.', days: 30, flight: '706 € Hainan Airlines', hotel: '764 € Avana Bangkok Hotel 4–5★' },
   ];
-  const el = $('tradeW');
-  function draw() {
-    let sum = 0;
-    const rows = pos.map(p => {
-      const pl = p.qty * p.bid - fee - p.buy; sum += pl;
-      const be = (p.buy + fee) / p.qty;
-      return `<div class="row"><span class="name">${p.name}</span><span class="pl ${pl >= 0 ? 'pos' : 'neg'}">${pl >= 0 ? '+' : '−'}${fmt(Math.abs(pl), 2)} €</span></div>
-        <div class="det">${pl >= 0 ? '+' : '−'}${fmt(Math.abs(pl / p.buy * 100), 1)} % · Schwelle ${fmt(be, 2)} · Geld ${fmt(p.bid, 2)}</div>`;
-    }).join('');
-    el.innerHTML = `<div style="display:flex;justify-content:space-between"><span class="total ${sum >= 0 ? 'pos' : 'neg'}">Übung ${sum >= 0 ? '+' : '−'}${fmt(Math.abs(sum), 2)} €</span><span>⟳</span></div>
-      ${rows}<div class="w-stamp" style="margin-top:8px">Stand ${new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })} · Lang &amp; Schwarz · simuliert</div>`;
-  }
-  draw();
-  setInterval(() => { pos.forEach(p => { p.bid *= 1 + (Math.random() - .48) * .004; }); draw(); }, 2500);
+  $('tripW').innerHTML = `<div class="rt"><span>→ Bangkok · 30 Tage · Abflug 29.12.–29.01. · ab 4★</span><span style="color:var(--w-green)">⟳</span></div>` +
+    combos.map((c, i) => `<div class="c"><div class="t">${i + 1}. ${fmt(c.total)} €  ·  ${c.route} · ${c.days} T</div>
+      <div class="d">✈ ${c.flight}  ·  🏨 ${c.hotel}</div></div>`).join('') +
+    `<div class="w-stamp" style="margin-top:8px">Stand 10.11. 12:10 · täglich aktualisiert</div>`;
 })();
 </script>
 </body>
