@@ -270,6 +270,39 @@
     .feat-list li { font-size: .86rem; color: var(--muted); padding-left: 1.3rem; position: relative; }
     .feat-list li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
     @media (max-width: 900px) { .project-wide { grid-template-columns: 1fr; } .project-wide .project-body { padding: 1.3rem 1.4rem 1.5rem; } }
+    /* ── Shop-Wahl ── */
+    .shopwahl { margin-top: 4rem; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 2.4rem 2.2rem; scroll-margin-top: 80px; }
+    .shopwahl > h3 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 2.6vw, 1.9rem); color: var(--navy); margin-bottom: .4rem; }
+    .shopwahl > p { color: var(--muted); font-size: .95rem; max-width: 640px; }
+    .sw-q { margin-top: 1.6rem; }
+    .sw-q b { display: block; color: var(--navy); font-size: .95rem; margin-bottom: .6rem; }
+    .sw-q b span { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--navy); color: #fff; font-size: .72rem; margin-right: .5rem; vertical-align: 1px; }
+    .sw-opts { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .sw-opt { font-family: 'Inter', sans-serif; font-size: .88rem; padding: .6rem 1rem; border-radius: 99px; border: 1.5px solid var(--border); background: #fff; color: var(--text); cursor: pointer; transition: all .2s; }
+    .sw-opt:hover { border-color: var(--gold); }
+    .sw-opt.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .sw-result { margin-top: 2rem; border-radius: 12px; background: linear-gradient(135deg, var(--navy), var(--navy2)); color: #fff; padding: 1.8rem; display: none; animation: swIn .5s ease; }
+    .sw-result.on { display: block; }
+    @keyframes swIn { from { opacity: 0; transform: translateY(12px); } }
+    .sw-result small { color: var(--gold2); font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; font-size: .72rem; }
+    .sw-result h4 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin: .3rem 0 .6rem; }
+    .sw-result p { color: rgba(255,255,255,.82); font-size: .92rem; }
+    .sw-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.2rem 0; }
+    .sw-facts div { background: rgba(255,255,255,.08); border-radius: 10px; padding: .8rem 1rem; font-size: .85rem; }
+    .sw-facts span { display: block; font-size: .7rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,.55); margin-bottom: .2rem; }
+    .sw-alt { font-size: .85rem; color: rgba(255,255,255,.7); margin-top: .4rem; }
+    .sw-result .btn { margin-top: 1rem; }
+    .sw-hint { margin-top: 1.2rem; font-size: .85rem; color: var(--muted); }
+    .sw-table-wrap { margin-top: 2rem; }
+    .sw-table-wrap summary { cursor: pointer; font-weight: 600; color: var(--navy); font-size: .95rem; }
+    .sw-scroll { overflow-x: auto; margin-top: 1rem; -webkit-overflow-scrolling: touch; }
+    .sw-table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: .84rem; }
+    .sw-table th, .sw-table td { text-align: left; padding: .75rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .sw-table th { color: var(--navy); font-size: .75rem; text-transform: uppercase; letter-spacing: .8px; background: var(--bg); }
+    .sw-table td:first-child { font-weight: 700; color: var(--navy); white-space: nowrap; }
+    .sw-table td { color: var(--muted); }
+    .shop-help-link { display: inline-block; margin-top: .9rem; color: var(--gold); font-size: .82rem; font-weight: 700; text-decoration: none; }
+    @media (max-width: 700px) { .shopwahl { padding: 1.6rem 1.2rem; } .sw-facts { grid-template-columns: 1fr; } }
     #faq { background: var(--bg); }
     .faq-list { margin-top: 2rem; display: grid; gap: .7rem; max-width: 820px; }
     .faq-list details { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; }
@@ -528,6 +561,7 @@
           <li>Zahlung, Versand &amp; Rechtstexte eingerichtet</li>
           <li>Livegang &amp; Einweisung</li>
         </ul>
+        <a href="#shop-wahl" class="shop-help-link">Welcher Shop passt zu mir? →</a>
       </div>
       <div class="package-card">
         <h3>Händler-Erweiterung (B2B)</h3>
@@ -587,6 +621,26 @@
     <div class="hourly-note">
       <strong>Nach Aufwand:</strong> 45 € / Stunde · Apps &amp; Widgets 65 € / Stunde · Shop-Umzüge 70 € / Stunde · Rechnung per E-Mail nach Leistung, zahlbar innerhalb von 14 Tagen · Bei Projekten 50 % Anzahlung · Laufende Kosten (z. B. Hosting, Shopify-Tarif, Domain, Umzugs-Werkzeuge) zahlen Sie direkt an den Anbieter.
       <a href="#kontakt" class="btn btn-primary" style="margin-top:1.2rem;">Kostenloses Erstgespräch</a>
+    </div>
+
+    <!-- Welcher Shop passt? -->
+    <div class="shopwahl" id="shop-wahl">
+      <div class="section-tag">Shop-Ratgeber</div>
+      <h3>Welche Shop-Lösung passt zu Ihnen?</h3>
+      <p>Nicht jeder Betrieb braucht dasselbe System. Drei kurze Fragen – und Sie sehen, welche Lösung zu Ihrem Sortiment, Ihrem Budget und Ihrem Alltag passt. Das Design gestalte ich in jedem Fall individuell.</p>
+      <div class="sw-q" data-q="menge"><b><span>1</span>Wie viele Produkte möchten Sie verkaufen?</b>
+        <div class="sw-opts"><button type="button" class="sw-opt" data-v="klein">bis ca. 30</button><button type="button" class="sw-opt" data-v="mittel">30 bis 500</button><button type="button" class="sw-opt" data-v="gross">mehr als 500</button></div></div>
+      <div class="sw-q" data-q="pflege"><b><span>2</span>Wer kümmert sich später um den Shop?</b>
+        <div class="sw-opts"><button type="button" class="sw-opt" data-v="selbst">Ich selbst, regelmäßig</button><button type="button" class="sw-opt" data-v="extern">Lieber Sie – ich ändere selten etwas</button></div></div>
+      <div class="sw-q" data-q="ziel"><b><span>3</span>Was ist Ihnen am wichtigsten?</b>
+        <div class="sw-opts"><button type="button" class="sw-opt" data-v="kosten">Geringe laufende Kosten</button><button type="button" class="sw-opt" data-v="bequem">Bequem, wenig Technik</button><button type="button" class="sw-opt" data-v="b2b">Händler (B2B) oder Verkauf in die Schweiz</button></div></div>
+      <div class="sw-result" id="swResult" aria-live="polite"></div>
+      <p class="sw-hint" id="swHint">Beantworten Sie alle drei Fragen – die Empfehlung erscheint sofort.</p>
+      <details class="sw-table-wrap">
+        <summary>Alle Möglichkeiten im Vergleich ansehen</summary>
+        <div class="sw-scroll"><table class="sw-table" id="swTable"></table></div>
+        <p class="sw-hint">Für alle Lösungen gilt: Impressum, Datenschutz, AGB und Widerrufsbelehrung sind Pflicht – bei Wein, Spirituosen &amp; Co. zusätzlich eine Altersprüfung beim Versand. Kostenangaben sind grobe Richtwerte der Anbieter und können sich ändern.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -947,6 +1001,52 @@
     dots.forEach(d => d.addEventListener('click', () => go(+d.dataset.i)));
     track.addEventListener('scroll', () => dots.forEach((d, i) => d.classList.toggle('is-active', i === cur())), { passive: true });
   });
+</script>
+<script>
+/* ── Shop-Ratgeber ── */
+(function(){
+  const O={
+    anfrage:{n:'Webseite mit Bestellanfrage',k:'Warenkorb auf Ihrer Webseite – statt einer Kasse kommt die Bestellung als E-Mail bei Ihnen an. Sie schicken eine Rechnung oder der Kunde holt ab und zahlt vor Ort.',lauf:'nur Hosting der Webseite',geb:'keine',pak:'Website (ab 790 €) + Bestellfunktion',plus:'Am günstigsten, kein Shop-System zu pflegen',minus:'Bezahlung und Versand organisieren Sie selbst',fall:'Weingut, Hofladen, Manufaktur mit wenigen Produkten'},
+    knopf:{n:'Webseite mit Bezahl-Knopf',k:'Ihre Webseite bleibt, wie sie ist – nur die Kasse kommt von einem Bezahldienst wie PayPal oder Stripe. Kunden zahlen direkt online.',lauf:'kein Shop-Abo',geb:'ca. 1,5–3 % pro Verkauf',pak:'Website (ab 790 €) + Kasse nach Aufwand',plus:'Echte Online-Zahlung ohne monatliches Abo',minus:'Für größere Sortimente zu einfach',fall:'Kleines Sortiment, Gutscheine, Kurse, Tickets'},
+    woo:{n:'WooCommerce (WordPress)',k:'Ein vollwertiger Shop auf Basis von WordPress. Sie pflegen Produkte, Texte und Bilder selbst – mit deutschen Rechtstexten per Erweiterung.',lauf:'Hosting ca. 10–25 € / Monat',geb:'je nach Zahlungsart',pak:'Webshop (ab 1.500 €)',plus:'Keine Lizenzkosten, alles selbst pflegbar',minus:'Braucht regelmäßige Updates – gern über meine Betreuung',fall:'Shop mit Blog und vielen Inhalten'},
+    shopify:{n:'Shopify',k:'Der bequemste Weg zum vollwertigen Shop: Hosting, Sicherheit, Updates und Kasse sind schon dabei. Ideal, wenn Sie sich nicht um Technik kümmern möchten.',lauf:'Tarif ca. 30–40 € / Monat',geb:'je nach Zahlungsart',pak:'Webshop (ab 1.500 €), B2B ab 790 €',plus:'Läuft einfach, starke Apps, Euro und Franken',minus:'Monatliche Gebühr, an einen Anbieter gebunden',fall:'Händler und Hersteller, auch mit B2B und Schweiz'},
+    shopware:{n:'Shopware 6',k:'Das große deutsche Shop-System für umfangreiche Sortimente, viele Varianten und eigene Händler-Preise. Die Grundversion ist kostenlos, die Einrichtung aufwendiger.',lauf:'leistungsstarkes Hosting ca. 20–60 € / Monat',geb:'je nach Zahlungsart',pak:'Individuelles Angebot',plus:'Sehr mächtig, deutsche Lösung, keine Abo-Pflicht',minus:'Mehr Aufwand bei Einrichtung und Pflege',fall:'Großes Sortiment, Großhandel, Umzug von Shopware 5'}
+  };
+  const S={
+    menge:{klein:{anfrage:3,knopf:3,woo:1,shopify:1},mittel:{woo:3,shopify:3,shopware:1},gross:{shopware:3,shopify:2,woo:1}},
+    pflege:{selbst:{woo:2,shopify:2,shopware:1,knopf:1},extern:{anfrage:2,knopf:2,shopify:1}},
+    ziel:{kosten:{anfrage:3,knopf:2,woo:2},bequem:{shopify:3,knopf:1},b2b:{shopware:3,shopify:2,woo:1}}
+  };
+  const ans={};
+  const box=document.getElementById('shop-wahl'), res=document.getElementById('swResult');
+  box.querySelectorAll('.sw-q').forEach(q=>q.addEventListener('click',e=>{
+    const b=e.target.closest('.sw-opt'); if(!b) return;
+    q.querySelectorAll('.sw-opt').forEach(x=>x.classList.toggle('on',x===b));
+    ans[q.dataset.q]=b.dataset.v; show();
+  }));
+  function show(){
+    if(Object.keys(ans).length<3) return;
+    const sc={}; Object.keys(O).forEach(k=>sc[k]=0);
+    for(const q in ans) for(const [k,v] of Object.entries(S[q][ans[q]])) sc[k]+=v;
+    const r=Object.keys(sc).sort((a,b)=>sc[b]-sc[a]), o=O[r[0]], alt=O[r[1]];
+    res.innerHTML=`<small>Unsere Empfehlung für Sie</small><h4>${o.n}</h4><p>${o.k}</p>
+      <div class="sw-facts"><div><span>Laufende Kosten</span>${o.lauf}</div><div><span>Gebühren pro Verkauf</span>${o.geb}</div><div><span>Passendes Paket</span>${o.pak}</div></div>
+      <p class="sw-alt">Ebenfalls gut geeignet: <strong style="color:#fff">${alt.n}</strong></p>
+      <a href="#kontakt" class="btn btn-primary" id="swAsk">Dazu kostenlos beraten lassen</a>`;
+    res.classList.add('on'); document.getElementById('swHint').style.display='none';
+    document.getElementById('swAsk').onclick=()=>{
+      const f=document.getElementById('contactForm'); if(!f) return;
+      const sel=f.querySelector('[name=betreff]'); if(sel) sel.value='Webshop';
+      const t=f.querySelector('[name=nachricht]');
+      const txt={klein:'bis ca. 30',mittel:'30 bis 500',gross:'mehr als 500'}[ans.menge];
+      if(t && !t.value) t.value=`Hallo Herr Blischke,\n\nlaut Shop-Ratgeber passt zu mir „${o.n}“ (Produkte: ${txt}). Ich würde mich gern dazu beraten lassen.\n\n`;
+    };
+  }
+  const rows=[['anfrage'],['knopf'],['woo'],['shopify'],['shopware']];
+  document.getElementById('swTable').innerHTML='<tr><th>Lösung</th><th>Laufende Kosten</th><th>Vorteil</th><th>Nachteil</th><th>Typisch für</th></tr>'+
+    Object.values(O).map(o=>`<tr><td>${o.n}</td><td>${o.lauf}</td><td>${o.plus}</td><td>${o.minus}</td><td>${o.fall}</td></tr>`).join('')+
+    '<tr><td>Eigenentwicklung</td><td>Hosting, keine Lizenz</td><td>Volle Freiheit für Sonderwünsche</td><td>Höchster Aufwand bei Bau und Pflege</td><td>Besondere Abläufe, die kein System abbildet</td></tr>';
+})();
 </script>
 </body>
 </html>
