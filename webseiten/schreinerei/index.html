@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Holzwerkstatt Sonnhalde – Schreinerei & Parkett im Wiesental (Demo)</title>
+<meta name="description" content="Demo-Webseite einer Schreinerei: Parkett, Küchen und Möbel nach Maß – mit Vorher/Nachher-Vergleich und Angebotsrechner. Gestaltet von ycblischke.de.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F3EEE5">
+<link rel="preload" href="fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Bricolage';font-style:normal;font-weight:300 800;font-stretch:75% 100%;font-display:swap;src:url(fonts/bricolage.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url(fonts/inter.woff2) format('woff2')}
+:root{
+  --paper:#F3EEE5;--paper2:#EAE3D6;--card:#FBF8F2;--ink:#1D1B18;--ink2:#4A453E;--mute:#8A8277;
+  --oak:#C0843A;--oak-d:#8F5B22;--oak-l:#E8C99A;--line:rgba(29,27,24,.14);--green:#3F6B4A;
+  --pad:clamp(1.1rem,4vw,3.5rem);--max:1240px;--r:14px;--ease:cubic-bezier(.2,.7,.2,1);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:Inter,system-ui,sans-serif;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+h1,h2,h3,.disp{font-family:Bricolage,Inter,sans-serif;font-weight:700;letter-spacing:-.025em;line-height:1.02}
+em{font-style:normal;color:var(--oak)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.lbl{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:.6rem}
+.lbl::before{content:"";width:22px;height:1px;background:currentColor}
+section{padding:clamp(4.5rem,10vw,8rem) 0;position:relative}
+.h2{font-size:clamp(2.1rem,5.4vw,4.2rem);margin:.9rem 0 1.1rem}
+.lead{font-size:clamp(1.02rem,1.5vw,1.18rem);color:var(--ink2);max-width:58ch}
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 1.4rem;border-radius:999px;font-weight:600;font-size:.95rem;text-decoration:none;transition:transform .25s var(--ease),background .25s,box-shadow .25s}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover{background:var(--oak-d);transform:translateY(-2px)}
+.btn-line{border:1.5px solid var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
+.btn .ar{transition:transform .25s var(--ease)}
+.btn:hover .ar{transform:translateX(4px)}
+
+/* Maßband-Fortschritt */
+.tape{position:fixed;top:0;left:0;right:0;height:6px;z-index:80;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(29,27,24,.35) 0 1px,transparent 1px 10px);opacity:.6}
+.tape i{position:absolute;inset:0 auto 0 0;width:0;background:var(--oak);box-shadow:0 0 10px rgba(192,132,58,.6)}
+
+/* Navigation */
+.nav{position:fixed;top:6px;left:0;right:0;z-index:70;transition:background .3s,box-shadow .3s}
+.nav.solid{background:rgba(243,238,229,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;font-family:Bricolage;font-weight:700;font-size:1.08rem;letter-spacing:-.02em;line-height:1.05}
+.logo small{display:block;font-family:var(--mono);font-weight:400;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.logo svg{flex:none}
+.links{display:flex;gap:1.9rem;align-items:center;list-style:none}
+.links a{text-decoration:none;font-size:.9rem;font-weight:500;position:relative}
+.links a:not(.btn)::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1.5px;background:var(--oak);transition:right .3s var(--ease)}
+.links a:not(.btn):hover::after{right:0}
+.links .btn{padding:.6rem 1.05rem;font-size:.85rem}
+.burger{display:none;width:44px;height:44px;border-radius:50%;position:relative}
+.burger span{position:absolute;left:12px;right:12px;height:2px;background:var(--ink);transition:transform .3s,opacity .3s}
+.burger span:nth-child(1){top:16px}.burger span:nth-child(2){top:21px}.burger span:nth-child(3){top:26px}
+.nav.open .burger span:nth-child(1){transform:translateY(5px) rotate(45deg)}
+.nav.open .burger span:nth-child(2){opacity:0}
+.nav.open .burger span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+
+/* Hero */
+.hero{padding:calc(74px + clamp(2rem,5vw,4rem)) 0 clamp(3rem,6vw,5rem);min-height:100svh;display:flex;align-items:center}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.hero h1{font-size:clamp(3.2rem,9vw,7.6rem);margin:1.2rem 0 1.4rem;font-stretch:88%}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.hero h1 .ln>span{display:block;transform:translateY(105%);animation:up 1s var(--ease) forwards}
+.hero h1 .ln:nth-child(2)>span{animation-delay:.12s}
+@keyframes up{to{transform:none}}
+.hero .lead{opacity:0;animation:fade .9s .45s forwards}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem;opacity:0;animation:fade .9s .6s forwards}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1.6rem 2.4rem;margin-top:2.8rem;padding-top:1.6rem;border-top:1px solid var(--line);opacity:0;animation:fade .9s .75s forwards}
+.hero-meta b{display:block;font-family:Bricolage;font-size:1.9rem;line-height:1;letter-spacing:-.03em}
+.hero-meta span{font-size:.8rem;color:var(--mute)}
+.hero-pic{position:relative;aspect-ratio:4/5;border-radius:var(--r);overflow:visible}
+.hero-pic .ph{position:absolute;inset:0;border-radius:var(--r);overflow:hidden;clip-path:inset(100% 0 0 0 round var(--r));animation:wipe 1.3s .2s var(--ease) forwards}
+.hero-pic img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);animation:zoomout 2.2s .2s var(--ease) forwards}
+@keyframes wipe{to{clip-path:inset(0 0 0 0 round var(--r))}}
+@keyframes zoomout{to{transform:scale(1)}}
+.ruler{position:absolute;left:-18px;top:0;bottom:0;width:12px;background:repeating-linear-gradient(180deg,var(--ink) 0 1px,transparent 1px 8px);mask:linear-gradient(90deg,#000 40%,transparent 41%);opacity:.5}
+.ruler-x{position:absolute;left:0;right:0;bottom:-20px;height:12px;background:repeating-linear-gradient(90deg,var(--ink) 0 1px,transparent 1px 8px);opacity:.5}
+.dim{position:absolute;font-family:var(--mono);font-size:.68rem;color:var(--mute);letter-spacing:.06em}
+.dim.v{left:-46px;top:50%;transform:rotate(-90deg)}
+.dim.h{bottom:-44px;left:50%;transform:translateX(-50%)}
+.badge{position:absolute;right:-14px;bottom:2.2rem;background:var(--card);border-radius:12px;padding:.85rem 1rem;box-shadow:0 18px 50px rgba(29,27,24,.18);display:flex;gap:.75rem;align-items:center;max-width:270px;opacity:0;animation:fade .8s 1.3s forwards}
+.badge .dot{width:10px;height:10px;border-radius:50%;background:#3FA35B;box-shadow:0 0 0 0 rgba(63,163,91,.5);animation:pulse 2s infinite;flex:none}
+.badge.closed .dot{background:#C9752F;animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(63,163,91,0)}100%{box-shadow:0 0 0 0 rgba(63,163,91,0)}}
+.badge b{font-size:.86rem;display:block;line-height:1.25}
+.badge span{font-size:.76rem;color:var(--mute)}
+.stamp{position:absolute;left:-30px;top:2rem;width:112px;height:112px;animation:spin 22s linear infinite;opacity:0;animation:spin 22s linear infinite,fadein 1s 1.1s forwards}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadein{to{opacity:1}}
+
+/* Laufband */
+.band{background:var(--ink);color:var(--paper);overflow:hidden;padding:1.05rem 0;white-space:nowrap}
+.band .tr{display:inline-flex;gap:2.6rem;animation:marq 38s linear infinite;font-family:Bricolage;font-size:1.25rem;letter-spacing:-.01em}
+.band .tr span{display:inline-flex;align-items:center;gap:2.6rem}
+.band .tr span::after{content:"";width:8px;height:8px;background:var(--oak);transform:rotate(45deg)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* Leistungen – Index mit Hover-Bild */
+.svc-head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:2.4rem}
+.svc{list-style:none;border-top:1px solid var(--line)}
+.svc li{border-bottom:1px solid var(--line)}
+.svc button{width:100%;display:grid;grid-template-columns:4rem 1fr 1.2fr auto;gap:1.5rem;align-items:center;padding:1.7rem 0;text-align:left;transition:padding .35s var(--ease),color .3s}
+.svc .n{font-family:var(--mono);font-size:.78rem;color:var(--mute)}
+.svc h3{font-size:clamp(1.6rem,3.4vw,2.7rem);font-weight:600;transition:transform .4s var(--ease)}
+.svc p{color:var(--ink2);font-size:.95rem;max-width:44ch}
+.svc .go{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;transition:background .3s,border-color .3s,transform .4s var(--ease)}
+.svc button:hover .go{background:var(--oak);border-color:var(--oak);color:#fff;transform:rotate(-45deg)}
+.svc button:hover h3{transform:translateX(10px)}
+.svc .thumb{display:none}
+.float{position:fixed;left:0;top:0;width:300px;height:220px;border-radius:12px;overflow:hidden;pointer-events:none;z-index:40;opacity:0;transform:translate(-50%,-50%) scale(.8);transition:opacity .3s,transform .4s var(--ease);box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.float.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.float img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s}
+.float img.on{opacity:1}
+
+/* Vorher / Nachher */
+.ba{background:var(--ink);color:var(--paper)}
+.ba .lbl{color:rgba(243,238,229,.55)}
+.ba .lead{color:rgba(243,238,229,.72)}
+.ba-grid{display:grid;grid-template-columns:.8fr 1.4fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.ba-tabs{display:flex;flex-direction:column;gap:.5rem;margin-top:2rem}
+.ba-tab{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 1.15rem;border-radius:12px;border:1px solid rgba(243,238,229,.14);text-align:left;transition:background .3s,border-color .3s}
+.ba-tab b{display:block;font-weight:600}
+.ba-tab small{color:rgba(243,238,229,.55);font-size:.8rem}
+.ba-tab .k{font-family:var(--mono);font-size:.72rem;color:var(--oak-l);white-space:nowrap}
+.ba-tab.on{background:rgba(243,238,229,.08);border-color:var(--oak)}
+.cmp{position:relative;aspect-ratio:16/11;border-radius:var(--r);overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:pan-y;cursor:ew-resize;--p:50%}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cmp .bf{clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.cmp .hd{position:absolute;top:0;bottom:0;left:var(--p);width:2px;background:var(--paper);transform:translateX(-1px)}
+.cmp .kn{position:absolute;top:50%;left:var(--p);width:58px;height:58px;border-radius:50%;background:var(--paper);color:var(--ink);transform:translate(-50%,-50%);display:grid;place-items:center;box-shadow:0 8px 30px rgba(0,0,0,.35);transition:transform .2s}
+.cmp:active .kn{transform:translate(-50%,-50%) scale(.92)}
+.cmp .tg{position:absolute;top:1rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.4rem .7rem;border-radius:999px;background:rgba(29,27,24,.6);backdrop-filter:blur(6px);color:var(--paper);transition:opacity .3s}
+.cmp .tg.l{left:1rem}.cmp .tg.r{right:1rem;background:var(--oak)}
+.cmp input[type=range]{position:absolute;inset:0;opacity:0;width:100%;height:100%;pointer-events:none}
+.cmp:focus-within .kn{outline:3px solid var(--oak);outline-offset:3px}
+.ba-note{margin-top:.9rem;font-size:.78rem;color:rgba(243,238,229,.45)}
+
+/* Rechner */
+.calc{background:var(--paper2)}
+.calc-box{margin-top:2.6rem;background:var(--card);border-radius:22px;box-shadow:0 1px 0 var(--line),0 40px 80px -40px rgba(29,27,24,.35);overflow:hidden}
+.ctabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.ctabs::-webkit-scrollbar{display:none}
+.ctab{flex:1;min-width:150px;padding:1.15rem 1rem;display:flex;gap:.65rem;align-items:center;justify-content:center;font-weight:600;font-size:.92rem;color:var(--mute);border-bottom:2.5px solid transparent;transition:color .3s,border-color .3s,background .3s;white-space:nowrap}
+.ctab svg{flex:none}
+.ctab.on{color:var(--ink);border-color:var(--oak);background:rgba(192,132,58,.06)}
+.cbody{display:grid;grid-template-columns:1.1fr 1fr}
+.cform{padding:clamp(1.4rem,3vw,2.4rem);border-right:1px solid var(--line)}
+.cpane{display:none}.cpane.on{display:block;animation:fade .45s var(--ease)}
+.fld{margin-bottom:1.6rem}
+.fld>label,.fld>.fl{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:.9rem;margin-bottom:.7rem}
+.fld output{font-family:var(--mono);font-size:.85rem;color:var(--oak-d);font-weight:600}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--oak) var(--f,50%),var(--line) var(--f,50%))}
+input[type=range]::-moz-range-track{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--oak) var(--f,50%),var(--line) var(--f,50%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--card);border:2px solid var(--oak);margin-top:-10px;box-shadow:0 3px 10px rgba(0,0,0,.15)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--card);border:2px solid var(--oak)}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{padding:.6rem .95rem;border-radius:10px;border:1.5px solid var(--line);font-size:.86rem;font-weight:500;display:flex;align-items:center;gap:.55rem;transition:border-color .2s,background .2s}
+.chip:hover{border-color:var(--ink2)}
+.chip.on{border-color:var(--oak);background:rgba(192,132,58,.1)}
+.chip .sw{width:26px;height:26px;border-radius:6px;background-size:cover;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.chip svg{flex:none}
+.tg-row{display:flex;flex-direction:column;gap:.5rem}
+.tgl{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.75rem .9rem;border-radius:10px;border:1.5px solid var(--line);font-size:.88rem;cursor:pointer;transition:border-color .2s,background .2s}
+.tgl small{display:block;color:var(--mute);font-size:.76rem}
+.tgl input{display:none}
+.tgl .sw2{width:40px;height:23px;border-radius:999px;background:var(--line);position:relative;flex:none;transition:background .25s}
+.tgl .sw2::after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#fff;transition:transform .25s var(--ease);box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.tgl:has(input:checked){border-color:var(--oak);background:rgba(192,132,58,.07)}
+.tgl input:checked+.sw2{background:var(--oak)}
+.tgl input:checked+.sw2::after{transform:translateX(17px)}
+.cres{padding:clamp(1.4rem,3vw,2.4rem);display:flex;flex-direction:column;gap:1.3rem;background:linear-gradient(180deg,rgba(234,227,214,.4),transparent)}
+.viz{position:relative;border-radius:14px;background:#fff;border:1px solid var(--line);aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden}
+.viz svg{width:100%;height:100%}
+.viz .cap{position:absolute;left:.8rem;bottom:.6rem;font-family:var(--mono);font-size:.68rem;color:var(--mute);background:rgba(255,255,255,.85);padding:.15rem .4rem;border-radius:4px}
+.price small{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.price .v{font-family:Bricolage;font-weight:700;font-size:clamp(2rem,4.2vw,3rem);letter-spacing:-.03em;line-height:1.05;margin:.25rem 0;font-variant-numeric:tabular-nums}
+.price p{font-size:.8rem;color:var(--mute)}
+.brk{list-style:none;font-size:.86rem;border-top:1px dashed var(--line)}
+.brk li{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;border-bottom:1px dashed var(--line)}
+.brk li span:last-child{font-family:var(--mono);font-size:.8rem;white-space:nowrap}
+.brk li.dim2 span{color:var(--mute)}
+
+/* Anfrage-Schritt */
+.ask{display:none;padding:clamp(1.4rem,3vw,2.4rem)}
+.calc-box.asking .cbody{display:none}
+.calc-box.asking .ask{display:block;animation:fade .45s var(--ease)}
+.ask-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.sum{background:var(--paper);border-radius:14px;padding:1.3rem;font-size:.9rem}
+.sum h4{font-family:Bricolage;font-size:1.25rem;margin-bottom:.6rem}
+.inp{width:100%;padding:.85rem 1rem;border-radius:10px;border:1.5px solid var(--line);background:#fff;font:inherit;font-size:.95rem;margin-bottom:.8rem;transition:border-color .2s}
+.inp:focus{outline:none;border-color:var(--oak)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.drop{border:2px dashed var(--line);border-radius:12px;padding:1.1rem;text-align:center;font-size:.86rem;color:var(--mute);cursor:pointer;transition:border-color .2s,background .2s;display:block;margin-bottom:.8rem}
+.drop:hover,.drop.over{border-color:var(--oak);background:rgba(192,132,58,.05)}
+.drop input{display:none}
+.thumbs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem}
+.thumbs img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+.slots{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.back{font-size:.86rem;color:var(--mute);text-decoration:underline;margin-top:1rem}
+
+
+/* Team */
+.team-head{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:end;margin-bottom:2.6rem}
+.tm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.tm{background:var(--card);border-radius:18px;overflow:hidden;display:grid;grid-template-columns:.9fr 1.1fr;box-shadow:0 1px 0 var(--line)}
+.tm-ph{position:relative;min-height:340px}
+.tm-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tm-on{position:absolute;left:.8rem;top:.8rem;display:flex;align-items:center;gap:.45rem;background:rgba(251,248,242,.92);backdrop-filter:blur(6px);padding:.35rem .7rem;border-radius:999px;font-size:.72rem;font-weight:600}
+.tm-on i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(63,107,74,.6);animation:ping 2s infinite}
+.tm-on.off i{background:var(--mute);animation:none}
+@keyframes ping{70%{box-shadow:0 0 0 8px rgba(63,107,74,0)}100%{box-shadow:0 0 0 0 rgba(63,107,74,0)}}
+.tm-tx{padding:1.5rem 1.5rem 1.4rem;display:flex;flex-direction:column}
+.tm-tx h3{font-size:1.5rem;font-weight:600;line-height:1.15}
+.tm-role{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oak-d);margin:.35rem 0 .9rem}
+.tm-q{font-size:.95rem;color:var(--ink2);margin-bottom:1rem;flex:1}
+.tm-q::before{content:"„";font-family:Bricolage;font-size:2rem;line-height:0;color:var(--oak);vertical-align:-.35rem;margin-right:.1rem}
+.tm-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.1rem}
+.tm-tags span{font-size:.72rem;padding:.25rem .6rem;border-radius:999px;background:var(--paper2);color:var(--ink2)}
+.tm-btns{display:flex;gap:.5rem;flex-wrap:wrap}
+.tm-btns .btn{padding:.7rem 1.1rem;font-size:.86rem}
+.book{margin-top:1.4rem;background:var(--ink);color:var(--paper);border-radius:18px;padding:clamp(1.3rem,3vw,2.2rem);display:grid;grid-template-columns:1fr 1.5fr;gap:2rem}
+.book .lbl{color:rgba(243,238,229,.55)}
+.book h3{font-size:clamp(1.5rem,2.6vw,2rem);font-weight:600;margin:.6rem 0 .8rem}
+.book p{color:rgba(243,238,229,.7);font-size:.92rem}
+.who{display:flex;gap:.5rem;margin-top:1.2rem;flex-wrap:wrap}
+.who button{display:flex;align-items:center;gap:.6rem;padding:.35rem .9rem .35rem .35rem;border-radius:999px;border:1.5px solid rgba(243,238,229,.2);color:var(--paper);font-size:.86rem;transition:all .2s}
+.who button img{width:34px;height:34px;border-radius:50%;object-fit:cover}
+.who button.on{border-color:var(--oak);background:rgba(192,132,58,.18)}
+.bk-step{margin-bottom:1.1rem}
+.bk-step>b{display:block;font-size:.72rem;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(243,238,229,.55);margin-bottom:.55rem;font-weight:400}
+.bk-row{display:flex;gap:.45rem;flex-wrap:wrap}
+.bk-row button{padding:.55rem .85rem;border-radius:10px;border:1.5px solid rgba(243,238,229,.18);color:var(--paper);font-size:.84rem;transition:all .2s;line-height:1.25}
+.bk-row button small{display:block;font-size:.68rem;opacity:.6}
+.bk-row button:hover:not(:disabled){border-color:rgba(243,238,229,.5)}
+.bk-row button.on{background:var(--oak);border-color:var(--oak);color:#fff}
+.bk-row button:disabled{opacity:.28;text-decoration:line-through;cursor:not-allowed}
+.bk-form{display:grid;grid-template-columns:1fr 1fr auto;gap:.5rem;margin-top:.3rem}
+.bk-form input{background:rgba(243,238,229,.08);border:1.5px solid rgba(243,238,229,.18);border-radius:10px;padding:.7rem .85rem;color:var(--paper);font:inherit;font-size:.9rem;min-width:0}
+.bk-form input::placeholder{color:rgba(243,238,229,.45)}
+.bk-sum{font-size:.85rem;color:var(--oak-l);min-height:1.3em;margin-top:.7rem}
+.crew{margin-top:1.4rem;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:1rem;align-items:stretch}
+.crew img{width:100%;height:100%;min-height:190px;object-fit:cover;border-radius:14px}
+.crew-tx{background:var(--paper2);border-radius:14px;padding:1.4rem;display:flex;flex-direction:column;justify-content:center}
+.crew-tx b{font-family:Bricolage;font-size:2.6rem;line-height:1;font-weight:600}
+.crew-tx p{font-size:.9rem;color:var(--ink2);margin-top:.6rem}
+.c-people{display:flex;align-items:center;gap:.8rem;margin:1.2rem 0 .2rem;font-size:.9rem;color:rgba(243,238,229,.75)}
+.c-people span{display:flex}
+.c-people img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--ink)}
+.c-people img+img{margin-left:-12px}
+@media (max-width:1000px){.tm{grid-template-columns:1fr}.tm-ph{min-height:0;aspect-ratio:4/3}.tm-ph img{object-position:50% 22%}}
+@media (max-width:760px){.team-head,.tm-grid,.book{grid-template-columns:1fr}.book{gap:1rem}.bk-form{grid-template-columns:1fr}
+  .crew{grid-template-columns:1fr 1fr}.crew-tx{grid-column:1/-1}.crew img{min-height:150px}}
+
+/* Galerie */
+.gal-head{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:1.5rem;margin-bottom:2.2rem}
+.filters{display:flex;gap:.4rem;flex-wrap:wrap}
+.filters button{padding:.55rem 1rem;border-radius:999px;border:1.5px solid var(--line);font-size:.85rem;font-weight:500;transition:all .25s}
+.filters button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.gal{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:150px;gap:1rem}
+.gi{position:relative;border-radius:var(--r);overflow:hidden;cursor:zoom-in;transition:opacity .4s,transform .5s var(--ease)}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.gi:hover img{transform:scale(1.06)}
+.gi figcaption{position:absolute;left:0;right:0;bottom:0;padding:2.2rem 1rem .9rem;background:linear-gradient(transparent,rgba(20,18,15,.75));color:#fff;font-size:.86rem;transform:translateY(8px);opacity:.92;transition:transform .4s var(--ease)}
+.gi figcaption b{display:block;font-family:Bricolage;font-size:1.12rem;font-weight:600}
+.gi:hover figcaption{transform:none}
+.gi.hide{opacity:.12;transform:scale(.97);pointer-events:none}
+.gal{grid-auto-flow:dense}.gal .gi{grid-column:span var(--c);grid-row:span var(--r)}
+.lb{position:fixed;inset:0;z-index:95;background:rgba(20,18,15,.94);display:none;align-items:center;justify-content:center;padding:4rem 1rem}
+.lb.on{display:flex;animation:fadein .3s forwards}
+.lb img{max-height:80vh;max-width:min(1200px,100%);border-radius:10px;object-fit:contain}
+.lb p{position:absolute;bottom:1.4rem;left:0;right:0;text-align:center;color:var(--paper);font-size:.9rem}
+.lb button{position:absolute;color:var(--paper);width:50px;height:50px;border-radius:50%;font-size:1.6rem;background:rgba(255,255,255,.08)}
+.lb .x{top:1rem;right:1rem}.lb .pv{left:1rem;top:50%}.lb .nx{right:1rem;top:50%}
+
+/* Werkstatt */
+.ws-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,6rem);align-items:center}
+.ws-pics{position:relative;aspect-ratio:1/1.05}
+.ws-pics img{position:absolute;border-radius:var(--r);object-fit:cover;box-shadow:0 30px 60px -30px rgba(0,0,0,.45)}
+.ws-pics .a{left:0;top:0;width:72%;height:76%}
+.ws-pics .b{right:0;bottom:0;width:52%;height:52%;border:8px solid var(--paper)}
+.ws-pics .yr{position:absolute;left:4%;bottom:6%;font-family:Bricolage;font-weight:800;font-size:clamp(4rem,9vw,7rem);line-height:.8;color:var(--oak);letter-spacing:-.05em}
+.ws-pics .yr small{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;color:var(--mute);font-weight:400;text-transform:uppercase;margin-top:.6rem}
+.vals{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem 2rem;margin-top:2.2rem}
+.vals div{border-top:2px solid var(--ink);padding-top:.8rem}
+.vals b{font-family:Bricolage;font-size:1.15rem;display:block;margin-bottom:.2rem}
+.vals p{font-size:.88rem;color:var(--ink2)}
+.sig{margin-top:2rem;display:flex;align-items:center;gap:1rem}
+.sig svg{width:150px;height:auto}
+.sig span{font-size:.82rem;color:var(--mute);line-height:1.35}
+
+/* Ablauf */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem;position:relative}
+.steps::before{content:"";position:absolute;top:22px;left:22px;right:22px;height:2px;background:repeating-linear-gradient(90deg,var(--ink) 0 8px,transparent 8px 14px);opacity:.25}
+.step .nm{width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--mono);font-size:.85rem;position:relative;margin-bottom:1.3rem}
+.step h3{font-size:1.35rem;margin-bottom:.4rem;font-weight:600}
+.step p{font-size:.92rem;color:var(--ink2)}
+.step .t{display:inline-block;margin-top:.7rem;font-family:var(--mono);font-size:.72rem;color:var(--oak-d);background:rgba(192,132,58,.12);padding:.25rem .55rem;border-radius:6px}
+
+/* Einzugsgebiet */
+.area{background:var(--paper2)}
+.area-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.ort{display:flex;gap:.6rem;margin-top:1.8rem;position:relative}
+.ort .inp{margin:0;flex:1}
+.sugg{position:absolute;top:100%;left:0;right:0;background:#fff;border-radius:10px;box-shadow:0 20px 40px rgba(0,0,0,.15);margin-top:.4rem;list-style:none;z-index:5;overflow:hidden;display:none}
+.sugg li{padding:.7rem 1rem;cursor:pointer;font-size:.92rem;display:flex;justify-content:space-between}
+.sugg li:hover,.sugg li.on{background:var(--paper)}
+.sugg li span{color:var(--mute);font-size:.8rem}
+.ans{margin-top:1.2rem;padding:1.1rem 1.2rem;border-radius:12px;background:var(--card);border-left:4px solid var(--oak);font-size:.95rem;display:none}
+.ans.on{display:block;animation:fade .4s var(--ease)}
+.ans b{font-family:Bricolage;font-size:1.2rem;display:block;margin-bottom:.15rem}
+.map{position:relative;aspect-ratio:1/0.85;background:var(--card);border-radius:22px;overflow:hidden;border:1px solid var(--line)}
+.map svg{width:100%;height:100%}
+.map .town{cursor:pointer}
+.map .town circle{transition:r .3s,fill .3s}
+.map .town.on circle{fill:var(--oak)}
+.map .town text{font-family:Inter;font-size:11px;fill:var(--ink2)}
+.ring{fill:none;stroke:var(--oak);stroke-dasharray:4 5;opacity:.6}
+
+/* Stimmen */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.6rem}
+.q{background:var(--card);border-radius:var(--r);padding:1.6rem;display:flex;flex-direction:column;gap:1rem;border:1px solid var(--line)}
+.q .st{color:var(--oak);letter-spacing:.15em}
+.q p{font-size:1rem;line-height:1.55}
+.q footer{margin-top:auto;font-size:.82rem;color:var(--mute)}
+.q footer b{color:var(--ink);display:block;font-size:.9rem}
+.qnote{font-size:.75rem;color:var(--mute);margin-top:1rem}
+
+/* Kontakt */
+.contact{background:var(--ink);color:var(--paper)}
+.contact .lbl{color:rgba(243,238,229,.5)}
+.c-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(2rem,6vw,6rem);align-items:end}
+.contact h2{font-size:clamp(2.6rem,7vw,5.6rem);margin:1rem 0 1.4rem}
+.contact .lead{color:rgba(243,238,229,.7)}
+.c-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+.btn-oak{background:var(--oak);color:#fff}
+.btn-oak:hover{background:var(--oak-l);color:var(--ink);transform:translateY(-2px)}
+.btn-lp{border:1.5px solid rgba(243,238,229,.35)}
+.btn-lp:hover{background:var(--paper);color:var(--ink)}
+.hours{list-style:none;font-size:.92rem}
+.hours li{display:flex;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid rgba(243,238,229,.12)}
+.hours li.today{color:var(--oak-l);font-weight:600}
+.addr{margin-top:1.4rem;font-size:.92rem;color:rgba(243,238,229,.7);line-height:1.7}
+footer.f{background:#141210;color:rgba(243,238,229,.5);font-size:.78rem;padding:2.2rem 0 6rem}
+footer.f a{color:rgba(243,238,229,.75)}
+footer.f .wrap{display:flex;flex-direction:column;gap:.8rem}
+
+/* Modal (Mail-Vorschau) */
+.modal{position:fixed;inset:0;z-index:96;background:rgba(20,18,15,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1rem}
+.modal.on{display:flex;animation:fadein .3s forwards}
+.mail{background:#fff;border-radius:16px;max-width:560px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 40px 80px rgba(0,0,0,.4)}
+.mail-top{padding:1rem 1.3rem;background:var(--paper);border-bottom:1px solid var(--line);font-size:.82rem;color:var(--ink2);line-height:1.6}
+.mail-top b{color:var(--ink)}
+.mail-body{padding:1.3rem;font-size:.9rem}
+.mail-body table{width:100%;border-collapse:collapse;margin:.8rem 0}
+.mail-body td{padding:.4rem 0;border-bottom:1px solid var(--line);vertical-align:top}
+.mail-body td:first-child{color:var(--mute);width:40%;padding-right:1rem}
+.mail-ok{display:flex;gap:.8rem;align-items:center;padding:1rem 1.3rem;background:#EAF3EC;color:#24543A;font-size:.88rem;font-weight:500}
+.mail-foot{padding:1rem 1.3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--line);font-size:.8rem;color:var(--mute)}
+
+/* Demo-Pille */
+.demo{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:.8rem;background:rgba(29,27,24,.92);backdrop-filter:blur(10px);color:var(--paper);padding:.5rem .5rem .5rem 1.1rem;border-radius:999px;font-size:.8rem;box-shadow:0 10px 40px rgba(0,0,0,.3);white-space:nowrap;animation:slideup .8s 2.5s both var(--ease);max-width:calc(100% - 2rem)}
+@keyframes slideup{from{opacity:0;transform:translate(-50%,30px)}to{opacity:1;transform:translate(-50%,0)}}
+.demo a{background:var(--oak);color:#fff;text-decoration:none;font-weight:600;padding:.45rem .9rem;border-radius:999px}
+.demo .x{width:28px;height:28px;font-size:1rem;color:rgba(243,238,229,.6);border-radius:50%}
+.demo .x:hover{background:rgba(243,238,229,.1)}
+.demo.gone{display:none}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+:focus-visible{outline:2.5px solid var(--oak);outline-offset:3px}
+
+@media (max-width:1000px){
+  .hero-grid,.ba-grid,.ws-grid,.area-grid,.c-grid{grid-template-columns:1fr}
+  .hero-pic{max-width:520px;width:calc(100% - 30px);margin-left:30px;aspect-ratio:5/4}
+  .cbody{grid-template-columns:1fr}
+  .cform{border-right:0;border-bottom:1px solid var(--line)}
+  .steps{grid-template-columns:1fr 1fr;gap:2rem 1.5rem}
+  .steps::before{display:none}
+  .quotes{grid-template-columns:1fr}
+  .ask-grid{grid-template-columns:1fr}
+}
+@media (max-width:820px){
+  .links{position:fixed;top:74px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--paper);padding:.5rem var(--pad) 1.5rem;box-shadow:0 20px 40px rgba(0,0,0,.12);transform:translateY(-12px);opacity:0;pointer-events:none;transition:all .3s var(--ease)}
+  .links a{padding:.95rem 0;border-bottom:1px solid var(--line);font-size:1.05rem}
+  .links .btn{margin-top:1rem;justify-content:center;border:0}
+  .nav.open .links{transform:none;opacity:1;pointer-events:auto}
+  .nav.open{background:var(--paper)}
+  .burger{display:block}
+  .svc button{grid-template-columns:1fr auto;gap:.4rem 1rem;padding:1.3rem 0}
+  .svc .n{grid-column:1/-1}
+  .svc p{grid-column:1/-1;grid-row:3}
+  .svc .go{grid-row:2;grid-column:2;width:42px;height:42px}
+  .svc .thumb{display:block;grid-column:1/-1;grid-row:4;height:150px;border-radius:10px;object-fit:cover;width:100%;margin-top:.6rem}
+  .float{display:none}
+  .gal{grid-template-columns:1fr 1fr;grid-auto-rows:130px;gap:.6rem}
+  .gal .gi{grid-column:span 1;grid-row:span 2}
+  .gal .gi.w{grid-column:span 2}
+  .gi figcaption{padding:1.6rem .7rem .6rem;font-size:.75rem}
+  .gi figcaption b{font-size:.95rem}
+  .demo span.long{display:none}
+  .badge{right:-8px}
+  .stamp{width:84px;height:84px;left:-26px;top:-1rem}
+}
+@media (max-width:560px){
+  .ctab{min-width:0;padding:.9rem .8rem;font-size:.85rem}
+  .vals{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr}
+  .hero-meta{gap:1rem;flex-wrap:nowrap;justify-content:space-between}
+  .hero-meta b{font-size:1.5rem}
+  .ctabs{display:grid;grid-template-columns:1fr 1fr}
+  .ctab{justify-content:flex-start}
+  .lb .pv,.lb .nx{top:auto;bottom:3.5rem}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="tape" aria-hidden="true"><i id="tapeFill"></i></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Holzwerkstatt Sonnhalde – Startseite">
+      <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="9" fill="#1D1B18"/><g fill="none" stroke="#C0843A" stroke-width="2.2" stroke-linecap="round"><path d="M9 28c4-9 7-14 11-16 4 2 7 7 11 16"/><path d="M14 28c2-5 4-8 6-9 2 1 4 4 6 9"/></g><circle cx="20" cy="10" r="2" fill="#E8C99A"/></svg>
+      <span>Holzwerkstatt Sonnhalde<small>Schreinerei · Parkett · seit 1987</small></span>
+    </a>
+    <nav>
+      <ul class="links" id="links">
+        <li><a href="#leistungen">Leistungen</a></li>
+        <li><a href="#vorher-nachher">Vorher/Nachher</a></li>
+        <li><a href="#projekte">Projekte</a></li>
+        <li><a href="#werkstatt">Werkstatt</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#rechner" class="btn btn-ink">Preis berechnen <span class="ar">→</span></a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="lbl">Meisterbetrieb im Wiesental · Schopfheim</div>
+      <h1><span class="ln"><span>Holz,</span></span><span class="ln"><span>nach <em>Maß.</em></span></span></h1>
+      <p class="lead">Parkett, Küchen und Möbel aus unserer eigenen Werkstatt. Geplant, gebaut und eingebaut vom selben Team – mit einem festen Ansprechpartner von der ersten Idee bis zur letzten Sockelleiste.</p>
+      <div class="hero-cta">
+        <a href="#rechner" class="btn btn-ink">Preis in 1 Minute berechnen <span class="ar">→</span></a>
+        <a href="#vorher-nachher" class="btn btn-line">Vorher/Nachher ansehen</a>
+      </div>
+      <div class="hero-meta">
+        <div><b data-count="38">0</b><span>Jahre Handwerk</span></div>
+        <div><b data-count="1240" data-suffix="+">0</b><span>Projekte im Dreiland</span></div>
+        <div><b data-count="9">0</b><span>Leute im Team</span></div>
+      </div>
+    </div>
+    <div class="hero-pic">
+      <div class="ruler" aria-hidden="true"></div><div class="ruler-x" aria-hidden="true"></div>
+      <span class="dim v" aria-hidden="true">← 1250 mm →</span><span class="dim h" aria-hidden="true">← 1000 mm →</span>
+      <div class="ph"><img src="img/hero.webp" alt="Hobel auf frischen Holzspänen in der Werkstatt" fetchpriority="high"></div>
+      <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><circle cx="60" cy="60" r="58" fill="#1D1B18"/><text font-family="ui-monospace,Menlo,monospace" font-size="10.5" letter-spacing="3.2" fill="#F3EEE5"><textPath href="#circ">MEISTERBETRIEB · HANDGEMACHT · </textPath></text><path d="M44 72c5-12 10-19 16-22 6 3 11 10 16 22" fill="none" stroke="#C0843A" stroke-width="3" stroke-linecap="round"/></svg>
+      <div class="badge" id="badge"><span class="dot"></span><div><b id="badgeT">Werkstatt geöffnet</b><span id="badgeS">Nächster Aufmaß-Termin: …</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="band" aria-hidden="true"><div class="tr" id="band"></div></div>
+
+<!-- LEISTUNGEN -->
+<section id="leistungen">
+  <div class="wrap">
+    <div class="svc-head reveal">
+      <div><div class="lbl">01 — Was wir machen</div><h2 class="h2">Vier Gewerke.<br>Eine Werkstatt.</h2></div>
+      <p class="lead" style="max-width:40ch">Tippen Sie auf eine Leistung – der Rechner öffnet sich passend dazu.</p>
+    </div>
+    <ul class="svc reveal" id="svc">
+      <li><button data-tab="parkett" data-img="img/fischgraet-nachher.webp"><span class="n">01</span><h3>Parkett &amp; Dielen</h3><p>Fischgrät, Landhausdiele, Schiffsboden – verlegt, geölt, fertig. Auch auf Fußbodenheizung.</p><span class="go">↗</span><img class="thumb" src="img/fischgraet-nachher.webp" alt="" loading="lazy"></button></li>
+      <li><button data-tab="schleifen" data-img="img/dielen-nachher.webp"><span class="n">02</span><h3>Böden aufarbeiten</h3><p>Alter Boden, neues Leben: abschleifen, Fugen kitten, ölen. Meist in zwei Tagen wieder begehbar.</p><span class="go">↗</span><img class="thumb" src="img/dielen-nachher.webp" alt="" loading="lazy"></button></li>
+      <li><button data-tab="kueche" data-img="img/kueche2.webp"><span class="n">03</span><h3>Küchen</h3><p>Keine Katalogküche: jeder Zentimeter geplant, Fronten aus der eigenen Werkstatt, Geräte nach Wahl.</p><span class="go">↗</span><img class="thumb" src="img/kueche2.webp" alt="" loading="lazy"></button></li>
+      <li><button data-tab="moebel" data-img="img/regal.webp"><span class="n">04</span><h3>Möbel &amp; Einbauschränke</h3><p>Für Dachschrägen, Nischen und alles, wo Möbel von der Stange nicht passen.</p><span class="go">↗</span><img class="thumb" src="img/regal.webp" alt="" loading="lazy"></button></li>
+    </ul>
+  </div>
+  <div class="float" id="float" aria-hidden="true"></div>
+</section>
+
+<!-- VORHER / NACHHER -->
+<section class="ba" id="vorher-nachher">
+  <div class="wrap ba-grid">
+    <div class="reveal">
+      <div class="lbl">02 — Vorher / Nachher</div>
+      <h2 class="h2">Ziehen Sie mal.</h2>
+      <p class="lead">Drei Böden aus den letzten Monaten. Schieben Sie den Regler und sehen Sie, was ein Schliff, frisches Öl und ein bisschen Geduld ausmachen.</p>
+      <div class="ba-tabs" id="baTabs">
+        <button class="ba-tab on" data-i="0"><div><b>Fischgrät, Wohnzimmer</b><small>Altbau Lörrach · 38 m²</small></div><span class="k">2 Tage</span></button>
+        <button class="ba-tab" data-i="1"><div><b>Eichen-Parkett, Flur</b><small>Stadthaus Schopfheim · 14 m²</small></div><span class="k">1 Tag</span></button>
+        <button class="ba-tab" data-i="2"><div><b>Dielenboden, Esszimmer</b><small>Bauernhaus Kandern · 46 m²</small></div><span class="k">3 Tage</span></button>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="cmp" id="cmp">
+        <img id="cmpA" src="img/fischgraet-nachher.webp" alt="Nachher: frisch geschliffener Boden">
+        <img id="cmpB" class="bf" src="img/fischgraet-vorher.webp" alt="Vorher: abgenutzter Boden">
+        <span class="tg l">Vorher</span><span class="tg r">Nachher</span>
+        <div class="hd"></div>
+        <div class="kn" aria-hidden="true"><svg width="26" height="14" viewBox="0 0 26 14"><path d="M7 1 1 7l6 6M19 1l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <input type="range" min="0" max="100" value="50" id="cmpR" aria-label="Vorher/Nachher-Regler">
+      </div>
+      <p class="ba-note">Demo: Die „Vorher“-Bilder sind nachbearbeitete Beispielfotos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RECHNER -->
+<section class="calc" id="rechner">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="lbl">03 — Angebotsrechner</div>
+      <h2 class="h2">Was kostet das?<br><em>Jetzt</em> wissen, nicht in zwei Wochen.</h2>
+      <p class="lead">Ein ehrlicher Preisrahmen inklusive Material und Montage. Danach schicken Sie uns die Anfrage mit einem Klick – wir melden uns innerhalb von 24 Stunden.</p>
+    </div>
+    <div class="calc-box reveal" id="calcBox">
+      <div class="ctabs" role="tablist">
+        <button class="ctab on" data-t="parkett" role="tab"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8l6-6M2 14l12-12M6 18l12-12M12 18l6-6"/></svg><span>Parkett verlegen</span></button>
+        <button class="ctab" data-t="schleifen" role="tab"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="11" width="16" height="6" rx="1.5"/><path d="M5 11V6h10v5M8 6V3h4v3"/></svg><span>Boden schleifen</span></button>
+        <button class="ctab" data-t="kueche" role="tab"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="1.5"/><path d="M2 8h16M10 8v9M6 5.5h0M14 5.5h0" stroke-linecap="round"/></svg><span>Küche</span></button>
+        <button class="ctab" data-t="moebel" role="tab"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="2" width="14" height="16" rx="1"/><path d="M10 2v16M8 9v2M12 9v2"/></svg><span>Einbauschrank</span></button>
+      </div>
+      <div class="cbody">
+        <div class="cform">
+          <!-- Parkett -->
+          <div class="cpane on" data-p="parkett">
+            <div class="fld"><label for="pL">Raumlänge <output id="pLo">5,4 m</output></label><input type="range" id="pL" min="2" max="12" step="0.1" value="5.4"></div>
+            <div class="fld"><label for="pB">Raumbreite <output id="pBo">4,2 m</output></label><input type="range" id="pB" min="1.5" max="8" step="0.1" value="4.2"></div>
+            <div class="fld"><div class="fl">Verlegemuster</div><div class="chips" data-g="muster">
+              <button class="chip on" data-v="diele">Landhausdiele</button><button class="chip" data-v="schiff">Schiffsboden</button><button class="chip" data-v="fisch">Fischgrät</button><button class="chip" data-v="wuerfel">Würfel</button></div></div>
+            <div class="fld"><div class="fl">Holzart</div><div class="chips" data-g="holz">
+              <button class="chip on" data-v="eiche"><span class="sw" style="background-image:url(img/eiche.webp)"></span>Eiche</button>
+              <button class="chip" data-v="esche"><span class="sw" style="background-image:url(img/esche.webp)"></span>Esche</button>
+              <button class="chip" data-v="raeucher"><span class="sw" style="background-image:url(img/raeuchereiche.webp)"></span>Räuchereiche</button>
+              <button class="chip" data-v="nuss"><span class="sw" style="background-image:url(img/nussbaum.webp)"></span>Nussbaum</button></div></div>
+            <div class="fld"><div class="fl">Extras</div><div class="tg-row">
+              <label class="tgl"><span>Alten Belag entfernen<small>Teppich, Laminat oder Fliesen raus</small></span><input type="checkbox" id="pAlt" checked><span class="sw2"></span></label>
+              <label class="tgl"><span>Sockelleisten aus gleichem Holz<small id="pUmf">Umfang ca. 19 m</small></span><input type="checkbox" id="pSock" checked><span class="sw2"></span></label>
+              <label class="tgl"><span>Untergrund ausgleichen<small>bei unebenem Estrich</small></span><input type="checkbox" id="pAus"><span class="sw2"></span></label></div></div>
+          </div>
+          <!-- Schleifen -->
+          <div class="cpane" data-p="schleifen">
+            <div class="fld"><label for="sA">Fläche <output id="sAo">32 m²</output></label><input type="range" id="sA" min="8" max="150" step="1" value="32"></div>
+            <div class="fld"><div class="fl">Zustand des Bodens</div><div class="chips" data-g="zustand">
+              <button class="chip" data-v="leicht">Leichte Kratzer</button><button class="chip on" data-v="mittel">Abgelaufen, grau</button><button class="chip" data-v="stark">Tiefe Schäden, Flecken</button></div></div>
+            <div class="fld"><div class="fl">Neue Oberfläche</div><div class="chips" data-g="ober">
+              <button class="chip on" data-v="oel">Naturöl</button><button class="chip" data-v="lack">Lack, matt</button><button class="chip" data-v="weiss">Weiß geölt</button></div></div>
+            <div class="fld"><div class="tg-row">
+              <label class="tgl"><span>Fugen kitten<small>bei Spalten zwischen den Stäben</small></span><input type="checkbox" id="sFug" checked><span class="sw2"></span></label>
+              <label class="tgl"><span>Möbel aus- und einräumen<small>wir kümmern uns darum</small></span><input type="checkbox" id="sMoe"><span class="sw2"></span></label></div></div>
+          </div>
+          <!-- Küche -->
+          <div class="cpane" data-p="kueche">
+            <div class="fld"><div class="fl">Form</div><div class="chips" data-g="form">
+              <button class="chip" data-v="zeile">Zeile</button><button class="chip on" data-v="l">L-Form</button><button class="chip" data-v="u">U-Form</button><button class="chip" data-v="insel">Mit Insel</button></div></div>
+            <div class="fld"><label for="kL">Schranklänge gesamt <output id="kLo">5,2 lfm</output></label><input type="range" id="kL" min="2" max="10" step="0.1" value="5.2"></div>
+            <div class="fld"><div class="fl">Fronten</div><div class="chips" data-g="front">
+              <button class="chip on" data-v="lack">Lack matt</button><button class="chip" data-v="furnier">Eiche furniert</button><button class="chip" data-v="massiv">Massivholz</button></div></div>
+            <div class="fld"><div class="fl">Arbeitsplatte</div><div class="chips" data-g="platte">
+              <button class="chip" data-v="hpl">Schichtstoff</button><button class="chip on" data-v="holz">Massivholz</button><button class="chip" data-v="keramik">Keramik</button></div></div>
+            <div class="fld"><div class="tg-row">
+              <label class="tgl"><span>Elektrogeräte mit liefern<small>Herd, Backofen, Spülmaschine, Kühlschrank</small></span><input type="checkbox" id="kGer"><span class="sw2"></span></label></div></div>
+          </div>
+          <!-- Möbel -->
+          <div class="cpane" data-p="moebel">
+            <div class="fld"><label for="mB">Breite <output id="mBo">2,4 m</output></label><input type="range" id="mB" min="0.6" max="5" step="0.1" value="2.4"></div>
+            <div class="fld"><label for="mH">Höhe <output id="mHo">2,5 m</output></label><input type="range" id="mH" min="1" max="3" step="0.05" value="2.5"></div>
+            <div class="fld"><div class="fl">Fronten</div><div class="chips" data-g="mfront">
+              <button class="chip on" data-v="lack">Lack weiß matt</button><button class="chip" data-v="furnier">Eiche furniert</button><button class="chip" data-v="massiv">Massivholz</button></div></div>
+            <div class="fld"><div class="tg-row">
+              <label class="tgl"><span>Dachschräge<small>Schrank folgt der Schräge</small></span><input type="checkbox" id="mSchr"><span class="sw2"></span></label>
+              <label class="tgl"><span>Schubladen &amp; Auszüge innen<small>statt nur Böden und Stange</small></span><input type="checkbox" id="mSch" checked><span class="sw2"></span></label>
+              <label class="tgl"><span>LED-Beleuchtung<small>schaltet beim Öffnen</small></span><input type="checkbox" id="mLed"><span class="sw2"></span></label></div></div>
+          </div>
+        </div>
+        <div class="cres">
+          <div class="viz" id="viz"><svg id="vizSvg" viewBox="0 0 400 300" aria-label="Vorschau"></svg><span class="cap" id="vizCap"></span></div>
+          <div class="price" aria-live="polite"><small>Ihr Preisrahmen inkl. Material &amp; Montage</small><div class="v" id="pr">–</div><p id="prSub">inkl. MwSt. · unverbindliche Schätzung</p></div>
+          <ul class="brk" id="brk"></ul>
+          <button class="btn btn-ink" id="toAsk" style="justify-content:center">Unverbindlich anfragen <span class="ar">→</span></button>
+        </div>
+      </div>
+      <!-- Anfrage -->
+      <div class="ask" id="ask">
+        <div class="ask-grid">
+          <div class="sum" id="sum"></div>
+          <form id="askForm" novalidate>
+            <div class="two"><input class="inp" name="name" placeholder="Ihr Name" required autocomplete="name"><input class="inp" name="tel" placeholder="Telefon" autocomplete="tel"></div>
+            <div class="two"><input class="inp" name="mail" type="email" placeholder="E-Mail" autocomplete="email"><input class="inp" name="ort" placeholder="PLZ / Ort" autocomplete="postal-code"></div>
+            <div class="fl" style="font-weight:600;font-size:.9rem;margin:.3rem 0 .6rem">Wunschtermin fürs Aufmaß (kostenlos)</div>
+            <div class="slots chips" id="slots" data-g="slot"></div>
+            <label class="drop" id="drop"><input type="file" accept="image/*" multiple id="files">📷 <b>Fotos vom Raum</b> hinzufügen – hilft uns beim Einschätzen<br><small>Ziehen oder tippen · bleiben in dieser Demo auf Ihrem Gerät</small></label>
+            <div class="thumbs" id="thumbs"></div>
+            <textarea class="inp" name="msg" rows="3" placeholder="Noch etwas, das wir wissen sollten? (optional)"></textarea>
+            <button class="btn btn-ink" type="submit" style="width:100%;justify-content:center">Anfrage senden <span class="ar">→</span></button>
+            <button type="button" class="back" id="back">← zurück zum Rechner</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJEKTE -->
+<section id="projekte">
+  <div class="wrap">
+    <div class="gal-head reveal">
+      <div><div class="lbl">04 — Projekte</div><h2 class="h2">Aus der Werkstatt<br>ins Haus.</h2></div>
+      <div class="filters" id="filters"><button class="on" data-f="alle">Alle</button><button data-f="boden">Böden</button><button data-f="kueche">Küchen</button><button data-f="moebel">Möbel &amp; Treppen</button></div>
+    </div>
+    <div class="gal reveal" id="gal"></div>
+  </div>
+</section>
+
+<!-- WERKSTATT -->
+<section id="werkstatt" style="background:var(--paper2)">
+  <div class="wrap ws-grid">
+    <div class="ws-pics reveal">
+      <img class="a" src="img/werkstatt.webp" alt="Blick in die Werkstatt mit Maschinen und Holzlager" loading="lazy">
+      <img class="b" src="img/meister.webp" alt="Schreiner prüft ein Brett" loading="lazy">
+      <div class="yr">1987<small>gegründet in Schopfheim</small></div>
+    </div>
+    <div class="reveal">
+      <div class="lbl">05 — Die Werkstatt</div>
+      <h2 class="h2">Zweite Generation.<br>Gleiche Sorgfalt.</h2>
+      <p class="lead">Mein Vater hat die Werkstatt 1987 mit einer Hobelbank und viel Mut eröffnet. Heute sind wir neun Leute – und bauen immer noch alles selbst, was wir einbauen. Das Holz kommt, wo es geht, aus dem Schwarzwald.</p>
+      <div class="vals">
+        <div><b>Festpreis nach Aufmaß</b><p>Was im Angebot steht, steht auf der Rechnung.</p></div>
+        <div><b>Ein Ansprechpartner</b><p>Vom Aufmaß bis zur Abnahme dieselbe Person.</p></div>
+        <div><b>Sauber hinterlassen</b><p>Staubschutz, Abdeckung, Endreinigung inklusive.</p></div>
+        <div><b>5 Jahre Gewährleistung</b><p>Auf alles, was aus unserer Werkstatt kommt.</p></div>
+      </div>
+      <div class="sig"><svg viewBox="0 0 160 50" aria-hidden="true"><path d="M5 35c10-20 18-28 22-24s-8 26-4 26 12-22 18-20-2 18 3 18 10-14 15-14-1 12 4 12 8-8 12-10 4 8 9 6 10-12 16-14 6 6 12 4 8-6 14-8" fill="none" stroke="#1D1B18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b style="color:var(--ink)">Lukas Brender</b><br>Schreinermeister &amp; Inhaber</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ TEAM ═════════ -->
+<section id="team">
+  <div class="wrap">
+    <div class="team-head reveal">
+      <div><div class="lbl">06 — Ihre Ansprechpartner</div><h2 class="h2">Menschen statt<br>Warteschleife.</h2></div>
+      <p class="lead">Sabine und Martin planen Ihr Projekt in der Arbeitsvorbereitung – vom ersten Gespräch über das Aufmaß bis zur Übergabe. Eine feste Person, die Ihr Zuhause kennt.</p>
+    </div>
+    <div class="tm-grid">
+      <article class="tm reveal">
+        <div class="tm-ph"><img src="img/team-sabine.webp" alt="Sabine Wehrle am Telefon" loading="lazy"><span class="tm-on" data-on><i></i><em>erreichbar</em></span></div>
+        <div class="tm-tx">
+          <h3>Sabine Wehrle</h3>
+          <div class="tm-role">Arbeitsvorbereitung · Küchen &amp; Möbel</div>
+          <p class="tm-q">Bringen Sie Ihren Grundriss und Ihre Wünsche mit – den Rest zeichnen wir gemeinsam. Meist steht der erste Entwurf nach einer Woche.“</p>
+          <div class="tm-tags"><span>Küchenplanung</span><span>Einbauschränke</span><span>Geräteauswahl</span></div>
+          <div class="tm-btns"><button class="btn btn-ink" data-book="0">Termin bei Sabine <span class="ar">→</span></button><a class="btn btn-line" href="#kontakt" onclick="return demoMsg('Telefon')">📞 Anrufen</a></div>
+        </div>
+      </article>
+      <article class="tm reveal">
+        <div class="tm-ph"><img src="img/team-martin.webp" alt="Martin Gersbach" loading="lazy"><span class="tm-on" data-on><i></i><em>erreichbar</em></span></div>
+        <div class="tm-tx">
+          <h3>Martin Gersbach</h3>
+          <div class="tm-role">Arbeitsvorbereitung · Böden &amp; Treppen</div>
+          <p class="tm-q">Ich schaue mir Ihren Boden vor Ort an und sage Ihnen ehrlich, ob Schleifen reicht oder ob ein neuer Boden sinnvoller ist.“</p>
+          <div class="tm-tags"><span>Parkett &amp; Dielen</span><span>Aufarbeitung</span><span>Treppen</span></div>
+          <div class="tm-btns"><button class="btn btn-ink" data-book="1">Termin bei Martin <span class="ar">→</span></button><a class="btn btn-line" href="#kontakt" onclick="return demoMsg('Telefon')">📞 Anrufen</a></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="book reveal" id="book">
+      <div>
+        <div class="lbl">Beratungstermin buchen</div>
+        <h3>In zwei Minuten<br>zum Termin.</h3>
+        <p>Kostenlos und unverbindlich – in unserer Ausstellung, bei Ihnen zu Hause oder per Video. Sie bekommen sofort eine Bestätigung.</p>
+        <div class="who" id="who">
+          <button data-p="0" class="on"><img src="img/av-sabine.webp" alt="">Sabine</button>
+          <button data-p="1"><img src="img/av-martin.webp" alt="">Martin</button>
+        </div>
+      </div>
+      <form id="bkForm" novalidate>
+        <div class="bk-step"><b>1 · Wie?</b><div class="bk-row" id="bkArt">
+          <button type="button" class="on" data-v="Ausstellung Schopfheim">🪵 Ausstellung<small>Holzmuster live</small></button>
+          <button type="button" data-v="Vor Ort bei Ihnen">🏠 Bei Ihnen<small>inkl. Aufmaß</small></button>
+          <button type="button" data-v="Videoberatung">💻 Video<small>30 Minuten</small></button></div></div>
+        <div class="bk-step"><b>2 · Wann?</b><div class="bk-row" id="bkDay"></div></div>
+        <div class="bk-step"><b>3 · Uhrzeit</b><div class="bk-row" id="bkTime"></div></div>
+        <div class="bk-step"><b>4 · Ihre Daten</b><div class="bk-form">
+          <input name="name" placeholder="Ihr Name" autocomplete="name"><input name="tel" placeholder="Telefon" autocomplete="tel" inputmode="tel">
+          <button class="btn btn-oak" type="submit">Termin buchen <span class="ar">→</span></button></div>
+          <div class="bk-sum" id="bkSum"></div></div>
+      </form>
+    </div>
+
+    <div class="crew reveal">
+      <div class="crew-tx"><b>7 + 2</b><p>Schreiner und Azubis in der Werkstatt setzen um, was Sabine und Martin mit Ihnen planen – alles unter einem Dach in Schopfheim.</p></div>
+      <img src="img/crew-1.webp" alt="Schreiner fräst ein Werkstück" loading="lazy">
+      <img src="img/crew-2.webp" alt="Feinarbeit mit dem Stecheisen" loading="lazy">
+      <img src="img/crew-3.webp" alt="Schleifen einer Eichenplatte" loading="lazy">
+    </div>
+  </div>
+</section>
+
+
+<!-- ABLAUF -->
+<section id="ablauf">
+  <div class="wrap">
+    <div class="reveal"><div class="lbl">07 — So läuft's</div><h2 class="h2">Vom Anruf bis zum<br>ersten Barfuß-Schritt.</h2></div>
+    <div class="steps reveal">
+      <div class="step"><div class="nm">01</div><h3>Anfrage</h3><p>Über den Rechner, per Telefon oder WhatsApp. Gern mit Fotos.</p><span class="t">innerhalb 24 h Antwort</span></div>
+      <div class="step"><div class="nm">02</div><h3>Aufmaß vor Ort</h3><p>Wir messen, zeigen Holzmuster und beraten – kostenlos im Umkreis von 30 km.</p><span class="t">ca. 1 Stunde</span></div>
+      <div class="step"><div class="nm">03</div><h3>Festpreis-Angebot</h3><p>Schriftlich, verständlich, ohne Sternchen. Mit Termin für den Einbau.</p><span class="t">nach 3 Werktagen</span></div>
+      <div class="step"><div class="nm">04</div><h3>Einbau &amp; Abnahme</h3><p>Pünktlich, sauber, mit Endreinigung. Sie zahlen erst nach der Abnahme.</p><span class="t">Termin garantiert</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EINZUGSGEBIET -->
+<section class="area" id="gebiet">
+  <div class="wrap area-grid">
+    <div class="reveal">
+      <div class="lbl">08 — Einzugsgebiet</div>
+      <h2 class="h2">Kommen wir<br>auch zu Ihnen?</h2>
+      <p class="lead">Geben Sie Ihren Ort ein. Im Dreiland sind wir zu Hause – und arbeiten auch in der Nordwestschweiz, inklusive Zollabwicklung.</p>
+      <div class="ort"><input class="inp" id="ortIn" placeholder="z. B. Lörrach oder 79650" autocomplete="off" aria-label="Ort oder PLZ"><ul class="sugg" id="sugg"></ul></div>
+      <div class="ans" id="ans"></div>
+    </div>
+    <div class="map reveal"><svg id="map" viewBox="0 0 440 374" aria-label="Karte des Einzugsgebiets"></svg></div>
+  </div>
+</section>
+
+<!-- STIMMEN -->
+<section id="stimmen">
+  <div class="wrap">
+    <div class="reveal"><div class="lbl">09 — Kundenstimmen</div><h2 class="h2">4,9 von 5 Sternen.</h2></div>
+    <div class="quotes reveal">
+      <article class="q"><div class="st">★★★★★</div><p>„Unser 70 Jahre altes Fischgrät sieht aus wie neu. Pünktlich, sauber, und am Ende war der Preis genau der aus dem Angebot.“</p><footer><b>Familie R.</b>Lörrach-Stetten · Boden aufarbeiten</footer></article>
+      <article class="q"><div class="st">★★★★★</div><p>„Der Schrank unter der Dachschräge war unser Sorgenkind. Jetzt ist es das schönste Möbel im Haus – und es passt auf den Millimeter.“</p><footer><b>Sandra K.</b>Maulburg · Einbauschrank</footer></article>
+      <article class="q"><div class="st">★★★★★</div><p>„Küche geplant, gebaut und eingebaut, alles aus einer Hand. Die Anfrage über den Rechner hat zwei Minuten gedauert.“</p><footer><b>Thomas &amp; Mia B.</b>Riehen (CH) · Küche</footer></article>
+    </div>
+    <p class="qnote">Beispiel-Bewertungen für diese Demo-Seite.</p>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="contact" id="kontakt">
+  <div class="wrap c-grid">
+    <div class="reveal">
+      <div class="lbl">10 — Kontakt</div>
+      <h2>Lassen Sie uns<br><em>messen.</em></h2>
+      <p class="lead">Rufen Sie an, schreiben Sie per WhatsApp oder nutzen Sie den Rechner. Das Aufmaß im Umkreis von 30 km ist kostenlos.</p>
+      <div class="c-people"><span><img src="img/av-sabine.webp" alt=""><img src="img/av-martin.webp" alt=""></span>Sabine und Martin freuen sich auf Ihre Nachricht.</div>
+      <div class="c-btns">
+        <a class="btn btn-oak" href="#rechner">Preis berechnen <span class="ar">→</span></a>
+        <a class="btn btn-lp" href="#kontakt" onclick="return demoMsg('Telefon')">📞 07622 / 00 00 00</a>
+        <a class="btn btn-lp" href="#kontakt" onclick="return demoMsg('WhatsApp')">WhatsApp</a>
+      </div>
+    </div>
+    <div class="reveal">
+      <ul class="hours" id="hours"></ul>
+      <p class="addr">Holzwerkstatt Sonnhalde · Am Sägebach 7 · 79650 Schopfheim<br>Ausstellung mit Holzmustern: Sa 9–12 Uhr oder nach Termin</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="f">
+  <div class="wrap">
+    <p><b style="color:rgba(243,238,229,.85)">Demo-Webseite</b> – die Holzwerkstatt Sonnhalde ist frei erfunden. Gestaltung &amp; Umsetzung: <a href="/">Yves Claudio Blischke · ycblischke.de</a></p>
+    <p id="credits"></p>
+  </div>
+</footer>
+
+<div class="demo" id="demo"><span>✦ Demo-Webseite<span class="long"> – gebaut von Yves Claudio Blischke</span></span><a href="/#kontakt">Auch so eine Seite?</a><button class="x" id="demoX" aria-label="Hinweis ausblenden">×</button></div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Bildansicht"><button class="x" aria-label="Schließen">×</button><button class="pv" aria-label="Vorheriges Bild">‹</button><img alt=""><button class="nx" aria-label="Nächstes Bild">›</button><p></p></div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="So kommt die Anfrage an">
+  <div class="mail">
+    <div class="mail-ok">✓ Demo: Die Anfrage wurde nicht wirklich verschickt. So käme sie beim Betrieb an:</div>
+    <div class="mail-top" id="mailTop"></div>
+    <div class="mail-body" id="mailBody"></div>
+    <div class="mail-foot"><span>Alle Angaben strukturiert – kein Nachfragen nötig.</span><button class="btn btn-ink" id="mailX" style="padding:.6rem 1.1rem">Schließen</button></div>
+  </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const eur=n=>n.toLocaleString('de-DE',{maximumFractionDigits:0})+' €';
+const r50=n=>Math.round(n/50)*50;
+const dez=(n,d=1)=>n.toLocaleString('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d});
+
+/* ── Navigation, Maßband ── */
+const nav=$('#nav');
+$('#burger').onclick=()=>{const o=nav.classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)};
+$$('#links a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+function onScroll(){const h=document.documentElement,p=h.scrollTop/(h.scrollHeight-h.clientHeight);
+  $('#tapeFill').style.width=(p*100)+'%';nav.classList.toggle('solid',h.scrollTop>30)}
+let tk=false;addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(()=>{onScroll();tk=false})}},{passive:true});onScroll();
+
+/* ── Öffnungszeiten & nächster Aufmaß-Termin ── */
+const HOURS=[null,[7,17],[7,17],[7,17],[7,17],[7,15],[9,12]]; // So..Sa
+const DAYS=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+const now=new Date(),wd=now.getDay(),hr=now.getHours()+now.getMinutes()/60;
+const open=HOURS[wd]&&hr>=HOURS[wd][0]&&hr<HOURS[wd][1];
+function nextSlots(n){const out=[];const d=new Date();d.setDate(d.getDate()+2);
+  while(out.length<n){if(d.getDay()>0&&d.getDay()<6)out.push(new Date(d));d.setDate(d.getDate()+1)}return out}
+const fmtD=d=>d.toLocaleDateString('de-DE',{weekday:'short',day:'numeric',month:'numeric'});
+$('#badgeT').textContent=open?`Werkstatt geöffnet bis ${HOURS[wd][1]} Uhr`:'Werkstatt gerade geschlossen';
+if(!open)$('#badge').classList.add('closed');
+$('#badgeS').textContent='Nächster freier Aufmaß-Termin: '+fmtD(nextSlots(1)[0]);
+$('#hours').innerHTML=[1,2,3,4,5,6,0].map(i=>`<li class="${i===wd?'today':''}"><span>${DAYS[i]}${i===wd?' · heute':''}</span><span>${HOURS[i]?HOURS[i][0]+' – '+HOURS[i][1]+' Uhr':'geschlossen'}${i===6?' (Ausstellung)':''}</span></li>`).join('');
+
+/* ── Laufband ── */
+const BAND=['Parkett','Massivholzküchen','Einbauschränke','Treppen','Dielen aufarbeiten','Dachschrägen','Holz aus dem Schwarzwald','Festpreis nach Aufmaß'];
+$('#band').innerHTML=[...BAND,...BAND].map(t=>`<span>${t}</span>`).join('');
+
+/* ── Zähler & Reveal ── */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+$$('.reveal').forEach(el=>io.observe(el));
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;cio.unobserve(e.target);
+  const el=e.target,end=+el.dataset.count,suf=el.dataset.suffix||'',t0=performance.now();
+  (function f(t){const k=Math.min(1,(t-t0)/1700),v=Math.round(end*(1-Math.pow(1-k,4)));el.textContent=v.toLocaleString('de-DE')+suf;if(k<1)requestAnimationFrame(f)})(t0)}),{threshold:.5});
+$$('[data-count]').forEach(el=>cio.observe(el));
+
+/* ── Leistungen: schwebendes Bild + Sprung in den Rechner ── */
+const fl=$('#float');
+$$('#svc button').forEach(b=>{const im=new Image();im.src=b.dataset.img;im.alt='';fl.appendChild(im);b._im=im;
+  b.addEventListener('mouseenter',()=>{fl.classList.add('on');$$('#float img').forEach(x=>x.classList.toggle('on',x===im))});
+  b.addEventListener('mouseleave',()=>fl.classList.remove('on'));
+  b.addEventListener('click',()=>{setTab(b.dataset.tab);$('#rechner').scrollIntoView({behavior:'smooth'})})});
+addEventListener('mousemove',e=>{
+  /* Bild bleibt im Textbereich: nie über den Pfeil-Knöpfen rechts */
+  const L=$('#svc').getBoundingClientRect().left,R=$('#svc .go').getBoundingClientRect().left-24,hw=fl.offsetWidth/2;
+  fl.style.left=Math.max(L+hw,Math.min(R-hw,e.clientX))+'px';fl.style.top=e.clientY+'px'},{passive:true});
+
+/* ── Vorher/Nachher ── */
+const BA=[['fischgraet','Fischgrät'],['flur','Flur'],['dielen','Dielen']];
+const cmp=$('#cmp'),cr=$('#cmpR');
+const setP=v=>{cmp.style.setProperty('--p',v+'%');cr.value=v};
+let peekId=0,drag=false;
+cr.addEventListener('input',()=>{peekId++;setP(cr.value)});
+const fromX=x=>{const r=cmp.getBoundingClientRect();setP(Math.round(Math.max(0,Math.min(100,(x-r.left)/r.width*100))*10)/10)};
+cmp.addEventListener('pointerdown',e=>{peekId++;drag=true;cmp.setPointerCapture(e.pointerId);fromX(e.clientX)});
+cmp.addEventListener('pointermove',e=>{if(drag)fromX(e.clientX)});
+['pointerup','pointercancel'].forEach(n=>cmp.addEventListener(n,()=>drag=false));
+$$('#baTabs .ba-tab').forEach(t=>t.onclick=()=>{$$('#baTabs .ba-tab').forEach(x=>x.classList.toggle('on',x===t));
+  const [k]=BA[t.dataset.i];$('#cmpA').src=`img/${k}-nachher.webp`;$('#cmpB').src=`img/${k}-vorher.webp`;peek()});
+BA.forEach(([k])=>{new Image().src=`img/${k}-vorher.webp`;new Image().src=`img/${k}-nachher.webp`});
+function peek(){const seq=[[50,0],[78,500],[22,1100],[50,1700]];let i=0;const id=++peekId;
+  const t0=performance.now();(function f(t){if(id!==peekId)return;const el=t-t0;while(i<seq.length-1&&el>seq[i+1][1])i++;
+    if(i>=seq.length-1){setP(50);return}const [a,ta]=seq[i],[b,tb]=seq[i+1],k=(el-ta)/(tb-ta),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+    setP(a+(b-a)*e);requestAnimationFrame(f)})(t0)}
+new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();setTimeout(peek,400)}},{threshold:.6}).observe(cmp);
+
+/* ── Rechner ── */
+const S={tab:'parkett',muster:'diele',holz:'eiche',zustand:'mittel',ober:'oel',form:'l',front:'lack',platte:'holz',mfront:'lack',slot:null};
+$$('.chips[data-g]').forEach(g=>g.addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;
+  $$(`.chips[data-g="${g.dataset.g}"] .chip`).forEach(x=>x.classList.toggle('on',x===c));S[g.dataset.g]=c.dataset.v;calc()}));
+$$('.cform input').forEach(i=>i.addEventListener('input',calc));
+function setTab(t){S.tab=t;$$('.ctab').forEach(x=>x.classList.toggle('on',x.dataset.t===t));
+  $$('.cpane').forEach(p=>p.classList.toggle('on',p.dataset.p===t));$('#calcBox').classList.remove('asking');calc()}
+$$('.ctab').forEach(b=>b.onclick=()=>setTab(b.dataset.t));
+const val=id=>+$('#'+id).value, on=id=>$('#'+id).checked;
+function fillTrack(i){const k=(i.value-i.min)/(i.max-i.min)*100;i.style.setProperty('--f',k+'%')}
+
+const WOOD={eiche:['Eiche',[201,160,106],1],esche:['Esche',[226,205,166],.95],raeucher:['Räuchereiche',[104,74,50],1.15],nuss:['Nussbaum',[122,83,56],1.35]};
+const MUSTER={diele:['Landhausdiele',75,110],schiff:['Schiffsboden',65,95],fisch:['Fischgrät',115,165],wuerfel:['Würfel',95,135]};
+let last=null;
+function calc(){
+  $$('.cform input[type=range]').forEach(fillTrack);
+  let lo=0,hi=0,rows=[],title='',sumRows=[];
+  const add=(name,a,b,dim)=>{lo+=a;hi+=b;rows.push([name,a,b,dim])};
+  if(S.tab==='parkett'){
+    const L=val('pL'),B=val('pB'),A=L*B,U=2*(L+B);
+    $('#pLo').textContent=dez(L)+' m';$('#pBo').textContent=dez(B)+' m';$('#pUmf').textContent=`Umfang ca. ${Math.round(U)} m`;
+    const [mn,a,b]=MUSTER[S.muster],[wn,,f]=WOOD[S.holz];
+    add(`${mn}, ${wn} · ${dez(A)} m²`,A*a*f,A*b*f);
+    if(on('pAlt'))add('Alten Belag entfernen & entsorgen',A*12,A*18);
+    if(on('pSock'))add(`Sockelleisten · ${Math.round(U)} m`,U*14,U*21);
+    if(on('pAus'))add('Untergrund ausgleichen',A*15,A*25);
+    add('Anfahrt & Baustellenschutz',90,160,1);
+    title=`${mn} in ${wn}, ${dez(A)} m²`;sumRows=[['Leistung','Parkett verlegen'],['Raum',`${dez(L)} × ${dez(B)} m = ${dez(A)} m²`],['Muster',mn],['Holz',wn]];
+    drawFloor(L,B);$('#vizCap').textContent=`Draufsicht · ${dez(L)} × ${dez(B)} m`;
+  }else if(S.tab==='schleifen'){
+    const A=val('sA');$('#sAo').textContent=A+' m²';
+    const z={leicht:['leichte Kratzer',26,34],mittel:['abgelaufen',34,44],stark:['tiefe Schäden',44,58]}[S.zustand];
+    const o={oel:['Naturöl',0,0],lack:['Lack matt',3,6],weiss:['weiß geölt',4,7]}[S.ober];
+    add(`Schleifen (${z[0]}) · ${A} m²`,A*z[1],A*z[2]);add(`Oberfläche: ${o[0]}`,A*(8+o[1]),A*(11+o[2]));
+    if(on('sFug'))add('Fugen kitten',A*6,A*9);if(on('sMoe'))add('Möbel aus- und einräumen',180,320);
+    add('Anfahrt & Staubschutz',90,160,1);
+    title=`Boden aufarbeiten, ${A} m²`;sumRows=[['Leistung','Boden schleifen & versiegeln'],['Fläche',A+' m²'],['Zustand',z[0]],['Oberfläche',o[0]]];
+    drawSand(A);$('#vizCap').textContent=`${A} m² · ca. ${A<35?2:A<80?3:4} Tage`;
+  }else if(S.tab==='kueche'){
+    const L=val('kL');$('#kLo').textContent=dez(L)+' lfm';
+    const fr={lack:['Lack matt',1500,2100],furnier:['Eiche furniert',2000,2700],massiv:['Massivholz',2700,3500]}[S.front];
+    const pl={hpl:['Schichtstoff',110,170],holz:['Massivholz',330,480],keramik:['Keramik',650,950]}[S.platte];
+    const fo={zeile:['Zeile',0,0,0],l:['L-Form',1,0,0],u:['U-Form',2,0,0],insel:['mit Insel',1,1,0]}[S.form];
+    add(`Korpusse & Fronten (${fr[0]}) · ${dez(L)} lfm`,L*fr[1],L*fr[2]);
+    add(`Arbeitsplatte ${pl[0]}`,L*.75*pl[1],L*.75*pl[2]);
+    if(fo[1])add(`Eckverbindung${fo[1]>1?'en':''}`,fo[1]*450,fo[1]*700);
+    if(fo[2])add('Kochinsel mit Arbeitsplatte',3800,5600);
+    if(on('kGer'))add('Elektrogeräte (Markengeräte)',3200,6500);
+    add('Lieferung, Montage, Anschlüsse',900,1400,1);
+    title=`Küche ${fo[0]}, ${fr[0]}`;sumRows=[['Leistung','Küche nach Maß'],['Form',fo[0]],['Länge',dez(L)+' lfm'],['Fronten',fr[0]],['Arbeitsplatte',pl[0]],['Geräte',on('kGer')?'mit liefern':'eigene/später']];
+    drawKitchen(S.form,L);$('#vizCap').textContent=`Draufsicht · ${fo[0]}`;
+  }else{
+    const B=val('mB'),H=val('mH'),A=B*H;$('#mBo').textContent=dez(B)+' m';$('#mHo').textContent=dez(H,2)+' m';
+    const fr={lack:['Lack weiß matt',620,820],furnier:['Eiche furniert',820,1080],massiv:['Massivholz',1080,1380]}[S.mfront];
+    let f=on('mSchr')?1.18:1;
+    add(`Schrank ${fr[0]} · ${dez(A)} m² Front`,A*fr[1]*f,A*fr[2]*f);
+    if(on('mSchr'))rows[0][0]+=' (Schräge)';
+    if(on('mSch'))add('Schubladen & Auszüge',Math.ceil(B/0.6)*160,Math.ceil(B/0.6)*240);
+    if(on('mLed'))add('LED-Beleuchtung mit Sensor',260,420);
+    add('Lieferung & Montage',350,600,1);
+    title=`Einbauschrank ${dez(B)} × ${dez(H,2)} m`;sumRows=[['Leistung','Einbauschrank nach Maß'],['Maße',`${dez(B)} × ${dez(H,2)} m`],['Fronten',fr[0]],['Dachschräge',on('mSchr')?'ja':'nein']];
+    drawWardrobe(B,H);$('#vizCap').textContent=`Ansicht · ${Math.max(1,Math.round(B/0.6))} Türen`;
+  }
+  lo=r50(lo);hi=r50(hi);
+  animPrice(lo,hi);
+  $('#brk').innerHTML=rows.map(([n,a,b])=>`<li><span>${n}</span><span>${eur(r50(a))} – ${eur(r50(b))}</span></li>`).join('');
+  last={title,lo,hi,sumRows};
+}
+let pa={lo:0,hi:0},praf;
+function animPrice(lo,hi){cancelAnimationFrame(praf);const f0={...pa},t0=performance.now();
+  (function f(t){const k=Math.min(1,(t-t0)/450),e=1-Math.pow(1-k,3);pa={lo:f0.lo+(lo-f0.lo)*e,hi:f0.hi+(hi-f0.hi)*e};
+    $('#pr').textContent=`${eur(r50(pa.lo))} – ${eur(r50(pa.hi))}`;if(k<1)praf=requestAnimationFrame(f)})(t0)}
+
+/* Zeichnungen */
+const NS='http://www.w3.org/2000/svg';
+function rnd(seed){return()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646}}
+function shade([r,g,b],j){return`rgb(${Math.max(0,Math.min(255,r+j))},${Math.max(0,Math.min(255,g+j*.85))},${Math.max(0,Math.min(255,b+j*.7))})`}
+function drawFloor(L,B){
+  const svg=$('#vizSvg'),W=400,H=300,pad=28,sc=Math.min((W-2*pad)/L,(H-2*pad)/B),rw=L*sc,rh=B*sc,x0=(W-rw)/2,y0=(H-rh)/2;
+  const col=WOOD[S.holz][1],R=rnd(7),cm=sc/100;let s='';
+  const bw=Math.max(5,(S.muster==='diele'?19:S.muster==='schiff'?14:9)*cm*1.6);
+  if(S.muster==='diele'||S.muster==='schiff'){
+    const len=(S.muster==='diele'?220:110)*cm*1.6;let row=0;
+    for(let y=0;y<rh+bw;y+=bw,row++){let x=-(S.muster==='schiff'?(row%3)*len/3:R()*len);
+      while(x<rw){const l=S.muster==='diele'?len*(.6+R()*.4):len;s+=`<rect x="${x0+x}" y="${y0+y}" width="${l}" height="${bw}" fill="${shade(col,(R()-.5)*34)}" stroke="rgba(0,0,0,.18)" stroke-width=".6"/>`;x+=l}}
+  }else if(S.muster==='fisch'){
+    const w=bw,l=w*5,cx=x0+rw/2,cy=y0+rh/2,n=Math.ceil((rw+rh)/w)+12;let g='';
+    for(let m=-Math.ceil(n/5)-4;m<=Math.ceil(n/5)+4;m++)for(let k=-n;k<=n;k++){const ox=k*w-m*l,oy=k*w+m*l;
+      if(Math.abs(ox-oy)>rw+rh+2*l&&0)continue;
+      g+=`<rect x="${ox}" y="${oy}" width="${l}" height="${w}" fill="${shade(col,(R()-.5)*34)}" stroke="rgba(0,0,0,.2)" stroke-width=".6"/>`+
+         `<rect x="${ox}" y="${oy+w}" width="${w}" height="${l}" fill="${shade(col,(R()-.5)*34)}" stroke="rgba(0,0,0,.2)" stroke-width=".6"/>`}
+    s+=`<g transform="translate(${cx} ${cy}) rotate(-45)">${g}</g>`;
+  }else{
+    const t=bw*3;for(let y=0,j=0;y<rh;y+=t,j++)for(let x=0,i=0;x<rw;x+=t,i++){const hz=(i+j)%2;
+      for(let q=0;q<3;q++){s+=hz?`<rect x="${x0+x}" y="${y0+y+q*bw}" width="${t}" height="${bw}" fill="${shade(col,(R()-.5)*34)}" stroke="rgba(0,0,0,.2)" stroke-width=".6"/>`
+        :`<rect x="${x0+x+q*bw}" y="${y0+y}" width="${bw}" height="${t}" fill="${shade(col,(R()-.5)*34)}" stroke="rgba(0,0,0,.2)" stroke-width=".6"/>`}}
+  }
+  svg.innerHTML=`<defs><clipPath id="room"><rect x="${x0}" y="${y0}" width="${rw}" height="${rh}"/></clipPath></defs>
+  <g clip-path="url(#room)">${s}</g><rect x="${x0}" y="${y0}" width="${rw}" height="${rh}" fill="none" stroke="#1D1B18" stroke-width="4"/>
+  ${on('pSock')?`<rect x="${x0+3}" y="${y0+3}" width="${rw-6}" height="${rh-6}" fill="none" stroke="${shade(col,-25)}" stroke-width="3"/>`:''}
+  <g font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#8A8277" text-anchor="middle">
+  <line x1="${x0}" y1="${y0-12}" x2="${x0+rw}" y2="${y0-12}" stroke="#8A8277"/><text x="${x0+rw/2}" y="${y0-16}">${dez(L)} m</text>
+  <line x1="${x0-12}" y1="${y0}" x2="${x0-12}" y2="${y0+rh}" stroke="#8A8277"/><text x="${x0-16}" y="${y0+rh/2}" transform="rotate(-90 ${x0-16} ${y0+rh/2})">${dez(B)} m</text></g>`;
+}
+function drawSand(A){
+  const svg=$('#vizSvg'),z=S.zustand,o=S.ober;const old={leicht:[150,112,70],mittel:[128,100,72],stark:[110,80,52]}[z];
+  const nw={oel:[205,160,105],lack:[214,176,124],weiss:[232,218,196]}[o];const R=rnd(3);let a='',b='';
+  for(let y=30;y<270;y+=14)for(let x=20,i=0;x<380;i++){const l=60+R()*70;a+=`<rect x="${x}" y="${y}" width="${l}" height="14" fill="${shade(old,(R()-.5)*30)}" stroke="rgba(0,0,0,.25)" stroke-width=".6"/>`;
+    b+=`<rect x="${x}" y="${y}" width="${l}" height="14" fill="${shade(nw,(R()-.5)*22)}" stroke="rgba(0,0,0,.15)" stroke-width=".6"/>`;x+=l}
+  let sc='';for(let i=0;i<({leicht:14,mittel:30,stark:55}[z]);i++){const x=30+R()*330,y=40+R()*220;sc+=`<line x1="${x}" y1="${y}" x2="${x+10+R()*30}" y2="${y+(R()-.5)*14}" stroke="rgba(40,25,15,.5)" stroke-width="${R()*1.4+.4}"/>`}
+  svg.innerHTML=`<defs><clipPath id="cl"><rect x="20" y="30" width="180" height="240"/></clipPath><clipPath id="cr"><rect x="200" y="30" width="180" height="240"/></clipPath></defs>
+  <g clip-path="url(#cl)">${a}${sc}</g><g clip-path="url(#cr)">${b}</g>
+  <line x1="200" y1="22" x2="200" y2="278" stroke="#1D1B18" stroke-width="2"/>
+  <g font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#8A8277"><text x="24" y="20">VORHER</text><text x="376" y="20" text-anchor="end">NACHHER</text></g>`;
+}
+function drawKitchen(f,L){
+  const svg=$('#vizSvg'),d=34,c=S.front==='lack'?'#ECE7DE':S.front==='furnier'?'#C9A06A':'#A87545',top=S.platte==='hpl'?'#BDB6AA':S.platte==='holz'?'#B98A55':'#5D5A55';
+  const u=Math.min(58,290/L);let s='';const x0=50,y0=40,len=Math.min(300,L*u);
+  const run=(x,y,w,h)=>{s+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${top}" stroke="#1D1B18" stroke-width="1.5"/>`;
+    const n=Math.max(1,Math.round((w>h?w:h)/26));for(let i=1;i<n;i++)s+=w>h?`<line x1="${x+i*w/n}" y1="${y+h-6}" x2="${x+i*w/n}" y2="${y+h}" stroke="#1D1B18" stroke-width=".8"/>`:`<line x1="${x+w-6}" y1="${y+i*h/n}" x2="${x+w}" y2="${y+i*h/n}" stroke="#1D1B18" stroke-width=".8"/>`;
+    s+=w>h?`<rect x="${x}" y="${y+h-5}" width="${w}" height="5" fill="${c}" opacity=".95"/>`:`<rect x="${x+w-5}" y="${y}" width="5" height="${h}" fill="${c}" opacity=".95"/>`};
+  if(f==='zeile'){run(x0,y0+20,len,d)}
+  else if(f==='l'||f==='insel'){const a=len*.62,b=Math.max(d+30,len*.38+d);run(x0,y0,a,d);run(x0,y0+d,d,b);
+    if(f==='insel')s+=`<rect x="${x0+90}" y="${y0+110}" width="150" height="62" rx="3" fill="${top}" stroke="#1D1B18" stroke-width="1.5"/><rect x="${x0+90}" y="${y0+110}" width="150" height="6" fill="${c}"/>`}
+  else{const a=len*.44,b=len*.28+d;run(x0,y0,a,d);run(x0,y0+d,d,b);run(x0+a-d,y0+d,d,b)}
+  s+=`<circle cx="${x0+60}" cy="${y0+17}" r="8" fill="none" stroke="#1D1B18" stroke-width="1.2"/><circle cx="${x0+80}" cy="${y0+17}" r="8" fill="none" stroke="#1D1B18" stroke-width="1.2"/>`;
+  svg.innerHTML=`<rect x="20" y="15" width="360" height="270" fill="none" stroke="#D8D0C2" stroke-dasharray="4 4"/>${s}<text x="380" y="280" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#8A8277">${dez(L)} lfm</text>`;
+}
+function drawWardrobe(B,H){
+  const svg=$('#vizSvg'),sc=Math.min(320/B,230/H),w=B*sc,h=H*sc,x0=(400-w)/2,y0=275-h,n=Math.max(1,Math.round(B/0.6)),c=S.mfront==='lack'?'#F4F1EA':S.mfront==='furnier'?'#C9A06A':'#A87545';
+  const sl=on('mSchr');let p=sl?`M${x0} ${y0+h} V${y0} H${x0+w*.45} L${x0+w} ${y0+h*.55} V${y0+h} Z`:`M${x0} ${y0+h} V${y0} H${x0+w} V${y0+h} Z`;
+  let doors='';for(let i=1;i<n;i++)doors+=`<line x1="${x0+i*w/n}" y1="${y0}" x2="${x0+i*w/n}" y2="${y0+h}" stroke="#1D1B18" stroke-width="1.2"/>`;
+  for(let i=0;i<n;i++){const cx=x0+(i+.5)*w/n+(i%2?-1:1)*(w/n*.38);doors+=`<rect x="${cx-1.5}" y="${y0+h*.62}" width="3" height="${Math.min(30,h*.12)}" rx="1.5" fill="#1D1B18" opacity=".6"/>`}
+  const led=on('mLed')?`<rect x="${x0}" y="${y0-4}" width="${w}" height="3" fill="#FFD27A" opacity=".9"/>`:'';
+  svg.innerHTML=`<defs><clipPath id="wc"><path d="${p}"/></clipPath></defs>
+  ${sl?`<path d="M${x0+w*.45-20} ${y0-14} L${x0+w+20} ${y0+h*.55+28}" stroke="#D8D0C2" stroke-width="10"/>`:''}
+  <path d="${p}" fill="${c}" stroke="#1D1B18" stroke-width="2"/><g clip-path="url(#wc)">${doors}</g>${led}
+  <line x1="20" y1="276" x2="380" y2="276" stroke="#1D1B18" stroke-width="1.5"/>
+  <g font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#8A8277" text-anchor="middle"><text x="${x0+w/2}" y="292">${dez(B)} m</text><text x="${x0-12}" y="${y0+h/2}" transform="rotate(-90 ${x0-12} ${y0+h/2})">${dez(H,2)} m</text></g>`;
+}
+
+/* Anfrage */
+const slots=nextSlots(4);
+$('#slots').innerHTML=slots.map((d,i)=>`<button type="button" class="chip${i===0?' on':''}" data-v="${fmtD(d)}">${fmtD(d)}<small style="color:var(--mute)">${i%2?'14 Uhr':'9 Uhr'}</small></button>`).join('');
+S.slot=fmtD(slots[0])+' 9 Uhr';
+$('#slots').addEventListener('click',e=>{const c=e.target.closest('.chip');if(c)S.slot=c.textContent.replace(/(\d+ Uhr)$/,' $1')});
+$('#toAsk').onclick=()=>{calc();$('#sum').innerHTML=`<h4>${last.title}</h4><p style="font-family:Bricolage;font-size:1.6rem;font-weight:700;letter-spacing:-.02em">${eur(last.lo)} – ${eur(last.hi)}</p><p style="color:var(--mute);font-size:.8rem;margin-bottom:.8rem">Preisrahmen aus dem Rechner</p>`+
+  `<table style="width:100%;font-size:.86rem;border-collapse:collapse">${last.sumRows.map(([a,b])=>`<tr><td style="color:var(--mute);padding:.3rem 0">${a}</td><td style="text-align:right">${b}</td></tr>`).join('')}</table>
+  <p style="margin-top:1rem;font-size:.82rem;color:var(--ink2)">Nach dem Aufmaß bekommen Sie einen <b>Festpreis</b>. Das Aufmaß ist kostenlos.</p>`;
+  $('#calcBox').classList.add('asking');$('#calcBox').scrollIntoView({behavior:'smooth',block:'start'})};
+$('#back').onclick=()=>$('#calcBox').classList.remove('asking');
+const files=[];const drop=$('#drop');
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over')}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',e=>addFiles(e.dataTransfer.files));$('#files').onchange=e=>addFiles(e.target.files);
+function addFiles(fs){[...fs].filter(f=>f.type.startsWith('image/')).slice(0,6-files.length).forEach(f=>{files.push(f);const u=URL.createObjectURL(f);$('#thumbs').insertAdjacentHTML('beforeend',`<img src="${u}" alt="">`)})}
+$('#askForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);const nm=(f.get('name')||'').trim();
+  if(!nm){e.target.name.focus();e.target.name.style.borderColor='#C0392B';return}
+  $('#mailTop').innerHTML=`<b>Von:</b> Website-Formular &lt;anfrage@holzwerkstatt-sonnhalde.de&gt;<br><b>Betreff:</b> Neue Anfrage: ${last.title}<br><b>Eingang:</b> ${new Date().toLocaleString('de-DE',{dateStyle:'medium',timeStyle:'short'})}`;
+  const esc=s=>String(s||'–').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  $('#mailBody').innerHTML=`<p>Neue Anfrage über den Angebotsrechner:</p><table>
+   <tr><td>Kunde</td><td><b>${esc(nm)}</b></td></tr><tr><td>Telefon</td><td>${esc(f.get('tel'))}</td></tr><tr><td>E-Mail</td><td>${esc(f.get('mail'))}</td></tr><tr><td>Ort</td><td>${esc(f.get('ort'))}</td></tr>
+   ${last.sumRows.map(([a,b])=>`<tr><td>${a}</td><td>${b}</td></tr>`).join('')}
+   <tr><td>Preisrahmen gezeigt</td><td><b>${eur(last.lo)} – ${eur(last.hi)}</b></td></tr><tr><td>Wunschtermin Aufmaß</td><td>${esc(S.slot)}</td></tr>
+   <tr><td>Fotos</td><td>${files.length?files.length+' Bild(er) im Anhang':'keine'}</td></tr><tr><td>Nachricht</td><td>${esc(f.get('msg'))}</td></tr></table>
+   ${files.length?`<div class="thumbs">${$$('#thumbs img').map(i=>`<img src="${i.src}" alt="">`).join('')}</div>`:''}`;
+  $('#modal').classList.add('on')};
+$('#mailX').onclick=()=>$('#modal').classList.remove('on');
+$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').classList.remove('on')};
+function demoMsg(w){alert(`Demo: Hier würde ${w==='Telefon'?'direkt der Anruf starten':'WhatsApp mit einer vorbereiteten Nachricht öffnen'}.`);return false}
+setTab('parkett');
+
+
+/* ── Team & Terminbuchung ── */
+const TEAM=['Sabine Wehrle','Martin Gersbach'];
+const backTxt=(()=>{if(HOURS[wd]&&hr<HOURS[wd][0])return 'ab '+HOURS[wd][0]+' Uhr wieder da';
+  for(let k=1;k<7;k++){const d=(wd+k)%7;if(HOURS[d])return k===1?'ab morgen wieder da':'ab '+DAYS[d]+' wieder da'}})();
+$$('[data-on]').forEach(b=>{if(!open){b.classList.add('off');b.querySelector('em').textContent=backTxt}});
+const BK={p:0,art:'Ausstellung Schopfheim',day:null,time:null};
+const bkDays=nextSlots(5);
+function busy(p,d,t){return ((d.getDate()*7+t*3+p*5)%5)<2} // feste Demo-Belegung
+function bkRender(){
+  $('#bkDay').innerHTML=bkDays.map((d,i)=>`<button type="button" data-i="${i}" class="${BK.day===i?'on':''}">${d.toLocaleDateString('de-DE',{weekday:'short'})}<small>${d.toLocaleDateString('de-DE',{day:'numeric',month:'numeric'})}</small></button>`).join('');
+  const times=BK.art==='Videoberatung'?['8:30','10:00','11:30','14:00','16:00']:['8:00','10:00','13:00','15:00'];
+  $('#bkTime').innerHTML=BK.day===null?'<span style="font-size:.85rem;opacity:.55">Bitte zuerst einen Tag wählen</span>':
+    times.map((t,j)=>`<button type="button" data-t="${t}" ${busy(BK.p,bkDays[BK.day],j)?'disabled title="belegt"':''} class="${BK.time===t?'on':''}">${t}</button>`).join('');
+  $('#bkSum').textContent=BK.day!==null&&BK.time?`✓ ${BK.art} mit ${TEAM[BK.p].split(' ')[0]} · ${fmtD(bkDays[BK.day])}, ${BK.time} Uhr`:'';
+}
+$('#who').onclick=e=>{const b=e.target.closest('button');if(!b)return;BK.p=+b.dataset.p;BK.time=null;$$('#who button').forEach(x=>x.classList.toggle('on',x===b));bkRender()};
+$('#bkArt').onclick=e=>{const b=e.target.closest('button');if(!b)return;BK.art=b.dataset.v;BK.time=null;$$('#bkArt button').forEach(x=>x.classList.toggle('on',x===b));bkRender()};
+$('#bkDay').onclick=e=>{const b=e.target.closest('button');if(!b)return;BK.day=+b.dataset.i;BK.time=null;bkRender()};
+$('#bkTime').onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;BK.time=b.dataset.t;bkRender()};
+$$('[data-book]').forEach(b=>b.onclick=()=>{$$('#who button')[+b.dataset.book].click();$('#book').scrollIntoView({behavior:'smooth',block:'start'})});
+$('#bkForm').onsubmit=e=>{e.preventDefault();const f=e.target;
+  if(BK.day===null||!BK.time){$('#bkSum').textContent='Bitte Tag und Uhrzeit wählen.';return}
+  const nm=f.name.value.trim();if(!nm){f.name.focus();f.name.style.borderColor='#E07A5F';return}
+  const esc=x=>String(x||'–').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  $('#mailTop').innerHTML=`<b>An:</b> ${TEAM[BK.p]} &lt;${TEAM[BK.p].split(' ')[0].toLowerCase()}@holzwerkstatt-sonnhalde.de&gt;<br><b>Betreff:</b> Neuer Beratungstermin: ${fmtD(bkDays[BK.day])}, ${BK.time} Uhr<br><b>Kalender:</b> automatisch eingetragen ✓`;
+  $('#mailBody').innerHTML=`<p>Neuer Termin über die Website:</p><table><tr><td>Kunde</td><td><b>${esc(nm)}</b></td></tr><tr><td>Telefon</td><td>${esc(f.tel.value)}</td></tr><tr><td>Art</td><td>${BK.art}</td></tr><tr><td>Termin</td><td><b>${bkDays[BK.day].toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long'})}, ${BK.time} Uhr</b></td></tr><tr><td>Berater/in</td><td>${TEAM[BK.p]}</td></tr></table><p style="color:var(--mute);font-size:.82rem">Der Kunde erhält automatisch eine Bestätigung per SMS und eine Erinnerung am Vortag.</p>`;
+  $('#modal').classList.add('on')};
+bkRender();
+
+/* ── Galerie ── */
+const GAL=[ /* [Spalten,Zeilen], Filter, Bild, Titel, Ort */
+ [[7,3],'boden','img/fischgraet-nachher.webp','Fischgrät in Eiche','Altbau, Lörrach · 2025'],
+ [[5,4],'moebel','img/regal.webp','Bücherwand raumhoch','Stadtwohnung, Riehen (CH) · 2025'],
+ [[7,3],'kueche','img/kueche2.webp','Grifflose Küche mit Eichenfronten','Neubau, Steinen · 2025'],
+ [[5,2],'kueche','img/induktion.webp','Einbaugeräte: Flächeninduktion','flächenbündig in Keramik · 2025'],
+ [[4,3],'kueche','img/kueche3.webp','Küche mit Theke & Regalwange','Wohnung, Lörrach · 2025'],
+ [[4,3],'kueche','img/kueche4.webp','Kochinsel in Steinoptik','Loft, Rheinfelden · 2024'],
+ [[4,3],'moebel','img/treppe.webp','Wendeltreppe aufgearbeitet','Stadthaus, Schopfheim · 2024'],
+ [[3,2],'boden','img/dielen-nachher.webp','Dielen geschliffen & geölt','Bauernhaus, Kandern · 2025'],
+ [[3,2],'kueche','img/dampfgarer.webp','Einbaugeräte: Dampfgarer','auf Griffhöhe eingebaut · 2025'],
+ [[3,2],'kueche','img/kueche.webp','Küche mit Lamellenwand','Neubau, Maulburg · 2024'],
+ [[3,2],'boden','img/flur-nachher.webp','Flur in Fischgrät','Weil am Rhein · 2025'],
+];
+$('#gal').innerHTML=GAL.map(([[c,r],f,src,t,s],i)=>`<figure class="gi${c>=7?' w':''}" style="--c:${c};--r:${r}" data-f="${f}" data-i="${i}"><img src="${src}" alt="${t}" loading="lazy"><figcaption><b>${t}</b>${s}</figcaption></figure>`).join('');
+$$('#filters button').forEach(b=>b.onclick=()=>{$$('#filters button').forEach(x=>x.classList.toggle('on',x===b));
+  $$('#gal .gi').forEach(g=>g.classList.toggle('hide',b.dataset.f!=='alle'&&g.dataset.f!==b.dataset.f))});
+const lb=$('#lb');let li=0;
+const show=i=>{li=(i+GAL.length)%GAL.length;lb.querySelector('img').src=GAL[li][2];lb.querySelector('img').alt=GAL[li][3];lb.querySelector('p').textContent=GAL[li][3]+' · '+GAL[li][4]};
+$('#gal').onclick=e=>{const g=e.target.closest('.gi');if(g){show(+g.dataset.i);lb.classList.add('on')}};
+lb.querySelector('.x').onclick=()=>lb.classList.remove('on');lb.querySelector('.pv').onclick=()=>show(li-1);lb.querySelector('.nx').onclick=()=>show(li+1);
+lb.onclick=e=>{if(e.target===lb)lb.classList.remove('on')};
+addEventListener('keydown',e=>{if(e.key==='Escape'){lb.classList.remove('on');$('#modal').classList.remove('on')}
+  if(lb.classList.contains('on')){if(e.key==='ArrowLeft')show(li-1);if(e.key==='ArrowRight')show(li+1)}});
+
+/* ── Einzugsgebiet ── */
+// Positionen grob nach Geografie (x,y in Kartenpixeln), km ab Schopfheim
+const TOWNS=[['Schopfheim','79650',0,250,170],['Maulburg','79689',4,222,186],['Hausen i. W.','79688',6,262,140],['Steinen','79585',8,194,200],['Wehr','79664',11,312,210],['Zell im Wiesental','79669',10,282,110],
+ ['Kandern','79400',17,150,108],['Lörrach','79539',15,160,232],['Rheinfelden','79618',16,250,268],['Weil am Rhein','79576',20,112,250],['Bad Säckingen','79713',21,352,262],['Todtnau','79674',24,300,52],
+ ['Riehen (CH)','4125',19,142,262],['Basel (CH)','4051',23,112,286],['Müllheim','79379',33,108,40],['Freiburg','79098',48,150,6]];
+const map=$('#map');const C=[250,170];
+let ms=`<rect width="440" height="374" fill="#FBF8F2"/>
+<path d="M0 300 C60 290 90 300 130 296 S200 285 250 300 330 295 440 292" fill="none" stroke="#B9CFD6" stroke-width="7" stroke-linecap="round"/>
+<path d="M110 0 C112 60 100 140 108 240 S110 296 112 300" fill="none" stroke="#B9CFD6" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+<path d="M300 40 C290 90 270 130 250 170 S190 220 165 235" fill="none" stroke="#B9CFD6" stroke-width="3" opacity=".8"/>
+<text x="20" y="316" font-family="Inter" font-size="10" fill="#7A9BA6" font-style="italic">Rhein</text><text x="282" y="94" font-family="Inter" font-size="10" fill="#7A9BA6" font-style="italic">Wiese</text>
+<path d="M0 312 L440 306" stroke="#C9BFAF" stroke-dasharray="2 4"/><text x="430" y="326" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#8A8277">DE ↑ · CH ↓</text>`;
+[[30,'0'],[60,'']].forEach(([km])=>ms+=`<circle class="ring" cx="${C[0]}" cy="${C[1]}" r="${km*4.2}"/>`);
+ms+=`<text x="${C[0]-30*4.2*0.72}" y="${C[1]+30*4.2*0.75+12}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#C0843A">30 km · Aufmaß gratis</text>`;
+TOWNS.forEach(([n,,km,x,y],i)=>ms+=`<g class="town" data-i="${i}"><circle cx="${x}" cy="${y}" r="${i?4:7}" fill="${i?'#4A453E':'#C0843A'}"/><text x="${x+8}" y="${y+4}" ${i?'':'font-weight="700"'}>${n}</text></g>`);
+map.innerHTML=ms;
+const ortIn=$('#ortIn'),sugg=$('#sugg');
+function answer(i){const [n,,km]=TOWNS[i];$$('#map .town').forEach(t=>t.classList.toggle('on',+t.dataset.i===i));
+  const ch=n.includes('(CH)');let t,s;
+  if(km<=30){t=`Ja – ${n} liegt ${km?'ca. '+km+' km':'direkt'} von uns.`;s=`Aufmaß kostenlos, Anfahrt im Festpreis enthalten.${ch?' Lieferung in die Schweiz inkl. Zollpapieren – Sie zahlen keine deutsche MwSt.':''}`}
+  else if(km<=50){t=`Ja – ${n} ist ca. ${km} km entfernt.`;s='Wir kommen gern. Fürs Aufmaß berechnen wir eine kleine Anfahrtspauschale von 45 €, die bei Auftrag angerechnet wird.'}
+  else{t=`${n} ist leider etwas weit.`;s='Für größere Projekte machen wir eine Ausnahme – rufen Sie einfach an.'}
+  $('#ans').innerHTML=`<b>${t}</b>${s}`;$('#ans').classList.add('on');ortIn.value=n;sugg.style.display='none'}
+ortIn.addEventListener('input',()=>{const q=ortIn.value.trim().toLowerCase();if(!q){sugg.style.display='none';return}
+  const m=TOWNS.map((t,i)=>[t,i]).filter(([t])=>t[0].toLowerCase().includes(q)||t[1].startsWith(q)).slice(0,6);
+  if(!m.length){sugg.innerHTML=`<li style="cursor:default">Ort nicht in der Liste – <a href="#kontakt">einfach fragen</a></li>`;sugg.style.display='block';return}
+  sugg.innerHTML=m.map(([t,i])=>`<li data-i="${i}">${t[0]}<span>${t[1]} · ${t[2]} km</span></li>`).join('');sugg.style.display='block'});
+ortIn.addEventListener('keydown',e=>{if(e.key==='Enter'){const f=sugg.querySelector('li[data-i]');if(f)answer(+f.dataset.i)}});
+sugg.onclick=e=>{const li=e.target.closest('li[data-i]');if(li)answer(+li.dataset.i)};
+map.onclick=e=>{const t=e.target.closest('.town');if(t)answer(+t.dataset.i)};
+document.addEventListener('click',e=>{if(!e.target.closest('.ort'))sugg.style.display='none'});
+
+/* ── Demo-Pille & Bildnachweise ── */
+$('#demoX').onclick=()=>$('#demo').classList.add('gone');
+const CREDITS=[
+ ['Fischgrät-Parkett','Pazzo4562','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Oak_herringbone_wood_floor_with_two_stripe_wenge_border.jpg'],
+ ['Parkett im Flur','Heritage Wood Floors Ltd','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Distressed_parquet_floor.jpg'],
+ ['Dielenboden','Northernveil','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Parkett.jpeg'],
+ ['Küche Lamellen','Shixart1985','CC BY 2.0','https://commons.wikimedia.org/wiki/File:Modern_luxury_living_room_with_kitchen_interior.jpg'],
+ ['Grifflose Küche','Shixart1985','CC BY 2.0','https://commons.wikimedia.org/wiki/File:Modern_kitchen_design_featuring_minimalistic_elements,_warm_lighting,_and_high-end_appliances_in_a_contemporary_setting.jpg'],
+ ['Küche mit Theke','Scarlett &amp; Rosi Interiéry','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Neugraf-kuchyne-scarlett-rosi.jpg'],
+ ['Kochinsel','Anna Sayapina','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Dekton_Black_Kitchen,_Stone_Hood_Wrap,_Lapitec_Island.jpg'],
+ ['Flächeninduktion','SCHOTT AG','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Ceran_Matte_Cooktop.jpg'],
+ ['Dampfgarer','BBCLCD','CC BY-SA 3.0','https://commons.wikimedia.org/wiki/File:Combi-Steamer_SL_V-Zug.jpg'],
+ ['Sabine (Porträt)','Shixart1985','CC BY 2.0','https://commons.wikimedia.org/wiki/File:Woman_smiling_while_talking_on_the_phone_by_the_window.jpg'],
+ ['Martin (Porträt)','Shixart1985','CC BY 2.0','https://commons.wikimedia.org/wiki/File:Handsome_senior_bearded_man_looking_at_camera.jpg'],
+ ['Werkstatt-Team 1','Shixart1985','CC BY 2.0','https://commons.wikimedia.org/wiki/File:Craftsman_shaping_wood_in_a_workshop_during_daylight_hours_with_focus_on_precision_and_detail_in_woodworking.jpg'],
+ ['Werkstatt-Team 2','Shixart1985','CC BY 2.0','https://commons.wikimedia.org/wiki/File:Woodworking_process_involves_crafting_wooden_pieces_at_a_workbench.jpg'],
+ ['Werkstatt-Team 3','Shixart1985','CC BY 2.0','https://commons.wikimedia.org/wiki/File:Carpenter_using_electric_sander_to_smooth_wooden_boards_in_a_workshop.jpg'],
+ ['Bücherwand','Shixart1985','CC BY 2.0','https://commons.wikimedia.org/wiki/File:Library_stacks_of_books_and_bookshelf.jpg'],
+ ['Treppe','Tim Evanson','CC BY-SA 2.0','https://commons.wikimedia.org/wiki/File:Gatehouse_stairs_-_Riverside_Cemetery_Cleveland_(30341496944).jpg'],
+ ['Werkstatt','Jorge Royan','CC BY-SA 3.0','https://commons.wikimedia.org/wiki/File:Paris_-_Carpenter_workshop_-_4944.jpg'],
+ ['Schreiner','Wetscher GmbH','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Wetscher_Werkst%C3%A4tten.jpg'],
+ ['Eiche','William Warby','CC BY 2.0','https://commons.wikimedia.org/wiki/File:Oak_Texture_-_5106733699_c1d5b0df29_b.jpg'],
+ ['Nussbaum','Martin Lorenz','CC BY-SA 3.0','https://commons.wikimedia.org/wiki/File:Oberfl%C3%A4che_Wohnzimmertisch.JPG'],
+ ['Esche','Cyril5555','CC BY-SA 3.0','https://commons.wikimedia.org/wiki/File:Texture_chene.jpg'],
+];
+$('#credits').innerHTML='Personen, Namen und Zitate sind erfunden (Beispielfotos). Bildnachweise (Wikimedia Commons, verkleinert, zugeschnitten; „Vorher“-Bilder und Räuchereiche farblich bearbeitet): '+CREDITS.map(([t,a,l,u])=>`${t}: ${a}, <a href="${u}" target="_blank" rel="noopener">${l}</a>`).join(' · ')+'. Schriften: Bricolage Grotesque &amp; Inter (SIL OFL), lokal eingebunden – keine Verbindung zu Google.';
+</script>
+</body>
+</html>

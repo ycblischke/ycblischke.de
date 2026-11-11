@@ -290,9 +290,28 @@
     .project-wide h3 { font-size: 1.35rem; }
     .project-wide .btn-demo { display: inline-block; margin-top: 1.1rem; background: var(--navy); color: #fff; padding: .7rem 1.3rem; border-radius: 8px; font-size: .88rem; font-weight: 600; text-decoration: none; }
     .project-wide .btn-demo:hover { background: var(--navy2); }
+    .proj-sub { display: flex; justify-content: space-between; align-items: baseline; gap: .4rem 1.5rem; flex-wrap: wrap; margin: 2.4rem 0 -.6rem; padding-bottom: .7rem; border-bottom: 1px solid var(--border); }
+    .proj-sub h3 { font-size: 1.15rem; color: var(--navy); }
+    .proj-sub p { font-size: .86rem; color: var(--muted); }
+    .project-gallery.browser { display: flex; flex-direction: column; aspect-ratio: auto; background: #E9ECF2; }
+    .browser .pg-bar { display: flex; align-items: center; gap: .35rem; padding: .5rem .8rem; background: #E9ECF2; flex: none; }
+    .browser .pg-bar i { width: 9px; height: 9px; border-radius: 50%; background: #C9CFDA; }
+    .browser .pg-bar span { margin-left: .6rem; flex: 1; max-width: 340px; background: #fff; border-radius: 6px; font-size: .7rem; color: var(--muted); padding: .2rem .7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .browser .pg-track { aspect-ratio: 16 / 10; position: relative; }
+    .browser .pg-arrow { top: calc(50% + 15px); }
+    .demo-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.1rem; margin-top: 1.1rem; }
+    .demo-ctas .btn-demo { margin-top: 0 !important; }
+    .btn-demo2 { color: var(--navy); font-size: .86rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--gold); }
+    .btn-demo2:hover { color: var(--gold); }
+    .demo-next { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; border: 1.5px dashed var(--border); border-radius: 14px; padding: 1.3rem 1.6rem; background: transparent; }
+    .demo-next .project-tag { margin-bottom: .25rem; }
+    .demo-next b { display: block; color: var(--navy); font-size: 1.05rem; }
+    .demo-next p { font-size: .86rem; color: var(--muted); margin-top: .2rem; max-width: 60ch; }
+    .demo-next a { color: var(--navy); font-weight: 700; font-size: .86rem; white-space: nowrap; text-decoration: none; border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
     .feat-list { list-style: none; padding: 0; margin-top: .8rem; display: grid; gap: .3rem; }
     .feat-list li { font-size: .86rem; color: var(--muted); padding-left: 1.3rem; position: relative; }
     .feat-list li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+    @media (min-width: 901px) { .project-wide.rev { grid-template-columns: 1fr 1.35fr; } .project-wide.rev .project-gallery { order: 2; } }
     @media (max-width: 900px) { .project-wide { grid-template-columns: 1fr; } .project-wide .project-body { padding: 1.3rem 1.4rem 1.5rem; } }
     /* ── Shop-Wahl ── */
     .shopwahl { margin-top: 4rem; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 2.4rem 2.2rem; scroll-margin-top: 80px; }
@@ -413,10 +432,12 @@
   <div class="container">
     <div class="section-tag">Projekte</div>
     <h2 class="section-title">Ausgewählte Arbeiten</h2>
-    <p class="section-sub">Echte Projekte statt leerer Versprechen.</p>
+    <p class="section-sub">Echte Projekte – und Demos, die Sie selbst ausprobieren können.</p>
+    <div class="proj-sub"><h3>Website-Demos für Ihre Branche</h3><p>Fiktive Betriebe, echte Funktionen – klicken Sie sich durch wie Ihre Kunden.</p></div>
     <div class="projects-grid">
       <div class="project-card project-wide">
-        <div class="project-gallery" data-gallery="weingut">
+        <div class="project-gallery browser" data-gallery="weingut">
+          <div class="pg-bar" aria-hidden="true"><i></i><i></i><i></i><span>ycblischke.de/webseiten/weingut</span></div>
           <div class="pg-track"><div class="pg-slide"><img src="img/projekte/weingut-1.jpg" alt="Startseite mit Weinberg-Foto und großer Überschrift" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/weingut-2.jpg" alt="Weinregal mit Filtern und Warenkorb" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/weingut-3.jpg" alt="Wein-Finder: Empfehlung passend zum Essen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/weingut-4.jpg" alt="Weinprobe online buchen mit Kalender" loading="lazy" width="1200" height="750"></div></div>
           <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
           <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
@@ -432,9 +453,38 @@
             <li>Weinprobe buchen mit Kalender und freien Plätzen</li>
             <li>Öffnungszeiten live, perfekt am Handy</li>
           </ul>
-          <a class="btn-demo" href="/webseiten/weingut/">Demo ansehen →</a>
+          <div class="demo-ctas"><a class="btn-demo" href="/webseiten/weingut/">Live-Demo öffnen →</a><a class="btn-demo2" href="#kontakt" data-ask="Weingut / Hofladen">So eine Seite für meinen Betrieb</a></div>
         </div>
       </div>
+      <div class="project-card project-wide rev">
+        <div class="project-gallery browser" data-gallery="schreinerei">
+          <div class="pg-bar" aria-hidden="true"><i></i><i></i><i></i><span>ycblischke.de/webseiten/schreinerei</span></div>
+          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/schreinerei-1.jpg" alt="Startseite „Holz, nach Maß.“ mit Live-Öffnungszeiten" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/schreinerei-2.jpg" alt="Vorher/Nachher-Schieber für Parkettböden" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/schreinerei-3.jpg" alt="Angebotsrechner mit Grundriss-Vorschau und Preisrahmen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/schreinerei-4.jpg" alt="Ansprechpartner mit Foto und Online-Terminbuchung" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/schreinerei-5.jpg" alt="Projekt-Galerie mit Filtern" loading="lazy" width="1200" height="750"></div></div>
+          <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
+          <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
+          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button><button type="button" class="pg-dot" aria-label="Bild 4" data-i="3"></button><button type="button" class="pg-dot" aria-label="Bild 5" data-i="4"></button></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag">Website-Demo · zum Ausprobieren</div>
+          <h3>Schreinerei &amp; Parkett im Wiesental</h3>
+          <p>Eine Handwerker-Webseite, die Anfragen bringt: Kunden sehen sofort, was es kostet, und schicken ihre Anfrage mit allen Angaben – ohne Rückfragen.</p>
+          <ul class="feat-list">
+            <li>Angebotsrechner für Parkett, Küche und Einbauschrank</li>
+            <li>Vorher/Nachher-Schieber zum Selbst-Ziehen</li>
+            <li>Ansprechpartner mit Foto und Online-Terminbuchung</li>
+            <li>Anfrage mit Fotos – kommt ohne Rückfragen beim Betrieb an</li>
+            <li>Einzugsgebiet-Check, auch für die Schweiz</li>
+          </ul>
+          <div class="demo-ctas"><a class="btn-demo" href="/webseiten/schreinerei/">Live-Demo öffnen →</a><a class="btn-demo2" href="#kontakt" data-ask="Handwerksbetrieb">So eine Seite für meinen Betrieb</a></div>
+        </div>
+      </div>
+      <div class="demo-next">
+        <div><div class="project-tag">Nächste Demo · in Arbeit</div><b>Restaurant &amp; Café</b><p>Speisekarte zum Durchblättern, Tisch online reservieren, Tagesessen und Allergene auf einen Blick.</p></div>
+        <a href="#kontakt" data-ask="andere Branche">Ihre Branche fehlt? Fragen Sie mich →</a>
+      </div>
+    </div>
+    <div class="proj-sub"><h3>Shops, Apps &amp; Widgets</h3><p>Kundenprojekte und eigene Entwicklungen.</p></div>
+    <div class="projects-grid">
       <div class="project-card">
         <div class="project-gallery" data-gallery="shop">
           <div class="pg-track"><div class="pg-slide"><img src="img/projekte/shop-1.jpg" alt="Startseite mit geteiltem Bild-Slider" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/shop-2.jpg" alt="Leuchtenarten als Bild-Mosaik" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/shop-3.jpg" alt="Produkt-Karussell mit Bewertungen und Farben" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/shop-5.jpg" alt="Kategorieseite mit Unterkategorien" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/shop-4.jpg" alt="Outlet und Blog" loading="lazy" width="1200" height="750"></div></div>
@@ -513,7 +563,7 @@
           <li>Grundlegende Google-Optimierung</li>
           <li>Kurze Einweisung</li>
         </ul>
-        <a href="/webseiten/weingut/" class="shop-help-link">Beispiel ansehen: Weingut-Demo →</a>
+        <a href="#referenzen" class="shop-help-link">Beispiele ansehen: Weingut &amp; Schreinerei →</a>
       </div>
       <div class="package-card package-card--featured">
         <div class="package-badge">Beliebt</div>
@@ -966,6 +1016,16 @@
 </script>
 
 <script>
+  // Demo-Karten: „So eine Seite für meinen Betrieb“ füllt das Kontaktformular vor
+  document.querySelectorAll('[data-ask]').forEach(a => a.addEventListener('click', () => {
+    const f = document.getElementById('contactForm'); if (!f) return;
+    const sel = f.querySelector('[name=betreff]'); if (sel) sel.value = 'Website';
+    const t = f.querySelector('[name=nachricht]');
+    const b = a.dataset.ask;
+    if (t && !t.value) t.value = b === 'andere Branche'
+      ? 'Hallo Herr Blischke,\n\nich habe einen Betrieb in folgender Branche: … und hätte gern eine Website wie Ihre Demos.\n\n'
+      : `Hallo Herr Blischke,\n\nich habe Ihre Demo gesehen und hätte gern eine ähnliche Website für meinen Betrieb (${b}).\n\n`;
+  }));
   // Projekt-Galerien: Pfeile, Punkte, Wischen
   document.querySelectorAll('.project-gallery').forEach(g => {
     const track = g.querySelector('.pg-track');
