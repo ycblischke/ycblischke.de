@@ -111,6 +111,8 @@ h2 em,h1 em{font-style:italic;color:var(--gold-l)}
 @media (prefers-reduced-motion:reduce){.marquee::before{animation:none}}
 .marquee div{position:relative;display:inline-block;animation:marq 38s linear infinite;font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300}
 .marquee div span{margin:0 1.2rem;color:var(--gold)}
+.marquee .lf{width:1.05em;height:1.1em;vertical-align:-.18em;display:inline-block}
+.marquee div span:nth-child(odd) .lf{transform:rotate(-14deg)}.marquee div span:nth-child(even) .lf{transform:rotate(12deg)}
 @keyframes marq{to{transform:translateX(-50%)}}
 
 /* ── Weine ── */
@@ -619,7 +621,7 @@ $('#chips').addEventListener('click',e=>{
 });
 $('#prev').onclick=()=>$('#rail').scrollBy({left:-320,behavior:'smooth'});
 $('#next').onclick=()=>$('#rail').scrollBy({left:320,behavior:'smooth'});
-$('#marq').innerHTML=(Array(2).fill(['Grauburgunder','Spätburgunder','Weißburgunder','Riesling','Muskateller','Pinot Sekt','Rosé']).flat().map(n=>`${n}<span>✦</span>`).join('')).repeat(2);
+$('#marq').innerHTML=(Array(2).fill(['Grauburgunder','Spätburgunder','Weißburgunder','Riesling','Muskateller','Pinot Sekt','Rosé']).flat().map(n=>`${n}<span><svg class="lf" viewBox="-34 -34 68 72" aria-hidden="true"><path d="M0 28c-4-7-10-5-14-3-4-6-16-4-18-14 6-2 6-8 2-14 8-2 10-8 8-16 8 2 12-2 14-12 5 6 11 6 16 0 2 10 6 14 14 12-2 8 0 14 8 16-4 6-4 12 2 14-2 10-14 8-18 14-4-2-10-4-14 3z" fill="currentColor"/><path d="M0 26V-20M0 4l-22-8M0 4l22-8M0 14l-13 9M0 14l13 9M0 26v10" fill="none" stroke="var(--wine-d)" stroke-width="2.4" stroke-linecap="round"/></svg></span>`).join('')).repeat(2);
 
 /* ── Warenkorb ── */
 let cart={};
