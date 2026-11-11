@@ -242,7 +242,31 @@
     .secondary-services p + p { margin-top: .5rem; }
     .secondary-services a { color: var(--navy); font-weight: 600; }
 
-    #pakete { background: var(--bg); }
+    .anchor { display: block; position: relative; top: -80px; visibility: hidden; }
+    .pk-ic { font-size: 1.9rem; line-height: 1; }
+    .pk-desc { font-size: .88rem; color: var(--muted); }
+    .pk-sub { margin-top: auto; background: var(--bg); border-radius: 10px; padding: .8rem .9rem; font-size: .8rem; color: var(--muted); }
+    .pk-sub strong { display: block; color: var(--navy); margin-bottom: .2rem; font-size: .85rem; }
+    .package-card .shop-help-link { margin-top: auto; }
+    #leistungen .shopwahl { background: var(--bg); border-color: transparent; }
+    #ueber-mich .benefits-grid { margin-top: 3rem; }
+    @media (min-width: 901px) {
+      .process-steps { flex-direction: row; max-width: none; gap: 1.2rem; }
+      .process-step { flex: 1; flex-direction: column; align-items: center; gap: 1rem; }
+      .step-line { flex-direction: row; width: 100%; justify-content: center; position: relative; }
+      .step-connector { position: absolute; left: calc(50% + 30px); right: calc(-50% + 30px); top: 50%; width: auto; height: 2px; min-height: 0; flex: none; }
+      .step-content { text-align: center; padding-bottom: 0; }
+    }
+    .mobile-cta { display: none; }
+    @media (max-width: 768px) {
+      .mobile-cta { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 900; gap: .6rem; padding: .7rem 1rem calc(.7rem + env(safe-area-inset-bottom)); background: rgba(255,255,255,.96); box-shadow: 0 -4px 20px rgba(27,47,94,.12); transition: transform .3s; }
+      .mobile-cta.hide { transform: translateY(110%); }
+      .mobile-cta a { flex: 1; text-align: center; padding: .8rem; border-radius: 8px; font-weight: 700; font-size: .92rem; text-decoration: none; }
+      .mobile-cta .mc-call { border: 2px solid var(--border); color: var(--navy); }
+      .mobile-cta .mc-mail { background: var(--gold); color: #fff; }
+      footer { padding-bottom: 6rem; }
+      .btn-outline { margin-left: 0; margin-top: .6rem; }
+    }
     .packages-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; margin-top: 2rem; }
     .package-card { position: relative; background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.6rem 1.4rem; display: flex; flex-direction: column; gap: .8rem; }
     .package-card--featured { border: 2px solid var(--gold); box-shadow: 0 10px 30px rgba(200,150,60,.15); }
@@ -349,8 +373,7 @@
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#referenzen">Projekte</a></li>
-      <li><a href="#leistungen">Leistungen</a></li>
-      <li><a href="#pakete">Pakete &amp; Preise</a></li>
+      <li><a href="#leistungen">Leistungen &amp; Preise</a></li>
       <li><a href="#ueber-mich">Über mich</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
@@ -361,6 +384,11 @@
   </div>
 </nav>
 
+<div class="mobile-cta" id="mobileCta">
+  <a href="tel:+4915784834080" class="mc-call">📞 Anrufen</a>
+  <a href="#kontakt" class="mc-mail">Anfrage senden</a>
+</div>
+
 <!-- HERO -->
 <section id="start">
   <div class="hero-grid">
@@ -370,7 +398,7 @@
     <div class="hero-text">
       <div class="hero-badge">Websites · Shopify-Shops · Rheinfelden, Lörrach &amp; Basel</div>
       <h1 class="hero-title">Websites &amp; <b class="nowrap">Online-Shops</b><br><span>durchdacht bis zur Kasse</span></h1>
-      <p class="hero-sub">Ich baue Websites, die Anfragen bringen – für Betriebe aus der Region und ganz Deutschland. Und Online-Shops für Hersteller und Händler: mit Händlerbereich, Staffelpreisen und Verkauf in die Schweiz. Als Handelsfachwirt und Betriebswirt (IHK) kenne ich Kalkulation und Abläufe aus der Praxis. So entsteht kein hübsches Schaufenster, sondern ein Auftritt, der sich rechnet.</p>
+      <p class="hero-sub">Ich baue Websites, die Anfragen bringen, und Online-Shops für Hersteller und Händler – auf Wunsch mit Händlerbereich und Verkauf in die Schweiz. Als Betriebswirt (IHK) denke ich kaufmännisch mit: kein hübsches Schaufenster, sondern ein Auftritt, der sich rechnet.</p>
       <div class="hero-signature">
         <img src="img/handschrift-cropped.png" alt="Unterschrift Yves Claudio Blischke">
       </div>
@@ -421,20 +449,6 @@
         </div>
       </div>
       <div class="project-card">
-        <div class="project-gallery" data-gallery="apps">
-          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/app-foodkey.jpg" alt="FoodKey – Lebensmittel-Scanner" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/app-iwritethai.jpg" alt="IWriteThai – Thai-Schrift lernen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/app-hypno.jpg" alt="Hypno – Lern-App" loading="lazy" width="1200" height="750"></div></div>
-          <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
-          <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
-          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button></div>
-        </div>
-        <div class="project-body">
-          <div class="project-tag">Android-Apps · Google Play</div>
-          <h3>FoodKey, IWriteThai &amp; Hypno</h3>
-          <p>Drei eigene Apps im Google Play Store – von der Idee über Design und Entwicklung bis zum Release und laufenden Updates.</p>
-          <a class="project-link" href="/appdesigner/#apps">Mehr zu den Apps →</a>
-        </div>
-      </div>
-      <div class="project-card">
         <div class="project-gallery" data-gallery="demo">
           <div class="pg-track"><div class="pg-slide"><img src="img/projekte/demo-1.jpg" alt="Shop-Demo mit Produkten" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/demo-2.jpg" alt="Warenkorb" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/demo-3.jpg" alt="Checkout mit Kundenkonto" loading="lazy" width="1200" height="750"></div></div>
           <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
@@ -446,6 +460,20 @@
           <h3>Shop-Demo mit Kundenkonto</h3>
           <p>Funktionierender Demo-Shop mit Warenkorb, Kundenkonto und Bestellverlauf – zum Ausprobieren direkt auf dieser Website.</p>
           <a class="project-link" href="/appdesigner/#webshop">Demo ausprobieren →</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-gallery" data-gallery="apps">
+          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/app-foodkey.jpg" alt="FoodKey – Lebensmittel-Scanner" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/app-iwritethai.jpg" alt="IWriteThai – Thai-Schrift lernen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/app-hypno.jpg" alt="Hypno – Lern-App" loading="lazy" width="1200" height="750"></div></div>
+          <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
+          <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
+          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag">Android-Apps · Google Play</div>
+          <h3>FoodKey, IWriteThai &amp; Hypno</h3>
+          <p>Drei eigene Apps im Google Play Store – von der Idee über Design und Entwicklung bis zum Release und laufenden Updates.</p>
+          <a class="project-link" href="/appdesigner/#apps">Mehr zu den Apps →</a>
         </div>
       </div>
       <div class="project-card">
@@ -466,96 +494,34 @@
   </div>
 </section>
 
-<!-- LEISTUNGEN -->
+<!-- LEISTUNGEN & PREISE -->
 <section id="leistungen">
+  <span id="pakete" class="anchor"></span>
   <div class="container">
-    <div class="section-tag">Leistungen</div>
-    <h2 class="section-title">Was ich für Sie umsetze</h2>
-    <p class="section-sub">Schwerpunkt Websites und Online-Shops – remote, zuverlässig und mit kaufmännischem Blick.</p>
-    <div class="services-grid">
-      <a href="/appdesigner/" class="service-card" style="text-decoration:none; display:block;">
-        <img src="img/webdesign-kachel.png" alt="Webdesign">
-        <h3>Websites</h3>
-        <p>Mit WordPress zum Selbstpflegen oder individuell programmiert – schnell, für Handy und Computer und bei Google gut auffindbar.</p>
-        <div style="margin-top:.8rem;color:var(--gold);font-size:.78rem;font-weight:700;">Beispiele ansehen →</div>
-      </a>
-      <div class="service-card">
-        <div class="service-emoji">🛒</div>
-        <h3>Shopify-Webshops</h3>
-        <p>Ihr Shop in Ihrem Design – mit Kategorien, Filtern, Zahlung, Versand und Livegang. Auf Wunsch auch mit WooCommerce.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-emoji">🤝</div>
-        <h3>Händlerbereich (B2B)</h3>
-        <p>Händler-Login mit eigenen Preisen, Staffelpreisen und Kauf auf Rechnung – ideal für Hersteller und Großhandel.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-emoji">🚚</div>
-        <h3>Verkauf in die Schweiz</h3>
-        <p>Ein Shop für Kunden in Deutschland und der Schweiz: Preise in Euro und Franken, passende Versandregeln und klare Hinweise zu Zoll und Mehrwertsteuer.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-emoji">🔄</div>
-        <h3>Shop-Umzug</h3>
-        <p>Ihr alter Shop (Shopware, Gambio, WooCommerce) ist veraltet? Ich ziehe ihn zu Shopify um – mit Produkten, Kunden und Weiterleitungen.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-emoji">🔧</div>
-        <h3>Betreuung &amp; Pflege</h3>
-        <p>Inhalte und Produkte einpflegen, Aktionen, Updates und kleine Anpassungen – im Monatspaket oder nach Bedarf.</p>
-      </div>
-      <div class="service-card card-wide">
-        <div>
-          <div class="service-emoji">📱</div>
-          <h3>Apps &amp; Widgets für Android</h3>
-          <p>Eine eigene App oder ein Widget für Ihre Kunden oder Ihr Team: Tagesangebot, Auslastung, Terminstatus oder Kennzahlen – live aus Ihrem System, Ihrem Shop oder öffentlichen Daten, direkt auf dem Startbildschirm. Von der Idee über das Design bis in den Google Play Store oder zur internen Verteilung.</p>
-          <div class="wide-links">
-            <a href="/widgets/">Widgets &amp; Live-Demo ansehen →</a>
-            <a href="/appdesigner/#apps">Meine Apps im Play Store →</a>
-          </div>
-        </div>
-        <img class="wide-img" src="img/projekte/widgets-1.jpg" alt="Android-Widgets mit Live-Daten auf dem Startbildschirm" loading="lazy" width="1200" height="750">
-      </div>
-    </div>
-
-    <div class="tech-row">
-      <span class="tech-label">Technik:</span>
-      <span class="cred-chip">Shopify</span>
-      <span class="cred-chip">WordPress &amp; WooCommerce</span>
-      <span class="cred-chip">HTML, CSS, JavaScript</span>
-      <span class="cred-chip">Android (Kotlin, Flutter)</span>
-    </div>
-
-    <div class="secondary-services">
-      <h3>Außerdem</h3>
-      <p>Logo und Design für einen einheitlichen Auftritt – von der Visitenkarte bis zum Shop.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PAKETE -->
-<section id="pakete">
-  <div class="container">
-    <div class="section-tag">Pakete &amp; Preise</div>
-    <h2 class="section-title">Klare Pakete, faire Preise</h2>
-    <p class="section-sub">Festpreise für klar beschriebene Leistungen – oder flexibel nach Stunden. Alle Preise netto gem. § 19 UStG (keine Umsatzsteuer).</p>
+    <div class="section-tag">Leistungen &amp; Preise</div>
+    <h2 class="section-title">Was ich für Sie umsetze – und was es kostet</h2>
+    <p class="section-sub">Schwerpunkt Websites und Online-Shops. Festpreise für klar beschriebene Leistungen – oder flexibel nach Stunden. Alle Preise netto gem. § 19 UStG (keine Umsatzsteuer).</p>
     <div class="packages-grid">
       <div class="package-card">
+        <div class="pk-ic">🖥️</div>
         <h3>Website</h3>
         <div class="package-price">ab 790 €</div>
+        <p class="pk-desc">Mit WordPress zum Selbstpflegen oder individuell programmiert – schnell, für Handy und Computer und bei Google gut auffindbar.</p>
         <ul>
           <li>Bis zu 5 Seiten, für Handy optimiert</li>
           <li>Kontaktformular &amp; Rechtstexte eingebaut</li>
           <li>Grundlegende Google-Optimierung</li>
           <li>Kurze Einweisung</li>
         </ul>
+        <a href="/webseiten/weingut/" class="shop-help-link">Beispiel ansehen: Weingut-Demo →</a>
       </div>
       <div class="package-card package-card--featured">
         <div class="package-badge">Beliebt</div>
+        <div class="pk-ic">🛒</div>
         <h3>Webshop</h3>
         <div class="package-price">ab 1.500 €</div>
+        <p class="pk-desc">Ihr Shop in Ihrem Design – mit Shopify oder WooCommerce.</p>
         <ul>
-          <li>Shop in Ihrem Design (Shopify oder WooCommerce)</li>
           <li>Kategorien, Filter, Outlet &amp; Blog</li>
           <li>Bis zu 30 Produkte eingepflegt</li>
           <li>Zahlung, Versand &amp; Rechtstexte eingerichtet</li>
@@ -564,17 +530,31 @@
         <a href="#shop-wahl" class="shop-help-link">Welcher Shop passt zu mir? →</a>
       </div>
       <div class="package-card">
+        <div class="pk-ic">🤝</div>
         <h3>Händler-Erweiterung (B2B)</h3>
         <div class="package-price">ab 790 €</div>
+        <p class="pk-desc">Ideal für Hersteller und Großhandel.</p>
         <ul>
           <li>Händler-Login mit eigenen Preisen</li>
           <li>Staffelpreise &amp; Kauf auf Rechnung</li>
-          <li>Ideal für Hersteller &amp; Großhandel</li>
         </ul>
       </div>
       <div class="package-card">
+        <div class="pk-ic">🚚</div>
+        <h3>Verkauf in die Schweiz</h3>
+        <div class="package-price">nach Aufwand</div>
+        <p class="pk-desc">Ein Shop für Kunden in Deutschland und der Schweiz.</p>
+        <ul>
+          <li>Preise in Euro und Franken</li>
+          <li>Passende Versandregeln</li>
+          <li>Klare Hinweise zu Zoll und Mehrwertsteuer</li>
+        </ul>
+      </div>
+      <div class="package-card">
+        <div class="pk-ic">🔄</div>
         <h3>Shop-Umzug zu Shopify</h3>
         <div class="package-price">ab 2.490 €</div>
+        <p class="pk-desc">Ihr alter Shop (Shopware, Gambio, WooCommerce) ist veraltet? Ich ziehe ihn um.</p>
         <ul>
           <li>Bis zu 300 Produkte mit Bildern &amp; Varianten</li>
           <li>Kunden, Bestellverlauf &amp; Inhaltsseiten</li>
@@ -582,20 +562,13 @@
           <li>Angepasstes Design, Tests &amp; Umschaltung</li>
           <li>30 Tage Nachkontrolle</li>
         </ul>
+        <div class="pk-sub"><strong>Vorab: Umzugs-Analyse · 290 €</strong>Prüfung Ihres Shops mit allen Produkten, Varianten und Sonderfunktionen – Sie erhalten ein verbindliches Festpreis-Angebot. Wird bei Auftrag voll angerechnet.</div>
       </div>
       <div class="package-card">
-        <h3>Umzugs-Analyse</h3>
-        <div class="package-price">290 €</div>
-        <ul>
-          <li>Prüfung Ihres bisherigen Shops</li>
-          <li>Produkte, Varianten &amp; Sonderfunktionen erfasst</li>
-          <li>Verbindliches Festpreis-Angebot für den Umzug</li>
-          <li>Wird bei Auftrag voll angerechnet</li>
-        </ul>
-      </div>
-      <div class="package-card">
-        <h3>Betreuung</h3>
+        <div class="pk-ic">🔧</div>
+        <h3>Betreuung &amp; Pflege</h3>
         <div class="package-price">ab 50 € / Monat</div>
+        <p class="pk-desc">Im Monatspaket oder nach Bedarf.</p>
         <ul>
           <li>Produkte &amp; Inhalte pflegen</li>
           <li>Aktionen, Updates, kleine Anpassungen</li>
@@ -604,9 +577,14 @@
       </div>
       <div class="package-card card-wide">
         <div>
+          <div class="pk-ic">📱</div>
           <h3>App oder Widget (Android)</h3>
           <div class="package-price">nach Aufwand · 65 € / Stunde</div>
-          <p style="font-size:.88rem;color:var(--muted);margin-top:.4rem">Jede App ist anders – deshalb kein Pauschalpreis. Sie erhalten vorab eine verbindliche Aufwandsschätzung; ein einfaches Widget mit einer Datenquelle ist oft schon in wenigen Tagen umgesetzt.</p>
+          <p class="pk-desc">Eine eigene App oder ein Widget für Ihre Kunden oder Ihr Team: Tagesangebot, Auslastung, Terminstatus oder Kennzahlen – live aus Ihrem System, Ihrem Shop oder öffentlichen Daten, direkt auf dem Startbildschirm. Jede App ist anders – deshalb kein Pauschalpreis, sondern vorab eine verbindliche Aufwandsschätzung. Ein einfaches Widget mit einer Datenquelle ist oft in wenigen Tagen umgesetzt.</p>
+          <div class="wide-links">
+            <a href="/widgets/">Widgets &amp; Live-Demo ansehen →</a>
+            <a href="/appdesigner/#apps">Meine Apps im Play Store →</a>
+          </div>
         </div>
         <ul>
           <li>Kostenlose Einschätzung im Erstgespräch</li>
@@ -617,10 +595,6 @@
           <li>Google Play oder interne Verteilung</li>
         </ul>
       </div>
-    </div>
-    <div class="hourly-note">
-      <strong>Nach Aufwand:</strong> 45 € / Stunde · Apps &amp; Widgets 65 € / Stunde · Shop-Umzüge 70 € / Stunde · Rechnung per E-Mail nach Leistung, zahlbar innerhalb von 14 Tagen · Bei Projekten 50 % Anzahlung · Laufende Kosten (z. B. Hosting, Shopify-Tarif, Domain, Umzugs-Werkzeuge) zahlen Sie direkt an den Anbieter.
-      <a href="#kontakt" class="btn btn-primary" style="margin-top:1.2rem;">Kostenloses Erstgespräch</a>
     </div>
 
     <!-- Welcher Shop passt? -->
@@ -642,31 +616,58 @@
         <p class="sw-hint">Für alle Lösungen gilt: Impressum, Datenschutz, AGB und Widerrufsbelehrung sind Pflicht – bei Wein, Spirituosen &amp; Co. zusätzlich eine Altersprüfung beim Versand. Kostenangaben sind grobe Richtwerte der Anbieter und können sich ändern.</p>
       </details>
     </div>
+
+    <div class="tech-row">
+      <span class="tech-label">Technik:</span>
+      <span class="cred-chip">Shopify</span>
+      <span class="cred-chip">WordPress &amp; WooCommerce</span>
+      <span class="cred-chip">Shopware</span>
+      <span class="cred-chip">HTML, CSS, JavaScript</span>
+      <span class="cred-chip">Android (Kotlin, Flutter)</span>
+      <span class="tech-label" style="margin-left:.8rem">Außerdem:</span>
+      <span class="cred-chip">Logo &amp; Design – von der Visitenkarte bis zum Shop</span>
+    </div>
+
+    <div class="hourly-note">
+      <strong>Nach Aufwand:</strong> 45 € / Stunde · Apps &amp; Widgets 65 € / Stunde · Shop-Umzüge 70 € / Stunde · Rechnung per E-Mail nach Leistung, zahlbar innerhalb von 14 Tagen · Bei Projekten 50 % Anzahlung · Laufende Kosten (z. B. Hosting, Shopify-Tarif, Domain, Umzugs-Werkzeuge) zahlen Sie direkt an den Anbieter.
+      <a href="#kontakt" class="btn btn-primary" style="margin-top:1.2rem;">Kostenloses Erstgespräch</a>
+    </div>
   </div>
 </section>
 
-<!-- VORTEILE -->
-<section id="vorteile">
+
+<!-- ÜBER MICH -->
+<section id="ueber-mich">
   <div class="container">
-    <div class="section-tag">Vorteile</div>
-    <h2 class="section-title">Warum mit mir arbeiten?</h2>
-    <p class="section-sub">Technik, Design und Betriebswirtschaft aus einer Hand – flexibel, remote und ohne lange Bindung.</p>
+    <div class="about-grid">
+      <div>
+        <p class="section-tag">Qualifikationen</p>
+        <div class="about-certs">
+          <img src="img/png-Handelsfachwirt-746x1024.png" alt="Zeugnis Handelsfachwirt">
+          <img src="img/png-mpbm-741x1024.png" alt="Zeugnis Betriebswirt IHK">
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-tag">Über mich</div>
+        <h2 class="section-title">Yves Claudio Blischke</h2>
+        <p>Ich entwickle <strong>Websites, Webshops und Android-Apps</strong> – von der ersten Skizze bis zum Livegang. Meine eigenen Apps sind im Google Play Store. Die Technik wähle ich passend zu Ihnen: <strong>Shopify</strong>, <strong>WordPress</strong> oder <strong>individuell programmiert</strong>.</p>
+        <p>Als <strong>geprüfter Handelsfachwirt und Betriebswirt (IHK)</strong> verstehe ich, was hinter einem Shop steckt: Preise, Rabatte, Händlerkonditionen, Versand und Zahlen. So entsteht kein hübsches Schaufenster, sondern ein Werkzeug, das sich für Sie rechnet.</p>
+        <p>Ich arbeite <strong>remote</strong> – per Telefon, Mail oder Video für Kunden in ganz Deutschland und der Schweiz – und auf Wunsch persönlich in Rheinfelden, Lörrach und Basel. Sie haben immer direkt mit mir zu tun, ohne Umwege. Flexibel, transparent und ohne lange Vertragsbindung.</p>
+        <div class="cred-chips">
+          <span class="cred-chip">Webdesign</span>
+          <span class="cred-chip">Shopify</span>
+          <span class="cred-chip">WordPress</span>
+          <span class="cred-chip">HTML/CSS/JS</span>
+          <span class="cred-chip">Android-Apps</span>
+          <span class="cred-chip">Betriebswirt IHK</span>
+          <span class="cred-chip">Handelsfachwirt</span>
+        </div>
+      </div>
+    </div>
     <div class="benefits-grid">
-      <div class="benefit-card">
-        <h3>🌍 Remote &amp; persönlich</h3>
-        <p>Zusammenarbeit per Telefon, Mail oder Video – deutschlandweit und in der Schweiz. In der Region Rheinfelden, Lörrach und Basel gern auch vor Ort.</p>
-      </div>
-      <div class="benefit-card">
-        <h3>📊 Kaufmännischer Blick</h3>
-        <p>Als Betriebswirt (IHK) achte ich auf das, was sich rechnet: Preise, Rabatte, Händlerkonditionen und klare Abläufe.</p>
-      </div>
       <div class="benefit-card">
         <h3>📋 Transparente Abrechnung</h3>
         <p>Klare Stundensätze, verständliche Rechnungen. Sie wissen jederzeit, was Sie erwartet – keine versteckten Kosten.</p>
-      </div>
-      <div class="benefit-card">
-        <h3>🤝 Persönlicher Kontakt</h3>
-        <p>Direkte Kommunikation ohne Umwege. Ihr Anliegen wird schnell und unkompliziert bearbeitet.</p>
       </div>
       <div class="benefit-card">
         <h3>✍️ Selbst pflegbar</h3>
@@ -677,6 +678,11 @@
         <p>Alle Informationen und Unterlagen werden streng vertraulich behandelt und ausschließlich zur Auftragserfüllung verwendet.</p>
       </div>
     </div>
+    <!-- KUNDENSTIMMEN: sobald eine echte Bewertung vorliegt, hier einfügen:
+    <div class="testimonials-grid" style="margin-top:2rem">
+      <div class="testimonial-card"><p class="testimonial-text">„…“</p>
+        <div class="testimonial-footer"><div><div class="testimonial-author">Name</div><div class="testimonial-role">Firma, Ort</div></div></div></div>
+    </div> -->
   </div>
 </section>
 
@@ -711,36 +717,6 @@
   </div>
 </section>
 
-<!-- ÜBER MICH -->
-<section id="ueber-mich">
-  <div class="container">
-    <div class="about-grid">
-      <div>
-        <p class="section-tag">Qualifikationen</p>
-        <div class="about-certs">
-          <img src="img/png-Handelsfachwirt-746x1024.png" alt="Zeugnis Handelsfachwirt">
-          <img src="img/png-mpbm-741x1024.png" alt="Zeugnis Betriebswirt IHK">
-        </div>
-      </div>
-      <div class="about-text">
-        <div class="section-tag">Über mich</div>
-        <h2 class="section-title">Yves Claudio Blischke</h2>
-        <p>Ich entwickle <strong>Websites, Webshops und Android-Apps</strong> – von der ersten Skizze bis zum Livegang. Meine eigenen Apps sind im Google Play Store. Die Technik wähle ich passend zu Ihnen: <strong>Shopify</strong>, <strong>WordPress</strong> oder <strong>individuell programmiert</strong>.</p>
-        <p>Als <strong>geprüfter Handelsfachwirt und Betriebswirt (IHK)</strong> verstehe ich, was hinter einem Shop steckt: Preise, Rabatte, Händlerkonditionen, Versand und Zahlen. So entsteht kein hübsches Schaufenster, sondern ein Werkzeug, das sich für Sie rechnet.</p>
-        <p>Ich arbeite <strong>remote</strong> – für Kunden in ganz Deutschland und der Schweiz – und auf Wunsch persönlich in Rheinfelden, Lörrach und Basel. Flexibel, transparent und ohne lange Vertragsbindung.</p>
-        <div class="cred-chips">
-          <span class="cred-chip">Webdesign</span>
-          <span class="cred-chip">Shopify</span>
-          <span class="cred-chip">WordPress</span>
-          <span class="cred-chip">HTML/CSS/JS</span>
-          <span class="cred-chip">Android-Apps</span>
-          <span class="cred-chip">Betriebswirt IHK</span>
-          <span class="cred-chip">Handelsfachwirt</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- FAQ -->
 <section id="faq">
@@ -1003,6 +979,12 @@
   });
 </script>
 <script>
+/* ── Handy-Leiste ausblenden, wenn Kontakt sichtbar ── */
+(function(){
+  const bar=document.getElementById('mobileCta'), k=document.getElementById('kontakt');
+  if(!bar||!k||!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(es=>es.forEach(e=>bar.classList.toggle('hide',e.isIntersecting)),{threshold:0}).observe(k);
+})();
 /* ── Shop-Ratgeber ── */
 (function(){
   const O={
