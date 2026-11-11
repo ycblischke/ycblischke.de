@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weingut Lösshang – Ihringen am Kaiserstuhl (Demo)</title>
+<meta name="description" content="Demo-Webseite eines fiktiven Weinguts am Kaiserstuhl – gebaut von Yves Claudio Blischke, ycblischke.de. Mit Wein-Finder, Online-Weinprobe-Buchung und Shop.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2a0a14">
+<link rel="preload" href="img/hero.webp" as="image">
+<link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:300 700;font-display:swap;src:url(fonts/fraunces.woff2) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:300 700;font-display:swap;src:url(fonts/fraunces-italic.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url(fonts/inter.woff2) format('woff2')}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --wine:#5a1428; --wine-d:#2a0a14; --wine-l:#8a2a44;
+  --cream:#f5efe4; --cream2:#ebe2d2; --paper:#fbf8f2;
+  --gold:#c9a45c; --gold-l:#e3c68a;
+  --ink:#1f1714; --muted:#6f6259; --line:rgba(31,23,20,.12);
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --pad:clamp(1.25rem,5vw,4rem);
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;font-size:17px;overflow-x:hidden}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+a{color:inherit}
+::selection{background:var(--wine);color:var(--cream)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 var(--pad)}
+.eyebrow{font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--gold)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spacing:-.01em}
+h2{font-size:clamp(2.3rem,5.5vw,4.4rem)}
+h2 em,h1 em{font-style:italic;color:var(--gold-l)}
+.light h2 em{color:var(--wine)}
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:1rem 1.7rem;border-radius:999px;font-weight:600;font-size:.95rem;text-decoration:none;transition:transform .3s var(--ease),background .3s,color .3s,box-shadow .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:var(--wine-d)}
+.btn-gold:hover{background:var(--gold-l);box-shadow:0 10px 30px rgba(201,164,92,.35)}
+.btn-ghost{border:1px solid rgba(245,239,228,.45);color:var(--cream);backdrop-filter:blur(6px)}
+.btn-ghost:hover{background:rgba(245,239,228,.12)}
+.btn-wine{background:var(--wine);color:var(--cream)}
+.btn-wine:hover{background:var(--wine-l)}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* ── Navigation ── */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .4s,box-shadow .4s,padding .4s;padding:1.4rem 0;color:var(--cream)}
+.nav.solid{background:rgba(251,248,242,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);padding:.8rem 0;box-shadow:0 1px 0 var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.logo svg{width:34px;height:34px}
+.logo b{font-family:var(--serif);font-weight:500;font-size:1.45rem;letter-spacing:.01em;display:block;line-height:1}
+.logo small{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;opacity:.7}
+.menu{display:flex;gap:2rem;list-style:none;font-size:.9rem;font-weight:500}
+.menu a{text-decoration:none;position:relative;padding:.3rem 0}
+.menu a::after{content:'';position:absolute;left:0;right:100%;bottom:0;height:1px;background:currentColor;transition:right .35s var(--ease)}
+.menu a:hover::after{right:0}
+.nav-r{display:flex;align-items:center;gap:.6rem}
+.cart-btn{position:relative;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;transition:background .3s}
+.cart-btn:hover{background:rgba(128,128,128,.15)}
+.cart-btn svg{width:22px;height:22px}
+.cart-count{position:absolute;top:4px;right:2px;min-width:18px;height:18px;border-radius:9px;background:var(--gold);color:var(--wine-d);font-size:.68rem;font-weight:700;display:grid;place-items:center;padding:0 4px;transform:scale(0);transition:transform .35s var(--ease)}
+.cart-count.on{transform:scale(1)}
+.cart-count.bump{animation:bump .5s var(--ease)}
+@keyframes bump{40%{transform:scale(1.5)}}
+.nav .btn{padding:.7rem 1.2rem;font-size:.85rem}
+.burger{display:none;width:44px;height:44px;flex-direction:column;justify-content:center;align-items:center;gap:6px}
+.burger span{width:22px;height:1.5px;background:currentColor;transition:transform .3s}
+
+/* ── Hero ── */
+.hero{position:relative;height:100svh;min-height:620px;overflow:hidden;color:var(--cream);display:flex;align-items:flex-end}
+.hero-img{position:absolute;inset:0;background:url(img/hero.webp) center 60%/cover;animation:kenburns 18s var(--ease) both}
+@keyframes kenburns{from{transform:scale(1.18)}to{transform:scale(1)}}
+.hero::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,6,10,.55) 0%,rgba(20,6,10,0) 30%,rgba(20,6,10,.15) 55%,rgba(20,6,10,.85) 100%)}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-bottom:clamp(3rem,9vh,6rem)}
+.hero h1{font-size:clamp(3.2rem,11vw,9.5rem);font-weight:300;letter-spacing:-.03em;line-height:.92}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em}
+.hero h1 .w>span{display:inline-block;transform:translateY(110%);animation:up 1.2s var(--ease) forwards}
+@keyframes up{to{transform:none}}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+.hero p{max-width:30rem;font-size:1.1rem;opacity:0;animation:fade 1s 1.2s forwards;color:rgba(245,239,228,.88)}
+.hero-cta{display:flex;gap:.8rem;flex-wrap:wrap;opacity:0;animation:fade 1s 1.4s forwards}
+@keyframes fade{to{opacity:1}}
+.status{display:inline-flex;align-items:center;gap:.55rem;font-size:.8rem;font-weight:500;padding:.45rem .9rem;border-radius:999px;background:rgba(20,6,10,.4);backdrop-filter:blur(8px);border:1px solid rgba(245,239,228,.2);margin-bottom:1.6rem;opacity:0;animation:fade 1s .2s forwards}
+.status i{width:8px;height:8px;border-radius:50%;background:#7bd88f;box-shadow:0 0 0 0 rgba(123,216,143,.7);animation:pulse 2s infinite}
+.status.closed i{background:#e5a15a;animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(123,216,143,0)}}
+.scroll-hint{position:absolute;left:50%;bottom:1.2rem;z-index:2;width:1px;height:48px;background:linear-gradient(rgba(245,239,228,0),rgba(245,239,228,.7));overflow:hidden}
+.scroll-hint::after{content:'';position:absolute;left:0;top:-50%;width:1px;height:50%;background:var(--cream);animation:drip 2.2s infinite}
+@keyframes drip{to{top:110%}}
+
+/* ── Intro ── */
+.intro{padding:clamp(5rem,14vw,11rem) 0 clamp(4rem,9vw,7rem)}
+.intro-text{font-family:var(--serif);font-size:clamp(1.7rem,3.8vw,3.2rem);line-height:1.22;font-weight:300;max-width:22em}
+.intro-text span{opacity:.14;transition:opacity .25s}
+.intro-text span.on{opacity:1}
+.intro-text em{color:var(--wine);font-style:italic}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:clamp(3rem,7vw,6rem);border-top:1px solid var(--line);padding-top:2.5rem}
+.stat b{font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,5vw,4rem);line-height:1;display:block;color:var(--wine)}
+.stat span{font-size:.88rem;color:var(--muted)}
+
+/* ── Marquee ── */
+.marquee{background:var(--wine-d);color:var(--cream);overflow:hidden;padding:1.4rem 0;white-space:nowrap}
+.marquee div{display:inline-block;animation:marq 38s linear infinite;font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300}
+.marquee div span{margin:0 1.2rem;color:var(--gold)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ── Weine ── */
+.wines{padding:clamp(5rem,10vw,8rem) 0;background:var(--cream)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:3rem}
+.sec-head p{max-width:26rem;color:var(--muted)}
+.chips{display:flex;gap:.5rem;flex-wrap:wrap}
+.chip{padding:.55rem 1.1rem;border-radius:999px;border:1px solid var(--line);font-size:.85rem;font-weight:500;transition:all .3s}
+.chip:hover{border-color:var(--wine)}
+.chip.on{background:var(--wine);color:var(--cream);border-color:var(--wine)}
+.rail{display:flex;gap:1.4rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--pad);padding:1rem var(--pad) 2rem;margin:0 calc(-1 * var(--pad));scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.wine{flex:0 0 clamp(250px,26vw,300px);scroll-snap-align:start;background:var(--paper);border-radius:22px;padding:1.4rem;position:relative;transition:transform .5s var(--ease),box-shadow .5s,opacity .4s;display:flex;flex-direction:column}
+.wine:hover{transform:translateY(-8px);box-shadow:0 30px 60px -25px rgba(42,10,20,.35)}
+.wine.hide{display:none}
+.wine-stage{height:280px;border-radius:16px;display:grid;place-items:center;position:relative;overflow:hidden;margin-bottom:1.2rem}
+.wine-stage::before{content:'';position:absolute;width:190px;height:190px;border-radius:50%;background:var(--glow);filter:blur(30px);opacity:.55;transition:transform .6s var(--ease)}
+.wine:hover .wine-stage::before{transform:scale(1.25)}
+.wine-stage svg{height:250px;position:relative;filter:drop-shadow(0 18px 14px rgba(0,0,0,.25));transition:transform .6s var(--ease)}
+.wine:hover .wine-stage svg{transform:rotate(-4deg) translateY(-6px)}
+.badge{position:absolute;top:1rem;left:1rem;z-index:2;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .7rem;border-radius:999px;background:var(--wine);color:var(--cream)}
+.wine small{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.wine h3{font-size:1.45rem;margin:.35rem 0 .5rem}
+.wine p{font-size:.88rem;color:var(--muted);flex:1}
+.wine-foot{display:flex;justify-content:space-between;align-items:center;margin-top:1.2rem}
+.price{font-family:var(--serif);font-size:1.5rem}
+.price small{font-family:var(--sans);font-size:.7rem;letter-spacing:0;text-transform:none;display:block;margin-top:-.2rem}
+.add{width:46px;height:46px;border-radius:50%;background:var(--wine);color:var(--cream);display:grid;place-items:center;transition:transform .3s var(--ease),background .3s}
+.add:hover{background:var(--wine-l);transform:rotate(90deg)}
+.add.ok{background:#3d7a4f;transform:none}
+.add svg{width:18px;height:18px}
+.rail-nav{display:flex;gap:.6rem}
+.rail-nav button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:all .3s}
+.rail-nav button:hover{background:var(--wine);color:var(--cream);border-color:var(--wine)}
+
+/* ── Wein-Finder ── */
+.finder{position:relative;padding:clamp(5rem,10vw,8rem) 0;color:var(--cream);overflow:hidden;background:var(--wine-d)}
+.finder-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s,transform 8s linear;transform:scale(1.08)}
+.finder-bg.on{opacity:.28;transform:scale(1)}
+.finder::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(90,20,40,.4),rgba(42,10,20,.92) 70%)}
+.finder .wrap{position:relative;z-index:2}
+.finder-head{text-align:center;max-width:44rem;margin:0 auto 3rem}
+.finder-head p{color:rgba(245,239,228,.75);margin-top:1rem}
+.steps-dots{display:flex;justify-content:center;gap:.5rem;margin-bottom:2rem}
+.steps-dots i{width:36px;height:3px;border-radius:2px;background:rgba(245,239,228,.2);transition:background .4s}
+.steps-dots i.on{background:var(--gold)}
+.fstep{display:none;animation:fade .6s forwards}
+.fstep.on{display:block}
+.fstep h3{text-align:center;font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:2rem;font-style:italic}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;max-width:960px;margin:0 auto}
+.opt{border:1px solid rgba(245,239,228,.2);border-radius:18px;padding:1.5rem 1rem;text-align:center;background:rgba(245,239,228,.04);backdrop-filter:blur(6px);transition:all .35s var(--ease)}
+.opt:hover{border-color:var(--gold);background:rgba(201,164,92,.12);transform:translateY(-4px)}
+.opt .ic{font-size:2.2rem;display:block;margin-bottom:.6rem}
+.opt b{display:block;font-weight:600}
+.opt span{font-size:.8rem;opacity:.65}
+.result{display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center;max-width:860px;margin:0 auto;background:rgba(245,239,228,.06);border:1px solid rgba(245,239,228,.15);border-radius:28px;padding:2.5rem;backdrop-filter:blur(10px)}
+.result svg{height:300px;filter:drop-shadow(0 20px 20px rgba(0,0,0,.4));animation:pop .9s var(--ease)}
+@keyframes pop{from{transform:translateY(40px) rotate(8deg);opacity:0}}
+.result small{color:var(--gold);letter-spacing:.18em;text-transform:uppercase;font-size:.75rem;font-weight:600}
+.result h3{font-size:clamp(1.8rem,3.5vw,2.6rem);margin:.5rem 0 1rem;font-style:normal;text-align:left}
+.result p{color:rgba(245,239,228,.8);margin-bottom:1.5rem}
+.result .row{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
+.again{font-size:.88rem;text-decoration:underline;text-underline-offset:4px;opacity:.75}
+
+/* ── Parallax-Band ── */
+.band{position:relative;height:85vh;min-height:480px;overflow:hidden;display:grid;place-items:center;text-align:center;color:var(--cream)}
+.band-img{position:absolute;inset:-15% 0;background:url(img/terrassen.webp) center/cover;will-change:transform}
+.band::after{content:'';position:absolute;inset:0;background:rgba(20,6,10,.42)}
+.band .wrap{position:relative;z-index:2}
+.band h2{font-size:clamp(2.4rem,7vw,6rem);font-weight:300}
+.band p{max-width:34rem;margin:1.4rem auto 0;color:rgba(245,239,228,.9)}
+
+/* ── Vom Rebstock ins Glas (Sticky-Story) ── */
+.story{padding:clamp(5rem,10vw,8rem) 0}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,6rem);margin-top:3rem}
+.story-media{position:sticky;top:12vh;height:76vh;border-radius:28px;overflow:hidden}
+.story-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1s var(--ease),transform 1.6s var(--ease)}
+.story-media img.on{opacity:1;transform:none}
+.story-media .num{position:absolute;left:1.5rem;bottom:1.2rem;z-index:2;font-family:var(--serif);font-size:5rem;color:var(--cream);line-height:1;text-shadow:0 4px 30px rgba(0,0,0,.4)}
+.story-step{min-height:76vh;display:flex;flex-direction:column;justify-content:center;opacity:.25;transition:opacity .6s}
+.story-step.on{opacity:1}
+.story-step .eyebrow{color:var(--wine)}
+.story-step h3{font-size:clamp(2rem,3.6vw,3rem);margin:.8rem 0 1.2rem}
+.story-step p{color:var(--muted);max-width:28rem}
+.story-step .m{display:none}
+
+/* ── Weinprobe buchen ── */
+.booking{padding:clamp(5rem,10vw,8rem) 0;background:var(--cream)}
+.book-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:2rem;margin-top:3rem;align-items:start}
+.formats{display:grid;gap:1rem}
+.format{display:grid;grid-template-columns:120px 1fr auto;gap:1.2rem;align-items:center;padding:.8rem;padding-right:1.4rem;border-radius:20px;background:var(--paper);border:2px solid transparent;text-align:left;transition:all .35s var(--ease)}
+.format:hover{transform:translateX(6px)}
+.format.on{border-color:var(--wine);box-shadow:0 20px 40px -24px rgba(90,20,40,.45)}
+.format img{width:120px;height:96px;object-fit:cover;border-radius:14px}
+.format b{font-family:var(--serif);font-size:1.3rem;font-weight:500;display:block}
+.format span{font-size:.85rem;color:var(--muted)}
+.format .p{font-family:var(--serif);font-size:1.4rem;color:var(--wine);white-space:nowrap}
+.format .p small{font-family:var(--sans);font-size:.7rem;color:var(--muted);display:block;text-align:right}
+.panel{background:var(--paper);border-radius:24px;padding:1.8rem;position:sticky;top:90px}
+.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.cal-head b{font-family:var(--serif);font-size:1.35rem;font-weight:500}
+.cal-head button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center}
+.cal-head button:disabled{opacity:.3;cursor:default}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem;text-align:center}
+.cal .dow{font-size:.7rem;font-weight:600;color:var(--muted);padding:.3rem 0;letter-spacing:.06em}
+.day{height:46px;border-radius:12px;font-size:.9rem;display:grid;place-items:center;position:relative;transition:all .25s}
+.day.free{background:var(--cream);font-weight:600}
+.day.free:hover{background:var(--cream2)}
+.day.free::after{content:'';position:absolute;bottom:6px;width:4px;height:4px;border-radius:50%;background:#3d7a4f}
+.day.few::after{background:#d08a2e}
+.day.full{color:rgba(31,23,20,.3);text-decoration:line-through;cursor:default}
+.day.off{color:rgba(31,23,20,.22);cursor:default}
+.day.sel{background:var(--wine)!important;color:var(--cream)}
+.day.sel::after{background:var(--cream)}
+.legend{display:flex;gap:1rem;font-size:.75rem;color:var(--muted);margin:.8rem 0 1.2rem;flex-wrap:wrap}
+.legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:.35rem;vertical-align:1px}
+.slots{display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap;min-height:44px}
+.slot{padding:.6rem 1rem;border-radius:12px;border:1px solid var(--line);font-size:.88rem;font-weight:500;transition:all .25s}
+.slot.on{background:var(--wine);color:var(--cream);border-color:var(--wine)}
+.slot:disabled{opacity:.35;text-decoration:line-through;cursor:default}
+.hint{font-size:.85rem;color:var(--muted);align-self:center}
+.persons{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stepper{display:flex;align-items:center;gap:1rem}
+.stepper button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);font-size:1.2rem}
+.stepper b{min-width:1.5rem;text-align:center;font-size:1.1rem}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:1.2rem 0}
+.total b{font-family:var(--serif);font-size:2rem;font-weight:400}
+.panel .btn{width:100%;justify-content:center}
+.panel .btn:disabled{opacity:.4;transform:none;cursor:default}
+
+/* ── Besuch ── */
+.visit{padding:clamp(5rem,10vw,8rem) 0}
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5rem);align-items:center}
+.visit-img{border-radius:28px;overflow:hidden;aspect-ratio:4/5}
+.visit-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.visit-img:hover img{transform:scale(1.05)}
+.hours{margin:2rem 0;border-top:1px solid var(--line)}
+.hours div{display:flex;justify-content:space-between;padding:.85rem 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.hours div.today{font-weight:700;color:var(--wine)}
+.hours div.today span:first-child::after{content:' · heute';font-weight:500;font-size:.8rem}
+.addr{font-family:var(--serif);font-size:1.3rem;line-height:1.4;margin-bottom:1.5rem}
+
+/* ── Newsletter ── */
+.news{background:var(--wine);color:var(--cream);padding:clamp(4rem,8vw,6rem) 0;text-align:center;position:relative;overflow:hidden}
+.news h2{font-size:clamp(2rem,4.5vw,3.4rem)}
+.news p{opacity:.8;margin:1rem auto 2rem;max-width:30rem}
+.news form{display:flex;gap:.6rem;max-width:480px;margin:0 auto;background:rgba(245,239,228,.1);padding:.4rem;border-radius:999px;border:1px solid rgba(245,239,228,.2)}
+.news input{flex:1;background:none;border:0;color:var(--cream);font:inherit;padding:0 1.2rem;outline:none;min-width:0}
+.news input::placeholder{color:rgba(245,239,228,.55)}
+
+/* ── Footer ── */
+footer{background:var(--wine-d);color:rgba(245,239,228,.7);padding:4rem 0 6rem;font-size:.85rem}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem;margin-bottom:3rem}
+footer .logo{color:var(--cream);margin-bottom:1rem}
+footer h4{color:var(--cream);font-weight:600;margin-bottom:.8rem;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase}
+footer ul{list-style:none;display:grid;gap:.4rem}
+footer a{text-decoration:none}footer a:hover{color:var(--gold-l)}
+.credits{border-top:1px solid rgba(245,239,228,.12);padding-top:1.5rem;font-size:.72rem;line-height:1.7;opacity:.6}
+.credits a{text-decoration:underline}
+
+/* ── Warenkorb ── */
+.scrim{position:fixed;inset:0;background:rgba(20,6,10,.5);backdrop-filter:blur(3px);z-index:80;opacity:0;pointer-events:none;transition:opacity .4s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--paper);z-index:90;transform:translateX(100%);transition:transform .5s var(--ease);display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;padding:1.5rem;border-bottom:1px solid var(--line)}
+.drawer-head b{font-family:var(--serif);font-size:1.6rem;font-weight:400}
+.x{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:1.4rem}
+.x:hover{background:var(--cream)}
+.items{flex:1;overflow:auto;padding:1rem 1.5rem}
+.item{display:grid;grid-template-columns:44px 1fr auto;gap:1rem;align-items:center;padding:1rem 0;border-bottom:1px solid var(--line)}
+.item svg{height:80px}
+.item b{font-family:var(--serif);font-weight:500;display:block}
+.item span{font-size:.8rem;color:var(--muted)}
+.qty{display:flex;align-items:center;gap:.5rem;margin-top:.4rem}
+.qty button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);font-size:.9rem;line-height:1}
+.empty{text-align:center;color:var(--muted);padding:4rem 1rem}
+.empty span{font-size:3rem;display:block;margin-bottom:1rem}
+.drawer-foot{padding:1.5rem;border-top:1px solid var(--line)}
+.ship{font-size:.8rem;color:var(--muted);margin-bottom:.8rem}
+.ship-bar{height:4px;border-radius:2px;background:var(--cream2);margin-top:.4rem;overflow:hidden}
+.ship-bar i{display:block;height:100%;background:var(--wine);transition:width .5s var(--ease)}
+.drawer-foot .btn{width:100%;justify-content:center;margin-top:1rem}
+
+/* ── Hinweis-Fenster ── */
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:1rem;pointer-events:none}
+.modal .box{background:var(--paper);border-radius:28px;padding:2.5rem;max-width:440px;text-align:center;transform:scale(.9);opacity:0;transition:all .4s var(--ease)}
+.modal.on{pointer-events:auto}
+.modal.on .box{transform:none;opacity:1}
+.modal .ok-ic{width:72px;height:72px;border-radius:50%;background:var(--wine);color:var(--cream);display:grid;place-items:center;margin:0 auto 1.2rem;font-size:2rem}
+.modal h3{font-size:1.8rem;margin-bottom:.8rem}
+.modal p{color:var(--muted);margin-bottom:1.5rem}
+
+/* ── Demo-Hinweis ── */
+.demo{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:.8rem;background:rgba(31,23,20,.92);backdrop-filter:blur(10px);color:var(--cream);padding:.5rem .5rem .5rem 1.1rem;border-radius:999px;font-size:.8rem;box-shadow:0 10px 40px rgba(0,0,0,.3);white-space:nowrap;animation:slideup .8s 2.5s both var(--ease);max-width:calc(100% - 2rem)}
+@keyframes slideup{from{transform:translate(-50%,150%)}}
+.demo a{background:var(--gold);color:var(--wine-d);text-decoration:none;font-weight:600;padding:.45rem .9rem;border-radius:999px}
+.demo .x{width:28px;height:28px;font-size:1rem;color:rgba(245,239,228,.6)}
+.demo .x:hover{background:rgba(245,239,228,.1)}
+.demo.gone{display:none}
+
+/* ── Handy ── */
+@media (max-width:900px){
+  .menu{position:fixed;inset:0;background:var(--wine-d);color:var(--cream);flex-direction:column;justify-content:center;align-items:center;gap:1.6rem;font-family:var(--serif);font-size:2rem;opacity:0;pointer-events:none;transition:opacity .4s}
+  .menu.open{opacity:1;pointer-events:auto}
+  .burger{display:flex;position:relative;z-index:5}
+  .burger.open{color:var(--cream)}
+  .burger.open span:first-child{transform:translateY(3.75px) rotate(45deg)}
+  .burger.open span:last-child{transform:translateY(-3.75px) rotate(-45deg)}
+  .nav .btn{display:none}
+  .rail-nav{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .result{grid-template-columns:1fr;text-align:center;padding:2rem 1.4rem;gap:1.5rem}
+  .result svg{height:220px;margin:0 auto}
+  .result h3{text-align:center}
+  .result .row{justify-content:center}
+  .story-grid{grid-template-columns:1fr}
+  .story-media{display:none}
+  .story-step{min-height:auto;opacity:1;padding:1.5rem 0}
+  .story-step .m{display:block;border-radius:20px;aspect-ratio:4/3;object-fit:cover;width:100%;margin-bottom:1.4rem}
+  .book-grid,.visit-grid{grid-template-columns:1fr}
+  .panel{position:static}
+  .format{grid-template-columns:84px 1fr;padding-right:.8rem}
+  .format img{width:84px;height:84px}
+  .format .p{grid-column:2;text-align:left}
+  .format .p small{text-align:left;display:inline;margin-left:.3rem}
+  .foot-grid{grid-template-columns:1fr}
+  .visit-img{aspect-ratio:4/3}
+  .demo span.long{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#" class="logo" aria-label="Weingut Lösshang – nach oben">
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="20" cy="20" r="18.5" opacity=".5"/><g fill="currentColor" stroke="none"><circle cx="16" cy="17" r="3"/><circle cx="22.5" cy="17" r="3"/><circle cx="19.2" cy="22.5" r="3"/><circle cx="13" cy="22.5" r="2.6"/><circle cx="25.6" cy="22.5" r="2.6"/><circle cx="16" cy="27.6" r="2.6"/><circle cx="22.5" cy="27.6" r="2.6"/><circle cx="19.2" cy="32.2" r="2.2"/></g><path d="M19.2 14V8.5c2-2.3 5-2.7 7.5-1.7"/></svg>
+      <span><b>Lösshang</b><small>Weingut · Kaiserstuhl</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#weine">Weine</a></li>
+      <li><a href="#finder">Wein-Finder</a></li>
+      <li><a href="#story">Unser Handwerk</a></li>
+      <li><a href="#weinprobe">Weinprobe</a></li>
+      <li><a href="#besuch">Besuch</a></li>
+    </ul>
+    <div class="nav-r">
+      <button class="cart-btn" id="cartBtn" aria-label="Warenkorb öffnen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1.2 12.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <a href="#weinprobe" class="btn btn-gold">Weinprobe buchen</a>
+      <button class="burger" id="burger" aria-label="Menü"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-img" role="img" aria-label="Weinberg im Abendlicht"></div>
+  <div class="wrap">
+    <div class="status" id="status"><i></i><span>Hofladen …</span></div>
+    <h1 id="heroTitle">Sonne. Löss. <em>Geduld.</em></h1>
+    <div class="hero-bottom">
+      <p>Spätburgunder und Grauburgunder vom wärmsten Hang Deutschlands – seit 1898 in vierter Generation von Hand gelesen.</p>
+      <div class="hero-cta">
+        <a href="#finder" class="btn btn-gold">Meinen Wein finden →</a>
+        <a href="#weine" class="btn btn-ghost">Alle Weine</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"></div>
+</section>
+
+<!-- Intro -->
+<section class="intro">
+  <div class="wrap">
+    <p class="eyebrow reveal">Über uns</p><br>
+    <p class="intro-text" id="introText">Am Kaiserstuhl wachsen unsere Reben auf <em>Vulkangestein und Löss</em>. Die Sonne wärmt den Boden bis spät in den Abend. Wir greifen nur so wenig wie nötig ein – und lassen den Wein werden, was der Jahrgang ihm mitgibt.</p>
+    <div class="stats">
+      <div class="stat reveal"><b data-count="14">0</b><span>Hektar Rebfläche in Ihringen</span></div>
+      <div class="stat reveal d1"><b data-count="1898">0</b><span>gegründet von Urgroßvater Anselm</span></div>
+      <div class="stat reveal d2"><b data-count="9">0</b><span>Rebsorten, alle handgelesen</span></div>
+      <div class="stat reveal d3"><b data-count="0" data-suffix=" g">0</b><span>Herbizide – seit 2009 bio</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div id="marq"></div></div>
+
+<!-- Weine -->
+<section class="wines light" id="weine">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow reveal">Unsere Weine</p>
+        <h2 class="reveal d1">Aus dem Keller <em>direkt zu Ihnen</em></h2>
+      </div>
+      <div class="rail-nav reveal">
+        <button id="prev" aria-label="Zurück"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button id="next" aria-label="Weiter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="chips reveal" id="chips">
+      <button class="chip on" data-f="alle">Alle</button>
+      <button class="chip" data-f="weiss">Weiß</button>
+      <button class="chip" data-f="rose">Rosé</button>
+      <button class="chip" data-f="rot">Rot</button>
+      <button class="chip" data-f="sekt">Sekt</button>
+    </div>
+    <div class="rail" id="rail"></div>
+  </div>
+</section>
+
+<!-- Wein-Finder -->
+<section class="finder" id="finder">
+  <div class="finder-bg" id="fbg1"></div><div class="finder-bg" id="fbg2"></div>
+  <div class="wrap">
+    <div class="finder-head">
+      <p class="eyebrow reveal">Wein-Finder</p>
+      <h2 class="reveal d1">Was gibt's <em>heute Abend?</em></h2>
+      <p class="reveal d2">Zwei Fragen – und Sie wissen, welche Flasche Sie öffnen.</p>
+    </div>
+    <div class="steps-dots"><i class="on"></i><i></i><i></i></div>
+    <div class="fstep on" id="fs1">
+      <h3>Was steht auf dem Tisch?</h3>
+      <div class="opts">
+        <button class="opt" data-food="flamm" data-img="flammkuchen"><span class="ic">🔥</span><b>Flammkuchen</b><span>oder Zwiebelkuchen</span></button>
+        <button class="opt" data-food="fisch" data-img="probe"><span class="ic">🐟</span><b>Fisch & Spargel</b><span>leicht & frisch</span></button>
+        <button class="opt" data-food="fleisch" data-img="glas"><span class="ic">🥩</span><b>Braten & Wild</b><span>kräftig</span></button>
+        <button class="opt" data-food="kaese" data-img="kaese"><span class="ic">🧀</span><b>Käse</b><span>Vesper & Brett</span></button>
+        <button class="opt" data-food="nix" data-img="hero"><span class="ic">🌅</span><b>Nur so</b><span>Terrasse, Sonne</span></button>
+      </div>
+    </div>
+    <div class="fstep" id="fs2">
+      <h3>Und wie mögen Sie's?</h3>
+      <div class="opts">
+        <button class="opt" data-body="1"><span class="ic">🍋</span><b>Frisch & spritzig</b><span>leicht, lebendig</span></button>
+        <button class="opt" data-body="2"><span class="ic">🍑</span><b>Rund & weich</b><span>fruchtig, harmonisch</span></button>
+        <button class="opt" data-body="3"><span class="ic">🌑</span><b>Kräftig & tief</b><span>Holz, Struktur</span></button>
+      </div>
+    </div>
+    <div class="fstep" id="fs3"></div>
+  </div>
+</section>
+
+<!-- Parallax -->
+<section class="band">
+  <div class="band-img" id="bandImg"></div>
+  <div class="wrap">
+    <h2 class="reveal">Der wärmste Ort <em>Deutschlands</em></h2>
+    <p class="reveal d1">Ihringen misst regelmäßig die höchsten Jahrestemperaturen im Land. Auf den Terrassen reifen die Trauben langsam – und bekommen dadurch ihre Tiefe.</p>
+  </div>
+</section>
+
+<!-- Story -->
+<section class="story light" id="story">
+  <div class="wrap">
+    <p class="eyebrow reveal" style="color:var(--wine)">Unser Handwerk</p>
+    <h2 class="reveal d1">Vom Rebstock <em>ins Glas</em></h2>
+    <div class="story-grid">
+      <div class="story-media" id="storyMedia">
+        <img src="img/blatt.webp" alt="Weinblatt in der Abendsonne" class="on" loading="lazy">
+        <img src="img/lese.webp" alt="Handlese – Butten voller Trauben" loading="lazy">
+        <img src="img/keller.webp" alt="Gewölbekeller mit Barriquefässern" loading="lazy">
+        <img src="img/einschenken.webp" alt="Rotwein wird eingeschenkt" loading="lazy">
+        <div class="num" id="storyNum">01</div>
+      </div>
+      <div>
+        <div class="story-step on"><img class="m" src="img/blatt.webp" alt="" loading="lazy"><p class="eyebrow">01 · Frühjahr bis Sommer</p><h3>Jede Rebe kennt unsere Hände</h3><p>Rebschnitt, Laubarbeit, Ausdünnen – über das Jahr gehen wir 14-mal durch jede Zeile. Wir lassen nur so viele Trauben hängen, wie die Rebe wirklich ausreifen kann.</p></div>
+        <div class="story-step"><img class="m" src="img/lese.webp" alt="" loading="lazy"><p class="eyebrow">02 · September & Oktober</p><h3>Gelesen wird von Hand</h3><p>Früh am Morgen, solange die Trauben kühl sind. Nur gesunde Beeren kommen in die Bütte – faule sortieren wir direkt am Stock aus.</p></div>
+        <div class="story-step"><img class="m" src="img/keller.webp" alt="" loading="lazy"><p class="eyebrow">03 · Ein bis zwei Jahre</p><h3>Zeit im Gewölbekeller</h3><p>Unsere Spätburgunder reifen 18 Monate in Barriques aus Schwarzwälder Eiche. Bei konstant 12 °C, im Keller von 1898.</p></div>
+        <div class="story-step"><img class="m" src="img/einschenken.webp" alt="" loading="lazy"><p class="eyebrow">04 · Bei Ihnen</p><h3>Und dann: Ihr Abend</h3><p>Abgefüllt wird ungeschönt und unfiltriert. Ab 6 Flaschen liefern wir versandkostenfrei – in Baden auch persönlich.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Weinprobe -->
+<section class="booking light" id="weinprobe">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow reveal" style="color:var(--wine)">Weinprobe</p>
+        <h2 class="reveal d1">Kommen Sie <em>vorbei</em></h2>
+      </div>
+      <p class="reveal">Wählen Sie Ihr Erlebnis und einen freien Termin. Sie bekommen sofort eine Bestätigung – ohne Anruf, ohne Warten.</p>
+    </div>
+    <div class="book-grid">
+      <div class="formats" id="formats">
+        <button class="format on reveal" data-price="25" data-name="Klassische Weinprobe"><img src="img/probe.webp" alt="" loading="lazy"><div><b>Klassische Weinprobe</b><span>6 Weine · 90 Minuten · mit Winzer</span></div><div class="p">25 €<small>pro Person</small></div></button>
+        <button class="format reveal d1" data-price="39" data-name="Wein & Flammkuchen"><img src="img/flammkuchen.webp" alt="" loading="lazy"><div><b>Wein & Flammkuchen</b><span>5 Weine · Flammkuchen aus dem Holzofen</span></div><div class="p">39 €<small>pro Person</small></div></button>
+        <button class="format reveal d2" data-price="49" data-name="Keller & Weinberg"><img src="img/keller.webp" alt="" loading="lazy"><div><b>Keller & Weinberg</b><span>Führung · Fassprobe · 7 Weine · Vesper</span></div><div class="p">49 €<small>pro Person</small></div></button>
+      </div>
+      <div class="panel reveal">
+        <div class="cal-head"><button id="calPrev" aria-label="Voriger Monat">‹</button><b id="calTitle"></b><button id="calNext" aria-label="Nächster Monat">›</button></div>
+        <div class="cal" id="cal"></div>
+        <div class="legend"><span><i style="background:#3d7a4f"></i>frei</span><span><i style="background:#d08a2e"></i>wenige Plätze</span><span style="text-decoration:line-through">ausgebucht</span></div>
+        <div class="slots" id="slots"><span class="hint">Bitte zuerst einen Tag wählen.</span></div>
+        <div class="persons"><span>Personen</span><div class="stepper"><button id="pMinus" aria-label="weniger">−</button><b id="pNum">2</b><button id="pPlus" aria-label="mehr">+</button></div></div>
+        <div class="total"><span>Gesamt</span><b id="total">50 €</b></div>
+        <button class="btn btn-wine" id="bookBtn" disabled>Termin wählen</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Besuch -->
+<section class="visit" id="besuch">
+  <div class="wrap visit-grid">
+    <div class="visit-img reveal"><img src="img/terrassen.webp" alt="Weinbergterrassen am Kaiserstuhl" loading="lazy"></div>
+    <div>
+      <p class="eyebrow reveal" style="color:var(--wine)">Hofladen & Besuch</p>
+      <h2 class="reveal d1" style="margin:.8rem 0 1.5rem">Wir freuen uns <em style="color:var(--wine)">auf Sie</em></h2>
+      <p class="addr reveal">Weingut Lösshang<br>Am Rebhang 12 · 79241 Ihringen</p>
+      <div class="hours reveal" id="hours"></div>
+      <a class="btn btn-wine reveal" href="https://www.openstreetmap.org/search?query=Ihringen%20Kaiserstuhl" target="_blank" rel="noopener">Route planen ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="news">
+  <div class="wrap">
+    <h2 class="reveal">Der neue Jahrgang <em>zuerst</em></h2>
+    <p class="reveal d1">Einmal im Quartal: neue Weine, Termine und Rezepte. Abonnenten bekommen 10 % auf die erste Bestellung.</p>
+    <form class="reveal d2" id="newsForm"><input type="email" required placeholder="Ihre E-Mail-Adresse" aria-label="E-Mail-Adresse"><button class="btn btn-gold" type="submit">Anmelden</button></form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="logo"><span><b>Lösshang</b><small>Weingut · Kaiserstuhl</small></span></a>
+        <p>Am Rebhang 12 · 79241 Ihringen<br>Dies ist ein <strong>fiktives Weingut</strong> – eine Demo-Webseite.</p>
+      </div>
+      <div><h4>Entdecken</h4><ul><li><a href="#weine">Weine</a></li><li><a href="#finder">Wein-Finder</a></li><li><a href="#weinprobe">Weinprobe</a></li></ul></div>
+      <div><h4>Diese Webseite</h4><ul><li><a href="/">Gestaltet von Yves Claudio Blischke</a></li><li><a href="/#kontakt">So eine Seite anfragen</a></li><li><a href="/">Impressum & Datenschutz</a></li></ul></div>
+    </div>
+    <div class="credits" id="credits"></div>
+  </div>
+</footer>
+
+<!-- Warenkorb -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Warenkorb">
+  <div class="drawer-head"><b>Ihr Warenkorb</b><button class="x" id="closeCart" aria-label="Schließen">×</button></div>
+  <div class="items" id="items"></div>
+  <div class="drawer-foot">
+    <div class="ship" id="ship"></div>
+    <div class="total" style="margin:0"><span>Summe</span><b id="cartTotal">0,00 €</b></div>
+    <button class="btn btn-wine" id="checkout">Zur Kasse</button>
+  </div>
+</aside>
+
+<div class="modal" id="modal"><div class="box"><div class="ok-ic">✓</div><h3 id="mTitle"></h3><p id="mText"></p><button class="btn btn-wine" id="mClose">Schön!</button></div></div>
+
+<div class="demo" id="demo"><span>✦ Demo-Webseite<span class="long"> – gebaut von Yves Claudio Blischke</span></span><a href="/#kontakt">Auch so eine Seite?</a><button class="x" id="demoX" aria-label="Hinweis ausblenden">×</button></div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const eur=n=>n.toLocaleString('de-DE',{style:'currency',currency:'EUR'});
+
+/* ── Weine ── */
+const WINES=[
+ {id:'grau',name:'Grauburgunder „Löss“',sort:'Grauburgunder · trocken · 2024',type:'weiss',price:9.8,c:'#c9c27a',glass:'#dfe3b8',glow:'#e9d98a',label:'GB',badge:'Bestseller',desc:'Birne, Nuss, ein Hauch Rauch. Der Klassiker vom Kaiserstuhl.',food:['flamm','fisch','kaese','nix'],body:2},
+ {id:'weiss',name:'Weißburgunder Gutswein',sort:'Weißburgunder · trocken · 2024',type:'weiss',price:8.5,c:'#d7d59a',glass:'#e7ebc5',glow:'#efe7a6',label:'WB',desc:'Frisch, saftig, unkompliziert. Für Spargel und lange Abende.',food:['fisch','flamm','nix'],body:1},
+ {id:'ries',name:'Riesling „Steinbuck“',sort:'Riesling · trocken · 2023',type:'weiss',price:12.5,c:'#c4cf7d',glass:'#dfe9b4',glow:'#d5e58e',label:'RI',desc:'Vulkangestein im Glas: Limette, Pfirsich und Salz.',food:['fisch','kaese'],body:1},
+ {id:'musk',name:'Muskateller',sort:'Muskateller · feinherb · 2024',type:'weiss',price:10.5,c:'#d4c873',glass:'#ede4b0',glow:'#f2d77c',label:'MU',desc:'Duftet nach Holunder und Trauben. Der Terrassenwein.',food:['nix','kaese'],body:1},
+ {id:'rose',name:'Spätburgunder Rosé',sort:'Rosé · trocken · 2024',type:'rose',price:8.9,c:'#e48b8b',glass:'#f4c2bd',glow:'#f5a3a0',label:'RO',badge:'Neu',desc:'Erdbeere, Johannisbeere, knackig kühl. Sommer in der Flasche.',food:['nix','flamm','fisch'],body:1},
+ {id:'vulkan',name:'Spätburgunder „Vulkan“',sort:'Spätburgunder · trocken · 2022',type:'rot',price:14.9,c:'#5a1428',glass:'#3a1219',glow:'#b0465f',label:'SB',desc:'Kirsche, Waldboden, feine Würze. 12 Monate im großen Holzfass.',food:['fleisch','kaese','flamm'],body:2},
+ {id:'gg',name:'Spätburgunder GG „Winklerberg“',sort:'Großes Gewächs · 2021',type:'rot',price:34,c:'#3b0c18',glass:'#2a0a12',glow:'#8e2a43',label:'GG',badge:'94 Punkte',desc:'Unser bester Hang. 18 Monate Barrique, Lagerpotenzial bis 2035.',food:['fleisch','kaese'],body:3},
+ {id:'sekt',name:'Pinot Sekt Brut',sort:'Flaschengärung · 36 Monate',type:'sekt',price:16.9,c:'#d9cc8e',glass:'#efe6c0',glow:'#f0dc96',label:'SK',desc:'Feine Perlage, Brioche und grüner Apfel. Zum Anstoßen.',food:['nix','fisch'],body:1,sekt:true},
+];
+function bottle(w){
+  const capC=w.type==='rot'?'#2a0a12':w.sekt?'#c9a45c':'#c9a45c', gid='g'+w.id+Math.random().toString(36).slice(2,6);
+  return `<svg viewBox="0 0 60 200" aria-hidden="true"><defs><linearGradient id="${gid}" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".22" stop-color="#fff" stop-opacity=".35"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".85" stop-color="#000" stop-opacity=".25"/></linearGradient></defs>
+  <path d="M24.5 4h11v50c0 14 17.5 22 17.5 42v94a6 6 0 0 1-6 6H13a6 6 0 0 1-6-6V96c0-20 17.5-28 17.5-42z" fill="${w.glass}"/>
+  ${w.type!=='rot'?`<path d="M7 100h46v90a6 6 0 0 1-6 6H13a6 6 0 0 1-6-6z" fill="${w.c}" opacity=".55"/>`:''}
+  <path d="M24.5 4h11v50c0 14 17.5 22 17.5 42v94a6 6 0 0 1-6 6H13a6 6 0 0 1-6-6V96c0-20 17.5-28 17.5-42z" fill="url(#${gid})"/>
+  <rect x="23.8" y="2" width="12.4" height="${w.sekt?40:30}" rx="2" fill="${capC}"/>${w.sekt?'<rect x="23.8" y="34" width="12.4" height="3" fill="#a07f3c"/>':''}
+  <rect x="10" y="116" width="40" height="52" rx="2" fill="#f7f1e6"/><rect x="12.5" y="118.5" width="35" height="47" rx="1" fill="none" stroke="#c9a45c" stroke-width=".6"/>
+  <text x="30" y="137" text-anchor="middle" font-family="Fraunces,serif" font-size="12" fill="#5a1428">${w.label}</text>
+  <text x="30" y="148" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.6" letter-spacing=".8" fill="#6f6259">LÖSSHANG</text>
+  <text x="30" y="158" text-anchor="middle" font-family="Inter,sans-serif" font-size="3.2" fill="#6f6259">${w.sort.split('·').pop().trim()}</text></svg>`;
+}
+const plus='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>';
+$('#rail').innerHTML=WINES.map(w=>`<article class="wine" data-type="${w.type}">
+  ${w.badge?`<span class="badge">${w.badge}</span>`:''}
+  <div class="wine-stage" style="--glow:${w.glow};background:linear-gradient(160deg,${w.glow}22,${w.glow}44)">${bottle(w)}</div>
+  <small>${w.sort}</small><h3>${w.name}</h3><p>${w.desc}</p>
+  <div class="wine-foot"><div class="price">${eur(w.price)}<small>0,75 l · ${eur(w.price/0.75)}/l</small></div><button class="add" data-id="${w.id}" aria-label="${w.name} in den Warenkorb">${plus}</button></div></article>`).join('');
+$('#chips').addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b) return;
+  $$('.chip').forEach(c=>c.classList.toggle('on',c===b));
+  $$('.wine').forEach(w=>w.classList.toggle('hide',b.dataset.f!=='alle'&&w.dataset.type!==b.dataset.f));
+  $('#rail').scrollTo({left:0,behavior:'smooth'});
+});
+$('#prev').onclick=()=>$('#rail').scrollBy({left:-320,behavior:'smooth'});
+$('#next').onclick=()=>$('#rail').scrollBy({left:320,behavior:'smooth'});
+$('#marq').innerHTML=(Array(2).fill(['Grauburgunder','Spätburgunder','Weißburgunder','Riesling','Muskateller','Pinot Sekt','Rosé']).flat().map(n=>`${n}<span>✦</span>`).join('')).repeat(2);
+
+/* ── Warenkorb ── */
+let cart={};
+try{cart=JSON.parse(localStorage.getItem('lh_cart')||'{}')}catch(e){}
+function saveCart(){try{localStorage.setItem('lh_cart',JSON.stringify(cart))}catch(e){}}
+function renderCart(){
+  const ids=Object.keys(cart).filter(k=>cart[k]>0);
+  const n=ids.reduce((s,k)=>s+cart[k],0), sum=ids.reduce((s,k)=>s+cart[k]*WINES.find(w=>w.id===k).price,0);
+  const cc=$('#cartCount'); cc.textContent=n; cc.classList.toggle('on',n>0);
+  $('#items').innerHTML=ids.length?ids.map(k=>{const w=WINES.find(x=>x.id===k);return `<div class="item">${bottle(w)}<div><b>${w.name}</b><span>${eur(w.price)}</span><div class="qty"><button data-q="${k}" data-d="-1">−</button>${cart[k]}<button data-q="${k}" data-d="1">+</button></div></div><b>${eur(w.price*cart[k])}</b></div>`}).join(''):'<div class="empty"><span>🍷</span>Noch leer. Wie wär\'s mit dem Wein-Finder?</div>';
+  const left=6-n;
+  $('#ship').innerHTML=(left>0?`Noch <b>${left} Flasche${left>1?'n':''}</b> bis zum kostenlosen Versand`:'🎉 Versandkostenfrei!')+`<div class="ship-bar"><i style="width:${Math.min(100,n/6*100)}%"></i></div>`;
+  $('#cartTotal').textContent=eur(sum);
+  saveCart();
+}
+function addToCart(id,btn){
+  cart[id]=(cart[id]||0)+1; renderCart();
+  const cc=$('#cartCount'); cc.classList.remove('bump'); void cc.offsetWidth; cc.classList.add('bump');
+  if(btn){btn.classList.add('ok');btn.innerHTML='✓';setTimeout(()=>{btn.classList.remove('ok');btn.innerHTML=plus},1200)}
+}
+document.addEventListener('click',e=>{
+  const a=e.target.closest('.add'); if(a) addToCart(a.dataset.id,a);
+  const q=e.target.closest('[data-q]'); if(q){cart[q.dataset.q]=Math.max(0,cart[q.dataset.q]+ +q.dataset.d);renderCart()}
+});
+const openCart=o=>{$('#drawer').classList.toggle('on',o);$('#scrim').classList.toggle('on',o)};
+$('#cartBtn').onclick=()=>openCart(true); $('#closeCart').onclick=$('#scrim').onclick=()=>openCart(false);
+$('#checkout').onclick=()=>{openCart(false);modal('Fast geschafft','Hier würde jetzt die Kasse mit PayPal, Kreditkarte und Rechnung folgen. In dieser Demo wird nichts bestellt.')};
+renderCart();
+
+/* ── Hinweis-Fenster ── */
+function modal(t,txt){$('#mTitle').textContent=t;$('#mText').textContent=txt;$('#modal').classList.add('on');$('#scrim').classList.add('on')}
+$('#mClose').onclick=()=>{$('#modal').classList.remove('on');$('#scrim').classList.remove('on')};
+
+/* ── Wein-Finder ── */
+let food=null, fbOn=1;
+function setBg(img){const a=$('#fbg'+fbOn),b=$('#fbg'+(fbOn=3-fbOn));b.style.backgroundImage=`url(img/${img}.webp)`;b.classList.add('on');a.classList.remove('on')}
+function fstep(n){$$('.fstep').forEach((s,i)=>s.classList.toggle('on',i===n-1));$$('.steps-dots i').forEach((d,i)=>d.classList.toggle('on',i<n))}
+$('#fs1').addEventListener('click',e=>{const o=e.target.closest('.opt');if(!o)return;food=o.dataset.food;setBg(o.dataset.img);fstep(2)});
+$('#fs2').addEventListener('click',e=>{
+  const o=e.target.closest('.opt');if(!o)return;const body=+o.dataset.body;
+  const best=WINES.map(w=>({w,s:(w.food.includes(food)?3:0)-Math.abs(w.body-body)*1.5+(w.food[0]===food?1:0)})).sort((a,b)=>b.s-a.s)[0].w;
+  const why={flamm:'Zum Flammkuchen braucht es Frische gegen Speck und Schmand',fisch:'Zu Fisch und Spargel passt Säure, die nicht überdeckt',fleisch:'Ein Braten verlangt nach Struktur und reifen Tanninen',kaese:'Käse liebt Weine mit Charakter und Länge',nix:'Für einen Abend auf der Terrasse zählt nur eins: Lust auf das nächste Glas'}[food];
+  $('#fs3').innerHTML=`<div class="result">${bottle(best)}<div><small>Unsere Empfehlung</small><h3>${best.name}</h3><p>${why} – genau das hat unser ${best.name.split(' „')[0]}. ${best.desc}</p><div class="row"><button class="btn btn-gold add-r" data-id="${best.id}">In den Warenkorb · ${eur(best.price)}</button><button class="again" id="again">Nochmal</button></div></div></div>`;
+  fstep(3);
+});
+$('#fs3').addEventListener('click',e=>{
+  if(e.target.closest('.add-r')){addToCart(e.target.closest('.add-r').dataset.id);e.target.closest('.add-r').textContent='✓ Im Warenkorb'}
+  if(e.target.id==='again'){fstep(1);setBg('hero')}
+});
+setBg('hero');
+
+/* ── Hofladen: Öffnungszeiten live ── */
+const HOURS=[null,[[9,12],[14,18]],[[9,12],[14,18]],[[9,12],[14,18]],[[9,12],[14,18]],[[9,12],[14,19]],[[9,16]]]; // So=0
+const DN=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+function status(){
+  const d=new Date(),h=d.getHours()+d.getMinutes()/60,t=HOURS[d.getDay()];
+  const cur=t&&t.find(([a,b])=>h>=a&&h<b);
+  if(cur) return {open:true,txt:`Hofladen jetzt geöffnet · bis ${cur[1]} Uhr`};
+  const nx=t&&t.find(([a])=>h<a); if(nx) return {open:false,txt:`Hofladen öffnet heute um ${nx[0]} Uhr`};
+  for(let i=1;i<8;i++){const dd=(d.getDay()+i)%7;if(HOURS[dd])return {open:false,txt:`Hofladen öffnet ${i===1?'morgen':DN[dd]} um ${HOURS[dd][0][0]} Uhr`}}
+}
+const st=status(); $('#status span').textContent=st.txt; $('#status').classList.toggle('closed',!st.open);
+const fmt=t=>t?t.map(([a,b])=>`${a}–${b} Uhr`).join(' · '):'geschlossen';
+$('#hours').innerHTML=[1,2,3,4,5,6,0].map(i=>`<div class="${i===new Date().getDay()?'today':''}"><span>${DN[i]}</span><span>${fmt(HOURS[i])}</span></div>`).join('');
+
+/* ── Weinprobe-Kalender ── */
+const today=new Date();today.setHours(0,0,0,0);
+let view=new Date(today.getFullYear(),today.getMonth(),1), sel=null, slot=null, persons=2, price=25, fname='Klassische Weinprobe';
+const hash=d=>{let x=d.getFullYear()*372+d.getMonth()*31+d.getDate();x=(x*2654435761)>>>0;return x%100};
+function dayState(d){
+  if(d<=today) return 'off';
+  const wd=d.getDay(); if(![4,5,6,0].includes(wd)) return 'off';
+  if((d-today)/864e5>70) return 'off';
+  const h=hash(d); return h<22?'full':h<45?'few':'free';
+}
+function slotsFor(d){const h=hash(d);return [['14:00',h%3!==0],['17:00',h%4!==1]].concat(d.getDay()===6?[['11:00',h%5!==2]]:[]).sort()}
+function renderCal(){
+  const y=view.getFullYear(),m=view.getMonth();
+  $('#calTitle').textContent=view.toLocaleDateString('de-DE',{month:'long',year:'numeric'});
+  $('#calPrev').disabled=y===today.getFullYear()&&m===today.getMonth();
+  const max=new Date(today.getFullYear(),today.getMonth()+2,1); $('#calNext').disabled=view>=max;
+  let html=['Mo','Di','Mi','Do','Fr','Sa','So'].map(d=>`<div class="dow">${d}</div>`).join('');
+  const off=(new Date(y,m,1).getDay()+6)%7; html+='<div></div>'.repeat(off);
+  const n=new Date(y,m+1,0).getDate();
+  for(let i=1;i<=n;i++){const d=new Date(y,m,i),s=dayState(d),isSel=sel&&+d===+sel;
+    html+=`<button class="day ${s==='few'?'free few':s}${isSel?' sel':''}" ${s==='off'||s==='full'?'disabled':''} data-d="${+d}" aria-label="${d.toLocaleDateString('de-DE')}">${i}</button>`}
+  $('#cal').innerHTML=html;
+}
+function renderSlots(){
+  if(!sel){$('#slots').innerHTML='<span class="hint">Bitte zuerst einen Tag wählen.</span>';return}
+  $('#slots').innerHTML=slotsFor(sel).map(([t,ok])=>`<button class="slot${slot===t?' on':''}" ${ok?'':'disabled'} data-t="${t}">${t} Uhr</button>`).join('');
+}
+function renderTotal(){
+  $('#pNum').textContent=persons; $('#total').textContent=(price*persons)+' €';
+  const b=$('#bookBtn'); b.disabled=!(sel&&slot);
+  b.textContent=sel&&slot?`Verbindlich buchen · ${sel.toLocaleDateString('de-DE',{weekday:'short',day:'numeric',month:'short'})}, ${slot}`:sel?'Uhrzeit wählen':'Termin wählen';
+}
+$('#cal').addEventListener('click',e=>{const b=e.target.closest('.day');if(!b||b.disabled)return;sel=new Date(+b.dataset.d);slot=null;renderCal();renderSlots();renderTotal()});
+$('#slots').addEventListener('click',e=>{const b=e.target.closest('.slot');if(!b)return;slot=b.dataset.t;renderSlots();renderTotal()});
+$('#calPrev').onclick=()=>{view=new Date(view.getFullYear(),view.getMonth()-1,1);renderCal()};
+$('#calNext').onclick=()=>{view=new Date(view.getFullYear(),view.getMonth()+1,1);renderCal()};
+$('#pMinus').onclick=()=>{persons=Math.max(1,persons-1);renderTotal()};
+$('#pPlus').onclick=()=>{persons=Math.min(16,persons+1);renderTotal()};
+$('#formats').addEventListener('click',e=>{const f=e.target.closest('.format');if(!f)return;$$('.format').forEach(x=>x.classList.toggle('on',x===f));price=+f.dataset.price;fname=f.dataset.name;renderTotal()});
+$('#bookBtn').onclick=()=>modal('Termin reserviert',`${fname} für ${persons} ${persons>1?'Personen':'Person'} am ${sel.toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long'})} um ${slot} Uhr. Im echten Betrieb kämen jetzt eine Bestätigungs-Mail und eine Erinnerung am Vortag. (Demo – es wurde nichts gebucht.)`);
+renderCal();renderTotal();
+
+$('#newsForm').onsubmit=e=>{e.preventDefault();modal('Danke fürs Anmelden!','Im echten Betrieb käme jetzt eine Bestätigungs-Mail (Double-Opt-in). In dieser Demo wird nichts gespeichert.');e.target.reset()};
+
+/* ── Navigation ── */
+const nav=$('#nav');
+$('#burger').onclick=()=>{$('#menu').classList.toggle('open');$('#burger').classList.toggle('open')};
+$$('#menu a').forEach(a=>a.onclick=()=>{$('#menu').classList.remove('open');$('#burger').classList.remove('open')});
+$('#demoX').onclick=()=>$('#demo').classList.add('gone');
+
+/* ── Hero-Titel Wort für Wort ── */
+(()=>{const h=$('#heroTitle');let i=0;
+ h.innerHTML=h.innerHTML.replace(/(<em>)?([^\s<]+)(<\/em>)?/g,(m,a,w,b)=>`<span class="w"><span style="animation-delay:${.3+(i++)*.14}s">${a||''}${w}${b||''}</span></span>`);
+})();
+
+/* ── Intro-Text: Wort für Wort beim Scrollen ── */
+(()=>{const p=$('#introText');
+ p.innerHTML=p.innerHTML.replace(/<em>(.*?)<\/em>/g,(m,t)=>t.split(' ').map(w=>'§'+w).join(' ')).split(' ').map(w=>w.startsWith('§')?`<span><em>${w.slice(1)}</em></span>`:`<span>${w}</span>`).join(' ');
+ window._words=[...p.querySelectorAll('span')];
+})();
+
+/* ── Scroll-Effekte ── */
+const steps=$$('.story-step'), simgs=$$('#storyMedia img');
+function onScroll(){
+  const y=scrollY, vh=innerHeight;
+  nav.classList.toggle('solid',y>vh*.6);
+  // Intro-Wörter
+  const r=$('#introText').getBoundingClientRect(), prog=Math.min(1,Math.max(0,(vh*.85-r.top)/(r.height+vh*.35)));
+  const n=Math.round(prog*_words.length); _words.forEach((w,i)=>w.classList.toggle('on',i<n));
+  // Parallax
+  const b=$('#bandImg').parentElement.getBoundingClientRect(); if(b.bottom>0&&b.top<vh) $('#bandImg').style.transform=`translateY(${(b.top/vh)*-12}%)`;
+  // Story
+  let act=0; steps.forEach((s,i)=>{if(s.getBoundingClientRect().top<vh*.55)act=i});
+  steps.forEach((s,i)=>s.classList.toggle('on',i===act)); simgs.forEach((m,i)=>m.classList.toggle('on',i===act));
+  $('#storyNum').textContent='0'+(act+1);
+}
+let tick=false; addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(()=>{onScroll();tick=false})}},{passive:true}); onScroll();
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+$$('.reveal').forEach(el=>io.observe(el));
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;cio.unobserve(e.target);
+  const el=e.target,end=+el.dataset.count,suf=el.dataset.suffix||'',t0=performance.now(),from=end>1000?1850:0;
+  (function f(t){const k=Math.min(1,(t-t0)/1800),v=Math.round(from+(end-from)*(1-Math.pow(1-k,4)));el.textContent=v+suf;if(k<1)requestAnimationFrame(f)})(t0)}),{threshold:.6});
+$$('[data-count]').forEach(el=>cio.observe(el));
+
+/* ── Bildnachweise ── */
+const CREDITS=[
+ ['Weinberg im Abendlicht','Aciarium','CC BY 4.0','https://commons.wikimedia.org/wiki/File:DSC06590_Vineyard_at_Sunset,_Gumpoldskirchen,_2023-10.jpg'],
+ ['Weinblatt','Aciarium','CC BY 4.0','https://commons.wikimedia.org/wiki/File:DSC06582_Wine_Leaves_at_Sunset,_Gumpoldskirchen,_2023-10.jpg'],
+ ['Terrassen Ihringen','Philipp Guttmann','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Weinberg_Kaiserstuhl_Ihringen_Vineyard.jpg'],
+ ['Weinlese','Roland.h.bueb','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Hagnau-am-bodensee-vineyards-harvesting.JPG'],
+ ['Gewölbekeller','chileaktiv','CC BY-SA 2.0','https://commons.wikimedia.org/wiki/File:Vi%C3%B1a_Cousi%C3%B1o_Mac%C3%BAl.jpg'],
+ ['Glas Rotwein','FranHogan','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Offering_a_glass_of_red_wine.jpg'],
+ ['Weinprobe','Sarah Stierch (Missvain)','CC BY 4.0','https://commons.wikimedia.org/wiki/File:Mindful_wine_tasting_-_February_2023_-_Sarah_Stierch_02.jpg'],
+ ['Flammkuchen','Lulu Durand','CC BY 2.0','https://commons.wikimedia.org/wiki/File:Tarte_flamb%C3%A9e_alsacienne_514471722.jpg'],
+ ['Käseplatte','Jordan Johnson','CC BY 2.0','https://commons.wikimedia.org/wiki/File:Wine_%26_cheese_platter_(cropped).jpg'],
+ ['Wein einschenken','Bhullargraphic','CC BY-SA 4.0','https://commons.wikimedia.org/wiki/File:Close-up_of_red_wine_being_poured_into_a_glass_with_a_blurred_outdoor_backdrop.jpg'],
+];
+$('#credits').innerHTML='Bildnachweise (Wikimedia Commons, verkleinert und zugeschnitten): '+CREDITS.map(([t,a,l,u])=>`${t}: ${a}, <a href="${u}" target="_blank" rel="noopener">${l}</a>`).join(' · ')+'. Schriften: Fraunces & Inter (SIL OFL), lokal eingebunden – keine Verbindung zu Google.';
+</script>
+</body>
+</html>
