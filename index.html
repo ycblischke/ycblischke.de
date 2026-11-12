@@ -359,6 +359,9 @@
       .packages-grid { grid-template-columns: 1fr; }
     }
 
+    .demo-access { margin-top: .9rem; background: var(--bg); border: 1px dashed var(--gold); border-radius: 10px; padding: .7rem .9rem; font-size: .8rem; color: var(--muted); display: grid; gap: .25rem; }
+    .demo-access b { color: var(--navy); font-size: .82rem; }
+    .demo-access code { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 0 .35rem; color: var(--navy); font-weight: 700; }
     /* Projekt-Galerien */
     .project-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
     .project-body { padding: 1.3rem 1.4rem 1.5rem; }
@@ -486,16 +489,28 @@
     <div class="proj-sub"><h3>Shops, Apps &amp; Widgets</h3><p>Kundenprojekte und eigene Entwicklungen.</p></div>
     <div class="projects-grid">
       <div class="project-card">
-        <div class="project-gallery" data-gallery="shop">
-          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/shop-1.jpg" alt="Startseite mit geteiltem Bild-Slider" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/shop-2.jpg" alt="Leuchtenarten als Bild-Mosaik" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/shop-3.jpg" alt="Produkt-Karussell mit Bewertungen und Farben" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/shop-5.jpg" alt="Kategorieseite mit Unterkategorien" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/shop-4.jpg" alt="Outlet und Blog" loading="lazy" width="1200" height="750"></div></div>
+        <div class="project-gallery browser" data-gallery="shop">
+          <div class="pg-bar" aria-hidden="true"><i></i><i></i><i></i><span>lichtfang-demo.myshopify.com</span></div>
+          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/lichtfang-1.jpg" alt="Startseite mit Bild-Slider und Werkstatt-Bild" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-2.jpg" alt="Lichtplaner: Lichtfarbe und Helligkeit live ausprobieren" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-3.jpg" alt="Lichtplaner: passende Leuchten für den Raum, direkt in den Warenkorb" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-4.jpg" alt="Kategorieseite mit Kacheln und Filtern" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-5.jpg" alt="Produktseite mit Ausführungen und technischen Daten" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-6.jpg" alt="Online-Beratung: Termin direkt buchen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-7.jpg" alt="Outlet mit Einzelstücken und Streichpreisen" loading="lazy" width="1200" height="750"></div></div>
           <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
           <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
-          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button><button type="button" class="pg-dot" aria-label="Bild 4" data-i="3"></button><button type="button" class="pg-dot" aria-label="Bild 5" data-i="4"></button></div>
+          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button><button type="button" class="pg-dot" aria-label="Bild 4" data-i="3"></button><button type="button" class="pg-dot" aria-label="Bild 5" data-i="4"></button><button type="button" class="pg-dot" aria-label="Bild 6" data-i="5"></button><button type="button" class="pg-dot" aria-label="Bild 7" data-i="6"></button></div>
         </div>
         <div class="project-body">
-          <div class="project-tag">Webshop · in Arbeit</div>
-          <h3>Online-Shop für einen Leuchtenhersteller</h3>
-          <p>Hersteller-Shop mit Shopify: geteilter Bild-Slider, Leuchtenarten mit Filtern (Lichtfarbe, Dimmart, Oberfläche), Outlet für Ausstellungsstücke, Blog und Vorbereitung für einen Händlerbereich.</p>
+          <div class="project-tag">Shopify-Demo · zum Ausprobieren</div>
+          <h3>Leuchten-Shop „Lichtfang“</h3>
+          <p>Kompletter Shopify-Shop für eine (fiktive) Leuchten-Manufaktur – Deutsch und Englisch, 24 Produkte, Filter, Outlet und echter Bestellablauf mit Testzahlung.</p>
+          <ul class="feat-list">
+            <li>Lichtplaner: Lumen berechnen, Lichtfarbe live testen, passende Leuchten vorschlagen</li>
+            <li>Online-Beratung mit Terminwahl</li>
+            <li>Filter nach Ausführung, Lichtstrom, Dimmbarkeit, Schutzart</li>
+          </ul>
+          <div class="demo-access">
+            <b>Zugang zur Demo</b>
+            <span>Der Shop ist mit einem Passwort geschützt. Passwort: <code>ShopDemo</code></span>
+            <span>Testbestellung: Kartennummer <code>1</code>, Name <code>Bogus Gateway</code>, beliebiges Ablaufdatum in der Zukunft und Prüfnummer. Es wird nichts berechnet.</span>
+          </div>
+          <a class="project-link" href="https://lichtfang-demo.myshopify.com" target="_blank" rel="noopener">Shop öffnen →</a>
         </div>
       </div>
       <div class="project-card">
