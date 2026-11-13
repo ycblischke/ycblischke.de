@@ -359,6 +359,9 @@
       .packages-grid { grid-template-columns: 1fr; }
     }
 
+    .project-shop { align-items: start; }
+    .project-shop .pw-media { min-width: 0; }
+    .project-shop .video-teaser { margin: 0; padding: 1.1rem 1.2rem 1.3rem; }
     .video-teaser { margin: .9rem 0 0; }
     .video-teaser video { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); background: #f6f1e7; }
     .video-teaser figcaption { margin-top: .4rem; font-size: .78rem; color: var(--muted); line-height: 1.45; }
@@ -440,6 +443,43 @@
     <div class="section-tag">Projekte</div>
     <h2 class="section-title">Ausgewählte Arbeiten</h2>
     <p class="section-sub">Echte Projekte – und Demos, die Sie selbst ausprobieren können.</p>
+    <div class="proj-sub"><h3>Online-Shops</h3><p>Shopify-Shop zum Ausprobieren – mit Testbestellung und Video aus dem Shop-Admin.</p></div>
+    <div class="projects-grid">
+      <div class="project-card project-wide project-shop">
+        <div class="pw-media">
+          <div class="project-gallery browser" data-gallery="shop">
+            <div class="pg-bar" aria-hidden="true"><i></i><i></i><i></i><span>lichtfang-demo.myshopify.com</span></div>
+            <div class="pg-track"><div class="pg-slide"><img src="img/projekte/lichtfang-1.jpg" alt="Startseite mit Bild-Slider und Werkstatt-Bild" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-2.jpg" alt="Lichtplaner: Lichtfarbe und Helligkeit live ausprobieren" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-3.jpg" alt="Lichtplaner: passende Leuchten für den Raum, direkt in den Warenkorb" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-4.jpg" alt="Kategorieseite mit Kacheln und Filtern" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-5.jpg" alt="Produktseite mit Ausführungen und technischen Daten" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-6.jpg" alt="Online-Beratung: Termin direkt buchen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-7.jpg" alt="Outlet mit Einzelstücken und Streichpreisen" loading="lazy" width="1200" height="750"></div></div>
+            <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
+            <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
+            <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button><button type="button" class="pg-dot" aria-label="Bild 4" data-i="3"></button><button type="button" class="pg-dot" aria-label="Bild 5" data-i="4"></button><button type="button" class="pg-dot" aria-label="Bild 6" data-i="5"></button><button type="button" class="pg-dot" aria-label="Bild 7" data-i="6"></button></div>
+          </div>
+          <figure class="video-teaser">
+            <video controls preload="none" playsinline poster="img/projekte/lichtfang-video.jpg" width="1280" height="714" aria-label="Video: So pflegt der Shop-Betreiber seinen Shop selbst">
+              <source src="video/lichtfang-admin.mp4" type="video/mp4">
+              <a href="video/lichtfang-admin.mp4">Video ansehen (MP4, 4 MB)</a>
+            </video>
+            <figcaption><b>Video, 2 Min., ohne Ton:</b> Bestellung ansehen, Rabatt anlegen, Startseite ändern – so pflegt der Betreiber seinen Shop selbst.</figcaption>
+          </figure>
+        </div>
+        <div class="project-body">
+          <div class="project-tag">Shopify-Demo · zum Ausprobieren</div>
+          <h3>Leuchten-Shop „Lichtfang“</h3>
+          <p>Kompletter Shopify-Shop für eine (fiktive) Leuchten-Manufaktur – Deutsch und Englisch, 24 Produkte, Filter, Outlet und echter Bestellablauf mit Testzahlung.</p>
+          <ul class="feat-list">
+            <li>Lichtplaner: Lumen berechnen, Lichtfarbe live testen, passende Leuchten vorschlagen</li>
+            <li>Online-Beratung mit Terminwahl</li>
+            <li>Filter nach Ausführung, Lichtstrom, Dimmbarkeit, Schutzart</li>
+          </ul>
+          <div class="demo-access">
+            <b>Zugang zur Demo</b>
+            <span>Der Shop ist mit einem Passwort geschützt. Passwort: <code>ShopDemo</code></span>
+            <span>Testbestellung: Kartennummer <code>1</code>, Name <code>Bogus Gateway</code>, beliebiges Ablaufdatum in der Zukunft und Prüfnummer. Es wird nichts berechnet.</span>
+          </div>
+          <div class="demo-ctas"><a class="btn-demo" href="https://lichtfang-demo.myshopify.com" target="_blank" rel="noopener">Shop öffnen →</a><a class="btn-demo2" href="#kontakt" data-ask="Online-Shop" data-betreff="Webshop">So einen Shop für mein Geschäft</a></div>
+        </div>
+      </div>
+    </div>
     <div class="proj-sub"><h3>Website-Demos für Ihre Branche</h3><p>Fiktive Betriebe, echte Funktionen – klicken Sie sich durch wie Ihre Kunden.</p></div>
     <div class="projects-grid">
       <div class="project-card project-wide">
@@ -490,54 +530,8 @@
         <a href="#kontakt" data-ask="andere Branche">Ihre Branche fehlt? Fragen Sie mich →</a>
       </div>
     </div>
-    <div class="proj-sub"><h3>Shops, Apps &amp; Widgets</h3><p>Kundenprojekte und eigene Entwicklungen.</p></div>
+    <div class="proj-sub"><h3>Apps &amp; Widgets</h3><p>Eigenentwicklungen für Android – entstanden aus meinem Alltag.</p></div>
     <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-gallery browser" data-gallery="shop">
-          <div class="pg-bar" aria-hidden="true"><i></i><i></i><i></i><span>lichtfang-demo.myshopify.com</span></div>
-          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/lichtfang-1.jpg" alt="Startseite mit Bild-Slider und Werkstatt-Bild" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-2.jpg" alt="Lichtplaner: Lichtfarbe und Helligkeit live ausprobieren" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-3.jpg" alt="Lichtplaner: passende Leuchten für den Raum, direkt in den Warenkorb" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-4.jpg" alt="Kategorieseite mit Kacheln und Filtern" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-5.jpg" alt="Produktseite mit Ausführungen und technischen Daten" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-6.jpg" alt="Online-Beratung: Termin direkt buchen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-7.jpg" alt="Outlet mit Einzelstücken und Streichpreisen" loading="lazy" width="1200" height="750"></div></div>
-          <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
-          <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
-          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button><button type="button" class="pg-dot" aria-label="Bild 4" data-i="3"></button><button type="button" class="pg-dot" aria-label="Bild 5" data-i="4"></button><button type="button" class="pg-dot" aria-label="Bild 6" data-i="5"></button><button type="button" class="pg-dot" aria-label="Bild 7" data-i="6"></button></div>
-        </div>
-        <div class="project-body">
-          <div class="project-tag">Shopify-Demo · zum Ausprobieren</div>
-          <h3>Leuchten-Shop „Lichtfang“</h3>
-          <p>Kompletter Shopify-Shop für eine (fiktive) Leuchten-Manufaktur – Deutsch und Englisch, 24 Produkte, Filter, Outlet und echter Bestellablauf mit Testzahlung.</p>
-          <ul class="feat-list">
-            <li>Lichtplaner: Lumen berechnen, Lichtfarbe live testen, passende Leuchten vorschlagen</li>
-            <li>Online-Beratung mit Terminwahl</li>
-            <li>Filter nach Ausführung, Lichtstrom, Dimmbarkeit, Schutzart</li>
-          </ul>
-          <figure class="video-teaser">
-            <video controls preload="none" playsinline poster="img/projekte/lichtfang-video.jpg" width="1280" height="714" aria-label="Video: So pflegt der Shop-Betreiber seinen Shop selbst">
-              <source src="video/lichtfang-admin.mp4" type="video/mp4">
-              <a href="video/lichtfang-admin.mp4">Video ansehen (MP4, 4 MB)</a>
-            </video>
-            <figcaption><b>Video, 2 Min., ohne Ton:</b> Bestellung ansehen, Rabatt anlegen, Startseite ändern – so pflegt der Betreiber seinen Shop selbst.</figcaption>
-          </figure>
-          <div class="demo-access">
-            <b>Zugang zur Demo</b>
-            <span>Der Shop ist mit einem Passwort geschützt. Passwort: <code>ShopDemo</code></span>
-            <span>Testbestellung: Kartennummer <code>1</code>, Name <code>Bogus Gateway</code>, beliebiges Ablaufdatum in der Zukunft und Prüfnummer. Es wird nichts berechnet.</span>
-          </div>
-          <a class="project-link" href="https://lichtfang-demo.myshopify.com" target="_blank" rel="noopener">Shop öffnen →</a>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-gallery" data-gallery="demo">
-          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/demo-1.jpg" alt="Shop-Demo mit Produkten" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/demo-2.jpg" alt="Warenkorb" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/demo-3.jpg" alt="Checkout mit Kundenkonto" loading="lazy" width="1200" height="750"></div></div>
-          <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
-          <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
-          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button></div>
-        </div>
-        <div class="project-body">
-          <div class="project-tag">Live-Demo</div>
-          <h3>Shop-Demo mit Kundenkonto</h3>
-          <p>Funktionierender Demo-Shop mit Warenkorb, Kundenkonto und Bestellverlauf – zum Ausprobieren direkt auf dieser Website.</p>
-          <a class="project-link" href="/appdesigner/#webshop">Demo ausprobieren →</a>
-        </div>
-      </div>
       <div class="project-card">
         <div class="project-gallery" data-gallery="apps">
           <div class="pg-track"><div class="pg-slide"><img src="img/projekte/app-foodkey.jpg" alt="FoodKey – Lebensmittel-Scanner" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/app-iwritethai.jpg" alt="IWriteThai – Thai-Schrift lernen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/app-hypno.jpg" alt="Hypno – Lern-App" loading="lazy" width="1200" height="750"></div></div>
@@ -1045,10 +1039,12 @@
   // Demo-Karten: „So eine Seite für meinen Betrieb“ füllt das Kontaktformular vor
   document.querySelectorAll('[data-ask]').forEach(a => a.addEventListener('click', () => {
     const f = document.getElementById('contactForm'); if (!f) return;
-    const sel = f.querySelector('[name=betreff]'); if (sel) sel.value = 'Website';
+    const sel = f.querySelector('[name=betreff]'); if (sel) sel.value = a.dataset.betreff || 'Website';
     const t = f.querySelector('[name=nachricht]');
     const b = a.dataset.ask;
-    if (t && !t.value) t.value = b === 'andere Branche'
+    if (t && !t.value) t.value = b === 'Online-Shop'
+      ? 'Hallo Herr Blischke,\n\nich habe Ihre Shop-Demo „Lichtfang“ gesehen und hätte gern einen ähnlichen Online-Shop für mein Geschäft.\n\n'
+      : b === 'andere Branche'
       ? 'Hallo Herr Blischke,\n\nich habe einen Betrieb in folgender Branche: … und hätte gern eine Website wie Ihre Demos.\n\n'
       : `Hallo Herr Blischke,\n\nich habe Ihre Demo gesehen und hätte gern eine ähnliche Website für meinen Betrieb (${b}).\n\n`;
   }));
