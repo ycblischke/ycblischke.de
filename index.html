@@ -5,6 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Websites und Shopify-Shops – für Betriebe in Rheinfelden, Lörrach, Basel und ganz Deutschland. Online-Shops für Hersteller und Händler mit Händlerbereich, Staffelpreisen und Verkauf in die Schweiz. Remote und persönlich aus Rheinfelden für Lörrach, Basel und ganz Deutschland. Mit dem Blick eines Handelsfachwirts und Betriebswirts (IHK).">
   <title>Websites & Online-Shops – Yves Claudio Blischke | Rheinfelden, Lörrach, Basel</title>
+  <link rel="canonical" href="https://ycblischke.de/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="Yves Claudio Blischke">
+  <meta property="og:url" content="https://ycblischke.de/">
+  <meta property="og:title" content="Websites &amp; Online-Shops – durchdacht bis zur Kasse">
+  <meta property="og:description" content="Websites, die Anfragen bringen, und Online-Shops für Händler und Hersteller – aus Rheinfelden für Lörrach, Basel und ganz Deutschland. Demos zum Selbst-Ausprobieren.">
+  <meta property="og:image" content="https://ycblischke.de/img/og-ycblischke.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Yves Claudio Blischke – Websites &amp; Online-Shops, durchdacht bis zur Kasse">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#1B2F5E">
   <link href="/fonts/fonts.css" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,7 +34,7 @@
       --bg:     #F7F8FC;
       --bg2:    #ffffff;
       --text:   #2D3748;
-      --muted:  #718096;
+      --muted:  #566173;
       --border: #E2E8F0;
       --radius: 10px;
       --shadow: 0 4px 24px rgba(27,47,94,.10);
@@ -63,6 +80,8 @@
     }
     .hero-photo img {
       width: 100%;
+      height: auto;
+      aspect-ratio: 1;
       max-width: 420px;
       border-radius: 12px;
       object-fit: cover;
@@ -92,7 +111,7 @@
     /* ── ÜBER MICH ───────────────────────────────────── */
     .about-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 4rem; align-items: start; }
     .about-certs { display: flex; gap: 1rem; }
-    .about-certs img { flex: 1; max-width: 48%; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .about-certs img { flex: 1; max-width: 48%; height: auto; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); }
     .about-text p { color: var(--muted); margin-bottom: 1rem; }
     .about-text strong { color: var(--text); }
     .cred-chips { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.4rem; }
@@ -107,7 +126,7 @@
     .service-card p { font-size: .82rem; color: var(--muted); margin-top: .4rem; }
 
     /* ── VORTEILE ────────────────────────────────────── */
-    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.6rem; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.6rem; }
     .benefit-card { background: var(--bg2); border-radius: var(--radius); padding: 1.8rem; border-left: 4px solid var(--gold); box-shadow: var(--shadow); }
     .benefit-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: .5rem; }
     .benefit-card p { font-size: .9rem; color: var(--muted); }
@@ -243,7 +262,21 @@
     .secondary-services a { color: var(--navy); font-weight: 600; }
 
     .anchor { display: block; position: relative; top: -80px; visibility: hidden; }
-    .pk-ic { font-size: 1.9rem; line-height: 1; }
+    .pk-ic { margin-bottom: .2rem; }
+    .ico-duo { width: 48px; height: 48px; border-radius: 13px; display: grid; place-items: center; background: linear-gradient(145deg, #fff8ec, #f3e3c4); flex: none; }
+    .ico-duo svg { width: 31px; height: 31px; }
+    .ico-duo .d { fill: rgba(27,47,94,.07); } .ico-duo .g { fill: var(--gold2); }
+    .ico-duo .l { fill: none; stroke: var(--navy); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .ico-duo .wl { fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; }
+    .bf-ic { margin-bottom: .9rem; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .pk-swipe { display: none; }
+    @media (max-width: 640px) {
+      .pk-swipe { display: block; font-size: .8rem; color: var(--muted); margin: 1.4rem 0 -1.2rem; }
+      #leistungen .packages-grid { display: flex; align-items: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; gap: .9rem; padding: 1rem 1.2rem 1.2rem; margin-left: -1.2rem; margin-right: -1.2rem; scrollbar-width: none; }
+      #leistungen .packages-grid::-webkit-scrollbar { display: none; }
+      #leistungen .packages-grid > .package-card { flex: 0 0 84%; scroll-snap-align: center; }
+    }
     .pk-desc { font-size: .88rem; color: var(--muted); }
     .pk-sub { margin-top: auto; background: var(--bg); border-radius: 10px; padding: .8rem .9rem; font-size: .8rem; color: var(--muted); }
     .pk-sub strong { display: block; color: var(--navy); margin-bottom: .2rem; font-size: .85rem; }
@@ -263,7 +296,7 @@
       .mobile-cta.hide { transform: translateY(110%); }
       .mobile-cta a { flex: 1; text-align: center; padding: .8rem; border-radius: 8px; font-weight: 700; font-size: .92rem; text-decoration: none; }
       .mobile-cta .mc-call { border: 2px solid var(--border); color: var(--navy); }
-      .mobile-cta .mc-mail { background: var(--gold); color: #fff; }
+      .mobile-cta .mc-mail { background: var(--gold); color: var(--navy); }
       footer { padding-bottom: 6rem; }
       .btn-outline { margin-left: 0; margin-top: .6rem; }
     }
@@ -432,10 +465,12 @@
     .pg-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .pg-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; border: none; background: rgba(255,255,255,.92); color: var(--navy); font-size: 1.3rem; line-height: 1; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
     .pg-prev { left: .6rem; } .pg-next { right: .6rem; }
-    .pg-dots { position: absolute; bottom: .6rem; left: 0; right: 0; display: flex; justify-content: center; gap: .35rem; }
-    .pg-dot { width: 7px; height: 7px; padding: 0; border: none; border-radius: 99px; background: rgba(255,255,255,.7); box-shadow: 0 0 0 1px rgba(0,0,0,.15); cursor: pointer; transition: width .2s; }
-    .pg-dot.is-active { width: 18px; background: var(--gold); }
-    @media (prefers-reduced-motion: reduce) { .pg-track { scroll-behavior: auto; } .pg-dot { transition: none; } }
+    .pg-dots { position: absolute; bottom: .2rem; left: 0; right: 0; display: flex; justify-content: center; gap: 0; }
+    .pg-dot { width: 24px; height: 24px; padding: 0; border: none; background: none; cursor: pointer; display: grid; place-items: center; }
+    .pg-dot::before { content: ''; width: 7px; height: 7px; border-radius: 99px; background: rgba(255,255,255,.75); box-shadow: 0 0 0 1px rgba(0,0,0,.18); transition: width .2s; }
+    .pg-dot.is-active { width: 28px; }
+    .pg-dot.is-active::before { width: 18px; background: var(--gold); }
+    @media (prefers-reduced-motion: reduce) { .pg-track { scroll-behavior: auto; } .pg-dot::before { transition: none; } }
 
     .tech-row { margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
     .tech-label { font-size: .85rem; font-weight: 700; color: var(--navy); margin-right: .3rem; }
@@ -475,10 +510,10 @@
 <section id="start">
   <div class="hero-grid">
     <div class="hero-photo">
-      <img src="img/LinkedINReferenz-Foto-e1747710126642-1024x1024.jpg" alt="Yves Claudio Blischke">
+      <img src="img/LinkedINReferenz-Foto-e1747710126642-1024x1024.jpg" alt="Yves Claudio Blischke" width="1024" height="1024" fetchpriority="high">
     </div>
     <div class="hero-text">
-      <div class="hero-badge hb-ticker" aria-label="Websites, Online-Shops, Shopify, WooCommerce, Shop-Umzüge, Händlerbereich, Verkauf in die Schweiz – Rheinfelden, Lörrach und Basel"><div class="hb-track" aria-hidden="true"><div class="hb-set"><span>Websites</span><span>Online-Shops</span><span>Shopify</span><span>WooCommerce</span><span>Shop-Umzüge</span><span>Händlerbereich (B2B)</span><span>Verkauf in die Schweiz</span><span>Pflege &amp; Betreuung</span><span>Rheinfelden · Lörrach · Basel</span></div><div class="hb-set"><span>Websites</span><span>Online-Shops</span><span>Shopify</span><span>WooCommerce</span><span>Shop-Umzüge</span><span>Händlerbereich (B2B)</span><span>Verkauf in die Schweiz</span><span>Pflege &amp; Betreuung</span><span>Rheinfelden · Lörrach · Basel</span></div></div></div>
+      <div class="hero-badge hb-ticker"><span class="sr-only">Websites, Online-Shops, Shopify, WooCommerce, Shop-Umzüge, Händlerbereich, Verkauf in die Schweiz – Rheinfelden, Lörrach und Basel</span><div class="hb-track" aria-hidden="true"><div class="hb-set"><span>Websites</span><span>Online-Shops</span><span>Shopify</span><span>WooCommerce</span><span>Shop-Umzüge</span><span>Händlerbereich (B2B)</span><span>Verkauf in die Schweiz</span><span>Pflege &amp; Betreuung</span><span>Rheinfelden · Lörrach · Basel</span></div><div class="hb-set"><span>Websites</span><span>Online-Shops</span><span>Shopify</span><span>WooCommerce</span><span>Shop-Umzüge</span><span>Händlerbereich (B2B)</span><span>Verkauf in die Schweiz</span><span>Pflege &amp; Betreuung</span><span>Rheinfelden · Lörrach · Basel</span></div></div></div>
       <h1 class="hero-title">Websites &amp; <b class="nowrap">Online-Shops</b><br><span>durchdacht bis zur Kasse</span></h1>
       <p class="hero-sub">Ich baue Websites, die Anfragen bringen, und Online-Shops für Hersteller und Händler – auf Wunsch mit Händlerbereich und Verkauf in die Schweiz. Als Betriebswirt (IHK) denke ich kaufmännisch mit: kein hübsches Schaufenster, sondern ein Auftritt, der sich rechnet.</p>
       <div class="hero-signature">
@@ -533,7 +568,7 @@
   <div class="container">
     <div class="section-tag">Projekte</div>
     <h2 class="section-title">Ausgewählte Arbeiten</h2>
-    <p class="section-sub">Echte Projekte – und Demos, die Sie selbst ausprobieren können.</p>
+    <p class="section-sub">Demos und eigene Projekte – alles zum Selbst-Ausprobieren, so wie es Ihre Kunden tun würden.</p>
     <div class="proj-sub"><h3>Online-Shops</h3><p>Shopify-Shop zum Ausprobieren – mit Testbestellung und Video aus dem Shop-Admin.</p></div>
     <div class="projects-grid">
       <div class="project-card project-wide project-shop">
@@ -664,9 +699,10 @@
     <div class="section-tag">Leistungen &amp; Preise</div>
     <h2 class="section-title">Was ich für Sie umsetze – und was es kostet</h2>
     <p class="section-sub">Schwerpunkt Websites und Online-Shops. Festpreise für klar beschriebene Leistungen – oder flexibel nach Stunden. Alle Preise netto gem. § 19 UStG (keine Umsatzsteuer).</p>
+    <p class="pk-swipe" aria-hidden="true">Zum Vergleichen seitlich wischen →</p>
     <div class="packages-grid">
       <div class="package-card">
-        <div class="pk-ic">🖥️</div>
+        <div class="pk-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="5" y="9" width="38" height="28" rx="4" class="d"/><rect x="5" y="9" width="38" height="28" rx="4" class="l"/><path d="M5 16h38" class="l"/><rect x="10" y="21" width="13" height="11" rx="2" class="g"/><path d="M28 23h10M28 28h7M18 42h12" class="l"/></svg></div>
         <h3>Website</h3>
         <div class="package-price">ab 790 €</div>
         <p class="pk-desc">Mit WordPress zum Selbstpflegen oder individuell programmiert – schnell, für Handy und Computer und bei Google gut auffindbar.</p>
@@ -680,7 +716,7 @@
       </div>
       <div class="package-card package-card--featured">
         <div class="package-badge">Beliebt</div>
-        <div class="pk-ic">🛒</div>
+        <div class="pk-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M9 17h30l-2.5 24h-25z" class="d"/><path d="M9 17h30l-2.5 24h-25z" class="l"/><path d="M17 17v-3a7 7 0 0 1 14 0v3" class="l"/><circle cx="24" cy="29" r="5.5" class="g"/><circle cx="24" cy="29" r="5.5" class="l"/></svg></div>
         <h3>Webshop</h3>
         <div class="package-price">ab 1.500 €</div>
         <p class="pk-desc">Ihr Shop in Ihrem Design – mit Shopify oder WooCommerce.</p>
@@ -693,7 +729,7 @@
         <a href="#shop-wahl" class="shop-help-link">Welcher Shop passt zu mir? →</a>
       </div>
       <div class="package-card">
-        <div class="pk-ic">🤝</div>
+        <div class="pk-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M5 20 24 8l19 12v20H5z" class="d"/><path d="M5 20 24 8l19 12v20H5z" class="l"/><rect x="18" y="27" width="12" height="13" rx="1.5" class="g"/><rect x="18" y="27" width="12" height="13" rx="1.5" class="l"/><path d="M11 25h3M34 25h3" class="l"/></svg></div>
         <h3>Händler-Erweiterung (B2B)</h3>
         <div class="package-price">ab 790 €</div>
         <p class="pk-desc">Ideal für Hersteller und Großhandel.</p>
@@ -703,7 +739,7 @@
         </ul>
       </div>
       <div class="package-card">
-        <div class="pk-ic">🚚</div>
+        <div class="pk-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="3" y="12" width="26" height="20" rx="2.5" class="d"/><rect x="3" y="12" width="26" height="20" rx="2.5" class="l"/><path d="M29 18h8l7 7v7H29z" class="d"/><path d="M29 18h8l7 7v7H29z" class="l"/><circle cx="12" cy="35" r="4" class="l"/><circle cx="36" cy="35" r="4" class="l"/><rect x="10" y="16" width="12" height="12" rx="2.5" class="g"/><path d="M16 18.8v6.4M12.8 22h6.4" class="wl"/></svg></div>
         <h3>Verkauf in die Schweiz</h3>
         <div class="package-price">nach Aufwand</div>
         <p class="pk-desc">Ein Shop für Kunden in Deutschland und der Schweiz.</p>
@@ -714,7 +750,7 @@
         </ul>
       </div>
       <div class="package-card">
-        <div class="pk-ic">🔄</div>
+        <div class="pk-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="17" y="17" width="14" height="14" rx="3" class="g"/><rect x="17" y="17" width="14" height="14" rx="3" class="l"/><path d="M8 22A16 16 0 0 1 37 13" class="l"/><path d="M37 5v8h-8" class="l"/><path d="M40 26a16 16 0 0 1-29 9" class="l"/><path d="M11 43v-8h8" class="l"/></svg></div>
         <h3>Shop-Umzug zu Shopify</h3>
         <div class="package-price">ab 2.490 €</div>
         <p class="pk-desc">Ihr alter Shop (Shopware, Gambio, WooCommerce) ist veraltet? Ich ziehe ihn um.</p>
@@ -728,7 +764,7 @@
         <div class="pk-sub"><strong>Vorab: Umzugs-Analyse · 290 €</strong>Prüfung Ihres Shops mit allen Produkten, Varianten und Sonderfunktionen – Sie erhalten ein verbindliches Festpreis-Angebot. Wird bei Auftrag voll angerechnet.</div>
       </div>
       <div class="package-card">
-        <div class="pk-ic">🔧</div>
+        <div class="pk-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M31 6a10 10 0 0 0-9.4 13.4L7.5 33.5a4 4 0 0 0 5.7 5.7L27.3 25A10 10 0 0 0 40.7 15.6l-6 6-6.1-1.3-1.3-6.1 6-6A10 10 0 0 0 31 6z" class="d"/><path d="M31 6a10 10 0 0 0-9.4 13.4L7.5 33.5a4 4 0 0 0 5.7 5.7L27.3 25A10 10 0 0 0 40.7 15.6l-6 6-6.1-1.3-1.3-6.1 6-6A10 10 0 0 0 31 6z" class="l"/><circle cx="38" cy="38" r="6" class="g"/><path d="m35.3 38 1.8 1.8 3.4-3.6" class="l"/></svg></div>
         <h3>Betreuung &amp; Pflege</h3>
         <div class="package-price">ab 50 € / Monat</div>
         <p class="pk-desc">Im Monatspaket oder nach Bedarf.</p>
@@ -740,7 +776,7 @@
       </div>
       <div class="package-card card-wide">
         <div>
-          <div class="pk-ic">📱</div>
+          <div class="pk-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="13" y="4" width="22" height="40" rx="5" class="d"/><rect x="13" y="4" width="22" height="40" rx="5" class="l"/><rect x="17.5" y="11" width="5.5" height="5.5" rx="1.5" class="g"/><rect x="25" y="11" width="5.5" height="5.5" rx="1.5" class="g"/><rect x="17.5" y="19" width="5.5" height="5.5" rx="1.5" class="g"/><rect x="25" y="19" width="5.5" height="5.5" rx="1.5" class="l"/><path d="M21 38h6" class="l"/></svg></div>
           <h3>App oder Widget (Android)</h3>
           <div class="package-price">nach Aufwand · 65 € / Stunde</div>
           <p class="pk-desc">Eine eigene App oder ein Widget für Ihre Kunden oder Ihr Team: Tagesangebot, Auslastung, Terminstatus oder Kennzahlen – live aus Ihrem System, Ihrem Shop oder öffentlichen Daten, direkt auf dem Startbildschirm. Jede App ist anders – deshalb kein Pauschalpreis, sondern vorab eine verbindliche Aufwandsschätzung. Ein einfaches Widget mit einer Datenquelle ist oft in wenigen Tagen umgesetzt.</p>
@@ -806,8 +842,8 @@
       <div>
         <p class="section-tag">Qualifikationen</p>
         <div class="about-certs">
-          <img src="img/png-Handelsfachwirt-746x1024.png" alt="Zeugnis Handelsfachwirt">
-          <img src="img/png-mpbm-741x1024.png" alt="Zeugnis Betriebswirt IHK">
+          <img src="img/Handelsfachwirt-746x1024.webp" alt="Zeugnis Handelsfachwirt" width="520" height="713" loading="lazy">
+          <img src="img/mpbm-741x1024.webp" alt="Zeugnis Betriebswirt IHK" width="520" height="718" loading="lazy">
         </div>
       </div>
       <div class="about-text">
@@ -829,15 +865,13 @@
     </div>
     <div class="benefits-grid">
       <div class="benefit-card">
-        <h3>📋 Transparente Abrechnung</h3>
+        <div class="bf-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M11 4h26v40l-4.3-3-4.4 3-4.3-3-4.3 3-4.4-3L11 44z" class="d"/><path d="M11 4h26v40l-4.3-3-4.4 3-4.3-3-4.3 3-4.4-3L11 44z" class="l"/><path d="M17 13h14M17 19h14M17 25h7" class="l"/><circle cx="30" cy="31" r="5.5" class="g"/><circle cx="30" cy="31" r="5.5" class="l"/></svg></div>
+        <h3>Transparente Abrechnung</h3>
         <p>Klare Stundensätze, verständliche Rechnungen. Sie wissen jederzeit, was Sie erwartet – keine versteckten Kosten.</p>
       </div>
       <div class="benefit-card">
-        <h3>✍️ Selbst pflegbar</h3>
-        <p>Ihre Website und Ihr Shop bleiben in Ihrer Hand: Texte, Bilder und Produkte ändern Sie ohne Programmierkenntnisse.</p>
-      </div>
-      <div class="benefit-card">
-        <h3>🔒 Vertraulichkeit</h3>
+        <div class="bf-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="9" y="21" width="30" height="22" rx="4" class="d"/><rect x="9" y="21" width="30" height="22" rx="4" class="l"/><path d="M15 21v-5a9 9 0 0 1 18 0v5" class="l"/><circle cx="24" cy="31" r="4" class="g"/><path d="M24 34v3.5" class="l"/></svg></div>
+        <h3>Vertraulichkeit</h3>
         <p>Alle Informationen und Unterlagen werden streng vertraulich behandelt und ausschließlich zur Auftragserfüllung verwendet.</p>
       </div>
     </div>
@@ -957,7 +991,7 @@
           </div>
           <div class="form-group">
             <label>Betreff <span class="req">*</span></label>
-            <select name="betreff" required>
+            <select name="betreff" required aria-label="Betreff">
               <option value="" disabled selected>Bitte wählen...</option>
               <option>Erstgespräch vereinbaren</option>
               <option>Angebot anfordern</option>
