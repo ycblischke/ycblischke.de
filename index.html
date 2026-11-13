@@ -440,14 +440,15 @@
     @media (max-width: 640px) { #nutzen { padding: 44px 1.2rem 48px; } .nz-hint { display: none; } .nz-row { gap: .5rem; } .nz-item { padding: .6rem .65rem; gap: .55rem; } .nz-ico { width: 38px; height: 38px; } .nz-ico svg { width: 27px; height: 27px; } .nz-txt b { font-size: .84rem; } .nz-txt small { font-size: .7rem; } .fc-list { grid-template-columns: 1fr; } .fitcheck summary { padding: .8rem 1rem; } .fc-body { padding: 0 1rem 1rem; } }
     /* Hero-Laufband */
     .hero-text { min-width: 0; }
-    .hb-ticker { display: block; width: 100%; max-width: 470px; overflow: hidden; padding: .35rem 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+    .hb-ticker { display: block; width: 100%; max-width: 470px; overflow: hidden; padding: .35rem .5rem; }
+    .hb-view { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
     .hb-track { display: flex; width: max-content; animation: hbRun 28s linear infinite; }
     .hb-ticker:hover .hb-track { animation-play-state: paused; }
     .hb-set { display: flex; flex: none; }
     .hb-set span { white-space: nowrap; padding: 0 .9rem; position: relative; }
     .hb-set span::after { content: '✦'; position: absolute; right: -.35rem; color: rgba(200,150,60,.55); font-size: .6rem; top: 50%; transform: translateY(-50%); }
     @keyframes hbRun { to { transform: translateX(-50%); } }
-    @media (prefers-reduced-motion: reduce) { .hb-track { animation: none; } .hb-ticker { -webkit-mask-image: none; mask-image: none; } }
+    @media (prefers-reduced-motion: reduce) { .hb-track { animation: none; } }
     .video-teaser { margin: .9rem 0 0; }
     .video-teaser video { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); background: #f6f1e7; }
     .video-teaser figcaption { margin-top: .4rem; font-size: .78rem; color: var(--muted); line-height: 1.45; }
@@ -513,7 +514,7 @@
       <img src="img/LinkedINReferenz-Foto-e1747710126642-1024x1024.jpg" alt="Yves Claudio Blischke" width="1024" height="1024" fetchpriority="high">
     </div>
     <div class="hero-text">
-      <div class="hero-badge hb-ticker"><span class="sr-only">Websites, Online-Shops, Shopify, WooCommerce, Shop-Umzüge, Händlerbereich, Verkauf in die Schweiz – Rheinfelden, Lörrach und Basel</span><div class="hb-track" aria-hidden="true"><div class="hb-set"><span>Websites</span><span>Online-Shops</span><span>Shopify</span><span>WooCommerce</span><span>Shop-Umzüge</span><span>Händlerbereich (B2B)</span><span>Verkauf in die Schweiz</span><span>Pflege &amp; Betreuung</span><span>Rheinfelden · Lörrach · Basel</span></div><div class="hb-set"><span>Websites</span><span>Online-Shops</span><span>Shopify</span><span>WooCommerce</span><span>Shop-Umzüge</span><span>Händlerbereich (B2B)</span><span>Verkauf in die Schweiz</span><span>Pflege &amp; Betreuung</span><span>Rheinfelden · Lörrach · Basel</span></div></div></div>
+      <div class="hero-badge hb-ticker"><span class="sr-only">Websites, Online-Shops, Shopify, WooCommerce, Shop-Umzüge, Händlerbereich, Verkauf in die Schweiz – Rheinfelden, Lörrach und Basel</span><div class="hb-view"><div class="hb-track" aria-hidden="true"><div class="hb-set"><span>Websites</span><span>Online-Shops</span><span>Shopify</span><span>WooCommerce</span><span>Shop-Umzüge</span><span>Händlerbereich (B2B)</span><span>Verkauf in die Schweiz</span><span>Pflege &amp; Betreuung</span><span>Rheinfelden · Lörrach · Basel</span></div><div class="hb-set"><span>Websites</span><span>Online-Shops</span><span>Shopify</span><span>WooCommerce</span><span>Shop-Umzüge</span><span>Händlerbereich (B2B)</span><span>Verkauf in die Schweiz</span><span>Pflege &amp; Betreuung</span><span>Rheinfelden · Lörrach · Basel</span></div></div></div></div>
       <h1 class="hero-title">Websites &amp; <b class="nowrap">Online-Shops</b><br><span>durchdacht bis zur Kasse</span></h1>
       <p class="hero-sub">Ich baue Websites, die Anfragen bringen, und Online-Shops für Hersteller und Händler – auf Wunsch mit Händlerbereich und Verkauf in die Schweiz. Als Betriebswirt (IHK) denke ich kaufmännisch mit: kein hübsches Schaufenster, sondern ein Auftritt, der sich rechnet.</p>
       <div class="hero-signature">
