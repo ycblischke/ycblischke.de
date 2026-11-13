@@ -362,6 +362,29 @@
     .project-shop { align-items: start; }
     .project-shop .pw-media { min-width: 0; }
     .project-shop .video-teaser { margin: 0; padding: 1.1rem 1.2rem 1.3rem; }
+    /* Nutzen + Selbst-Check */
+    .nutzen-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2rem; }
+    .nutzen-card { background: var(--bg2); border-radius: 14px; padding: 1.5rem 1.4rem; box-shadow: var(--shadow); border-top: 3px solid var(--gold); }
+    .nutzen-ico { width: 46px; height: 46px; border-radius: 12px; background: var(--navy); display: grid; place-items: center; margin-bottom: 1rem; }
+    .nutzen-ico svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .nutzen-card h3 { font-size: 1.02rem; color: var(--navy); margin-bottom: .45rem; line-height: 1.3; }
+    .nutzen-card p { font-size: .88rem; color: var(--muted); }
+    .fitcheck { margin-top: 2.2rem; background: var(--navy); color: #fff; border-radius: 16px; padding: 1.8rem 2rem; }
+    .fc-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .fitcheck .project-tag { color: var(--gold2); }
+    .fitcheck h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin: .1rem 0 .2rem; }
+    .fc-head p { color: rgba(255,255,255,.7); font-size: .9rem; }
+    .fc-score { flex: none; text-align: center; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 14px; padding: .6rem 1.1rem; }
+    .fc-score b { display: block; font-size: 2rem; line-height: 1; color: var(--gold2); }
+    .fc-score span { font-size: .75rem; color: rgba(255,255,255,.7); }
+    .fc-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem 1.6rem; margin: 1.3rem 0; }
+    .fc-list label { display: flex; gap: .65rem; align-items: flex-start; font-size: .92rem; cursor: pointer; padding: .55rem .7rem; border-radius: 10px; background: rgba(255,255,255,.05); }
+    .fc-list input { width: 18px; height: 18px; margin-top: .15rem; accent-color: var(--gold); flex: none; }
+    .fc-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem 1.5rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,.15); padding-top: 1.1rem; }
+    .fc-msg { font-size: .92rem; color: rgba(255,255,255,.85); max-width: 60ch; }
+    .fitcheck .btn-primary { flex: none; }
+    @media (max-width: 1000px) { .nutzen-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) { .nutzen-grid, .fc-list { grid-template-columns: 1fr; } .fitcheck { padding: 1.4rem 1.2rem; } .fc-head { align-items: flex-start; } }
     .video-teaser { margin: .9rem 0 0; }
     .video-teaser video { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); background: #f6f1e7; }
     .video-teaser figcaption { margin-top: .4rem; font-size: .78rem; color: var(--muted); line-height: 1.45; }
@@ -433,6 +456,59 @@
       </div>
       <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
       <a href="#referenzen" class="btn btn-outline">Projekte ansehen</a>
+    </div>
+  </div>
+</section>
+
+<!-- NUTZEN -->
+<section id="nutzen">
+  <div class="container">
+    <div class="section-tag">Ihr Nutzen</div>
+    <h2 class="section-title">Was Ihnen eine gute Webseite bringt</h2>
+    <p class="section-sub">Eine gute Webseite ist kein Schaufenster, sondern ein Mitarbeiter, der rund um die Uhr für Sie arbeitet – auch wenn Ihr Laden geschlossen ist.</p>
+    <div class="nutzen-grid">
+      <div class="nutzen-card">
+        <div class="nutzen-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg></div>
+        <h3>Gefunden werden – am Handy</h3>
+        <p>Die meisten Kunden suchen unterwegs. Ist Ihre Seite dort schwer lesbar, klicken sie zum Nächsten. Ich baue jede Seite zuerst fürs Handy.</p>
+      </div>
+      <div class="nutzen-card">
+        <div class="nutzen-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 6.5h17v11h-17z"/><path d="m4 7 8 6 8-6"/></svg></div>
+        <h3>Anfragen, die vollständig ankommen</h3>
+        <p>Kunden schicken Wunsch, Maße und Fotos gleich mit oder buchen direkt einen Termin. Sie sparen Rückfragen und Telefonzeit.</p>
+      </div>
+      <div class="nutzen-card">
+        <div class="nutzen-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.6 7.5 10 4.3-1.4 7.5-5.4 7.5-10v-6z"/><path d="m8.8 12 2.2 2.2 4.3-4.4"/></svg></div>
+        <h3>Sicher statt veraltet</h3>
+        <p>Alte Systeme wie Shopware 5 bekommen keine Sicherheitsupdates mehr. Ein aktueller Shop schützt die Daten Ihrer Kunden – und Ihren Ruf.</p>
+      </div>
+      <div class="nutzen-card">
+        <div class="nutzen-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg></div>
+        <h3>Selbst pflegen – oder pflegen lassen</h3>
+        <p>Preise, Aktionen, Öffnungszeiten und Fotos ändern Sie selbst – im Shop oder je nach Paket in Ihrem eigenen Webseiten-Zugang. Lieber gar keinen Aufwand? Dann übernehme ich das für Sie.</p>
+      </div>
+    </div>
+
+    <div class="fitcheck" id="fitcheck">
+      <div class="fc-head">
+        <div>
+          <div class="project-tag">Selbst-Check · 1 Minute</div>
+          <h3>Ist Ihre Webseite noch fit?</h3>
+          <p>Haken Sie an, was auf Ihre heutige Seite zutrifft.</p>
+        </div>
+        <div class="fc-score" aria-live="polite"><b data-fc-n>0</b><span>von 5</span></div>
+      </div>
+      <div class="fc-list">
+        <label><input type="checkbox" data-fc> Sie ist am Handy gut lesbar – ohne Zoomen.</label>
+        <label><input type="checkbox" data-fc> Öffnungszeiten, Preise und Angebote sind aktuell.</label>
+        <label><input type="checkbox" data-fc> Die Adresse beginnt mit https:// (Schloss im Browser).</label>
+        <label><input type="checkbox" data-fc> Über die Seite kommen regelmäßig Anfragen oder Bestellungen.</label>
+        <label><input type="checkbox" data-fc> Ich kann Texte und Bilder selbst ändern.</label>
+      </div>
+      <div class="fc-foot">
+        <p class="fc-msg" data-fc-msg>Jeder fehlende Haken kostet Sie Kunden – meist, ohne dass Sie es merken.</p>
+        <a class="btn btn-primary" href="#kontakt" data-ask="Webseiten-Check" data-betreff="Website">Kostenlosen Check anfordern</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1042,6 +1118,11 @@
     const sel = f.querySelector('[name=betreff]'); if (sel) sel.value = a.dataset.betreff || 'Website';
     const t = f.querySelector('[name=nachricht]');
     const b = a.dataset.ask;
+    if (t && !t.value && b === 'Webseiten-Check') {
+      const ok = [...document.querySelectorAll('[data-fc]')].map((c, i) => (c.checked ? '✓ ' : '✗ ') + c.parentElement.textContent.trim());
+      t.value = 'Hallo Herr Blischke,\n\nbitte schauen Sie sich meine Webseite kostenlos an: \n\nMein Selbst-Check:\n' + ok.join('\n') + '\n\n';
+      return;
+    }
     if (t && !t.value) t.value = b === 'Online-Shop'
       ? 'Hallo Herr Blischke,\n\nich habe Ihre Shop-Demo „Lichtfang“ gesehen und hätte gern einen ähnlichen Online-Shop für mein Geschäft.\n\n'
       : b === 'andere Branche'
@@ -1114,6 +1195,21 @@
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"VideoObject","name":"Shopify-Shop selbst pflegen – Lichtfang-Demo","description":"Zwei Minuten im Shopify-Admin: Bestellung ansehen, Rabatt mit ehrlichem Streichpreis anlegen, Startseite ändern und das Ergebnis sofort im Shop sehen.","thumbnailUrl":"https://ycblischke.de/img/projekte/lichtfang-video.jpg","contentUrl":"https://ycblischke.de/video/lichtfang-admin.mp4","uploadDate":"2026-11-13","duration":"PT2M","inLanguage":"de"}
+</script>
+<script>
+  // Selbst-Check: zählt die Haken und passt den Hinweis an
+  (() => {
+    const box = document.getElementById('fitcheck'); if (!box) return;
+    const n = box.querySelector('[data-fc-n]'), msg = box.querySelector('[data-fc-msg]');
+    const texts = ['Jeder fehlende Haken kostet Sie Kunden – meist, ohne dass Sie es merken.',
+      'Hier ist viel Luft nach oben – eine neue Seite bringt Ihnen spürbar mehr Anfragen.',
+      'Hier ist viel Luft nach oben – eine neue Seite bringt Ihnen spürbar mehr Anfragen.',
+      'Ein solides Fundament – mit gezielten Verbesserungen holen Sie mehr heraus.',
+      'Fast perfekt – ein kurzer Blick von außen findet oft noch den letzten Hebel.',
+      'Sehr gut aufgestellt! Wenn Sie wachsen möchten, sprechen wir gern über den nächsten Schritt.'];
+    const upd = () => { const k = box.querySelectorAll('[data-fc]:checked').length; n.textContent = k; msg.textContent = texts[k]; };
+    box.addEventListener('change', upd);
+  })();
 </script>
 </body>
 </html>
