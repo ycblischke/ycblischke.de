@@ -359,6 +359,10 @@
       .packages-grid { grid-template-columns: 1fr; }
     }
 
+    .video-teaser { margin: .9rem 0 0; }
+    .video-teaser video { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); background: #f6f1e7; }
+    .video-teaser figcaption { margin-top: .4rem; font-size: .78rem; color: var(--muted); line-height: 1.45; }
+    .video-teaser figcaption b { color: var(--navy); }
     .demo-access { margin-top: .9rem; background: var(--bg); border: 1px dashed var(--gold); border-radius: 10px; padding: .7rem .9rem; font-size: .8rem; color: var(--muted); display: grid; gap: .25rem; }
     .demo-access b { color: var(--navy); font-size: .82rem; }
     .demo-access code { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 0 .35rem; color: var(--navy); font-weight: 700; }
@@ -505,6 +509,13 @@
             <li>Online-Beratung mit Terminwahl</li>
             <li>Filter nach Ausführung, Lichtstrom, Dimmbarkeit, Schutzart</li>
           </ul>
+          <figure class="video-teaser">
+            <video controls preload="none" playsinline poster="img/projekte/lichtfang-video.jpg" width="1280" height="714" aria-label="Video: So pflegt der Shop-Betreiber seinen Shop selbst">
+              <source src="video/lichtfang-admin.mp4" type="video/mp4">
+              <a href="video/lichtfang-admin.mp4">Video ansehen (MP4, 4 MB)</a>
+            </video>
+            <figcaption><b>Video, 2 Min., ohne Ton:</b> Bestellung ansehen, Rabatt anlegen, Startseite ändern – so pflegt der Betreiber seinen Shop selbst.</figcaption>
+          </figure>
           <div class="demo-access">
             <b>Zugang zur Demo</b>
             <span>Der Shop ist mit einem Passwort geschützt. Passwort: <code>ShopDemo</code></span>
@@ -1104,6 +1115,9 @@
     Object.values(O).map(o=>`<tr><td>${o.n}</td><td>${o.lauf}</td><td>${o.plus}</td><td>${o.minus}</td><td>${o.fall}</td></tr>`).join('')+
     '<tr><td>Eigenentwicklung</td><td>Hosting, keine Lizenz</td><td>Volle Freiheit für Sonderwünsche</td><td>Höchster Aufwand bei Bau und Pflege</td><td>Besondere Abläufe, die kein System abbildet</td></tr>';
 })();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoObject","name":"Shopify-Shop selbst pflegen – Lichtfang-Demo","description":"Zwei Minuten im Shopify-Admin: Bestellung ansehen, Rabatt mit ehrlichem Streichpreis anlegen, Startseite ändern und das Ergebnis sofort im Shop sehen.","thumbnailUrl":"https://ycblischke.de/img/projekte/lichtfang-video.jpg","contentUrl":"https://ycblischke.de/video/lichtfang-admin.mp4","uploadDate":"2026-11-13","duration":"PT2M","inLanguage":"de"}
 </script>
 </body>
 </html>
