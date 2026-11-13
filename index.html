@@ -362,29 +362,59 @@
     .project-shop { align-items: start; }
     .project-shop .pw-media { min-width: 0; }
     .project-shop .video-teaser { margin: 0; padding: 1.1rem 1.2rem 1.3rem; }
-    /* Nutzen + Selbst-Check */
-    .nutzen-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2rem; }
-    .nutzen-card { background: var(--bg2); border-radius: 14px; padding: 1.5rem 1.4rem; box-shadow: var(--shadow); border-top: 3px solid var(--gold); }
-    .nutzen-ico { width: 46px; height: 46px; border-radius: 12px; background: var(--navy); display: grid; place-items: center; margin-bottom: 1rem; }
-    .nutzen-ico svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-    .nutzen-card h3 { font-size: 1.02rem; color: var(--navy); margin-bottom: .45rem; line-height: 1.3; }
-    .nutzen-card p { font-size: .88rem; color: var(--muted); }
-    .fitcheck { margin-top: 2.2rem; background: var(--navy); color: #fff; border-radius: 16px; padding: 1.8rem 2rem; }
-    .fc-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-    .fitcheck .project-tag { color: var(--gold2); }
-    .fitcheck h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin: .1rem 0 .2rem; }
-    .fc-head p { color: rgba(255,255,255,.7); font-size: .9rem; }
-    .fc-score { flex: none; text-align: center; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 14px; padding: .6rem 1.1rem; }
-    .fc-score b { display: block; font-size: 2rem; line-height: 1; color: var(--gold2); }
-    .fc-score span { font-size: .75rem; color: rgba(255,255,255,.7); }
-    .fc-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem 1.6rem; margin: 1.3rem 0; }
-    .fc-list label { display: flex; gap: .65rem; align-items: flex-start; font-size: .92rem; cursor: pointer; padding: .55rem .7rem; border-radius: 10px; background: rgba(255,255,255,.05); }
+    /* Nutzen + Selbst-Check (kompakt) */
+    #nutzen { padding: 56px 2rem 60px; }
+    .nz-head { display: flex; justify-content: space-between; align-items: flex-end; gap: .5rem 1.5rem; flex-wrap: wrap; margin-bottom: 1.3rem; }
+    .nz-title { font-family: 'Playfair Display', serif; font-size: clamp(1.35rem, 2.4vw, 1.75rem); color: var(--navy); line-height: 1.2; }
+    .nz-hint { font-size: .8rem; color: var(--muted); }
+    .nz-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .7rem; }
+    .nz-item { display: flex; align-items: center; gap: .8rem; text-align: left; padding: .75rem .9rem; border-radius: 14px; background: var(--bg2); border: 1px solid var(--border); cursor: pointer; font: inherit; color: var(--navy); transition: background .25s, border-color .25s, transform .25s, box-shadow .25s; }
+    .nz-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .nz-item:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .nz-ico { width: 46px; height: 46px; flex: none; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(145deg, #fff8ec, #f3e3c4); }
+    .nz-ico svg { width: 32px; height: 32px; }
+    .nz-ico .d { fill: rgba(27,47,94,.07); } .nz-ico .g { fill: var(--gold2); }
+    .nz-ico .l { fill: none; stroke: var(--navy); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .nz-ico .l.w { stroke: var(--navy); }
+    .nz-txt b { display: block; font-size: .92rem; line-height: 1.2; }
+    .nz-txt small { display: block; font-size: .76rem; color: var(--muted); line-height: 1.3; }
+    .nz-item.on { background: var(--navy); border-color: var(--navy); color: #fff; box-shadow: 0 12px 30px -14px rgba(27,47,94,.55); }
+    .nz-item.on .nz-txt small { color: rgba(255,255,255,.65); }
+    .nz-item.on .nz-ico { background: rgba(255,255,255,.1); }
+    .nz-item.on .nz-ico .d { fill: rgba(255,255,255,.08); } .nz-item.on .nz-ico .l { stroke: #fff; } .nz-item.on .nz-ico .l.w { stroke: var(--navy); }
+    .nz-panel { margin-top: .7rem; background: var(--bg2); border-left: 3px solid var(--gold); border-radius: 0 12px 12px 0; padding: .8rem 1.1rem; font-size: .93rem; color: var(--text); min-height: 3.2rem; transition: opacity .2s; }
+    .nz-panel.fade { opacity: 0; }
+    .fitcheck { margin-top: 1rem; background: var(--navy); color: #fff; border-radius: 14px; }
+    .fitcheck summary { list-style: none; display: flex; align-items: center; gap: 1rem; padding: .85rem 1.2rem; cursor: pointer; }
+    .fitcheck summary::-webkit-details-marker { display: none; }
+    .fc-sum { display: flex; align-items: center; gap: .3rem .9rem; flex-wrap: wrap; margin-right: auto; }
+    .fc-sum b { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; }
+    .fc-badge { font-size: .68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold2); }
+    .fc-score { font-size: .8rem; color: rgba(255,255,255,.7); white-space: nowrap; }
+    .fc-score b { font-size: 1.1rem; color: var(--gold2); }
+    .fc-chev { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,.1); position: relative; flex: none; transition: transform .25s; }
+    .fc-chev::before { content: ''; position: absolute; left: 9px; top: 7px; width: 7px; height: 7px; border-right: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(45deg); }
+    .fitcheck[open] .fc-chev { transform: rotate(180deg); }
+    .fc-body { padding: 0 1.2rem 1.2rem; }
+    .fc-intro { color: rgba(255,255,255,.7); font-size: .88rem; }
+    .fc-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem 1.2rem; margin: .8rem 0 1rem; }
+    .fc-list label { display: flex; gap: .6rem; align-items: flex-start; font-size: .9rem; cursor: pointer; padding: .5rem .65rem; border-radius: 10px; background: rgba(255,255,255,.05); }
     .fc-list input { width: 18px; height: 18px; margin-top: .15rem; accent-color: var(--gold); flex: none; }
-    .fc-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem 1.5rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,.15); padding-top: 1.1rem; }
-    .fc-msg { font-size: .92rem; color: rgba(255,255,255,.85); max-width: 60ch; }
+    .fc-foot { display: flex; align-items: center; justify-content: space-between; gap: .8rem 1.5rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,.15); padding-top: 1rem; }
+    .fc-msg { font-size: .9rem; color: rgba(255,255,255,.85); max-width: 60ch; }
     .fitcheck .btn-primary { flex: none; }
-    @media (max-width: 1000px) { .nutzen-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 640px) { .nutzen-grid, .fc-list { grid-template-columns: 1fr; } .fitcheck { padding: 1.4rem 1.2rem; } .fc-head { align-items: flex-start; } }
+    @media (max-width: 1000px) { .nz-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) { #nutzen { padding: 44px 1.2rem 48px; } .nz-hint { display: none; } .nz-row { gap: .5rem; } .nz-item { padding: .6rem .65rem; gap: .55rem; } .nz-ico { width: 38px; height: 38px; } .nz-ico svg { width: 27px; height: 27px; } .nz-txt b { font-size: .84rem; } .nz-txt small { font-size: .7rem; } .fc-list { grid-template-columns: 1fr; } .fitcheck summary { padding: .8rem 1rem; } .fc-body { padding: 0 1rem 1rem; } }
+    /* Hero-Laufband */
+    .hero-text { min-width: 0; }
+    .hb-ticker { display: block; width: 100%; max-width: 470px; overflow: hidden; padding: .35rem 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+    .hb-track { display: flex; width: max-content; animation: hbRun 28s linear infinite; }
+    .hb-ticker:hover .hb-track { animation-play-state: paused; }
+    .hb-set { display: flex; flex: none; }
+    .hb-set span { white-space: nowrap; padding: 0 .9rem; position: relative; }
+    .hb-set span::after { content: '✦'; position: absolute; right: -.35rem; color: rgba(200,150,60,.55); font-size: .6rem; top: 50%; transform: translateY(-50%); }
+    @keyframes hbRun { to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .hb-track { animation: none; } .hb-ticker { -webkit-mask-image: none; mask-image: none; } }
     .video-teaser { margin: .9rem 0 0; }
     .video-teaser video { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); background: #f6f1e7; }
     .video-teaser figcaption { margin-top: .4rem; font-size: .78rem; color: var(--muted); line-height: 1.45; }
@@ -448,7 +478,7 @@
       <img src="img/LinkedINReferenz-Foto-e1747710126642-1024x1024.jpg" alt="Yves Claudio Blischke">
     </div>
     <div class="hero-text">
-      <div class="hero-badge">Websites · Shopify-Shops · Rheinfelden, Lörrach &amp; Basel</div>
+      <div class="hero-badge hb-ticker" aria-label="Websites, Online-Shops, Shopify, WooCommerce, Shop-Umzüge, Händlerbereich, Verkauf in die Schweiz – Rheinfelden, Lörrach und Basel"><div class="hb-track" aria-hidden="true"><div class="hb-set"><span>Websites</span><span>Online-Shops</span><span>Shopify</span><span>WooCommerce</span><span>Shop-Umzüge</span><span>Händlerbereich (B2B)</span><span>Verkauf in die Schweiz</span><span>Pflege &amp; Betreuung</span><span>Rheinfelden · Lörrach · Basel</span></div><div class="hb-set"><span>Websites</span><span>Online-Shops</span><span>Shopify</span><span>WooCommerce</span><span>Shop-Umzüge</span><span>Händlerbereich (B2B)</span><span>Verkauf in die Schweiz</span><span>Pflege &amp; Betreuung</span><span>Rheinfelden · Lörrach · Basel</span></div></div></div>
       <h1 class="hero-title">Websites &amp; <b class="nowrap">Online-Shops</b><br><span>durchdacht bis zur Kasse</span></h1>
       <p class="hero-sub">Ich baue Websites, die Anfragen bringen, und Online-Shops für Hersteller und Händler – auf Wunsch mit Händlerbereich und Verkauf in die Schweiz. Als Betriebswirt (IHK) denke ich kaufmännisch mit: kein hübsches Schaufenster, sondern ein Auftritt, der sich rechnet.</p>
       <div class="hero-signature">
@@ -463,53 +493,38 @@
 <!-- NUTZEN -->
 <section id="nutzen">
   <div class="container">
-    <div class="section-tag">Ihr Nutzen</div>
-    <h2 class="section-title">Was Ihnen eine gute Webseite bringt</h2>
-    <p class="section-sub">Eine gute Webseite ist kein Schaufenster, sondern ein Mitarbeiter, der rund um die Uhr für Sie arbeitet – auch wenn Ihr Laden geschlossen ist.</p>
-    <div class="nutzen-grid">
-      <div class="nutzen-card">
-        <div class="nutzen-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg></div>
-        <h3>Gefunden werden – am Handy</h3>
-        <p>Die meisten Kunden suchen unterwegs. Ist Ihre Seite dort schwer lesbar, klicken sie zum Nächsten. Ich baue jede Seite zuerst fürs Handy.</p>
-      </div>
-      <div class="nutzen-card">
-        <div class="nutzen-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 6.5h17v11h-17z"/><path d="m4 7 8 6 8-6"/></svg></div>
-        <h3>Anfragen, die vollständig ankommen</h3>
-        <p>Kunden schicken Wunsch, Maße und Fotos gleich mit oder buchen direkt einen Termin. Sie sparen Rückfragen und Telefonzeit.</p>
-      </div>
-      <div class="nutzen-card">
-        <div class="nutzen-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.6 7.5 10 4.3-1.4 7.5-5.4 7.5-10v-6z"/><path d="m8.8 12 2.2 2.2 4.3-4.4"/></svg></div>
-        <h3>Sicher statt veraltet</h3>
-        <p>Alte Systeme wie Shopware 5 bekommen keine Sicherheitsupdates mehr. Ein aktueller Shop schützt die Daten Ihrer Kunden – und Ihren Ruf.</p>
-      </div>
-      <div class="nutzen-card">
-        <div class="nutzen-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg></div>
-        <h3>Selbst pflegen – oder pflegen lassen</h3>
-        <p>Preise, Aktionen, Öffnungszeiten und Fotos ändern Sie selbst – im Shop oder je nach Paket in Ihrem eigenen Webseiten-Zugang. Lieber gar keinen Aufwand? Dann übernehme ich das für Sie.</p>
-      </div>
+    <div class="nz-head">
+      <div><div class="section-tag">Ihr Nutzen</div><h2 class="nz-title">Was Ihnen eine gute Webseite bringt</h2></div>
+      <p class="nz-hint">Tippen Sie auf einen Punkt</p>
     </div>
+    <div class="nz-row" role="tablist" aria-label="Vorteile einer guten Webseite">
+      <button type="button" class="nz-item on" role="tab" id="nz-t0" aria-selected="true" aria-controls="nz-panel" data-text="Die meisten Kunden suchen unterwegs. Ist Ihre Seite dort schwer lesbar, klicken sie zum Nächsten – ich baue jede Seite zuerst fürs Handy."><span class="nz-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="13" y="5" width="20" height="36" rx="5" class="d"/><rect x="13" y="5" width="20" height="36" rx="5" class="l"/><path d="M20 35h6" class="l"/><circle cx="33" cy="30" r="7" class="g"/><circle cx="33" cy="30" r="7" class="l"/><path d="m38 35 5 5" class="l"/></svg></span><span class="nz-txt"><b>Gefunden werden</b><small>am Handy</small></span></button>
+      <button type="button" class="nz-item" role="tab" id="nz-t1" aria-selected="false" aria-controls="nz-panel" data-text="Kunden schicken Wunsch, Maße und Fotos gleich mit oder buchen direkt einen Termin – Sie sparen Rückfragen und Telefonzeit."><span class="nz-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M8 11h32a3 3 0 0 1 3 3v17a3 3 0 0 1-3 3H22l-8 7v-7H8a3 3 0 0 1-3-3V14a3 3 0 0 1 3-3z" class="d"/><path d="M8 11h32a3 3 0 0 1 3 3v17a3 3 0 0 1-3 3H22l-8 7v-7H8a3 3 0 0 1-3-3V14a3 3 0 0 1 3-3z" class="l"/><circle cx="33" cy="12" r="7" class="g"/><path d="m30 12 2.2 2.2L36.5 10" class="l w"/><path d="M12 20h14M12 26h9" class="l"/></svg></span><span class="nz-txt"><b>Anfragen</b><small>vollständig</small></span></button>
+      <button type="button" class="nz-item" role="tab" id="nz-t2" aria-selected="false" aria-controls="nz-panel" data-text="Alte Systeme wie Shopware 5 bekommen keine Sicherheitsupdates mehr. Ein aktueller Shop schützt die Daten Ihrer Kunden – und Ihren Ruf."><span class="nz-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 4 8 10v12c0 10 6.8 18.6 16 22 9.2-3.4 16-12 16-22V10z" class="d"/><path d="M24 4 8 10v12c0 10 6.8 18.6 16 22 9.2-3.4 16-12 16-22V10z" class="l"/><rect x="17" y="21" width="14" height="11" rx="2.5" class="g"/><path d="M19.5 21v-3a4.5 4.5 0 0 1 9 0v3" class="l"/><rect x="17" y="21" width="14" height="11" rx="2.5" class="l"/></svg></span><span class="nz-txt"><b>Sicher</b><small>statt veraltet</small></span></button>
+      <button type="button" class="nz-item" role="tab" id="nz-t3" aria-selected="false" aria-controls="nz-panel" data-text="Preise, Hinweise und Öffnungszeiten ändern Sie selbst – probieren Sie es in den Demos unten aus. Lieber gar kein Aufwand? Dann übernehme ich das."><span class="nz-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="5" y="9" width="30" height="28" rx="4" class="d"/><rect x="5" y="9" width="30" height="28" rx="4" class="l"/><path d="M11 18h12M11 24h8M11 30h10" class="l"/><path d="M41 13 26 28l-2 7 7-2 15-15z" class="g"/><path d="M41 13 26 28l-2 7 7-2 15-15z" class="l"/><path d="m38 16 5 5" class="l"/></svg></span><span class="nz-txt"><b>Selbst pflegen</b><small>oder pflegen lassen</small></span></button>
+    </div>
+    <p class="nz-panel" id="nz-panel" role="tabpanel" aria-live="polite">Die meisten Kunden suchen unterwegs. Ist Ihre Seite dort schwer lesbar, klicken sie zum Nächsten – ich baue jede Seite zuerst fürs Handy.</p>
 
-    <div class="fitcheck" id="fitcheck">
-      <div class="fc-head">
-        <div>
-          <div class="project-tag">Selbst-Check · 1 Minute</div>
-          <h3>Ist Ihre Webseite noch fit?</h3>
-          <p>Haken Sie an, was auf Ihre heutige Seite zutrifft.</p>
-        </div>
-        <div class="fc-score" aria-live="polite"><b data-fc-n>0</b><span>von 5</span></div>
-      </div>
-      <div class="fc-list">
+    <details class="fitcheck" id="fitcheck">
+      <summary>
+        <span class="fc-sum"><span class="fc-badge">Selbst-Check · 1 Minute</span><b>Ist Ihre Webseite noch fit?</b></span>
+        <span class="fc-score" aria-live="polite"><b data-fc-n>0</b>/5</span><span class="fc-chev" aria-hidden="true"></span>
+      </summary>
+      <div class="fc-body">
+        <p class="fc-intro">Haken Sie an, was auf Ihre heutige Seite zutrifft.</p>
+        <div class="fc-list">
         <label><input type="checkbox" data-fc> Sie ist am Handy gut lesbar – ohne Zoomen.</label>
         <label><input type="checkbox" data-fc> Öffnungszeiten, Preise und Angebote sind aktuell.</label>
         <label><input type="checkbox" data-fc> Die Adresse beginnt mit https:// (Schloss im Browser).</label>
         <label><input type="checkbox" data-fc> Über die Seite kommen regelmäßig Anfragen oder Bestellungen.</label>
         <label><input type="checkbox" data-fc> Ich kann Texte und Bilder selbst ändern.</label>
       </div>
-      <div class="fc-foot">
+        <div class="fc-foot">
         <p class="fc-msg" data-fc-msg>Jeder fehlende Haken kostet Sie Kunden – meist, ohne dass Sie es merken.</p>
         <a class="btn btn-primary" href="#kontakt" data-ask="Webseiten-Check" data-betreff="Website">Kostenlosen Check anfordern</a>
       </div>
-    </div>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -1199,6 +1214,21 @@
 {"@context":"https://schema.org","@type":"VideoObject","name":"Shopify-Shop selbst pflegen – Lichtfang-Demo","description":"Zwei Minuten im Shopify-Admin: Bestellung ansehen, Rabatt mit ehrlichem Streichpreis anlegen, Startseite ändern und das Ergebnis sofort im Shop sehen.","thumbnailUrl":"https://ycblischke.de/img/projekte/lichtfang-video.jpg","contentUrl":"https://ycblischke.de/video/lichtfang-admin.mp4","uploadDate":"2026-11-13","duration":"PT2M","inLanguage":"de"}
 </script>
 <script>
+  // Nutzen-Kacheln: Erklärung beim Antippen / Darüberfahren
+  (() => {
+    const items = [...document.querySelectorAll('.nz-item')], panel = document.getElementById('nz-panel');
+    if (!panel) return;
+    const pick = btn => {
+      if (btn.classList.contains('on')) return;
+      items.forEach(b => { const on = b === btn; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+      panel.classList.add('fade');
+      setTimeout(() => { panel.textContent = btn.dataset.text; panel.classList.remove('fade'); }, 150);
+    };
+    items.forEach(b => {
+      b.addEventListener('click', () => pick(b));
+      b.addEventListener('mouseenter', () => { if (matchMedia('(hover: hover)').matches) pick(b); });
+    });
+  })();
   // Selbst-Check: zählt die Haken und passt den Hinweis an
   (() => {
     const box = document.getElementById('fitcheck'); if (!box) return;
