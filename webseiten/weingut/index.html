@@ -315,7 +315,8 @@ footer a{text-decoration:none}footer a:hover{color:var(--gold-l)}
 .demo a.edit{background:transparent;border:1px solid rgba(245,239,228,.35);color:var(--cream)}
 .demo a.edit:hover{background:rgba(245,239,228,.12)}
 .demo.mine{background:rgba(90,20,40,.95)}
-.wnews{display:flex;align-items:center;gap:.6rem;width:fit-content;max-width:100%;margin-top:.7rem;font-size:.9rem;padding:.4rem .9rem .4rem .4rem;border-radius:999px;background:rgba(245,239,228,.92);color:var(--wine-d);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+@media (max-width:600px){.demo{gap:.4rem;padding:.35rem .35rem .35rem .8rem;font-size:.74rem;max-width:calc(100vw - 1.2rem)}.demo>span:first-child{display:none}.demo a{padding:.4rem .7rem;white-space:nowrap}.demo .x{width:26px;height:26px}.wnews{font-size:.8rem}}
+.wnews{display:flex;align-items:center;gap:.6rem;width:fit-content;max-width:100%;margin:.7rem 0 1.1rem;font-size:.9rem;padding:.4rem .9rem .4rem .4rem;border-radius:999px;background:rgba(245,239,228,.92);color:var(--wine-d);box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .wnews b{background:var(--wine);color:var(--cream);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .65rem;border-radius:999px;flex:none}
 .wnews[hidden]{display:none}
 
@@ -591,7 +592,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const eur=n=>n.toLocaleString('de-DE',{style:'currency',currency:'EUR'});
 
 /* ── Inhalte aus dem Demo-Admin (localStorage, nur für diesen Besucher sichtbar) ── */
-const EDIT=(()=>{try{return JSON.parse(localStorage.getItem('loesshang-demo')||'null')}catch(e){return null}})();
+const EDIT=(()=>{try{const d=JSON.parse(localStorage.getItem('loesshang-demo')||'null');if(d&&!(Date.now()-(d.t||0)<36e5)){localStorage.removeItem('loesshang-demo');return null}return d}catch(e){return null}})(); // Demo-Änderungen gelten 1 Stunde
 const escH=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmtH=h=>Number.isInteger(h)?String(h):Math.floor(h)+':'+String(Math.round((h%1)*60)).padStart(2,'0');
 if(EDIT){
@@ -601,7 +602,8 @@ if(EDIT){
   if(EDIT.text)$('#heroText').textContent=EDIT.text;
   if(EDIT.prices)$$('.format').forEach((f,i)=>{const v=EDIT.prices[i];if(v>0){f.dataset.price=v;f.querySelector('.p').firstChild.textContent=(Number.isInteger(v)?v:v.toFixed(2).replace('.',','))+' €'}});
   $('#demo').classList.add('mine');
-  $('#demo').firstElementChild.innerHTML='✎ Ihre Änderungen<span class="long"> – nur in Ihrem Browser sichtbar</span>';
+  $('#demo').firstElementChild.innerHTML='✎ Ihre Änderungen<span class="long"> – nur für Sie sichtbar</span>';
+  $('#demo .edit').textContent='✎ Bearbeiten';
 }
 
 /* ── Weine ── */

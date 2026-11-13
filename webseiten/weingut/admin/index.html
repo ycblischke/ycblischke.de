@@ -60,17 +60,16 @@ textarea{min-height:5rem;resize:vertical}
     <h2>Anmelden</h2>
     <p class="sub">Hier ändert das Weingut selbst Hinweise, Öffnungszeiten, Preise und den Wein des Monats – ohne Programmierer.</p>
     <form id="loginForm">
-      <label class="f" for="u">Benutzer</label><input type="text" id="u" value="demo@loesshang.de" autocomplete="off">
-      <label class="f" for="p">Passwort</label><input type="password" id="p" value="demo1234" autocomplete="off">
-      <button class="btn" type="submit">Anmelden →</button>
+      <label class="f" for="u">Benutzer</label><input type="text" id="u" value="demo@loesshang.de" readonly>
+            <button class="btn" type="submit">Mit Demo-Zugang anmelden →</button>
     </form>
-    <p class="demo-cred">Demo-Zugang ist schon eingetragen – einfach auf „Anmelden“.</p>
+    <p class="demo-cred">Für die Demo ist kein Passwort nötig. Im Echtbetrieb melden Sie sich mit Ihrem eigenen, sicheren Zugang an.</p>
   </div>
 </div>
 
 <div class="wrap" id="editor" hidden>
   <div class="top"><div class="logo" aria-hidden="true">L</div><div><b>Inhalte bearbeiten</b><small>Weingut Lösshang · angemeldet als demo@loesshang.de</small></div></div>
-  <div class="hint"><b>Demo:</b> Ihre Änderungen werden nur in <b>Ihrem</b> Browser gespeichert und sind nur für Sie sichtbar. Andere Besucher sehen die Seite unverändert. Bei einem echten Kunden gehen die Änderungen sofort für alle online.</div>
+  <div class="hint"><b>Demo:</b> Ihre Änderungen werden nur in <b>Ihrem</b> Browser gespeichert, sind nur für Sie sichtbar und verschwinden nach <b>1 Stunde</b> von selbst. Andere Besucher sehen die Seite unverändert. Bei einem echten Kunden gehen die Änderungen sofort für alle online.</div>
 
   <div class="card">
     <h2>Aktueller Hinweis</h2>
@@ -130,7 +129,7 @@ textarea{min-height:5rem;resize:vertical}
   };
   const DAYS = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
   const $ = s => document.querySelector(s);
-  const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } };
+  const load = () => { try { const d = JSON.parse(localStorage.getItem(KEY) || 'null'); return d && Date.now() - (d.t || 0) < 36e5 ? d : null; } catch (e) { return null; } };
   const toT = h => String(Math.floor(h)).padStart(2, '0') + ':' + String(Math.round((h % 1) * 60)).padStart(2, '0');
   const toH = t => { const [a, b] = t.split(':').map(Number); return a + (b || 0) / 60; };
   $('#wotm').innerHTML = WINES.map(([v, n]) => `<option value="${v}">${n}</option>`).join('');
@@ -178,7 +177,7 @@ textarea{min-height:5rem;resize:vertical}
     dirty();
   });
   $('#save').addEventListener('click', () => {
-    try { localStorage.setItem(KEY, JSON.stringify(read())); } catch (e) { $('#msg').textContent = 'Speichern ist in diesem Browser nicht möglich (privater Modus?).'; return; }
+    try { localStorage.setItem(KEY, JSON.stringify(Object.assign(read(), { t: Date.now() }))); } catch (e) { $('#msg').textContent = 'Speichern ist in diesem Browser nicht möglich (privater Modus?).'; return; }
     location.href = '../#';
   });
   $('#reset').addEventListener('click', () => {

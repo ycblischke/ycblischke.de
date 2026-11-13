@@ -376,6 +376,7 @@ footer.f .wrap{display:flex;flex-direction:column;gap:.8rem}
 .demo a.edit{background:transparent;border:1px solid rgba(243,238,229,.35);color:var(--paper)}
 .demo a.edit:hover{background:rgba(243,238,229,.12)}
 .demo.mine{background:rgba(63,107,74,.95)}
+@media (max-width:600px){.demo{gap:.4rem;padding:.35rem .35rem .35rem .8rem;font-size:.74rem;max-width:calc(100vw - 1.2rem)}.demo>span:first-child{display:none}.demo a{padding:.4rem .7rem;white-space:nowrap}.demo .x{width:26px;height:26px}.news{font-size:.82rem}}
 .news{display:inline-flex;align-items:center;gap:.6rem;margin:.9rem 0 -.2rem;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.35rem .9rem .35rem .35rem;font-size:.9rem;font-weight:500;box-shadow:0 6px 20px rgba(29,27,24,.06);max-width:100%}
 .news[hidden]{display:none}
 .news-tag{background:var(--oak);color:#fff;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .6rem;border-radius:999px;flex:none}
@@ -820,7 +821,7 @@ function onScroll(){const h=document.documentElement,p=h.scrollTop/(h.scrollHeig
 let tk=false;addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(()=>{onScroll();tk=false})}},{passive:true});onScroll();
 
 /* ── Inhalte aus dem Demo-Admin (localStorage, nur für diesen Besucher sichtbar) ── */
-const EDIT=(()=>{try{return JSON.parse(localStorage.getItem('sonnhalde-demo')||'null')}catch(e){return null}})();
+const EDIT=(()=>{try{const d=JSON.parse(localStorage.getItem('sonnhalde-demo')||'null');if(d&&!(Date.now()-(d.t||0)<36e5)){localStorage.removeItem('sonnhalde-demo');return null}return d}catch(e){return null}})(); // Demo-Änderungen gelten 1 Stunde
 const escH=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmtH=h=>Number.isInteger(h)?String(h):Math.floor(h)+':'+String(Math.round((h%1)*60)).padStart(2,'0');
 if(EDIT){
@@ -830,7 +831,8 @@ if(EDIT){
     const L=Math.max((EDIT.h1a||'').length,(EDIT.h1b||'').length);if(L>9)$('#heroH').style.fontSize=L>14?'clamp(2.3rem,5.2vw,4.4rem)':'clamp(2.7rem,6.6vw,5.6rem)'}
   if(EDIT.lead)$('#heroLead').textContent=EDIT.lead;
   $('#demo').classList.add('mine');
-  $('#demo').firstElementChild.innerHTML='✎ Ihre Änderungen<span class="long"> – nur in Ihrem Browser sichtbar</span>';
+  $('#demo').firstElementChild.innerHTML='✎ Ihre Änderungen<span class="long"> – nur für Sie sichtbar</span>';
+  $('#demo .edit').textContent='✎ Bearbeiten';
 }
 
 /* ── Öffnungszeiten & nächster Aufmaß-Termin ── */

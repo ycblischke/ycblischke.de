@@ -61,11 +61,10 @@ textarea{min-height:5.5rem;resize:vertical}
     <h2>Anmelden</h2>
     <p class="sub">Hier ändert der Betrieb selbst Texte und Öffnungszeiten – ohne Programmierer.</p>
     <form id="loginForm">
-      <label class="f" for="u">Benutzer</label><input type="text" id="u" value="demo@sonnhalde.de" autocomplete="off">
-      <label class="f" for="p">Passwort</label><input type="password" id="p" value="demo1234" autocomplete="off">
-      <button class="btn" type="submit">Anmelden →</button>
+      <label class="f" for="u">Benutzer</label><input type="text" id="u" value="demo@sonnhalde.de" readonly>
+            <button class="btn" type="submit">Mit Demo-Zugang anmelden →</button>
     </form>
-    <p class="demo-cred">Demo-Zugang ist schon eingetragen – einfach auf „Anmelden“.</p>
+    <p class="demo-cred">Für die Demo ist kein Passwort nötig. Im Echtbetrieb melden Sie sich mit Ihrem eigenen, sicheren Zugang an.</p>
   </div>
 </div>
 
@@ -75,7 +74,7 @@ textarea{min-height:5.5rem;resize:vertical}
     <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="9" fill="#1D1B18"/><path d="M9 28c4-9 7-14 11-16 4 2 7 7 11 16" fill="none" stroke="#C0843A" stroke-width="2.2" stroke-linecap="round"/></svg>
     <div><b>Inhalte bearbeiten</b><small>Holzwerkstatt Sonnhalde · angemeldet als demo@sonnhalde.de</small></div>
   </div>
-  <div class="hint"><b>Demo:</b> Ihre Änderungen werden nur in <b>Ihrem</b> Browser gespeichert und sind nur für Sie sichtbar. Andere Besucher sehen die Seite unverändert. Bei einem echten Kunden gehen die Änderungen sofort für alle online.</div>
+  <div class="hint"><b>Demo:</b> Ihre Änderungen werden nur in <b>Ihrem</b> Browser gespeichert, sind nur für Sie sichtbar und verschwinden nach <b>1 Stunde</b> von selbst. Andere Besucher sehen die Seite unverändert. Bei einem echten Kunden gehen die Änderungen sofort für alle online.</div>
 
   <div class="card">
     <h2>Aktueller Hinweis</h2>
@@ -122,7 +121,7 @@ textarea{min-height:5.5rem;resize:vertical}
   };
   const DAYS = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
   const $ = s => document.querySelector(s);
-  const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } };
+  const load = () => { try { const d = JSON.parse(localStorage.getItem(KEY) || 'null'); return d && Date.now() - (d.t || 0) < 36e5 ? d : null; } catch (e) { return null; } };
   const toT = h => String(Math.floor(h)).padStart(2, '0') + ':' + String(Math.round((h % 1) * 60)).padStart(2, '0');
   const toH = t => { const [a, b] = t.split(':').map(Number); return a + (b || 0) / 60; };
 
@@ -162,7 +161,7 @@ textarea{min-height:5.5rem;resize:vertical}
   });
   $('#news').addEventListener('input', e => { if (e.target.value) $('#newsOn').checked = true; });
   $('#save').addEventListener('click', () => {
-    try { localStorage.setItem(KEY, JSON.stringify(read())); } catch (e) { $('#msg').textContent = 'Speichern ist in diesem Browser nicht möglich (privater Modus?).'; return; }
+    try { localStorage.setItem(KEY, JSON.stringify(Object.assign(read(), { t: Date.now() }))); } catch (e) { $('#msg').textContent = 'Speichern ist in diesem Browser nicht möglich (privater Modus?).'; return; }
     location.href = '../#top';
   });
   $('#reset').addEventListener('click', () => {
