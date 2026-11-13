@@ -373,6 +373,12 @@ footer.f .wrap{display:flex;flex-direction:column;gap:.8rem}
 .demo .x{width:28px;height:28px;font-size:1rem;color:rgba(243,238,229,.6);border-radius:50%}
 .demo .x:hover{background:rgba(243,238,229,.1)}
 .demo.gone{display:none}
+.demo a.edit{background:transparent;border:1px solid rgba(243,238,229,.35);color:var(--paper)}
+.demo a.edit:hover{background:rgba(243,238,229,.12)}
+.demo.mine{background:rgba(63,107,74,.95)}
+.news{display:inline-flex;align-items:center;gap:.6rem;margin:.9rem 0 -.2rem;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.35rem .9rem .35rem .35rem;font-size:.9rem;font-weight:500;box-shadow:0 6px 20px rgba(29,27,24,.06);max-width:100%}
+.news[hidden]{display:none}
+.news-tag{background:var(--oak);color:#fff;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .6rem;border-radius:999px;flex:none}
 
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .reveal.in{opacity:1;transform:none}
@@ -454,8 +460,9 @@ footer.f .wrap{display:flex;flex-direction:column;gap:.8rem}
   <div class="wrap hero-grid">
     <div>
       <div class="lbl">Meisterbetrieb im Wiesental · Schopfheim</div>
-      <h1><span class="ln"><span>Holz,</span></span><span class="ln"><span>nach <em>Maß.</em></span></span></h1>
-      <p class="lead">Parkett, Küchen und Möbel aus unserer eigenen Werkstatt. Geplant, gebaut und eingebaut vom selben Team – mit einem festen Ansprechpartner von der ersten Idee bis zur letzten Sockelleiste.</p>
+      <div class="news" id="news" hidden><span class="news-tag">Aktuell</span><span id="newsT"></span></div>
+      <h1 id="heroH"><span class="ln"><span>Holz,</span></span><span class="ln"><span>nach <em>Maß.</em></span></span></h1>
+      <p class="lead" id="heroLead">Parkett, Küchen und Möbel aus unserer eigenen Werkstatt. Geplant, gebaut und eingebaut vom selben Team – mit einem festen Ansprechpartner von der ersten Idee bis zur letzten Sockelleiste.</p>
       <div class="hero-cta">
         <a href="#rechner" class="btn btn-ink">Preis in 1 Minute berechnen <span class="ar">→</span></a>
         <a href="#vorher-nachher" class="btn btn-line">Vorher/Nachher ansehen</a>
@@ -785,7 +792,7 @@ footer.f .wrap{display:flex;flex-direction:column;gap:.8rem}
   </div>
 </footer>
 
-<div class="demo" id="demo"><span>✦ Demo-Webseite<span class="long"> – gebaut von Yves Claudio Blischke</span></span><a href="/#kontakt">Auch so eine Seite?</a><button class="x" id="demoX" aria-label="Hinweis ausblenden">×</button></div>
+<div class="demo" id="demo"><span>✦ Demo-Webseite<span class="long"> – gebaut von Yves Claudio Blischke</span></span><a href="admin/" class="edit">✎ Inhalte ändern</a><a href="/#kontakt">Auch so eine Seite?</a><button class="x" id="demoX" aria-label="Hinweis ausblenden">×</button></div>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Bildansicht"><button class="x" aria-label="Schließen">×</button><button class="pv" aria-label="Vorheriges Bild">‹</button><img alt=""><button class="nx" aria-label="Nächstes Bild">›</button><p></p></div>
 
@@ -812,18 +819,32 @@ function onScroll(){const h=document.documentElement,p=h.scrollTop/(h.scrollHeig
   $('#tapeFill').style.width=(p*100)+'%';nav.classList.toggle('solid',h.scrollTop>30)}
 let tk=false;addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(()=>{onScroll();tk=false})}},{passive:true});onScroll();
 
+/* ── Inhalte aus dem Demo-Admin (localStorage, nur für diesen Besucher sichtbar) ── */
+const EDIT=(()=>{try{return JSON.parse(localStorage.getItem('sonnhalde-demo')||'null')}catch(e){return null}})();
+const escH=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtH=h=>Number.isInteger(h)?String(h):Math.floor(h)+':'+String(Math.round((h%1)*60)).padStart(2,'0');
+if(EDIT){
+  if(EDIT.news){$('#newsT').textContent=EDIT.news;$('#news').hidden=false}
+  if(EDIT.h1a||EDIT.h1b){const b=(EDIT.h1b||'').trim().split(' '),last=b.pop()||'';
+    $('#heroH').innerHTML=`<span class="ln"><span>${escH(EDIT.h1a||'')}</span></span><span class="ln"><span>${escH(b.join(' '))}${b.length?' ':''}<em>${escH(last)}</em></span></span>`
+    const L=Math.max((EDIT.h1a||'').length,(EDIT.h1b||'').length);if(L>9)$('#heroH').style.fontSize=L>14?'clamp(2.3rem,5.2vw,4.4rem)':'clamp(2.7rem,6.6vw,5.6rem)'}
+  if(EDIT.lead)$('#heroLead').textContent=EDIT.lead;
+  $('#demo').classList.add('mine');
+  $('#demo').firstElementChild.innerHTML='✎ Ihre Änderungen<span class="long"> – nur in Ihrem Browser sichtbar</span>';
+}
+
 /* ── Öffnungszeiten & nächster Aufmaß-Termin ── */
-const HOURS=[null,[7,17],[7,17],[7,17],[7,17],[7,15],[9,12]]; // So..Sa
+const HOURS=(EDIT&&EDIT.hours)||[null,[7,17],[7,17],[7,17],[7,17],[7,15],[9,12]]; // So..Sa
 const DAYS=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
 const now=new Date(),wd=now.getDay(),hr=now.getHours()+now.getMinutes()/60;
 const open=HOURS[wd]&&hr>=HOURS[wd][0]&&hr<HOURS[wd][1];
 function nextSlots(n){const out=[];const d=new Date();d.setDate(d.getDate()+2);
   while(out.length<n){if(d.getDay()>0&&d.getDay()<6)out.push(new Date(d));d.setDate(d.getDate()+1)}return out}
 const fmtD=d=>d.toLocaleDateString('de-DE',{weekday:'short',day:'numeric',month:'numeric'});
-$('#badgeT').textContent=open?`Werkstatt geöffnet bis ${HOURS[wd][1]} Uhr`:'Werkstatt gerade geschlossen';
+$('#badgeT').textContent=open?`Werkstatt geöffnet bis ${fmtH(HOURS[wd][1])} Uhr`:'Werkstatt gerade geschlossen';
 if(!open)$('#badge').classList.add('closed');
 $('#badgeS').textContent='Nächster freier Aufmaß-Termin: '+fmtD(nextSlots(1)[0]);
-$('#hours').innerHTML=[1,2,3,4,5,6,0].map(i=>`<li class="${i===wd?'today':''}"><span>${DAYS[i]}${i===wd?' · heute':''}</span><span>${HOURS[i]?HOURS[i][0]+' – '+HOURS[i][1]+' Uhr':'geschlossen'}${i===6?' (Ausstellung)':''}</span></li>`).join('');
+$('#hours').innerHTML=[1,2,3,4,5,6,0].map(i=>`<li class="${i===wd?'today':''}"><span>${DAYS[i]}${i===wd?' · heute':''}</span><span>${HOURS[i]?fmtH(HOURS[i][0])+' – '+fmtH(HOURS[i][1])+' Uhr':'geschlossen'}${i===6?' (Ausstellung)':''}</span></li>`).join('');
 
 /* ── Laufband ── */
 const BAND=['Parkett','Massivholzküchen','Einbauschränke','Treppen','Dielen aufarbeiten','Dachschrägen','Holz aus dem Schwarzwald','Festpreis nach Aufmaß'];
@@ -1050,7 +1071,7 @@ setTab('parkett');
 
 /* ── Team & Terminbuchung ── */
 const TEAM=['Sabine Wehrle','Martin Gersbach'];
-const backTxt=(()=>{if(HOURS[wd]&&hr<HOURS[wd][0])return 'ab '+HOURS[wd][0]+' Uhr wieder da';
+const backTxt=(()=>{if(HOURS[wd]&&hr<HOURS[wd][0])return 'ab '+fmtH(HOURS[wd][0])+' Uhr wieder da';
   for(let k=1;k<7;k++){const d=(wd+k)%7;if(HOURS[d])return k===1?'ab morgen wieder da':'ab '+DAYS[d]+' wieder da'}})();
 $$('[data-on]').forEach(b=>{if(!open){b.classList.add('off');b.querySelector('em').textContent=backTxt}});
 const BK={p:0,art:'Ausstellung Schopfheim',day:null,time:null};

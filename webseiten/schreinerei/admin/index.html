@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inhalte bearbeiten – Holzwerkstatt Sonnhalde (Demo)</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F3EEE5">
+<style>
+@font-face{font-family:'Bricolage';font-weight:300 800;font-display:swap;src:url(../fonts/bricolage.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:300 700;font-display:swap;src:url(../fonts/inter.woff2) format('woff2')}
+:root{--paper:#F3EEE5;--paper2:#EAE3D6;--card:#FBF8F2;--ink:#1D1B18;--ink2:#4A453E;--mute:#8A8277;--oak:#C0843A;--oak-d:#8F5B22;--line:rgba(29,27,24,.14);--green:#3F6B4A;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.55;padding:clamp(1rem,4vw,2.5rem) 16px 6rem}
+h1,h2{font-family:Bricolage,Inter,sans-serif;letter-spacing:-.02em;line-height:1.1}
+.wrap{max-width:760px;margin:0 auto}
+.top{display:flex;align-items:center;gap:.8rem;margin-bottom:1.6rem}
+.top svg{flex:none}
+.top b{display:block;font-size:1rem}.top small{color:var(--mute);font-size:.8rem}
+.hint{background:#fff7e8;border:1px dashed var(--oak);border-radius:12px;padding:.8rem 1rem;font-size:.88rem;color:var(--ink2);margin-bottom:1.4rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.4rem clamp(1rem,3vw,1.6rem);margin-bottom:1.1rem}
+.card h2{font-size:1.25rem;margin-bottom:.25rem}
+.card .sub{color:var(--mute);font-size:.86rem;margin-bottom:1rem}
+label.f{display:block;font-size:.8rem;font-weight:600;color:var(--ink2);margin:.8rem 0 .3rem}
+input[type=text],input[type=password],textarea{width:100%;font:inherit;font-size:1rem;padding:.7rem .85rem;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+input:focus,textarea:focus{outline:none;border-color:var(--oak)}
+textarea{min-height:5.5rem;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.sw{display:flex;align-items:center;gap:.6rem;font-size:.95rem;font-weight:600;cursor:pointer}
+.sw input{width:20px;height:20px;accent-color:var(--oak)}
+.hours{display:grid;gap:.45rem;margin-top:.4rem}
+.day{display:grid;grid-template-columns:7.5rem auto 1fr;align-items:center;gap:.7rem;padding:.45rem .6rem;border-radius:10px;background:#fff;border:1px solid var(--line)}
+.day b{font-size:.92rem}
+.day .t{display:flex;align-items:center;gap:.4rem;font-size:.9rem;color:var(--ink2)}
+.day input[type=time]{font:inherit;font-size:.92rem;padding:.35rem .4rem;border:1.5px solid var(--line);border-radius:8px;background:#fff;width:6.4rem}
+.day.closed .t{opacity:.35;pointer-events:none}
+.day .chk{display:flex;align-items:center;gap:.35rem;font-size:.82rem;color:var(--mute);cursor:pointer}
+.day .chk input{accent-color:var(--oak);width:17px;height:17px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(29,27,24,.94);backdrop-filter:blur(8px);padding:.8rem 16px;z-index:5}
+.bar .wrap{display:flex;gap:.7rem;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.bar .msg{color:#d9e9dc;font-size:.85rem;margin-right:auto}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.3rem;border-radius:999px;font:inherit;font-weight:600;font-size:.95rem;border:0;cursor:pointer;text-decoration:none}
+.btn-oak{background:var(--oak);color:#fff}.btn-oak:hover{background:var(--oak-d)}
+.btn-ghost{background:transparent;color:var(--paper);border:1px solid rgba(243,238,229,.35)}
+.login{max-width:420px;margin:8vh auto 0}
+.login .btn{width:100%;justify-content:center;margin-top:1.1rem;background:var(--ink);color:var(--paper)}
+.demo-cred{font-family:var(--mono);font-size:.8rem;color:var(--mute);margin-top:.8rem;text-align:center}
+[hidden]{display:none!important}
+@media (max-width:560px){body{padding-bottom:9rem}.bar .btn{padding:.7rem 1rem;font-size:.88rem;flex:1;justify-content:center}.row2{grid-template-columns:1fr}.day{grid-template-columns:1fr auto}.day .t{grid-column:1/-1}.bar .msg{width:100%}}
+</style>
+</head>
+<body>
+
+<!-- Anmeldung (Demo: kein echtes Passwort) -->
+<div class="login" id="login">
+  <div class="top">
+    <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="9" fill="#1D1B18"/><path d="M9 28c4-9 7-14 11-16 4 2 7 7 11 16" fill="none" stroke="#C0843A" stroke-width="2.2" stroke-linecap="round"/></svg>
+    <div><b>Holzwerkstatt Sonnhalde</b><small>Bereich für den Betrieb</small></div>
+  </div>
+  <div class="card">
+    <h2>Anmelden</h2>
+    <p class="sub">Hier ändert der Betrieb selbst Texte und Öffnungszeiten – ohne Programmierer.</p>
+    <form id="loginForm">
+      <label class="f" for="u">Benutzer</label><input type="text" id="u" value="demo@sonnhalde.de" autocomplete="off">
+      <label class="f" for="p">Passwort</label><input type="password" id="p" value="demo1234" autocomplete="off">
+      <button class="btn" type="submit">Anmelden →</button>
+    </form>
+    <p class="demo-cred">Demo-Zugang ist schon eingetragen – einfach auf „Anmelden“.</p>
+  </div>
+</div>
+
+<!-- Bearbeiten -->
+<div class="wrap" id="editor" hidden>
+  <div class="top">
+    <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="9" fill="#1D1B18"/><path d="M9 28c4-9 7-14 11-16 4 2 7 7 11 16" fill="none" stroke="#C0843A" stroke-width="2.2" stroke-linecap="round"/></svg>
+    <div><b>Inhalte bearbeiten</b><small>Holzwerkstatt Sonnhalde · angemeldet als demo@sonnhalde.de</small></div>
+  </div>
+  <div class="hint"><b>Demo:</b> Ihre Änderungen werden nur in <b>Ihrem</b> Browser gespeichert und sind nur für Sie sichtbar. Andere Besucher sehen die Seite unverändert. Bei einem echten Kunden gehen die Änderungen sofort für alle online.</div>
+
+  <div class="card">
+    <h2>Aktueller Hinweis</h2>
+    <p class="sub">Erscheint oben auf der Startseite – z. B. Betriebsferien, neue Ausstellung, Stellenangebot.</p>
+    <label class="sw"><input type="checkbox" id="newsOn"> Hinweis anzeigen</label>
+    <label class="f" for="news">Text</label>
+    <input type="text" id="news" maxlength="110" placeholder="z. B. Betriebsferien vom 23.12. bis 6.1. – Anfragen beantworten wir danach.">
+  </div>
+
+  <div class="card">
+    <h2>Startseite</h2>
+    <p class="sub">Die große Überschrift und der Text darunter. Das letzte Wort wird farbig hervorgehoben.</p>
+    <div class="row2">
+      <div><label class="f" for="h1a">Überschrift, Zeile 1</label><input type="text" id="h1a" maxlength="24"></div>
+      <div><label class="f" for="h1b">Überschrift, Zeile 2</label><input type="text" id="h1b" maxlength="24"></div>
+    </div>
+    <label class="f" for="lead">Text unter der Überschrift</label>
+    <textarea id="lead" maxlength="320"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>Öffnungszeiten</h2>
+    <p class="sub">Steuern auch die Anzeige „Werkstatt geöffnet / geschlossen“ auf der Startseite.</p>
+    <div class="hours" id="hours"></div>
+  </div>
+</div>
+
+<div class="bar" id="bar" hidden>
+  <div class="wrap">
+    <span class="msg" id="msg">Noch nicht gespeichert.</span>
+    <button class="btn btn-ghost" id="reset" type="button">Zurücksetzen</button>
+    <button class="btn btn-oak" id="save" type="button">Speichern &amp; ansehen →</button>
+  </div>
+</div>
+
+<script>
+(() => {
+  const KEY = 'sonnhalde-demo';
+  const DEF = {
+    news: '',
+    h1a: 'Holz,', h1b: 'nach Maß.',
+    lead: 'Parkett, Küchen und Möbel aus unserer eigenen Werkstatt. Geplant, gebaut und eingebaut vom selben Team – mit einem festen Ansprechpartner von der ersten Idee bis zur letzten Sockelleiste.',
+    hours: [null, [7, 17], [7, 17], [7, 17], [7, 17], [7, 15], [9, 12]] // So..Sa
+  };
+  const DAYS = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+  const $ = s => document.querySelector(s);
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } };
+  const toT = h => String(Math.floor(h)).padStart(2, '0') + ':' + String(Math.round((h % 1) * 60)).padStart(2, '0');
+  const toH = t => { const [a, b] = t.split(':').map(Number); return a + (b || 0) / 60; };
+
+  function fill(d) {
+    $('#newsOn').checked = !!d.news; $('#news').value = d.news || '';
+    $('#h1a').value = d.h1a; $('#h1b').value = d.h1b; $('#lead').value = d.lead;
+    $('#hours').innerHTML = [1, 2, 3, 4, 5, 6, 0].map(i => {
+      const h = d.hours[i];
+      return `<div class="day${h ? '' : ' closed'}" data-i="${i}"><b>${DAYS[i]}</b>
+        <label class="chk"><input type="checkbox" ${h ? '' : 'checked'}> geschlossen</label>
+        <span class="t"><input type="time" step="900" value="${toT(h ? h[0] : 8)}" aria-label="${DAYS[i]} von"> bis <input type="time" step="900" value="${toT(h ? h[1] : 17)}" aria-label="${DAYS[i]} bis"></span></div>`;
+    }).join('');
+  }
+  function read() {
+    const hours = [null, null, null, null, null, null, null];
+    document.querySelectorAll('.day').forEach(el => {
+      const i = +el.dataset.i, [c] = el.querySelectorAll('input[type=checkbox]'), [a, b] = el.querySelectorAll('input[type=time]');
+      if (!c.checked && a.value && b.value && toH(b.value) > toH(a.value)) hours[i] = [toH(a.value), toH(b.value)];
+    });
+    return { news: $('#newsOn').checked ? $('#news').value.trim() : '', h1a: $('#h1a').value.trim() || DEF.h1a, h1b: $('#h1b').value.trim() || DEF.h1b, lead: $('#lead').value.trim() || DEF.lead, hours };
+  }
+  const dirty = () => { $('#msg').textContent = 'Änderungen noch nicht gespeichert.'; };
+
+  $('#loginForm').addEventListener('submit', e => {
+    e.preventDefault();
+    $('#login').hidden = true; $('#editor').hidden = false; $('#bar').hidden = false;
+    fill(load() || DEF);
+    $('#msg').textContent = load() ? 'Sie sehen Ihre gespeicherte Fassung.' : 'Ändern Sie etwas – und klicken Sie auf Speichern.';
+    window.scrollTo(0, 0);
+  });
+  $('#editor').addEventListener('input', dirty);
+  $('#editor').addEventListener('change', e => {
+    const d = e.target.closest('.day');
+    if (d && e.target.type === 'checkbox') d.classList.toggle('closed', e.target.checked);
+    if (e.target.id === 'news' && e.target.value) $('#newsOn').checked = true;
+    dirty();
+  });
+  $('#news').addEventListener('input', e => { if (e.target.value) $('#newsOn').checked = true; });
+  $('#save').addEventListener('click', () => {
+    try { localStorage.setItem(KEY, JSON.stringify(read())); } catch (e) { $('#msg').textContent = 'Speichern ist in diesem Browser nicht möglich (privater Modus?).'; return; }
+    location.href = '../#top';
+  });
+  $('#reset').addEventListener('click', () => {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    fill(DEF); $('#msg').textContent = 'Zurückgesetzt – die Seite ist wieder im Originalzustand.';
+  });
+})();
+</script>
+</body>
+</html>

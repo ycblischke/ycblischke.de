@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inhalte bearbeiten – Weingut Lösshang (Demo)</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#5a1428">
+<style>
+@font-face{font-family:'Fraunces';font-weight:300 700;font-display:swap;src:url(../fonts/fraunces.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:300 700;font-display:swap;src:url(../fonts/inter.woff2) format('woff2')}
+:root{--wine:#5a1428;--wine-d:#2a0a14;--gold:#c9a45c;--cream:#f5efe4;--cream2:#ebe2d2;--paper:#fbf8f2;--ink:#1f1714;--muted:#6f6259;--line:rgba(31,23,20,.14)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;background:var(--cream);color:var(--ink);font-size:16px;line-height:1.55;padding:clamp(1rem,4vw,2.5rem) 16px 6rem}
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:500;line-height:1.1}
+.wrap{max-width:780px;margin:0 auto}
+.top{display:flex;align-items:center;gap:.8rem;margin-bottom:1.6rem}
+.logo{width:40px;height:40px;border-radius:10px;background:var(--wine);display:grid;place-items:center;color:var(--gold);font-family:Fraunces,serif;font-size:1.3rem;flex:none}
+.top b{display:block;font-size:1rem}.top small{color:var(--muted);font-size:.8rem}
+.hint{background:#fff7e8;border:1px dashed var(--gold);border-radius:12px;padding:.8rem 1rem;font-size:.88rem;color:#4a3c33;margin-bottom:1.4rem}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:1.4rem clamp(1rem,3vw,1.6rem);margin-bottom:1.1rem}
+.card h2{font-size:1.35rem;margin-bottom:.25rem}
+.card .sub{color:var(--muted);font-size:.86rem;margin-bottom:1rem}
+label.f{display:block;font-size:.8rem;font-weight:600;color:#4a3c33;margin:.8rem 0 .3rem}
+input[type=text],input[type=password],input[type=number],textarea,select{width:100%;font:inherit;font-size:1rem;padding:.7rem .85rem;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--wine)}
+textarea{min-height:5rem;resize:vertical}
+.sw{display:flex;align-items:center;gap:.6rem;font-size:.95rem;font-weight:600;cursor:pointer}
+.sw input{width:20px;height:20px;accent-color:var(--wine)}
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+.prices .eur{position:relative}.prices .eur::after{content:'€';position:absolute;right:.85rem;top:50%;transform:translateY(-50%);color:var(--muted)}
+.hours{display:grid;gap:.45rem;margin-top:.4rem}
+.day{display:grid;grid-template-columns:6.8rem auto 1fr;align-items:center;gap:.6rem;padding:.5rem .6rem;border-radius:10px;background:#fff;border:1px solid var(--line)}
+.day b{font-size:.92rem}
+.day .t{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;font-size:.88rem;color:#4a3c33}
+.day input[type=time]{font:inherit;font-size:.9rem;padding:.3rem .35rem;border:1.5px solid var(--line);border-radius:8px;background:#fff;width:6.1rem}
+.day .p2{display:inline-flex;align-items:center;gap:.35rem}
+.day.one .p2 .tt{opacity:.35;pointer-events:none}
+.day.closed .t{opacity:.35;pointer-events:none}
+.chk{display:inline-flex;align-items:center;gap:.35rem;font-size:.8rem;color:var(--muted);cursor:pointer;white-space:nowrap}
+.chk input{accent-color:var(--wine);width:17px;height:17px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(42,10,20,.95);backdrop-filter:blur(8px);padding:.8rem 16px;z-index:5}
+.bar .wrap{display:flex;gap:.7rem;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.bar .msg{color:#f0dfc4;font-size:.85rem;margin-right:auto}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.3rem;border-radius:999px;font:inherit;font-weight:600;font-size:.95rem;border:0;cursor:pointer}
+.btn-gold{background:var(--gold);color:var(--wine-d)}.btn-gold:hover{background:#e3c68a}
+.btn-ghost{background:transparent;color:var(--cream);border:1px solid rgba(245,239,228,.35)}
+.login{max-width:420px;margin:8vh auto 0}
+.login .btn{width:100%;justify-content:center;margin-top:1.1rem;background:var(--wine);color:var(--cream)}
+.demo-cred{font-size:.8rem;color:var(--muted);margin-top:.8rem;text-align:center}
+[hidden]{display:none!important}
+@media (max-width:600px){body{padding-bottom:9rem}.bar .btn{padding:.7rem 1rem;font-size:.88rem;flex:1;justify-content:center}.prices{grid-template-columns:1fr}.day{grid-template-columns:1fr auto}.day .t{grid-column:1/-1}.bar .msg{width:100%}}
+</style>
+</head>
+<body>
+
+<div class="login" id="login">
+  <div class="top"><div class="logo" aria-hidden="true">L</div><div><b>Weingut Lösshang</b><small>Bereich für das Weingut</small></div></div>
+  <div class="card">
+    <h2>Anmelden</h2>
+    <p class="sub">Hier ändert das Weingut selbst Hinweise, Öffnungszeiten, Preise und den Wein des Monats – ohne Programmierer.</p>
+    <form id="loginForm">
+      <label class="f" for="u">Benutzer</label><input type="text" id="u" value="demo@loesshang.de" autocomplete="off">
+      <label class="f" for="p">Passwort</label><input type="password" id="p" value="demo1234" autocomplete="off">
+      <button class="btn" type="submit">Anmelden →</button>
+    </form>
+    <p class="demo-cred">Demo-Zugang ist schon eingetragen – einfach auf „Anmelden“.</p>
+  </div>
+</div>
+
+<div class="wrap" id="editor" hidden>
+  <div class="top"><div class="logo" aria-hidden="true">L</div><div><b>Inhalte bearbeiten</b><small>Weingut Lösshang · angemeldet als demo@loesshang.de</small></div></div>
+  <div class="hint"><b>Demo:</b> Ihre Änderungen werden nur in <b>Ihrem</b> Browser gespeichert und sind nur für Sie sichtbar. Andere Besucher sehen die Seite unverändert. Bei einem echten Kunden gehen die Änderungen sofort für alle online.</div>
+
+  <div class="card">
+    <h2>Aktueller Hinweis</h2>
+    <p class="sub">Erscheint oben auf der Startseite – z. B. Hoffest, neuer Jahrgang, Betriebsferien.</p>
+    <label class="sw"><input type="checkbox" id="newsOn"> Hinweis anzeigen</label>
+    <label class="f" for="news">Text</label>
+    <input type="text" id="news" maxlength="100" placeholder="z. B. Hoffest am 6. Dezember – Glühwein, Flammkuchen und Fassprobe">
+  </div>
+
+  <div class="card">
+    <h2>Startseite</h2>
+    <p class="sub">Die große Überschrift und der Text darunter. Das letzte Wort wird golden hervorgehoben.</p>
+    <label class="f" for="title">Überschrift</label><input type="text" id="title" maxlength="34">
+    <label class="f" for="text">Text unter der Überschrift</label><textarea id="text" maxlength="240"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>Wein des Monats</h2>
+    <p class="sub">Bekommt im Weinregal das Schild „Wein des Monats“.</p>
+    <select id="wotm" aria-label="Wein des Monats"></select>
+  </div>
+
+  <div class="card">
+    <h2>Preise der Weinproben</h2>
+    <p class="sub">Pro Person. Der Buchungsrechner rechnet automatisch mit dem neuen Preis.</p>
+    <div class="prices">
+      <div><label class="f" for="pr0">Klassische Weinprobe</label><div class="eur"><input type="number" id="pr0" min="1" max="999" step="0.5"></div></div>
+      <div><label class="f" for="pr1">Wein &amp; Flammkuchen</label><div class="eur"><input type="number" id="pr1" min="1" max="999" step="0.5"></div></div>
+      <div><label class="f" for="pr2">Keller &amp; Weinberg</label><div class="eur"><input type="number" id="pr2" min="1" max="999" step="0.5"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Öffnungszeiten Hofladen</h2>
+    <p class="sub">Steuern auch die Anzeige „Hofladen jetzt geöffnet“ oben auf der Startseite.</p>
+    <div class="hours" id="hours"></div>
+  </div>
+</div>
+
+<div class="bar" id="bar" hidden>
+  <div class="wrap">
+    <span class="msg" id="msg">Noch nicht gespeichert.</span>
+    <button class="btn btn-ghost" id="reset" type="button">Zurücksetzen</button>
+    <button class="btn btn-gold" id="save" type="button">Speichern &amp; ansehen →</button>
+  </div>
+</div>
+
+<script>
+(() => {
+  const KEY = 'loesshang-demo';
+  const WINES = [['', 'kein Wein des Monats'], ['grau', 'Grauburgunder „Löss“'], ['weiss', 'Weißburgunder Gutswein'], ['ries', 'Riesling „Steinbuck“'], ['musk', 'Muskateller'], ['rose', 'Spätburgunder Rosé'], ['vulkan', 'Spätburgunder „Vulkan“'], ['gg', 'Spätburgunder GG „Winklerberg“'], ['sekt', 'Pinot Sekt Brut']];
+  const DEF = {
+    news: '', title: 'Sonne. Löss. Geduld.',
+    text: 'Spätburgunder und Grauburgunder vom wärmsten Hang Deutschlands – seit 1898 in vierter Generation von Hand gelesen.',
+    wotm: '', prices: [25, 39, 49],
+    hours: [null, [[9, 12], [14, 18]], [[9, 12], [14, 18]], [[9, 12], [14, 18]], [[9, 12], [14, 18]], [[9, 12], [14, 19]], [[9, 16]]]
+  };
+  const DAYS = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+  const $ = s => document.querySelector(s);
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } };
+  const toT = h => String(Math.floor(h)).padStart(2, '0') + ':' + String(Math.round((h % 1) * 60)).padStart(2, '0');
+  const toH = t => { const [a, b] = t.split(':').map(Number); return a + (b || 0) / 60; };
+  $('#wotm').innerHTML = WINES.map(([v, n]) => `<option value="${v}">${n}</option>`).join('');
+
+  function fill(d) {
+    $('#newsOn').checked = !!d.news; $('#news').value = d.news || '';
+    $('#title').value = d.title; $('#text').value = d.text; $('#wotm').value = d.wotm || '';
+    [0, 1, 2].forEach(i => { $('#pr' + i).value = d.prices[i]; });
+    $('#hours').innerHTML = [1, 2, 3, 4, 5, 6, 0].map(i => {
+      const h = d.hours[i], a = h ? h[0] : [9, 12], b = h && h[1] ? h[1] : null;
+      return `<div class="day${h ? '' : ' closed'}${b ? '' : ' one'}" data-i="${i}"><b>${DAYS[i]}</b>
+        <label class="chk"><input type="checkbox" class="cl" ${h ? '' : 'checked'}> geschlossen</label>
+        <span class="t"><input type="time" step="900" value="${toT(a[0])}" aria-label="${DAYS[i]} von"> – <input type="time" step="900" value="${toT(a[1])}" aria-label="${DAYS[i]} bis">
+          <span class="p2"><label class="chk"><input type="checkbox" class="two" ${b ? 'checked' : ''}> und</label>
+          <span class="tt"><input type="time" step="900" value="${toT(b ? b[0] : 14)}" aria-label="${DAYS[i]} nachmittags von"> – <input type="time" step="900" value="${toT(b ? b[1] : 18)}" aria-label="${DAYS[i]} nachmittags bis"></span></span></span></div>`;
+    }).join('');
+  }
+  function read() {
+    const hours = [null, null, null, null, null, null, null];
+    document.querySelectorAll('.day').forEach(el => {
+      const i = +el.dataset.i, t = el.querySelectorAll('input[type=time]');
+      if (el.querySelector('.cl').checked) return;
+      const r = [];
+      const add = (a, b) => { if (a.value && b.value && toH(b.value) > toH(a.value)) r.push([toH(a.value), toH(b.value)]); };
+      add(t[0], t[1]); if (el.querySelector('.two').checked) add(t[2], t[3]);
+      hours[i] = r.length ? r : null;
+    });
+    const pr = [0, 1, 2].map(i => Math.round((+$('#pr' + i).value || DEF.prices[i]) * 2) / 2);
+    return { news: $('#newsOn').checked ? $('#news').value.trim() : '', title: $('#title').value.trim() || DEF.title, text: $('#text').value.trim() || DEF.text, wotm: $('#wotm').value, prices: pr, hours };
+  }
+  const dirty = () => { $('#msg').textContent = 'Änderungen noch nicht gespeichert.'; };
+
+  $('#loginForm').addEventListener('submit', e => {
+    e.preventDefault();
+    $('#login').hidden = true; $('#editor').hidden = false; $('#bar').hidden = false;
+    fill(load() || DEF);
+    $('#msg').textContent = load() ? 'Sie sehen Ihre gespeicherte Fassung.' : 'Ändern Sie etwas – und klicken Sie auf Speichern.';
+    window.scrollTo(0, 0);
+  });
+  $('#editor').addEventListener('input', e => { if (e.target.id === 'news' && e.target.value) $('#newsOn').checked = true; dirty(); });
+  $('#editor').addEventListener('change', e => {
+    const d = e.target.closest('.day');
+    if (d && e.target.classList.contains('cl')) d.classList.toggle('closed', e.target.checked);
+    if (d && e.target.classList.contains('two')) d.classList.toggle('one', !e.target.checked);
+    dirty();
+  });
+  $('#save').addEventListener('click', () => {
+    try { localStorage.setItem(KEY, JSON.stringify(read())); } catch (e) { $('#msg').textContent = 'Speichern ist in diesem Browser nicht möglich (privater Modus?).'; return; }
+    location.href = '../#';
+  });
+  $('#reset').addEventListener('click', () => {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    fill(DEF); $('#msg').textContent = 'Zurückgesetzt – die Seite ist wieder im Originalzustand.';
+  });
+})();
+</script>
+</body>
+</html>

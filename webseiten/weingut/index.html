@@ -312,6 +312,12 @@ footer a{text-decoration:none}footer a:hover{color:var(--gold-l)}
 .demo .x{width:28px;height:28px;font-size:1rem;color:rgba(245,239,228,.6)}
 .demo .x:hover{background:rgba(245,239,228,.1)}
 .demo.gone{display:none}
+.demo a.edit{background:transparent;border:1px solid rgba(245,239,228,.35);color:var(--cream)}
+.demo a.edit:hover{background:rgba(245,239,228,.12)}
+.demo.mine{background:rgba(90,20,40,.95)}
+.wnews{display:flex;align-items:center;gap:.6rem;width:fit-content;max-width:100%;margin-top:.7rem;font-size:.9rem;padding:.4rem .9rem .4rem .4rem;border-radius:999px;background:rgba(245,239,228,.92);color:var(--wine-d);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.wnews b{background:var(--wine);color:var(--cream);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .65rem;border-radius:999px;flex:none}
+.wnews[hidden]{display:none}
 
 /* ── Handy ── */
 @media (max-width:900px){
@@ -381,9 +387,10 @@ footer a{text-decoration:none}footer a:hover{color:var(--gold-l)}
   <div class="hero-img" role="img" aria-label="Weinberg im Abendlicht"></div>
   <div class="wrap">
     <div class="status" id="status"><i></i><span>Hofladen …</span></div>
+    <div class="wnews" id="news" hidden><b>Aktuell</b><span id="newsT"></span></div>
     <h1 id="heroTitle">Sonne. Löss. <em>Geduld.</em></h1>
     <div class="hero-bottom">
-      <p>Spätburgunder und Grauburgunder vom wärmsten Hang Deutschlands – seit 1898 in vierter Generation von Hand gelesen.</p>
+      <p id="heroText">Spätburgunder und Grauburgunder vom wärmsten Hang Deutschlands – seit 1898 in vierter Generation von Hand gelesen.</p>
       <div class="hero-cta">
         <a href="#finder" class="btn btn-gold">Meinen Wein finden →</a>
         <a href="#weine" class="btn btn-ghost">Alle Weine</a>
@@ -577,11 +584,25 @@ footer a{text-decoration:none}footer a:hover{color:var(--gold-l)}
 
 <div class="modal" id="modal"><div class="box"><div class="ok-ic">✓</div><h3 id="mTitle"></h3><p id="mText"></p><button class="btn btn-wine" id="mClose">Schön!</button></div></div>
 
-<div class="demo" id="demo"><span>✦ Demo-Webseite<span class="long"> – gebaut von Yves Claudio Blischke</span></span><a href="/#kontakt">Auch so eine Seite?</a><button class="x" id="demoX" aria-label="Hinweis ausblenden">×</button></div>
+<div class="demo" id="demo"><span>✦ Demo-Webseite<span class="long"> – gebaut von Yves Claudio Blischke</span></span><a href="admin/" class="edit">✎ Inhalte ändern</a><a href="/#kontakt">Auch so eine Seite?</a><button class="x" id="demoX" aria-label="Hinweis ausblenden">×</button></div>
 
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const eur=n=>n.toLocaleString('de-DE',{style:'currency',currency:'EUR'});
+
+/* ── Inhalte aus dem Demo-Admin (localStorage, nur für diesen Besucher sichtbar) ── */
+const EDIT=(()=>{try{return JSON.parse(localStorage.getItem('loesshang-demo')||'null')}catch(e){return null}})();
+const escH=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtH=h=>Number.isInteger(h)?String(h):Math.floor(h)+':'+String(Math.round((h%1)*60)).padStart(2,'0');
+if(EDIT){
+  if(EDIT.news){$('#newsT').textContent=EDIT.news;$('#news').hidden=false}
+  if(EDIT.title){const w=EDIT.title.trim().split(/\s+/),last=w.pop();$('#heroTitle').innerHTML=escH(w.join(' '))+(w.length?' ':'')+'<em>'+escH(last)+'</em>';
+    if(EDIT.title.length>22)$('#heroTitle').style.fontSize='clamp(2.6rem,7vw,6rem)'}
+  if(EDIT.text)$('#heroText').textContent=EDIT.text;
+  if(EDIT.prices)$$('.format').forEach((f,i)=>{const v=EDIT.prices[i];if(v>0){f.dataset.price=v;f.querySelector('.p').firstChild.textContent=(Number.isInteger(v)?v:v.toFixed(2).replace('.',','))+' €'}});
+  $('#demo').classList.add('mine');
+  $('#demo').firstElementChild.innerHTML='✎ Ihre Änderungen<span class="long"> – nur in Ihrem Browser sichtbar</span>';
+}
 
 /* ── Weine ── */
 const WINES=[
@@ -594,6 +615,7 @@ const WINES=[
  {id:'gg',name:'Spätburgunder GG „Winklerberg“',sort:'Großes Gewächs · 2021',type:'rot',price:34,c:'#3b0c18',glass:'#2a0a12',glow:'#8e2a43',label:'GG',badge:'94 Punkte',desc:'Unser bester Hang. 18 Monate Barrique, Lagerpotenzial bis 2035.',food:['fleisch','kaese'],body:3},
  {id:'sekt',name:'Pinot Sekt Brut',sort:'Flaschengärung · 36 Monate',type:'sekt',price:16.9,c:'#d9cc8e',glass:'#efe6c0',glow:'#f0dc96',label:'SK',desc:'Feine Perlage, Brioche und grüner Apfel. Zum Anstoßen.',food:['nix','fisch'],body:1,sekt:true},
 ];
+if(EDIT&&EDIT.wotm){const w=WINES.find(x=>x.id===EDIT.wotm);if(w)w.badge='Wein des Monats'}
 function bottle(w){
   const capC=w.type==='rot'?'#2a0a12':w.sekt?'#c9a45c':'#c9a45c', gid='g'+w.id+Math.random().toString(36).slice(2,6);
   return `<svg viewBox="0 0 60 200" aria-hidden="true"><defs><linearGradient id="${gid}" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".22" stop-color="#fff" stop-opacity=".35"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".85" stop-color="#000" stop-opacity=".25"/></linearGradient></defs>
@@ -673,22 +695,22 @@ $('#fs3').addEventListener('click',e=>{
 setBg('hero');
 
 /* ── Hofladen: Öffnungszeiten live ── */
-const HOURS=[null,[[9,12],[14,18]],[[9,12],[14,18]],[[9,12],[14,18]],[[9,12],[14,18]],[[9,12],[14,19]],[[9,16]]]; // So=0
+const HOURS=(EDIT&&EDIT.hours)||[null,[[9,12],[14,18]],[[9,12],[14,18]],[[9,12],[14,18]],[[9,12],[14,18]],[[9,12],[14,19]],[[9,16]]]; // So=0
 const DN=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
 function status(){
   const d=new Date(),h=d.getHours()+d.getMinutes()/60,t=HOURS[d.getDay()];
   const cur=t&&t.find(([a,b])=>h>=a&&h<b);
-  if(cur) return {open:true,txt:`Hofladen jetzt geöffnet · bis ${cur[1]} Uhr`};
-  const nx=t&&t.find(([a])=>h<a); if(nx) return {open:false,txt:`Hofladen öffnet heute um ${nx[0]} Uhr`};
-  for(let i=1;i<8;i++){const dd=(d.getDay()+i)%7;if(HOURS[dd])return {open:false,txt:`Hofladen öffnet ${i===1?'morgen':DN[dd]} um ${HOURS[dd][0][0]} Uhr`}}
+  if(cur) return {open:true,txt:`Hofladen jetzt geöffnet · bis ${fmtH(cur[1])} Uhr`};
+  const nx=t&&t.find(([a])=>h<a); if(nx) return {open:false,txt:`Hofladen öffnet heute um ${fmtH(nx[0])} Uhr`};
+  for(let i=1;i<8;i++){const dd=(d.getDay()+i)%7;if(HOURS[dd])return {open:false,txt:`Hofladen öffnet ${i===1?'morgen':DN[dd]} um ${fmtH(HOURS[dd][0][0])} Uhr`}}
 }
 const st=status(); $('#status span').textContent=st.txt; $('#status').classList.toggle('closed',!st.open);
-const fmt=t=>t?t.map(([a,b])=>`${a}–${b} Uhr`).join(' · '):'geschlossen';
+const fmt=t=>t?t.map(([a,b])=>`${fmtH(a)}–${fmtH(b)} Uhr`).join(' · '):'geschlossen';
 $('#hours').innerHTML=[1,2,3,4,5,6,0].map(i=>`<div class="${i===new Date().getDay()?'today':''}"><span>${DN[i]}</span><span>${fmt(HOURS[i])}</span></div>`).join('');
 
 /* ── Weinprobe-Kalender ── */
 const today=new Date();today.setHours(0,0,0,0);
-let view=new Date(today.getFullYear(),today.getMonth(),1), sel=null, slot=null, persons=2, price=25, fname='Klassische Weinprobe';
+let view=new Date(today.getFullYear(),today.getMonth(),1), sel=null, slot=null, persons=2, price=+$('.format.on').dataset.price, fname='Klassische Weinprobe';
 const hash=d=>{let x=d.getFullYear()*372+d.getMonth()*31+d.getDate();x=(x*2654435761)>>>0;return x%100};
 function dayState(d){
   if(d<=today) return 'off';
