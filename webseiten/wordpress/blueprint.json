@@ -1,0 +1,12 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "meta": { "title": "Holzwerkstatt Sonnhalde – WordPress-Demo", "author": "ycblischke.de" },
+  "landingPage": "/",
+  "preferredVersions": { "php": "8.3", "wp": "latest" },
+  "login": true,
+  "steps": [
+    { "step": "setSiteLanguage", "language": "de_DE" },
+    { "step": "installTheme", "themeData": { "resource": "url", "url": "https://ycblischke.de/webseiten/wordpress/sonnhalde.zip" }, "options": { "activate": true } },
+    { "step": "runPHP", "code": "<?php require '/wordpress/wp-load.php'; require get_theme_file_path('setup/setup.php');" }
+  ]
+}
