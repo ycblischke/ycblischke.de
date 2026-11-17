@@ -291,16 +291,64 @@ button{font:inherit;border:0;border-radius:999px;padding:14px 18px;font-weight:6
     rows.push('🟦'.repeat(9));
     return rows.join('\n');
   }
-  function message() {
+  function message(withBoard) {
     const head = '🔴 ' + (names[1] || 'Rot') + ' gegen 🟡 ' + (names[2] || '?');
     let tail;
     if (win) tail = '🏆 ' + (names[win.col] || 'Gewonnen') + ' gewinnt! Revanche? 👇';
     else if (full()) tail = '🤝 Unentschieden! Revanche? 👇';
     else tail = '👉 ' + (names[toMove()] ? names[toMove()] + ', du' : 'Du') + ' bist dran:';
-    return '4 in einer Reihe · ' + head + '\n\n' + boardText() + '\n\n' + tail + '\n' + link();
+    return '4 in einer Reihe · ' + head + '\n\n' + (withBoard ? boardText() + '\n\n' : '') + tail + '\n' + link();
   }
+
+  // Spielfeld als Bild (für WhatsApp)
+  function boardImage() {
+    const S = 2, Wd = 540, cell = 70, pad = 25, top = 120;
+    const bw = cell * C + pad * 2 - 20, bh = cell * R + 30;
+    const cv = document.createElement('canvas'); cv.width = Wd * S; cv.height = (top + bh + 70) * S;
+    const g = cv.getContext('2d'); g.scale(S, S);
+    g.fillStyle = '#0b141a'; g.fillRect(0, 0, Wd, cv.height / S);
+    g.textAlign = 'center'; g.fillStyle = '#e9edef'; g.font = '700 26px system-ui,sans-serif';
+    g.fillText('4 in einer Reihe', Wd / 2, 46);
+    g.font = '500 20px system-ui,sans-serif';
+    const vs = (names[1] || 'Rot') + '  gegen  ' + (names[2] || 'Gelb');
+    g.fillStyle = '#8696a0'; g.fillText(vs, Wd / 2, 82);
+    const tw = g.measureText(vs).width;
+    const dot = (x, y, col) => { g.beginPath(); g.arc(x, y, 8, 0, 7); g.fillStyle = col; g.fill(); };
+    dot(Wd / 2 - tw / 2 - 16, 75, '#e53935'); dot(Wd / 2 + tw / 2 + 16, 75, '#fdd835');
+    const x0 = (Wd - bw) / 2, y0 = top;
+    const grd = g.createLinearGradient(0, y0, 0, y0 + bh); grd.addColorStop(0, '#1565d8'); grd.addColorStop(1, '#0d47a1');
+    g.fillStyle = grd; g.beginPath(); g.roundRect(x0, y0, bw, bh, 18); g.fill();
+    let lastPos = null;
+    if (moves.length) { const c = moves[moves.length - 1]; for (let r = 0; r < R; r++) if (grid[r][c]) { lastPos = [r, c]; break; } }
+    for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {
+      const cx = x0 + (bw - cell * C) / 2 + cell * (c + 0.5), cy = y0 + (bh - cell * R) / 2 + cell * (r + 0.5);
+      const v = grid[r][c];
+      const isWin = win && win.cells.some(([wr, wc]) => wr === r && wc === c);
+      g.beginPath(); g.arc(cx, cy, 27, 0, 7); g.fillStyle = v === 1 ? '#e53935' : v === 2 ? '#fdd835' : '#0f1b22'; g.fill();
+      if (isWin) { g.lineWidth = 5; g.strokeStyle = '#ffffff'; g.stroke(); }
+      else if (lastPos && lastPos[0] === r && lastPos[1] === c) { g.beginPath(); g.arc(cx, cy, 10, 0, 7); g.lineWidth = 3; g.strokeStyle = 'rgba(255,255,255,.8)'; g.stroke(); }
+    }
+    g.fillStyle = '#e9edef'; g.font = '600 22px system-ui,sans-serif';
+    let st;
+    if (win) st = '🏆 ' + (names[win.col] || (win.col === 1 ? 'Rot' : 'Gelb')) + ' gewinnt!';
+    else if (full()) st = '🤝 Unentschieden!';
+    else st = (names[toMove()] || (toMove() === 1 ? 'Rot' : 'Gelb')) + ' ist dran 👉 Link antippen';
+    g.fillText(st, Wd / 2, y0 + bh + 45);
+    return new Promise(res => cv.toBlob(res, 'image/png'));
+  }
+
   async function share() {
-    const text = message();
+    // 1) Bild + kurzer Text mit Link
+    try {
+      const blob = await boardImage();
+      const file = new File([blob], '4-in-einer-reihe.png', { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], text: message(false) });
+        return;
+      }
+    } catch (e) { if (e && e.name === 'AbortError') return; }
+    // 2) Nur Text (Emoji-Spielfeld)
+    const text = message(true);
     if (navigator.share) { try { await navigator.share({ text }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
     location.href = 'https://wa.me/?text=' + encodeURIComponent(text);
   }
