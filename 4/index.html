@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>4 in einer Reihe – du bist dran</title>
+<meta name="description" content="Tippe auf eine Spalte und schick deinen Zug zurück.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b141a">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<style>
+:root{--bg:#0b141a;--sheet:#1f2c34;--line:#2a3942;--txt:#e9edef;--mute:#8696a0;--green:#00a884;--blue:#1565d8;--blue-d:#0d47a1;--hole:#0f1b22;--red:#e53935;--yel:#fdd835}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--txt);display:flex;align-items:flex-end;justify-content:center;min-height:100dvh;padding:0}
+.sheet{width:100%;max-width:440px;background:var(--sheet);border-radius:22px 22px 0 0;padding:10px 16px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -10px 40px rgba(0,0,0,.5);animation:up .35s cubic-bezier(.2,.9,.3,1)}
+@media (min-height:760px) and (min-width:500px){body{align-items:center}.sheet{border-radius:22px}}
+@keyframes up{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 10px}
+.head{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.92rem}
+.vs{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.p{display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 4px;border-radius:999px;background:rgba(255,255,255,.05)}
+.p.on{background:rgba(0,168,132,.18);outline:1.5px solid var(--green)}
+.dot{width:16px;height:16px;border-radius:50%}
+.dot.r{background:var(--red)}.dot.y{background:var(--yel)}
+.x{color:var(--mute);font-size:.8rem}
+.ttl{color:var(--mute);font-size:.75rem;white-space:nowrap}
+.status{margin:12px 2px 10px;font-size:1.05rem;font-weight:600;min-height:1.4em}
+.status small{display:block;font-weight:400;color:var(--mute);font-size:.82rem;margin-top:2px}
+.board{position:relative;background:linear-gradient(180deg,var(--blue),var(--blue-d));border-radius:14px;padding:6px;display:grid;grid-template-columns:repeat(7,1fr);gap:0;overflow:hidden;box-shadow:inset 0 2px 0 rgba(255,255,255,.15),0 4px 0 #0a3a85}
+.col{display:grid;grid-template-rows:repeat(6,1fr);cursor:pointer;border-radius:10px}
+.col.can:hover,.col.can:active{background:rgba(255,255,255,.08)}
+.cell{aspect-ratio:1;padding:9%;position:relative}
+.hole{width:100%;height:100%;border-radius:50%;background:var(--hole);box-shadow:inset 0 3px 4px rgba(0,0,0,.6)}
+.disc{position:absolute;inset:9%;border-radius:50%;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18),inset 0 3px 0 rgba(255,255,255,.25)}
+.disc.r{background:var(--red)}.disc.y{background:var(--yel)}
+.disc.drop{animation:drop .42s cubic-bezier(.45,0,.9,.5) both}
+@keyframes drop{from{transform:translateY(calc(var(--d) * -122% - 122%))}70%{transform:translateY(0)}85%{transform:translateY(-8%)}to{transform:none}}
+.disc.last::after{content:"";position:absolute;inset:30%;border-radius:50%;border:2.5px solid rgba(255,255,255,.75)}
+.disc.pend{animation:drop .42s cubic-bezier(.45,0,.9,.5) both,pulse 1.2s .5s ease-in-out infinite}
+@keyframes pulse{50%{filter:brightness(1.25)}}
+.disc.win{animation:winp .8s ease-in-out infinite;z-index:1}
+@keyframes winp{50%{transform:scale(.82)}}
+.name{display:none;margin:12px 0 0;gap:8px}
+.name.show{display:flex}
+.name input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);color:var(--txt);border-radius:12px;padding:12px 14px;font-size:1rem}
+.name input:focus{outline:2px solid var(--green);border-color:transparent}
+.btns{display:flex;gap:8px;margin-top:14px}
+button{font:inherit;border:0;border-radius:999px;padding:14px 18px;font-weight:600;font-size:1rem;cursor:pointer}
+.go{flex:1;background:var(--green);color:#06251d}
+.go:disabled{background:#2a3942;color:var(--mute);cursor:default}
+.ghost{background:transparent;color:var(--mute);border:1px solid var(--line)}
+.hint{color:var(--mute);font-size:.78rem;text-align:center;margin-top:12px;line-height:1.4}
+.hint a{color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="sheet" id="sheet">
+  <div class="grab"></div>
+  <div class="head">
+    <div class="vs"><span class="p" id="pR"><span class="dot r"></span><span id="nR">Rot</span></span><span class="x">gegen</span><span class="p" id="pY"><span class="dot y"></span><span id="nY">Gelb</span></span></div>
+    <span class="ttl">4 in einer Reihe</span>
+  </div>
+  <div class="status" id="status"></div>
+  <div class="board" id="board"></div>
+  <div class="name" id="meRow"><input id="me" maxlength="20" placeholder="Wie heißt du?" autocomplete="given-name"></div>
+  <div class="name" id="opRow"><input id="op" maxlength="20" placeholder="Gegen wen spielst du? (optional)"></div>
+  <div class="btns" id="btns"></div>
+  <p class="hint" id="hint"></p>
+</div>
+<script>
+(() => {
+  const R = 6, C = 7, E = ['', 'r', 'y'];
+  const $ = id => document.getElementById(id);
+  const store = { get(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const clean = s => (s || '').replace(/[\n\r#&]/g, ' ').trim().slice(0, 20);
+
+  // ---- Spielstand aus dem Link lesen ----
+  const q = new URLSearchParams(location.hash.slice(1));
+  let names = ['', clean(q.get('r')), clean(q.get('y'))];
+  let starter = q.get('s') === '2' ? 2 : 1;
+  let moves = [];
+  let grid, win, sent = false, pending = null, fresh = !location.hash;
+
+  function rebuild(list) {
+    grid = Array.from({ length: R }, () => Array(C).fill(0));
+    win = null; const ok = [];
+    for (const c of list) {
+      if (win || c < 0 || c >= C || grid[0][c]) break;
+      const col = colorAt(ok.length); const r = drop(c, col); ok.push(c);
+      win = check(r, c, col);
+    }
+    return ok;
+  }
+  const colorAt = i => (i % 2 === 0 ? starter : 3 - starter);
+  function drop(c, col) { for (let r = R - 1; r >= 0; r--) if (!grid[r][c]) { grid[r][c] = col; return r; } return -1; }
+  function check(r, c, col) {
+    for (const [dr, dc] of [[0, 1], [1, 0], [1, 1], [1, -1]]) {
+      const line = [[r, c]];
+      for (const s of [1, -1]) { let rr = r + dr * s, cc = c + dc * s; while (rr >= 0 && rr < R && cc >= 0 && cc < C && grid[rr][cc] === col) { line.push([rr, cc]); rr += dr * s; cc += dc * s; } }
+      if (line.length >= 4) return { col, cells: line };
+    }
+    return null;
+  }
+  moves = rebuild((q.get('m') || '').split('').filter(x => /[0-6]/.test(x)).map(Number));
+
+  const turn = () => colorAt(moves.length + (pending !== null ? 1 : 0));
+  const toMove = () => colorAt(moves.length);           // wer am Gerät ist
+  const full = () => moves.length >= R * C;
+
+  // ---- Darstellung ----
+  function render(animLast) {
+    const b = $('board'); b.innerHTML = '';
+    const lastIdx = moves.length - 1;
+    // Position des letzten Zuges merken
+    let lastPos = null;
+    if (lastIdx >= 0) { const c = moves[lastIdx]; for (let r = 0; r < R; r++) if (grid[r][c]) { lastPos = [r, c]; break; } }
+    const over = !!win || full();
+    for (let c = 0; c < C; c++) {
+      const col = document.createElement('div');
+      col.className = 'col' + (!over && !sent && !grid[0][c] ? ' can' : '');
+      col.onclick = () => tap(c);
+      for (let r = 0; r < R; r++) {
+        const cell = document.createElement('div'); cell.className = 'cell';
+        cell.innerHTML = '<div class="hole"></div>';
+        const v = grid[r][c];
+        if (v) {
+          const d = document.createElement('i'); d.className = 'disc ' + E[v]; d.style.setProperty('--d', r);
+          const isPend = pending && pending[0] === r && pending[1] === c;
+          const isLast = lastPos && lastPos[0] === r && lastPos[1] === c;
+          if (isPend) d.classList.add('pend');
+          else if (isLast) { d.classList.add('last'); if (animLast) d.classList.add('drop'); }
+          if (win && win.cells.some(([wr, wc]) => wr === r && wc === c)) d.classList.add('win');
+          cell.appendChild(d);
+        }
+        col.appendChild(cell);
+      }
+      b.appendChild(col);
+    }
+    $('nR').textContent = names[1] || 'Rot';
+    $('nY').textContent = names[2] || 'Gelb';
+    $('pR').classList.toggle('on', !over && toMove() === 1);
+    $('pY').classList.toggle('on', !over && toMove() === 2);
+    controls();
+  }
+
+  function who(col, fallback) { return names[col] || fallback; }
+
+  function controls() {
+    const me = toMove(), other = 3 - me, st = $('status'), btns = $('btns'), hint = $('hint');
+    const over = !!win || full();
+    btns.innerHTML = ''; hint.textContent = '';
+    $('meRow').classList.toggle('show', !over && !sent && !names[me]);
+    $('opRow').classList.toggle('show', !over && !sent && moves.length === 0 && !names[other]);
+    if (!names[me]) $('me').value = store.get('name');
+
+    if (sent) {
+      st.innerHTML = 'Gesendet ✓<small>Jetzt ist ' + esc(who(me, 'dein Gegner')) + ' dran. Du kannst dieses Fenster schließen.</small>';
+      btn('Nochmal schicken', 'ghost', share);
+      return;
+    }
+    if (win) {
+      st.innerHTML = '🏆 ' + esc(who(win.col, win.col === 1 ? 'Rot' : 'Gelb')) + ' gewinnt!';
+      if (justMoved) { st.innerHTML += '<small>Schick das Ergebnis, damit ' + esc(who(3 - win.col, 'dein Gegner')) + ' es sieht.</small>'; btn('Ergebnis schicken ➜', 'go', share); }
+      else btn('Revanche – ich fange an', 'go', revanche);
+      return;
+    }
+    if (full()) {
+      st.innerHTML = '🤝 Unentschieden!';
+      if (justMoved) btn('Ergebnis schicken ➜', 'go', share); else btn('Revanche – ich fange an', 'go', revanche);
+      return;
+    }
+    if (pending === null) {
+      st.innerHTML = (moves.length === 0 ? 'Neues Spiel' : (names[me] ? esc(names[me]) + ', du bist dran' : 'Du bist dran')) +
+        '<small>Tippe auf eine Spalte, um deinen ' + (me === 1 ? 'roten' : 'gelben') + ' Stein einzuwerfen.</small>';
+    } else {
+      st.innerHTML = 'Spalte ' + (pending[1] + 1) + ' – passt das?<small>Andere Spalte antippen zum Ändern.</small>';
+    }
+    const b = btn(pending === null ? 'Zug schicken' : 'An ' + who(other, 'Gegner') + ' schicken ➜', 'go', send);
+    b.disabled = pending === null;
+    if (moves.length === 0 && pending === null) hint.innerHTML = 'Du spielst ' + (me === 1 ? 'Rot' : 'Gelb') + ' und fängst an. Der Zug wird als WhatsApp-Nachricht verschickt – kein Konto, keine App.';
+  }
+
+  function btn(label, cls, fn) { const b = document.createElement('button'); b.className = cls; b.textContent = label; b.onclick = fn; $('btns').appendChild(b); return b; }
+  const esc = s => s.replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+
+  let justMoved = false;
+  function tap(c) {
+    if (sent || win || full()) return;
+    if (pending) { grid[pending[0]][pending[1]] = 0; if (pending[1] === c) { pending = null; render(false); return; } }
+    if (grid[0][c]) { pending = null; render(false); return; }
+    const r = drop(c, toMove()); pending = [r, c];
+    render(false);
+  }
+
+  function send() {
+    if (pending === null) return;
+    const me = toMove();
+    const n = clean($('me').value) || names[me];
+    if (!n) { $('me').focus(); $('me').placeholder = 'Bitte kurz deinen Namen eingeben'; return; }
+    names[me] = n; store.set('name', n);
+    const o = clean($('op').value); if (o && !names[3 - me]) names[3 - me] = o;
+    const c = pending[1]; grid[pending[0]][c] = 0; pending = null;
+    moves.push(c); moves = rebuild(moves); justMoved = true;
+    if (win || full()) { save(); render(false); share(); return; }
+    save(); share(); sent = true; render(false);
+  }
+
+  function revanche() {
+    const me = toMove();
+    // Wer Revanche drückt, fängt an und behält seine Farbe
+    const n = names[me] || store.get('name');
+    starter = me; moves = []; pending = null; justMoved = false; sent = false; win = null;
+    if (n) names[me] = n;
+    moves = rebuild(moves); save(); render(false);
+  }
+
+  function link() {
+    const p = new URLSearchParams();
+    p.set('m', moves.join('')); if (names[1]) p.set('r', names[1]); if (names[2]) p.set('y', names[2]); p.set('s', starter);
+    return location.origin + location.pathname + '#' + p.toString();
+  }
+  function save() { try { history.replaceState(null, '', link()); } catch (e) {} }
+
+  function boardText() {
+    const rows = grid.map(row => '🟦' + row.map(v => v === 1 ? '🔴' : v === 2 ? '🟡' : '⚪').join('') + '🟦');
+    rows.push('🟦'.repeat(9));
+    return rows.join('\n');
+  }
+  function message() {
+    const head = '🔴 ' + (names[1] || 'Rot') + ' gegen 🟡 ' + (names[2] || '?');
+    let tail;
+    if (win) tail = '🏆 ' + (names[win.col] || 'Gewonnen') + ' gewinnt! Revanche? 👇';
+    else if (full()) tail = '🤝 Unentschieden! Revanche? 👇';
+    else tail = '👉 ' + (names[toMove()] ? names[toMove()] + ', du' : 'Du') + ' bist dran:';
+    return '4 in einer Reihe · ' + head + '\n\n' + boardText() + '\n\n' + tail + '\n' + link();
+  }
+  async function share() {
+    const text = message();
+    if (navigator.share) { try { await navigator.share({ text }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+    location.href = 'https://wa.me/?text=' + encodeURIComponent(text);
+  }
+
+  render(moves.length > 0);
+})();
+</script>
+</body>
+</html>
