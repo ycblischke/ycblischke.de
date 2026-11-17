@@ -30,6 +30,15 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background
 .board{position:relative;background:linear-gradient(180deg,var(--blue),var(--blue-d));border-radius:14px;padding:6px;display:grid;grid-template-columns:repeat(7,1fr);gap:0;overflow:hidden;box-shadow:inset 0 2px 0 rgba(255,255,255,.15),0 4px 0 #0a3a85}
 .col{display:grid;grid-template-rows:repeat(6,1fr);cursor:pointer;border-radius:10px}
 .col.can:hover,.col.can:active{background:rgba(255,255,255,.08)}
+.tips{display:none;grid-template-columns:repeat(7,1fr);padding:0 6px;margin:0 0 6px;font-size:.78rem;font-weight:700;text-align:center}
+.tips.show{display:grid}
+.tips span{border-radius:8px;padding:3px 0;margin:0 2px;color:var(--mute);background:rgba(255,255,255,.04)}
+.tips .win{background:#1b5e20;color:#b9f6ca}.tips .draw{background:#4e4a1b;color:#fff59d}.tips .lose{background:#5d1f1f;color:#ffab91}
+.tips .unk{opacity:.35}
+.tips .wait{animation:blink 1s infinite}@keyframes blink{50%{opacity:.35}}
+.col.best{background:rgba(185,246,202,.16);box-shadow:inset 0 0 0 2px rgba(185,246,202,.55)}
+.eye{background:transparent;border:1px solid var(--line);color:var(--mute);padding:4px 10px;font-size:.8rem;display:none}
+.eye.show{display:inline-block}
 .cell{aspect-ratio:1;padding:9%;position:relative}
 .hole{width:100%;height:100%;border-radius:50%;background:var(--hole);box-shadow:inset 0 3px 4px rgba(0,0,0,.6)}
 .disc{position:absolute;inset:9%;border-radius:50%;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18),inset 0 3px 0 rgba(255,255,255,.25)}
@@ -59,9 +68,10 @@ button{font:inherit;border:0;border-radius:999px;padding:14px 18px;font-weight:6
   <div class="grab"></div>
   <div class="head">
     <div class="vs"><span class="p" id="pR"><span class="dot r"></span><span id="nR">Rot</span></span><span class="x">gegen</span><span class="p" id="pY"><span class="dot y"></span><span id="nY">Gelb</span></span></div>
-    <span class="ttl">4 in einer Reihe</span>
+    <span class="ttl">4 in einer Reihe</span><button class="eye" id="eye" aria-label="Tipps ein/aus">👁</button>
   </div>
   <div class="status" id="status"></div>
+  <div class="tips" id="tips"></div>
   <div class="board" id="board"></div>
   <div class="name" id="meRow"><input id="me" maxlength="20" placeholder="Wie heißt du?" autocomplete="given-name"></div>
   <div class="name" id="opRow"><input id="op" maxlength="20" placeholder="Gegen wen spielst du? (optional)"></div>
@@ -142,6 +152,56 @@ button{font:inherit;border:0;border-radius:999px;padding:14px 18px;font-weight:6
     $('pR').classList.toggle('on', !over && toMove() === 1);
     $('pY').classList.toggle('on', !over && toMove() === 2);
     controls();
+    tips();
+  }
+
+  // ---- Trainer (nur auf Geräten, die einmal ycblischke.de/4/?trainer geöffnet haben) ----
+  const sp = new URLSearchParams(location.search);
+  if (sp.has('trainer')) store.set('t4', sp.get('trainer') === '0' ? '' : '1');
+  const trainer = store.get('t4') === '1';
+  let tipsOn = store.get('t4show') !== '0', worker = null, reqId = 0, tipKey = null, tipRes = null;
+  if (trainer) {
+    $('eye').classList.add('show');
+    $('eye').onclick = () => { tipsOn = !tipsOn; store.set('t4show', tipsOn ? '1' : '0'); tips(); };
+  }
+  function tips() {
+    const row = $('tips'), over = !!win || full();
+    const active = trainer && tipsOn && !over && !sent;
+    $('eye').style.opacity = tipsOn ? '1' : '.5';
+    row.classList.toggle('show', active);
+    document.querySelectorAll('.col.best').forEach(el => el.classList.remove('best'));
+    if (!active) return;
+    const key = moves.join('');
+    if (key !== tipKey) { tipKey = key; tipRes = null; ask(); }
+    const lab = { win: '✓', draw: '=', lose: '✗', wait: '…', '?': '?' };
+    row.innerHTML = '';
+    for (let c = 0; c < C; c++) {
+      const v = tipRes ? tipRes[c] : (moves.filter(m => m === c).length >= R ? null : 'wait');
+      const el = document.createElement('span');
+      if (v) { el.className = v === '?' ? 'unk' : v; el.textContent = lab[v]; } else el.style.visibility = 'hidden';
+      row.appendChild(el);
+    }
+    if (tipRes) {
+      const best = tipRes.includes('win') ? 'win' : tipRes.includes('draw') ? 'draw' : null;
+      [...$('board').children].forEach((el, c) => { if (best && tipRes[c] === best) el.classList.add('best'); });
+    }
+  }
+  let bookText = null, busy = false;
+  const bookReady = trainer ? fetch('book.txt').then(r => r.text()).then(t => { bookText = t; }).catch(() => {}) : null;
+  function ask() {
+    const id = ++reqId, mv = moves.slice();
+    bookReady.then(() => {
+      if (id !== reqId) return;
+      // Läuft noch eine alte Rechnung? Dann Rechner neu starten statt warten.
+      if (worker && busy) { worker.terminate(); worker = null; }
+      if (!worker) {
+        try { worker = new Worker('trainer.js'); } catch (e) { return; }
+        worker.onmessage = e => { if (e.data.done) busy = false; if (e.data.id === reqId) { tipRes = e.data.res; tips(); } };
+        if (bookText) worker.postMessage({ book: bookText });
+      }
+      busy = true;
+      worker.postMessage({ id, moves: mv, budget: 9000 });
+    });
   }
 
   function who(col, fallback) { return names[col] || fallback; }
