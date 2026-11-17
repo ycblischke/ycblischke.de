@@ -8,6 +8,10 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0b141a">
 <link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="4 in Reihe">
 <style>
 :root{--bg:#0b141a;--sheet:#1f2c34;--line:#2a3942;--txt:#e9edef;--mute:#8696a0;--green:#00a884;--blue:#1565d8;--blue-d:#0d47a1;--hole:#0f1b22;--red:#e53935;--yel:#fdd835}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
@@ -303,6 +307,7 @@ button{font:inherit;border:0;border-radius:999px;padding:14px 18px;font-weight:6
 
   render(moves.length > 0);
 })();
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 </script>
 </body>
 </html>
