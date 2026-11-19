@@ -473,6 +473,29 @@
     .pg-dot.is-active::before { width: 18px; background: var(--gold); }
     @media (prefers-reduced-motion: reduce) { .pg-track { scroll-behavior: auto; } .pg-dot::before { transition: none; } }
 
+
+    .more-line { margin-top: 2.4rem; padding: 1rem 1.2rem; border: 1px solid var(--border); border-radius: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.4rem; font-size: .9rem; color: var(--muted); }
+    .more-line span { flex: 1 1 320px; }
+    .more-line a { color: var(--gold); font-weight: 700; font-size: .85rem; text-decoration: none; white-space: nowrap; }
+    .more-services { margin-top: 2rem; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 1.4rem 1.6rem; }
+    .more-services h3 { font-size: 1rem; color: var(--navy); margin-bottom: .6rem; }
+    .more-services ul { list-style: none; margin: 0; padding: 0; }
+    .more-services li { display: grid; grid-template-columns: 15rem 9rem 1fr; gap: .2rem 1rem; padding: .65rem 0; border-top: 1px solid var(--border); font-size: .88rem; color: var(--muted); }
+    .more-services li:first-child { border-top: 0; }
+    .more-services li b { color: var(--navy); }
+    .more-services .ms-price { color: var(--navy); font-weight: 700; font-family: 'Playfair Display', serif; }
+    .more-services a { color: var(--gold); font-weight: 700; text-decoration: none; white-space: nowrap; }
+    @media (max-width: 760px) { .more-services li { grid-template-columns: 1fr auto; } .more-services li > span:last-child { grid-column: 1 / -1; } }
+    details.shopwahl > summary { list-style: none; cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1rem; }
+    details.shopwahl > summary::-webkit-details-marker { display: none; }
+    details.shopwahl > summary .section-tag { flex-basis: 100%; margin: 0; }
+    details.shopwahl .sw-sum { font-family: 'Playfair Display', serif; font-size: clamp(1.25rem, 2.4vw, 1.6rem); color: var(--navy); flex: 1; }
+    details.shopwahl .sw-open { border: 1px solid var(--navy); color: var(--navy); border-radius: 999px; padding: .35rem 1rem; font-size: .85rem; font-weight: 600; }
+    details.shopwahl[open] .sw-open { display: none; }
+    details.shopwahl[open] > summary { margin-bottom: .6rem; }
+    details.shopwahl:not([open]) { margin-top: 2rem; padding-top: 1.4rem; padding-bottom: 1.4rem; }
+    details.demo-access summary { cursor: pointer; color: var(--navy); }
+    details.demo-access[open] summary { margin-bottom: .2rem; }
     .tech-row { margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
     .tech-label { font-size: .85rem; font-weight: 700; color: var(--navy); margin-right: .3rem; }
   </style>
@@ -598,11 +621,11 @@
             <li>Online-Beratung mit Terminwahl</li>
             <li>Filter nach Ausführung, Lichtstrom, Dimmbarkeit, Schutzart</li>
           </ul>
-          <div class="demo-access">
-            <b>Zugang zur Demo</b>
+          <details class="demo-access">
+            <summary><b>Zugang zur Demo</b> (Passwort &amp; Testbestellung)</summary>
             <span>Der Shop ist mit einem Passwort geschützt. Passwort: <code>ShopDemo</code></span>
             <span>Testbestellung: Kartennummer <code>1</code>, Name <code>Bogus Gateway</code>, beliebiges Ablaufdatum in der Zukunft und Prüfnummer. Es wird nichts berechnet.</span>
-          </div>
+          </details>
           <div class="demo-ctas"><a class="btn-demo" href="https://lichtfang-demo.myshopify.com" target="_blank" rel="noopener">Shop öffnen →</a><a class="btn-demo2" href="#kontakt" data-ask="Online-Shop" data-betreff="Webshop">So einen Shop für mein Geschäft</a></div>
         </div>
       </div>
@@ -660,37 +683,7 @@
         <a href="#kontakt" data-ask="andere Branche">Erstgespräch anfragen →</a>
       </div>
     </div>
-    <div class="proj-sub"><h3>Apps &amp; Widgets</h3><p>Eigenentwicklungen für Android – entstanden aus meinem Alltag.</p></div>
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-gallery" data-gallery="apps">
-          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/app-foodkey.jpg" alt="FoodKey – Lebensmittel-Scanner" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/app-iwritethai.jpg" alt="IWriteThai – Thai-Schrift lernen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/app-hypno.jpg" alt="Hypno – Lern-App" loading="lazy" width="1200" height="750"></div></div>
-          <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
-          <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
-          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button></div>
-        </div>
-        <div class="project-body">
-          <div class="project-tag">Android-Apps · Google Play</div>
-          <h3>FoodKey, IWriteThai &amp; Hypno</h3>
-          <p>Drei eigene Apps im Google Play Store – von der Idee über Design und Entwicklung bis zum Release und laufenden Updates.</p>
-          <a class="project-link" href="/appdesigner/#apps">Mehr zu den Apps →</a>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-gallery" data-gallery="widgets">
-          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/widgets-1.jpg" alt="Widget-Übersicht auf dem Startbildschirm" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/widgets-2.jpg" alt="Live-Demo des Grenz-Cockpits mit Wetter, Regen, Abfahrten und Kursen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/widgets-3.jpg" alt="App-Leiste mit täglichen Routinen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/widgets-4.jpg" alt="Whiteboard-Widget zum Ausprobieren" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/widgets-5.jpg" alt="Reise-Planer mit Flug und Hotel als Gesamtreise" loading="lazy" width="1200" height="750"></div></div>
-          <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
-          <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
-          <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button><button type="button" class="pg-dot" aria-label="Bild 4" data-i="3"></button><button type="button" class="pg-dot" aria-label="Bild 5" data-i="4"></button></div>
-        </div>
-        <div class="project-body">
-          <div class="project-tag">Android-Widgets · Eigenentwicklung · Live-Demo</div>
-          <h3>Widgets mit Live-Daten</h3>
-          <p>Fünf Widgets aus meinem Alltag: ein Cockpit mit zwölf Datenquellen (Wetter, Regen in mm, Rheintemperatur, Abfahrten, Kurse), ein Whiteboard für Stift-Notizen, ein Reise-Planer, der Flug und Hotel als Gesamtreise vergleicht, eine Foto-Diashow und eine App-Leiste mit täglichen Routinen – zum Teil direkt auf der Seite ausprobierbar.</p>
-          <a class="project-link" href="/widgets/">Widgets &amp; Live-Demo ansehen →</a>
-        </div>
-      </div>
-    </div>
+    <div class="more-line"><span>Außerdem entwickle ich <b>Android-Apps und Widgets</b> – eigene Projekte aus meinem Alltag, zum Teil live ausprobierbar.</span><a href="/widgets/">Widgets &amp; Live-Demo →</a><a href="/appdesigner/#apps">Meine Apps →</a></div>
   </div>
 </section>
 
@@ -731,27 +724,6 @@
         <a href="#shop-wahl" class="shop-help-link">Welcher Shop passt zu mir? →</a>
       </div>
       <div class="package-card">
-        <div class="pk-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M5 20 24 8l19 12v20H5z" class="d"/><path d="M5 20 24 8l19 12v20H5z" class="l"/><rect x="18" y="27" width="12" height="13" rx="1.5" class="g"/><rect x="18" y="27" width="12" height="13" rx="1.5" class="l"/><path d="M11 25h3M34 25h3" class="l"/></svg></div>
-        <h3>Händler-Erweiterung (B2B)</h3>
-        <div class="package-price">ab 790 €</div>
-        <p class="pk-desc">Ideal für Hersteller und Großhandel.</p>
-        <ul>
-          <li>Händler-Login mit eigenen Preisen</li>
-          <li>Staffelpreise &amp; Kauf auf Rechnung</li>
-        </ul>
-      </div>
-      <div class="package-card">
-        <div class="pk-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="3" y="12" width="26" height="20" rx="2.5" class="d"/><rect x="3" y="12" width="26" height="20" rx="2.5" class="l"/><path d="M29 18h8l7 7v7H29z" class="d"/><path d="M29 18h8l7 7v7H29z" class="l"/><circle cx="12" cy="35" r="4" class="l"/><circle cx="36" cy="35" r="4" class="l"/><rect x="10" y="16" width="12" height="12" rx="2.5" class="g"/><path d="M16 18.8v6.4M12.8 22h6.4" class="wl"/></svg></div>
-        <h3>Verkauf in die Schweiz</h3>
-        <div class="package-price">nach Aufwand</div>
-        <p class="pk-desc">Ein Shop für Kunden in Deutschland und der Schweiz.</p>
-        <ul>
-          <li>Preise in Euro und Franken</li>
-          <li>Passende Versandregeln</li>
-          <li>Klare Hinweise zu Zoll und Mehrwertsteuer</li>
-        </ul>
-      </div>
-      <div class="package-card">
         <div class="pk-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="17" y="17" width="14" height="14" rx="3" class="g"/><rect x="17" y="17" width="14" height="14" rx="3" class="l"/><path d="M8 22A16 16 0 0 1 37 13" class="l"/><path d="M37 5v8h-8" class="l"/><path d="M40 26a16 16 0 0 1-29 9" class="l"/><path d="M11 43v-8h8" class="l"/></svg></div>
         <h3>Shop-Umzug zu Shopify</h3>
         <div class="package-price">ab 2.490 €</div>
@@ -765,43 +737,21 @@
         </ul>
         <div class="pk-sub"><strong>Vorab: Umzugs-Analyse · 290 €</strong>Prüfung Ihres Shops mit allen Produkten, Varianten und Sonderfunktionen – Sie erhalten ein verbindliches Festpreis-Angebot. Wird bei Auftrag voll angerechnet.</div>
       </div>
-      <div class="package-card">
-        <div class="pk-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M31 6a10 10 0 0 0-9.4 13.4L7.5 33.5a4 4 0 0 0 5.7 5.7L27.3 25A10 10 0 0 0 40.7 15.6l-6 6-6.1-1.3-1.3-6.1 6-6A10 10 0 0 0 31 6z" class="d"/><path d="M31 6a10 10 0 0 0-9.4 13.4L7.5 33.5a4 4 0 0 0 5.7 5.7L27.3 25A10 10 0 0 0 40.7 15.6l-6 6-6.1-1.3-1.3-6.1 6-6A10 10 0 0 0 31 6z" class="l"/><circle cx="38" cy="38" r="6" class="g"/><path d="m35.3 38 1.8 1.8 3.4-3.6" class="l"/></svg></div>
-        <h3>Betreuung &amp; Pflege</h3>
-        <div class="package-price">ab 50 € / Monat</div>
-        <p class="pk-desc">Im Monatspaket oder nach Bedarf.</p>
-        <ul>
-          <li>Produkte &amp; Inhalte pflegen</li>
-          <li>Aktionen, Updates, kleine Anpassungen</li>
-          <li>Monatlich kündbar</li>
-        </ul>
-      </div>
-      <div class="package-card card-wide">
-        <div>
-          <div class="pk-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="13" y="4" width="22" height="40" rx="5" class="d"/><rect x="13" y="4" width="22" height="40" rx="5" class="l"/><rect x="17.5" y="11" width="5.5" height="5.5" rx="1.5" class="g"/><rect x="25" y="11" width="5.5" height="5.5" rx="1.5" class="g"/><rect x="17.5" y="19" width="5.5" height="5.5" rx="1.5" class="g"/><rect x="25" y="19" width="5.5" height="5.5" rx="1.5" class="l"/><path d="M21 38h6" class="l"/></svg></div>
-          <h3>App oder Widget (Android)</h3>
-          <div class="package-price">nach Aufwand · 65 € / Stunde</div>
-          <p class="pk-desc">Eine eigene App oder ein Widget für Ihre Kunden oder Ihr Team: Tagesangebot, Auslastung, Terminstatus oder Kennzahlen – live aus Ihrem System, Ihrem Shop oder öffentlichen Daten, direkt auf dem Startbildschirm. Jede App ist anders – deshalb kein Pauschalpreis, sondern vorab eine verbindliche Aufwandsschätzung. Ein einfaches Widget mit einer Datenquelle ist oft in wenigen Tagen umgesetzt.</p>
-          <div class="wide-links">
-            <a href="/widgets/">Widgets &amp; Live-Demo ansehen →</a>
-            <a href="/appdesigner/#apps">Meine Apps im Play Store →</a>
-          </div>
-        </div>
-        <ul>
-          <li>Kostenlose Einschätzung im Erstgespräch</li>
-          <li>Aufwandsschätzung vor Projektstart</li>
-          <li>Design passend zu Ihrem Auftritt</li>
-          <li>Anbindung Ihrer Daten oder öffentlicher Quellen</li>
-          <li>Test auf echten Geräten</li>
-          <li>Google Play oder interne Verteilung</li>
-        </ul>
-      </div>
+    </div>
+
+    <div class="more-services">
+      <h3>Weitere Leistungen</h3>
+      <ul>
+        <li><b>Händler-Erweiterung (B2B)</b><span class="ms-price">ab 790 €</span><span>Für Hersteller und Großhandel: Händler-Login mit eigenen Preisen, Staffelpreise &amp; Kauf auf Rechnung.</span></li>
+        <li><b>Verkauf in die Schweiz</b><span class="ms-price">nach Aufwand</span><span>Preise in Euro und Franken, passende Versandregeln, klare Hinweise zu Zoll und Mehrwertsteuer.</span></li>
+        <li><b>Betreuung &amp; Pflege</b><span class="ms-price">ab 50 € / Monat</span><span>Produkte &amp; Inhalte pflegen, Aktionen, Updates, kleine Anpassungen – im Monatspaket oder nach Bedarf, monatlich kündbar.</span></li>
+        <li><b>App oder Widget (Android)</b><span class="ms-price">65 € / Stunde</span><span>Tagesangebot, Kennzahlen oder Terminstatus direkt auf dem Startbildschirm – vorab verbindliche Aufwandsschätzung. <a href="/widgets/">Beispiele ansehen →</a></span></li>
+      </ul>
     </div>
 
     <!-- Welcher Shop passt? -->
-    <div class="shopwahl" id="shop-wahl">
-      <div class="section-tag">Shop-Ratgeber</div>
-      <h3>Welche Shop-Lösung passt zu Ihnen?</h3>
+    <details class="shopwahl" id="shop-wahl">
+      <summary><span class="section-tag">Shop-Ratgeber · 3 Fragen</span><span class="sw-sum">Welche Shop-Lösung passt zu Ihnen?</span><span class="sw-open">Öffnen</span></summary>
       <p>Nicht jeder Betrieb braucht dasselbe System. Drei kurze Fragen – und Sie sehen, welche Lösung zu Ihrem Sortiment, Ihrem Budget und Ihrem Alltag passt. Das Design gestalte ich in jedem Fall individuell.</p>
       <div class="sw-q" data-q="menge"><b><span>1</span>Wie viele Produkte möchten Sie verkaufen?</b>
         <div class="sw-opts"><button type="button" class="sw-opt" data-v="klein">bis ca. 30</button><button type="button" class="sw-opt" data-v="mittel">30 bis 500</button><button type="button" class="sw-opt" data-v="gross">mehr als 500</button></div></div>
@@ -816,7 +766,7 @@
         <div class="sw-scroll"><table class="sw-table" id="swTable"></table></div>
         <p class="sw-hint">Für alle Lösungen gilt: Impressum, Datenschutz, AGB und Widerrufsbelehrung sind Pflicht – bei Wein, Spirituosen &amp; Co. zusätzlich eine Altersprüfung beim Versand. Kostenangaben sind grobe Richtwerte der Anbieter und können sich ändern.</p>
       </details>
-    </div>
+    </details>
 
     <div class="tech-row">
       <span class="tech-label">Technik:</span>
@@ -863,18 +813,6 @@
           <span class="cred-chip">Betriebswirt IHK</span>
           <span class="cred-chip">Handelsfachwirt</span>
         </div>
-      </div>
-    </div>
-    <div class="benefits-grid">
-      <div class="benefit-card">
-        <div class="bf-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M11 4h26v40l-4.3-3-4.4 3-4.3-3-4.3 3-4.4-3L11 44z" class="d"/><path d="M11 4h26v40l-4.3-3-4.4 3-4.3-3-4.3 3-4.4-3L11 44z" class="l"/><path d="M17 13h14M17 19h14M17 25h7" class="l"/><circle cx="30" cy="31" r="5.5" class="g"/><circle cx="30" cy="31" r="5.5" class="l"/></svg></div>
-        <h3>Transparente Abrechnung</h3>
-        <p>Klare Stundensätze, verständliche Rechnungen. Sie wissen jederzeit, was Sie erwartet – keine versteckten Kosten.</p>
-      </div>
-      <div class="benefit-card">
-        <div class="bf-ic ico-duo" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="9" y="21" width="30" height="22" rx="4" class="d"/><rect x="9" y="21" width="30" height="22" rx="4" class="l"/><path d="M15 21v-5a9 9 0 0 1 18 0v5" class="l"/><circle cx="24" cy="31" r="4" class="g"/><path d="M24 34v3.5" class="l"/></svg></div>
-        <h3>Vertraulichkeit</h3>
-        <p>Alle Informationen und Unterlagen werden streng vertraulich behandelt und ausschließlich zur Auftragserfüllung verwendet.</p>
       </div>
     </div>
     <!-- KUNDENSTIMMEN: sobald eine echte Bewertung vorliegt, hier einfügen:
@@ -1218,6 +1156,9 @@
   };
   const ans={};
   const box=document.getElementById('shop-wahl'), res=document.getElementById('swResult');
+  const openSW=()=>{ if(box) box.open=true; };
+  document.querySelectorAll('a[href="#shop-wahl"]').forEach(l=>l.addEventListener('click',openSW));
+  if(location.hash==='#shop-wahl') openSW();
   box.querySelectorAll('.sw-q').forEach(q=>q.addEventListener('click',e=>{
     const b=e.target.closest('.sw-opt'); if(!b) return;
     q.querySelectorAll('.sw-opt').forEach(x=>x.classList.toggle('on',x===b));
