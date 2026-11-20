@@ -22,6 +22,8 @@
   <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="theme-color" content="#1B2F5E">
+  <link rel="preload" href="/fonts/PlayfairDisplay-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/Inter-300-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link href="/fonts/fonts.css" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -93,7 +95,7 @@
     .hero-title .nowrap { white-space: nowrap; font-weight: inherit; }
     .hero-sub { font-size: 1rem; color: var(--muted); max-width: 480px; margin-bottom: 1.4rem; }
     .hero-signature { margin-bottom: 2rem; max-width: 520px; }
-    .hero-signature img { display: block; width: 100%; }
+    .hero-signature img { display: block; width: 100%; height: auto; }
     .btn { display: inline-block; padding: .85rem 2.2rem; border-radius: 8px; font-weight: 600; font-size: .95rem; text-decoration: none; transition: all .2s; cursor: pointer; border: none; }
     .btn-primary { background: var(--gold); color: #fff; }
     .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
@@ -504,6 +506,16 @@
     details.demo-access[open] summary { margin-bottom: .2rem; }
     .tech-row { margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
     .tech-label { font-size: .85rem; font-weight: 700; color: var(--navy); margin-right: .3rem; }
+
+    /* Lesbarkeit (Kontrast WCAG AA): dunkleres Gold für kleine Schrift auf hellem Grund */
+    :root { --gold-ink: #8f6620; }
+    .section-tag, .project-tag, .hero-badge, .hb-set span, .more-line a, .shop-help-link, .more-services a,
+    .card-wide .wide-links a, .project-link { color: var(--gold-ink); }
+    #kontakt .section-tag { color: var(--gold); }
+    .hero-title span { color: #a87a2a; }
+    .btn-primary, .btn-submit, .package-badge { color: var(--navy); }
+    .contact-detail strong { color: #b8c1d6; }
+    #kontakt .form-check a { color: #e8bb66; }
   </style>
 </head>
 <body>
@@ -540,14 +552,14 @@
 <section id="start">
   <div class="hero-grid">
     <div class="hero-photo">
-      <img src="img/LinkedINReferenz-Foto-e1747710126642-1024x1024.jpg" alt="Yves Claudio Blischke" width="1024" height="1024" fetchpriority="high">
+      <img src="img/portrait-840.webp" srcset="img/portrait-480.webp 480w, img/portrait-840.webp 840w" sizes="(max-width: 900px) 80vw, 420px" alt="Yves Claudio Blischke" width="1024" height="1024" fetchpriority="high">
     </div>
     <div class="hero-text">
       <div class="hero-badge hb-ticker"><span class="sr-only">Websites, Online-Shops, Shopify, WooCommerce, Shop-Umzüge, Händlerbereich, Verkauf in die Schweiz – Rheinfelden, Lörrach und Basel</span><div class="hb-view"><div class="hb-track" aria-hidden="true"><div class="hb-set"><span>Websites</span><span>Online-Shops</span><span>Shopify</span><span>WooCommerce</span><span>Shop-Umzüge</span><span>Händlerbereich (B2B)</span><span>Verkauf in die Schweiz</span><span>Pflege &amp; Betreuung</span><span>Rheinfelden · Lörrach · Basel</span></div><div class="hb-set"><span>Websites</span><span>Online-Shops</span><span>Shopify</span><span>WooCommerce</span><span>Shop-Umzüge</span><span>Händlerbereich (B2B)</span><span>Verkauf in die Schweiz</span><span>Pflege &amp; Betreuung</span><span>Rheinfelden · Lörrach · Basel</span></div></div></div></div>
       <h1 class="hero-title">Websites &amp; <b class="nowrap">Online-Shops</b><br><span>durchdacht bis zur Kasse</span></h1>
       <p class="hero-sub">Ich baue Websites, die Anfragen bringen, und Online-Shops für Hersteller und Händler – auf Wunsch mit Händlerbereich und Verkauf in die Schweiz. Als Betriebswirt (IHK) denke ich kaufmännisch mit: kein hübsches Schaufenster, sondern ein Auftritt, der sich rechnet.</p>
       <div class="hero-signature">
-        <img src="img/handschrift-cropped.png" alt="Unterschrift Yves Claudio Blischke">
+        <img src="img/handschrift-cropped.png" alt="Unterschrift Yves Claudio Blischke" width="898" height="77">
       </div>
       <a href="#kontakt" class="btn btn-primary">Kostenloses Erstgespräch</a>
       <a href="#referenzen" class="btn btn-outline">Projekte ansehen</a>
@@ -603,7 +615,7 @@
         <div class="pw-media">
           <div class="project-gallery browser" data-gallery="shop">
             <div class="pg-bar" aria-hidden="true"><i></i><i></i><i></i><span>lichtfang-demo.myshopify.com</span></div>
-            <div class="pg-track"><div class="pg-slide"><img src="img/projekte/lichtfang-1.jpg" alt="Startseite mit Bild-Slider und Werkstatt-Bild" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-2.jpg" alt="Lichtplaner: Lichtfarbe und Helligkeit live ausprobieren" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-3.jpg" alt="Lichtplaner: passende Leuchten für den Raum, direkt in den Warenkorb" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-4.jpg" alt="Kategorieseite mit Kacheln und Filtern" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-5.jpg" alt="Produktseite mit Ausführungen und technischen Daten" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-6.jpg" alt="Online-Beratung: Termin direkt buchen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-7.jpg" alt="Outlet mit Einzelstücken und Streichpreisen" loading="lazy" width="1200" height="750"></div></div>
+            <div class="pg-track"><div class="pg-slide"><img src="img/projekte/lichtfang-1.webp" srcset="img/projekte/lichtfang-1-700.webp 700w, img/projekte/lichtfang-1.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Startseite mit Bild-Slider und Werkstatt-Bild" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-2.webp" srcset="img/projekte/lichtfang-2-700.webp 700w, img/projekte/lichtfang-2.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Lichtplaner: Lichtfarbe und Helligkeit live ausprobieren" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-3.webp" srcset="img/projekte/lichtfang-3-700.webp 700w, img/projekte/lichtfang-3.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Lichtplaner: passende Leuchten für den Raum, direkt in den Warenkorb" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-4.webp" srcset="img/projekte/lichtfang-4-700.webp 700w, img/projekte/lichtfang-4.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Kategorieseite mit Kacheln und Filtern" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-5.webp" srcset="img/projekte/lichtfang-5-700.webp 700w, img/projekte/lichtfang-5.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Produktseite mit Ausführungen und technischen Daten" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-6.webp" srcset="img/projekte/lichtfang-6-700.webp 700w, img/projekte/lichtfang-6.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Online-Beratung: Termin direkt buchen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/lichtfang-7.webp" srcset="img/projekte/lichtfang-7-700.webp 700w, img/projekte/lichtfang-7.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Outlet mit Einzelstücken und Streichpreisen" loading="lazy" width="1200" height="750"></div></div>
             <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
             <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
             <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button><button type="button" class="pg-dot" aria-label="Bild 4" data-i="3"></button><button type="button" class="pg-dot" aria-label="Bild 5" data-i="4"></button><button type="button" class="pg-dot" aria-label="Bild 6" data-i="5"></button><button type="button" class="pg-dot" aria-label="Bild 7" data-i="6"></button></div>
@@ -641,7 +653,7 @@
       <div class="project-card project-wide">
         <div class="project-gallery browser" data-gallery="weingut">
           <div class="pg-bar" aria-hidden="true"><i></i><i></i><i></i><span>ycblischke.de/webseiten/weingut</span></div>
-          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/weingut-1.jpg" alt="Startseite mit Weinberg-Foto und großer Überschrift" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/weingut-2.jpg" alt="Weinregal mit Filtern und Warenkorb" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/weingut-3.jpg" alt="Wein-Finder: Empfehlung passend zum Essen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/weingut-4.jpg" alt="Weinprobe online buchen mit Kalender" loading="lazy" width="1200" height="750"></div></div>
+          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/weingut-1.webp" srcset="img/projekte/weingut-1-700.webp 700w, img/projekte/weingut-1.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Startseite mit Weinberg-Foto und großer Überschrift" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/weingut-2.webp" srcset="img/projekte/weingut-2-700.webp 700w, img/projekte/weingut-2.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Weinregal mit Filtern und Warenkorb" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/weingut-3.webp" srcset="img/projekte/weingut-3-700.webp 700w, img/projekte/weingut-3.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Wein-Finder: Empfehlung passend zum Essen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/weingut-4.webp" srcset="img/projekte/weingut-4-700.webp 700w, img/projekte/weingut-4.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Weinprobe online buchen mit Kalender" loading="lazy" width="1200" height="750"></div></div>
           <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
           <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
           <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button><button type="button" class="pg-dot" aria-label="Bild 4" data-i="3"></button></div>
@@ -663,7 +675,7 @@
       <div class="project-card project-wide rev">
         <div class="project-gallery browser" data-gallery="schreinerei">
           <div class="pg-bar" aria-hidden="true"><i></i><i></i><i></i><span>ycblischke.de/webseiten/schreinerei</span></div>
-          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/schreinerei-1.jpg" alt="Startseite „Holz, nach Maß.“ mit Live-Öffnungszeiten" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/schreinerei-2.jpg" alt="Vorher/Nachher-Schieber für Parkettböden" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/schreinerei-3.jpg" alt="Angebotsrechner mit Grundriss-Vorschau und Preisrahmen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/schreinerei-4.jpg" alt="Ansprechpartner mit Foto und Online-Terminbuchung" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/schreinerei-5.jpg" alt="Projekt-Galerie mit Filtern" loading="lazy" width="1200" height="750"></div></div>
+          <div class="pg-track"><div class="pg-slide"><img src="img/projekte/schreinerei-1.webp" srcset="img/projekte/schreinerei-1-700.webp 700w, img/projekte/schreinerei-1.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Startseite „Holz, nach Maß.“ mit Live-Öffnungszeiten" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/schreinerei-2.webp" srcset="img/projekte/schreinerei-2-700.webp 700w, img/projekte/schreinerei-2.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Vorher/Nachher-Schieber für Parkettböden" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/schreinerei-3.webp" srcset="img/projekte/schreinerei-3-700.webp 700w, img/projekte/schreinerei-3.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Angebotsrechner mit Grundriss-Vorschau und Preisrahmen" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/schreinerei-4.webp" srcset="img/projekte/schreinerei-4-700.webp 700w, img/projekte/schreinerei-4.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Ansprechpartner mit Foto und Online-Terminbuchung" loading="lazy" width="1200" height="750"></div><div class="pg-slide"><img src="img/projekte/schreinerei-5.webp" srcset="img/projekte/schreinerei-5-700.webp 700w, img/projekte/schreinerei-5.webp 1200w" sizes="(max-width: 900px) 92vw, 640px" alt="Projekt-Galerie mit Filtern" loading="lazy" width="1200" height="750"></div></div>
           <button type="button" class="pg-arrow pg-prev" aria-label="Vorheriges Bild">‹</button>
           <button type="button" class="pg-arrow pg-next" aria-label="Nächstes Bild">›</button>
           <div class="pg-dots"><button type="button" class="pg-dot is-active" aria-label="Bild 1" data-i="0"></button><button type="button" class="pg-dot" aria-label="Bild 2" data-i="1"></button><button type="button" class="pg-dot" aria-label="Bild 3" data-i="2"></button><button type="button" class="pg-dot" aria-label="Bild 4" data-i="3"></button><button type="button" class="pg-dot" aria-label="Bild 5" data-i="4"></button></div>
@@ -904,7 +916,7 @@
           <div><strong>LinkedIn</strong><a href="https://www.linkedin.com/in/yves-claudio-blischke-818b6b288" target="_blank" rel="noopener">Profil ansehen</a></div>
         </div>
         <div style="margin-top:2rem; padding:1.2rem; background:rgba(200,150,60,.12); border-radius:8px; border:1px solid rgba(200,150,60,.25);">
-          <div style="color:var(--gold); font-weight:700; margin-bottom:.4rem;">⏱ Antwortzeit</div>
+          <div style="color:#e8bb66; font-weight:700; margin-bottom:.4rem;">⏱ Antwortzeit</div>
           <div style="font-size:.85rem; color:rgba(255,255,255,.65);">In der Regel erhalten Sie eine Rückmeldung innerhalb von 24 Stunden.</div>
         </div>
       </div>
