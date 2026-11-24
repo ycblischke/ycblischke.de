@@ -212,6 +212,10 @@
     .footer-links { display: flex; justify-content: center; gap: 1.4rem; margin-bottom: .8rem; flex-wrap: wrap; }
     .footer-links a { color: rgba(255,255,255,.5); text-decoration: none; transition: color .2s; }
     .footer-links a:hover { color: var(--gold); }
+    .footer-social { display: flex; justify-content: center; gap: .9rem; margin-bottom: 1rem; }
+    .footer-social a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.08); color: rgba(255,255,255,.75); transition: background .2s, color .2s; }
+    .footer-social a:hover { background: var(--gold); color: #111827; }
+    .footer-social svg { width: 19px; height: 19px; fill: currentColor; }
 
     /* ── MODAL ───────────────────────────────────────── */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 2000; padding: 2rem; overflow-y: auto; }
@@ -521,6 +525,9 @@
     .nz-proof { color: var(--gold-ink); font-weight: 700; text-decoration: none; white-space: nowrap; }
     .nz-proof:hover { text-decoration: underline; }
   </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Yves Claudio Blischke – Webdesign","url":"https://ycblischke.de/","telephone":"+49 1578 4834080","email":"info@ycblischke.de","address":{"@type":"PostalAddress","streetAddress":"Adolf-Senger-Straße 3","postalCode":"79618","addressLocality":"Rheinfelden (Baden)","addressCountry":"DE"},"sameAs":["https://www.facebook.com/1481191261741921","https://www.linkedin.com/company/yves-claudio-blischke","https://www.linkedin.com/in/yves-claudio-blischke-818b6b288"]}
+</script>
 </head>
 <body>
 
@@ -989,6 +996,10 @@
 
 <!-- FOOTER -->
 <footer>
+  <div class="footer-social">
+    <a href="https://www.facebook.com/1481191261741921" target="_blank" rel="noopener" aria-label="Facebook-Seite Yves Claudio Blischke – Webdesign" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5H16.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H8v3h2.5V21h3z"/></svg></a>
+    <a href="https://www.linkedin.com/company/yves-claudio-blischke" target="_blank" rel="noopener" aria-label="LinkedIn-Unternehmensseite Yves Claudio Blischke" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.9 8.8H3.8V20h3.1V8.8zM5.3 3.8a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6zM20.2 13.6c0-3-1.6-4.9-4.3-4.9-1.4 0-2.4.8-2.8 1.5V8.8H10V20h3.1v-5.8c0-1.5.5-2.7 2-2.7s1.9 1.2 1.9 2.8V20h3.2v-6.4z"/></svg></a>
+  </div>
   <div class="footer-links">
     <a href="#" onclick="openModal('impressumModal'); return false;">Impressum</a>
     <a href="#" onclick="openModal('datenschutzModal'); return false;">Datenschutzerklärung</a>
